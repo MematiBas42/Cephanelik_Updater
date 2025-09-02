@@ -27,8 +27,11 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
 
       # 3. Adım: Ana güncelleme betiğini çalıştırır.
+      # --- İYİLEŞTİRME: ÇALIŞTIRMA TÜRÜNÜ BETİĞE BİLDİRME ---
+      # Artık betiğe, otomasyonun nasıl tetiklendiğini (manuel mi, zamanlanmış mı)
+      # bir argüman olarak iletiyoruz.
       - name: Güncelleme Betiğini Çalıştır
-        run: bash ./telegram_guncelle.sh
+        run: bash ./telegram_guncelle.sh ${{ github.event_name }}
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
@@ -40,15 +43,12 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Değişiklik olup olmadığını kontrol et
           if [[ -n $(git status --porcelain) ]]; then
             echo "Değişiklikler bulundu, commit atılıyor."
             git add last_run.txt telegram_durum.txt
             git commit -m "chore: Durum dosyalarını güncelle"
             
             echo "Uzak depoyla senkronize ediliyor ve gönderiliyor..."
-            # HATA DÜZELTMESİ: Push etmeden önce pull ile en son değişiklikleri çek.
-            # --rebase seçeneği, commit geçmişini daha temiz tutar.
             git pull --rebase
             git push
           else
