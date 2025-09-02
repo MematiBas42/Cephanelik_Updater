@@ -13,6 +13,11 @@ jobs:
   update-files:
     runs-on: ubuntu-latest # Otomasyonun çalışacağı sanal sunucu türü
 
+    # --- HATA DÜZELTMESİ ---
+    # Otomasyonun depoya geri yazma (push) izni olması için bu bölüm eklendi.
+    permissions:
+      contents: write
+
     steps:
       # 1. Adım: Proje dosyalarını sanal sunucuya indirir (checkout).
       - name: Depoyu Klonla
