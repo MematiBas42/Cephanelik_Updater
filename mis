@@ -1,13 +1,8 @@
 #!/bin/bash
 
-# KSU Modül Yöneticisi v8.2 - ksu-manager
-# YENİLİKLER (v8.0):
-# - GitLab Desteği: Artık 'github_release' gibi 'gitlab_release' türü de destekleniyor.
-# - API Fonksiyonları: Kod okunabilirliğini artırmak için GitLab ve GitHub için ayrı API çağrı fonksiyonları eklendi.
-# DÜZELTME (v8.2):
-# - 'get_remote_filename' fonksiyonundaki GitLab ile ilgili jq komutu düzeltildi.
-#   Regex filtresi artık '--arg' ile güvenli bir şekilde aktarılarak "Invalid escape" hatası önlendi.
-# - 'add_module' fonksiyonundaki sed komutu, farklı URL yapılarına karşı daha sağlam hale getirildi.
+# KSU Modül Yöneticisi v8.2 - Otomasyon Odaklı Sürüm
+# DEĞİŞİKLİKLER:
+# - GitHub Actions ortamında gereksiz olan 'adb' bağımlılığı ve ilgili tüm fonksiyonlar (install, adb_install_module, prompt_reboot) kaldırıldı.
 
 # --- Yapılandırma ve Global Değişkenler ---
 CONFIG_DIR="$HOME/.config/ksu-manager"
@@ -15,7 +10,6 @@ MODULES_FILE="$CONFIG_DIR/modules.json"
 USER_CONFIG_FILE="$CONFIG_DIR/config.json"
 CACHE_DIR="$HOME/.cache/ksu-manager"
 CACHE_MANIFEST="$CACHE_DIR/manifest.json"
-DEVICE_TMP_DIR="/data/local/tmp/ksu-manager"
 MAX_JOBS=3
 
 # --- Renkler ve Yardımcı Fonksiyonlar ---
@@ -29,7 +23,6 @@ info() { echo -e "${GREEN}[BİLGİ]${NC} $1"; }
 warn() { echo -e "${YELLOW}[UYARI]${NC} $1"; }
 error() { echo -e "${RED}[HATA]${NC} $1" >&2; exit 1; }
 prompt() { echo -e -n "${BLUE}[SORU]${NC} $1"; }
-debug() { echo -e "${BLUE}[DEBUG]${NC} $1"; }
 
 # --- Betik Çıkış Kontrolü ---
 cleanup() {
@@ -43,7 +36,7 @@ trap cleanup EXIT
 # --- Çekirdek Fonksiyonlar ---
 
 show_help() {
-    echo "KSU Modül Yöneticisi"
+    echo "KSU Modül Yöneticisi (Otomasyon Sürümü)"
     echo "-------------------------------------"
     echo "Kullanım: mis <komut> [argüman]"
     echo
@@ -52,7 +45,6 @@ show_help() {
     echo "  remove        Listeden bir veya daha fazla modülü kaldırır."
     echo "  toggle        Bir veya daha fazla modülü etkinleştirir/devre dışı bırakır."
     echo "  list          Yapılandırılmış tüm modülleri ve durumlarını listeler."
-    echo "  install       Aktif modülleri kurar (belirli bir modül veya tümü)."
     echo "  sync          Tüm aktif modüllerin önbelleğini en son sürümlerle günceller."
     echo "  check <modül> Belirtilen modül için indirme linkini bulur ve gösterir."
     echo "  check-all     Tüm modüller için güncellemeleri kontrol eder ve raporlar."
@@ -65,7 +57,8 @@ validate_json_file() {
 }
 
 init_system() {
-    for cmd in adb curl jq unzip git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı. Lütfen sisteminize kurun."; fi; done
+    # 'adb' kontrolü kaldırıldı.
+    for cmd in curl jq unzip git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı. Lütfen sisteminize kurun."; fi; done
     mkdir -p "$CONFIG_DIR" "$CACHE_DIR"
     if [ ! -f "$MODULES_FILE" ]; then warn "'$MODULES_FILE' bulunamadı."; echo '{"modules": []}' > "$MODULES_FILE"; fi
     if [ ! -f "$USER_CONFIG_FILE" ]; then warn "'$USER_CONFIG_FILE' bulunamadı."; echo '{}' > "$USER_CONFIG_FILE"; fi
@@ -97,13 +90,12 @@ get_github_api() {
 
 get_gitlab_api() {
     local url=$1
-    # GitLab public API'leri için genellikle token gerekmez.
     curl --silent --fail --location --connect-timeout 10 --max-time 15 "$url"
 }
 
 is_valid_json() { [ -n "$1" ] && echo "$1" | jq -e . > /dev/null 2>&1; }
 
-# --- Modül Yönetim Fonksiyonları ---
+# --- Modül Yönetim Fonksiyonları (Değişiklik yok) ---
 
 add_module() {
     info "Yeni Modül Ekleme Sihirbazı"
@@ -135,7 +127,6 @@ add_module() {
     elif [[ "$type_choice" == "3" ]]; then
         type="gitlab_release"
         prompt "GitLab repo adresini girin (örn: cuynu/gphotos-unlimited-zygisk): "; read -r source
-        # Kullanıcının tam URL girmesi ihtimaline karşı URL'yi temizle (DÜZELTİLDİ)
         source=$(echo "$source" | sed -e 's|https://gitlab.com/||' -e 's|/-.*||' -e 's|/$||')
         prompt "Dosya adında aranacak bir desen (Regex) girin (örn: arm64.*zip$, \\.zip$ için boş bırakılabilir): "; read -r asset_filter
         asset_filter=${asset_filter:-"\\.zip$"}
@@ -155,7 +146,6 @@ remove_module() {
     if [ ${#mods_to_remove[@]} -eq 0 ]; then warn "Geçerli bir modül seçilmedi."; return; fi
     local condition=""; for mod_name in "${mods_to_remove[@]}"; do [ -n "$condition" ] && condition+=" or "; condition+=".name == \"$mod_name\""; done
     jq "del(.modules[] | select($condition))" "$MODULES_FILE" > tmp.$$.json && mv tmp.$$.json "$MODULES_FILE"
-    # Manifest'ten de kaldır
     local temp_manifest; temp_manifest=$(cat "$CACHE_MANIFEST")
     for mod_name in "${mods_to_remove[@]}"; do temp_manifest=$(echo "$temp_manifest" | jq "del(.\"$mod_name\")"); done
     echo "$temp_manifest" > "$CACHE_MANIFEST"
@@ -192,14 +182,14 @@ clear_cache() {
     if [[ "$choice" =~ ^[eE]$ ]]; then
         info "Önbellek temizleniyor..."
         rm -rf "${CACHE_DIR:?}"/*
-        echo '{}' > "$CACHE_MANIFEST" # Manifest dosyasını da sıfırla
+        echo '{}' > "$CACHE_MANIFEST"
         info "Önbellek başarıyla temizlendi."
     else
         info "İşlem iptal edildi."
     fi
 }
 
-# --- Güncelleme ve Kontrol Fonksiyonları ---
+# --- Güncelleme ve Kontrol Fonksiyonları (Değişiklik yok) ---
 
 get_remote_filename() {
     local module_name=$1
@@ -216,11 +206,9 @@ get_remote_filename() {
         local matching_filename; matching_filename=$(echo "$api_response" | jq -r --arg filter "$filter" '.assets[] | select(.name | test($filter; "i")) | .name' | head -n 1)
         if [ -z "$matching_filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$matching_filename"; fi
     elif [ "$type" == "gitlab_release" ]; then
-        # Proje yolunu URL için uygun hale getir (örn: cuynu/gphotos -> cuynu%2Fgphotos)
         local encoded_source; encoded_source=$(echo "$source" | sed 's/\//%2F/g')
         local api_response; api_response=$(get_gitlab_api "https://gitlab.com/api/v4/projects/$encoded_source/releases")
         if ! is_valid_json "$api_response"; then echo "ERROR:API_INVALID_RESPONSE"; return; fi
-        # GitLab en son sürümü listenin en başına koyar. (DÜZELTİLDİ)
         local matching_filename; matching_filename=$(echo "$api_response" | jq -r --arg filter "$filter" '.[0].assets.links[] | select(.name | test($filter; "i")) | .name' | head -n 1)
         if [ -z "$matching_filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$matching_filename"; fi
     elif [ "$type" == "github_ci" ]; then
@@ -257,11 +245,8 @@ check_all_updates() {
     for module_name in "${modules[@]}"; do
         echo -e " -> ${BLUE}Kontrol ediliyor:${NC} $module_name"
         local remote_file; remote_file=$(get_remote_filename "$module_name")
-
-        # Manifest'ten oku
         local cached_file; cached_file=$(jq -r --arg mod "$module_name" '.[$mod] // "-"' "$CACHE_MANIFEST")
 
-        # Manifest'teki dosyanın hala var olup olmadığını kontrol et
         if [[ "$cached_file" != "-" && ! -f "$CACHE_DIR/$cached_file" ]]; then
             warn "Manifest'te listelenen '$cached_file' dosyası önbellekte bulunamadı, manifest güncelleniyor."
             cached_file="-"
@@ -306,7 +291,7 @@ check_all_updates() {
     echo; if [ "$updates_found" -eq 0 ]; then info "Tüm modüller güncel."; else warn "Bazı modüller için güncellemeler veya yeni sürümler mevcut."; fi
 }
 
-# --- Kurulum ve Senkronizasyon Fonksiyonları ---
+# --- Senkronizasyon Fonksiyonları ---
 
 sync_modules() {
     info "Aktif modüllerin önbellekleri en son sürümlerle senkronize ediliyor..."
@@ -352,37 +337,13 @@ sync_modules() {
     fi
 }
 
-install_modules() {
-    local target_module=$1; declare -a modules_to_install
-    if [[ -n "$target_module" && "$target_module" != "all" ]]; then
-        if ! jq -e --arg name "$target_module" '.modules[] | select(.name == $name)' "$MODULES_FILE" > /dev/null; then error "'$target_module' isimli modül yapılandırmada bulunamadı."; fi
-        modules_to_install=("$target_module")
-    else
-        mapfile -t modules_to_install < <(jq -r '.modules[] | select(.enabled == true) | .name' "$MODULES_FILE")
-    fi
-    if [ ${#modules_to_install[@]} -eq 0 ]; then warn "Kurulacak aktif modül bulunamadı."; return; fi
-    info "ADB cihazı kontrol ediliyor..."; if ! adb get-state 1>/dev/null 2>&1; then error "ADB cihazı bulunamadı veya yetkilendirilmemiş."; fi
-    info "Aktif modüller paralel olarak indiriliyor (Maksimum $MAX_JOBS iş)..."; declare -a downloaded_files; RESULTS_DIR=$(mktemp -d); local job_count=0
-    for module_name in "${modules_to_install[@]}"; do process_single_download "$module_name" > "$RESULTS_DIR/$module_name.result" & ((job_count++)); if ((job_count >= MAX_JOBS)); then wait -n; ((job_count--)); fi; done; wait
-    info "İndirme sonuçları toplanıyor..."; for module_name in "${modules_to_install[@]}"; do local result_file="$RESULTS_DIR/$module_name.result"; if [ -f "$result_file" ]; then local filepath; filepath=$(cat "$result_file"); if [[ "$filepath" == "ERROR"* ]]; then warn "'$module_name' indirilemedi. Hata: ${filepath}"; else downloaded_files+=("$filepath"); fi; fi; done
-    if [ ${#downloaded_files[@]} -eq 0 ]; then info "Kuruluma devam edilecek geçerli dosya bulunamadı."; exit 0; fi
-    info "Cihazda kurulum ortamı hazırlanıyor..."; adb shell "mkdir -p $DEVICE_TMP_DIR"
-    local zygisk_next_path=""; for file in "${downloaded_files[@]}"; do if [[ "$file" == *"Zygisk-Next"* ]]; then zygisk_next_path="$file"; break; fi; done
-    if [ -n "$zygisk_next_path" ]; then warn "Zygisk Next bulundu, öncelikli olarak kurulacak."; adb_install_module "$zygisk_next_path"; fi
-    for file in "${downloaded_files[@]}"; do if [ "$file" == "$zygisk_next_path" ]; then continue; fi; adb_install_module "$file"; done
-    info "Kurulum tamamlandı. Cihazdaki geçici dosyalar temizleniyor..."; adb shell "rm -rf $DEVICE_TMP_DIR"
-    prompt_reboot
-}
-
 process_single_download() {
     local module_name=$1
     local remote_file; remote_file=$(get_remote_filename "$module_name")
     if [[ "$remote_file" == "ERROR"* ]]; then echo "$remote_file"; return 1; fi
 
-    # Manifest'ten son indirilen dosya adını oku
     local cached_file; cached_file=$(jq -r --arg mod "$module_name" '.[$mod] // ""' "$CACHE_MANIFEST")
 
-    # Eğer uzaktaki dosya adı önbellekteki ile aynıysa ve dosya gerçekten varsa, indirmeyi atla
     if [[ -n "$cached_file" && "$cached_file" == "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then
         echo -e "${GREEN}[BİLGİ]${NC} '$module_name' güncel, indirme atlanıyor." >&2
         echo "$CACHE_DIR/$remote_file"
@@ -411,13 +372,11 @@ process_single_download() {
 
     echo -e "${GREEN}[BİLGİ]${NC} '$module_name' için yeni sürüm indiriliyor: $remote_file" >&2
     if curl -L --fail -o "$CACHE_DIR/$remote_file" "$download_url"; then
-        # Eğer eski bir önbellek dosyası varsa ve yeni indirilen dosyadan farklıysa, eskisini sil
         if [[ -n "$cached_file" && "$cached_file" != "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then
             echo -e "${GREEN}[BİLGİ]${NC} Eski önbellek dosyası ($cached_file) siliniyor." >&2
             rm -f "$CACHE_DIR/$cached_file"
         fi
 
-        # Başarılı indirme sonrası manifest'i güncelle
         jq --arg mod "$module_name" --arg file "$remote_file" '.[$mod] = $file' "$CACHE_MANIFEST" > "$CACHE_DIR/tmp_manifest.$$.json" && mv "$CACHE_DIR/tmp_manifest.$$.json" "$CACHE_MANIFEST"
         echo "$CACHE_DIR/$remote_file"
     else
@@ -425,29 +384,11 @@ process_single_download() {
     fi
 }
 
-adb_install_module() {
-    local module_path=$1; local module_name; module_name=$(basename "$module_path")
-    info "Kuruluyor: $module_name"
-    if adb push "$module_path" "$DEVICE_TMP_DIR/$module_name" >/dev/null && \
-       adb shell su -c "ksud module install $DEVICE_TMP_DIR/$module_name"; then
-        echo -e "${GREEN}Kurulum başarılı: $module_name${NC}\n"
-    else
-        warn "Kurulum başarısız: $module_name."
-    fi
-}
-
-prompt_reboot() {
-    prompt "Tüm işlemler tamamlandı. Cihazı şimdi yeniden başlatmak ister misiniz? (e/h): "; read -r choice
-    if [[ "$choice" =~ ^[eE]$ ]]; then info "Cihaz yeniden başlatılıyor..."; adb reboot
-    else info "Yeniden başlatma işlemi atlandı. Değişikliklerin etkili olması için cihazı manuel olarak yeniden başlatmanız gerekebilir."; fi
-}
-
 # --- Ana Fonksiyon ---
 
 main() {
     init_system
-    case $1 in add|install|check|check-all|sync)
-        # Sadece github içeren türler için token sor
+    case $1 in add|check|check-all|sync)
         if [[ "$*" == *"github"* || "$1" == "add" ]]; then
             setup_github_token
         fi
@@ -459,7 +400,6 @@ main() {
         remove)        remove_module ;;
         toggle)        toggle_module ;;
         list)          list_modules ;;
-        install)       install_modules "$2" ;;
         sync)          sync_modules ;;
         check)         check_module_link "$2" ;;
         check-all)     check_all_updates ;;
