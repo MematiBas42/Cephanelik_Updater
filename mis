@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# KSU Modül Yöneticisi v8.2 - Otomasyon Odaklı Sürüm
-# DEĞİŞİKLİKLER:
-# - GitHub Actions ortamında gereksiz olan 'adb' bağımlılığı ve ilgili tüm fonksiyonlar (install, adb_install_module, prompt_reboot) kaldırıldı.
+# KSU Modül Yöneticisi v8.3 - Otomasyon Odaklı Sürüm
+# DEĞİŞİKLİKLER (v8.3):
+# - YARIŞ DURUMU (RACE CONDITION) DÜZELTMESİ: Paralel indirmeler sırasında birden fazla işlemin
+#   aynı anda manifest.json dosyasına yazmaya çalışarak dosyayı bozması engellendi.
+#   Dosya yazma işlemleri artık bir kilit mekanizması ile sıraya konularak güvenli hale getirildi.
 
 # --- Yapılandırma ve Global Değişkenler ---
 CONFIG_DIR="$HOME/.config/ksu-manager"
@@ -27,6 +29,10 @@ prompt() { echo -e -n "${BLUE}[SORU]${NC} $1"; }
 # --- Betik Çıkış Kontrolü ---
 cleanup() {
     rm -f tmp.$$.json
+    # Kilit kalmışsa temizle
+    if [ -d "$CACHE_DIR/manifest.lock" ]; then
+        rmdir "$CACHE_DIR/manifest.lock"
+    fi
     if [ -n "$RESULTS_DIR" ] && [ -d "$RESULTS_DIR" ]; then
         rm -rf "$RESULTS_DIR"
     fi
@@ -57,7 +63,6 @@ validate_json_file() {
 }
 
 init_system() {
-    # 'adb' kontrolü kaldırıldı.
     for cmd in curl jq unzip git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı. Lütfen sisteminize kurun."; fi; done
     mkdir -p "$CONFIG_DIR" "$CACHE_DIR"
     if [ ! -f "$MODULES_FILE" ]; then warn "'$MODULES_FILE' bulunamadı."; echo '{"modules": []}' > "$MODULES_FILE"; fi
@@ -95,7 +100,7 @@ get_gitlab_api() {
 
 is_valid_json() { [ -n "$1" ] && echo "$1" | jq -e . > /dev/null 2>&1; }
 
-# --- Modül Yönetim Fonksiyonları (Değişiklik yok) ---
+# --- Modül Yönetim Fonksiyonları ---
 
 add_module() {
     info "Yeni Modül Ekleme Sihirbazı"
@@ -189,7 +194,7 @@ clear_cache() {
     fi
 }
 
-# --- Güncelleme ve Kontrol Fonksiyonları (Değişiklik yok) ---
+# --- Güncelleme ve Kontrol Fonksiyonları ---
 
 get_remote_filename() {
     local module_name=$1
@@ -372,12 +377,34 @@ process_single_download() {
 
     echo -e "${GREEN}[BİLGİ]${NC} '$module_name' için yeni sürüm indiriliyor: $remote_file" >&2
     if curl -L --fail -o "$CACHE_DIR/$remote_file" "$download_url"; then
-        if [[ -n "$cached_file" && "$cached_file" != "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then
-            echo -e "${GREEN}[BİLGİ]${NC} Eski önbellek dosyası ($cached_file) siliniyor." >&2
-            rm -f "$CACHE_DIR/$cached_file"
-        fi
+        # --- YARIŞ DURUMU DÜZELTMESİ BAŞLANGICI ---
+        # Manifest dosyasını güncellemeden önce bir kilit oluşturulur ve beklenir.
+        # Bu, aynı anda sadece bir işlemin dosyaya yazmasını garanti eder.
+        (
+            local lock_dir="$CACHE_DIR/manifest.lock"
+            while ! mkdir "$lock_dir" 2>/dev/null; do
+                echo -e "${YELLOW}[KİLİT]${NC} Manifest yazma işlemi için bekleniyor: $module_name" >&2
+                sleep 1
+            done
+            
+            # Kilit alındı, şimdi dosyaları güvenle yönetebiliriz.
+            local current_manifest; current_manifest=$(cat "$CACHE_MANIFEST")
+            local old_cached_file; old_cached_file=$(echo "$current_manifest" | jq -r --arg mod "$module_name" '.[$mod] // ""')
 
-        jq --arg mod "$module_name" --arg file "$remote_file" '.[$mod] = $file' "$CACHE_MANIFEST" > "$CACHE_DIR/tmp_manifest.$$.json" && mv "$CACHE_DIR/tmp_manifest.$$.json" "$CACHE_MANIFEST"
+            # Eski bir önbellek dosyası varsa ve yeni indirilen dosyadan farklıysa, eskisini sil
+            if [[ -n "$old_cached_file" && "$old_cached_file" != "$remote_file" && -f "$CACHE_DIR/$old_cached_file" ]]; then
+                echo -e "${GREEN}[BİLGİ]${NC} Eski önbellek dosyası ($old_cached_file) siliniyor." >&2
+                rm -f "$CACHE_DIR/$old_cached_file"
+            fi
+
+            # Manifest'i atomik olarak güncelle (önce geçici dosyaya yaz, sonra taşı)
+            echo "$current_manifest" | jq --arg mod "$module_name" --arg file "$remote_file" '.[$mod] = $file' > "$CACHE_MANIFEST.tmp" && mv "$CACHE_MANIFEST.tmp" "$CACHE_MANIFEST"
+
+            # Kilidi serbest bırak
+            rmdir "$lock_dir"
+        )
+        # --- YARIŞ DURUMU DÜZELTMESİ SONU ---
+        
         echo "$CACHE_DIR/$remote_file"
     else
         echo "ERROR:DOWNLOAD_FAILED"; rm -f "$CACHE_DIR/$remote_file"; return 1
@@ -410,3 +437,4 @@ main() {
 }
 
 main "$@"
+
