@@ -13,7 +13,6 @@ jobs:
   update-files:
     runs-on: ubuntu-latest # Otomasyonun çalışacağı sanal sunucu türü
 
-    # --- HATA DÜZELTMESİ ---
     # Otomasyonun depoya geri yazma (push) izni olması için bu bölüm eklendi.
     permissions:
       contents: write
@@ -24,7 +23,6 @@ jobs:
         uses: actions/checkout@v4
 
       # 2. Adım: Betiklerin çalışması için gerekli olan 'jq' programını kurar.
-      # 'adb' kurulumu kaldırıldı.
       - name: Gerekli Programları Kur (jq)
         run: sudo apt-get update && sudo apt-get install -y jq
 
@@ -32,24 +30,26 @@ jobs:
       - name: Güncelleme Betiğini Çalıştır
         run: bash ./telegram_guncelle.sh
         env:
-          # GitHub Secrets'tan bot token'ını ve kanal ID'sini güvenli bir şekilde alır.
           TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
-          # mis betiğinin GitHub token'ı için de bir secret oluşturduk.
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
       # 4. Adım: Betik tarafından değiştirilen durum dosyalarını depoya kaydeder (commit).
-      # Bu, otomasyonun durumunu ve çalışma zamanını korur.
       - name: Durum dosyalarını depoya işle
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
           # Değişiklik olup olmadığını kontrol et
           if [[ -n $(git status --porcelain) ]]; then
             echo "Değişiklikler bulundu, commit atılıyor."
-            # Hem son çalışma tarihini hem de telegram durumunu kaydet
             git add last_run.txt telegram_durum.txt
             git commit -m "chore: Durum dosyalarını güncelle"
+            
+            echo "Uzak depoyla senkronize ediliyor ve gönderiliyor..."
+            # HATA DÜZELTMESİ: Push etmeden önce pull ile en son değişiklikleri çek.
+            # --rebase seçeneği, commit geçmişini daha temiz tutar.
+            git pull --rebase
             git push
           else
             echo "Değişiklik bulunamadı, commit atlanıyor."
