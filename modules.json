@@ -1,0 +1,137 @@
+{
+  "modules": [
+    {
+      "name": "TrickyStore",
+      "enabled": true,
+      "type": "github_release",
+      "source": "5ec1cff/TrickyStore",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "pif",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "ZygiskNext",
+      "enabled": true,
+      "type": "github_release",
+      "source": "Dr-TSNG/ZygiskNext",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "taddon",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "viper",
+      "enabled": true,
+      "type": "github_release",
+      "source": "WSTxda/ViPERFX_RE",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "ytm",
+      "enabled": true,
+      "type": "github_release",
+      "source": "berkmirsatk/RVXA-BMK-REPO",
+      "asset_filter": "YTM.arm64-v8a.zip"
+    },
+    {
+      "name": "YT",
+      "enabled": true,
+      "type": "github_release",
+      "source": "berkmirsatk/RVXA-BMK-REPO",
+      "asset_filter": ".YT.zip"
+    },
+    {
+      "name": "bindh",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "susfs",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "lsposed",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "trm",
+      "enabled": true,
+      "type": "github_release",
+      "source": "rompelhd/TermuxRootMods",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "ReLSPosed",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "GPhotosUnlimited",
+      "enabled": true,
+      "type": "gitlab_release",
+      "source": "cuynu/gphotos-unlimited-zygisk",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "hma",
+      "enabled": true,
+      "type": "github_release",
+      "source": "Dr-TSNG/Hide-My-Applist",
+      "asset_filter": ".apk"
+    },
+    {
+      "name": "shamiko",
+      "enabled": true,
+      "type": "github_release",
+      "source": "LSPosed/LSPosed.github.io",
+      "asset_filter": "Shamiko"
+    },
+    {
+      "name": "rezygisk",
+      "enabled": true,
+      "type": "github_release",
+      "source": "PerformanC/ReZygisk",
+      "asset_filter": ".zip"
+    },
+    {
+      "name": "Zygisk-Assistant",
+      "enabled": true,
+      "type": "github_release",
+      "source": "snake-4/Zygisk-Assistant/releases/latest",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "nohello",
+      "enabled": true,
+      "type": "github_release",
+      "source": "MhmRdd/NoHello/release",
+      "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "yurikey",
+      "enabled": true,
+      "type": "github_release",
+      "source": "YurikeyDev/yurikey",
+      "asset_filter": "\\.zip$"
+    }
+  ]
+}
