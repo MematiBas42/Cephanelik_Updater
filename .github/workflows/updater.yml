@@ -30,17 +30,22 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           TELEGRAM_CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           # mis betiğinin GitHub token'ı için de bir secret oluşturduk.
-          GITHUB_API_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+          GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
-      # 4. Adım: Betik tarafından oluşturulan 'last_run.txt' dosyasındaki değişikliği depoya kaydeder (commit).
-      # Bu, otomasyonun her gün sadece bir kez çalışmasını garantiler.
-      - name: 'last_run.txt' dosyasını depoya işle
+      # 4. Adım: Betik tarafından değiştirilen durum dosyalarını depoya kaydeder (commit).
+      # Bu, otomasyonun durumunu ve çalışma zamanını korur.
+      - name: Durum dosyalarını depoya işle
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          # Sadece last_run.txt dosyasında değişiklik varsa commit at.
-          if [[ `git status --porcelain` ]]; then
-            git add last_run.txt
-            git commit -m "chore: Son çalışma tarihini güncelle"
+          # Değişiklik olup olmadığını kontrol et
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "Değişiklikler bulundu, commit atılıyor."
+            # Hem son çalışma tarihini hem de telegram durumunu kaydet
+            git add last_run.txt telegram_durum.txt
+            git commit -m "chore: Durum dosyalarını güncelle"
             git push
+          else
+            echo "Değişiklik bulunamadı, commit atlanıyor."
           fi
+
