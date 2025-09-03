@@ -7,6 +7,7 @@ import os
 import json
 from datetime import datetime, timezone, timedelta
 from telethon.sync import TelegramClient
+from telethon.sessions import StringSession # <-- EKLENDİ: Bu satır hatayı düzeltmek için kritik.
 
 # --- YAPILANDIRMA ---
 # Tüm yapılandırma, GitHub Actions ortam değişkenlerinden (Secrets) alınır.
@@ -31,7 +32,8 @@ DESTINATION_CHANNEL = os.environ.get('TELEGRAM_ARCHIVE_CHANNEL')
 STATE_FILE = 'forwarder_state.json'
 
 # --- BETİK KODU ---
-client = TelegramClient(None, API_ID, API_HASH)
+# Bu client nesnesi sadece ana betik bloğunda session string ile yeniden oluşturulacak.
+client = None
 
 def load_state():
     """Daha önce iletilen son mesaj ID'lerini dosyadan yükler."""
@@ -121,18 +123,18 @@ async def main():
     print("\nTüm işlemler tamamlandı. Yönlendirici durduruluyor.")
 
 # --- Çalıştırma Bloğu ---
-async def run():
-    await client.connect()
-    if not await client.is_user_authorized():
-        raise Exception("Oturum anahtarı (session string) geçersiz veya süresi dolmuş!")
-    await main()
-    await client.disconnect()
+async def run_with_client():
+    async with client:
+        if not await client.is_user_authorized():
+            raise Exception("Oturum anahtarı (session string) geçersiz veya süresi dolmuş!")
+        await main()
 
 if __name__ == "__main__":
     # Oturum anahtarının varlığını kontrol et
     if not SESSION_STRING:
         print("[HATA] TELEGRAM_SESSION_STRING ortam değişkeni bulunamadı!")
     else:
-        # StringSession'ı doğrudan kullanmak yerine client'ı session string ile başlat
+        # DÜZELTİLDİ: client nesnesi, doğru yöntemle burada başlatılıyor.
         client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
-        client.loop.run_until_complete(run())
+        client.loop.run_until_complete(run_with_client())
+
