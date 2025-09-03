@@ -1,15 +1,11 @@
 #!/bin/bash
-# Hata durumunda betiği sonlandır.
-set -e
-
-# KSU Modül Yöneticisi v10.3 - Otomasyon Odaklı Sürüm
-# YENİLİKLER (v10.3):
-# - modules.json dosyasını önce mevcut dizinde arar, bu da CI ortamlarıyla uyumluluğu artırır.
-# - Hata ayıklamayı kolaylaştırmak için 'set -e' eklendi.
-# - Senkronizasyon sonunda her modül için detaylı sonuç raporu ekler.
+# KSU Modül Yöneticisi v10.4 - Otomasyon Odaklı Sürüm
+# YENİLİKLER (v10.4):
+# - 'set -e' kaldırıldı ve hata yönetimi fonksiyonlara devredildi.
+# - Her bir API çağrısı ve indirme işlemi artık kendi hata durumunu raporluyor.
+# - Bu sayede tek bir modülün hatası tüm betiği durdurmuyor ve sonunda detaylı bir hata raporu alınabiliyor.
 
 # --- Yapılandırma ve Global Değişkenler ---
-# DEĞİŞTİ: MODULES_FILE yolu artık dinamik olarak belirlenecek.
 MODULES_FILE="" 
 CACHE_DIR="$HOME/.cache/ksu-manager"
 CACHE_MANIFEST="$CACHE_DIR/manifest.json"
@@ -36,7 +32,6 @@ trap cleanup EXIT
 init_system() {
     for cmd in curl jq git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı."; fi; done
     
-    # YENİ: modules.json dosyasını bulmak için akıllı kontrol
     if [ -f "./modules.json" ]; then
         MODULES_FILE="./modules.json"
         info "'modules.json' proje kök dizininde bulundu."
@@ -52,18 +47,43 @@ init_system() {
 }
 
 get_api_call() {
-    local url=$1; shift;
+    local url=$1; shift
     local headers=()
     if [[ "$url" == *"api.github.com"* && -n "$GIT_API_TOKEN" ]]; then
         headers=(-H "Authorization: Bearer $GIT_API_TOKEN")
     fi
-    curl --silent --fail --location --connect-timeout 15 --max-time 30 "${headers[@]}" "$@" "$url"
+
+    local response
+    response=$(curl --silent --location --connect-timeout 15 --max-time 30 \
+                   -w "\nHTTP_STATUS:%{http_code}" \
+                   "${headers[@]}" "$@" "$url")
+    
+    local curl_exit_code=$?
+    if [ $curl_exit_code -ne 0 ]; then
+        echo "CURL_ERROR: Curl komutu başarısız oldu (exit code $curl_exit_code)."
+        return 1
+    fi
+
+    local http_status
+    http_status=$(echo "$response" | tail -n 1 | sed 's/HTTP_STATUS://')
+    local content
+    content=$(echo "$response" | sed '$d')
+
+    if [[ "$http_status" -lt 200 || "$http_status" -gt 299 ]]; then
+        echo "API_ERROR: HTTP $http_status. Yanıt: $content"
+        return 1
+    fi
+    
+    echo "$content"
 }
+
 
 # --- Güncelleme ve Kontrol Fonksiyonları ---
 get_telegram_message_with_file() {
     local keyword=$1 source_channel=$2
-    local api_response; api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
+    local api_response
+    api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
+    if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
     
     echo "$api_response" | jq -r --arg cid_str "$(echo $TELEGRAM_ARCHIVE_CHANNEL | sed 's/@//')" --arg kw "$keyword" --arg sc "$source_channel" '
         .result | reverse | .[] |
@@ -82,23 +102,27 @@ get_remote_filename() {
     type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
     filter=$(jq -r '.asset_filter' <<< "$module_json"); source_channel=$(jq -r '.source_channel' <<< "$module_json")
 
+    local api_response filename
     case "$type" in
         "github_release")
-            local api_response; api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest")
-            local filename; filename=$(jq -r --arg f "$filter" '.assets[] | select(.name | test($f; "i")) | .name' <<< "$api_response" | head -n 1)
+            api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest")
+            if [ $? -ne 0 ]; then echo "ERROR:GITHUB_API - $api_response"; return 1; fi
+            filename=$(jq -r --arg f "$filter" '.assets[] | select(.name | test($f; "i")) | .name' <<< "$api_response" | head -n 1)
             if [ -z "$filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$filename"; fi ;;
         "github_ci")
-            local page_content; page_content=$(curl -sL "$source")
+            local page_content; page_content=$(curl -sL --fail "$source")
+            if [ $? -ne 0 ]; then echo "ERROR:CI_LINK_UNREACHABLE"; return 1; fi
             local direct_download_url; direct_download_url=$(echo "$page_content" | grep -o 'https://nightly.link/[^"]*\.zip' | head -n 1)
             if [ -z "$direct_download_url" ]; then echo "ERROR:CI_LINK_NOT_FOUND"; else basename "$direct_download_url"; fi ;;
         "gitlab_release")
              local encoded_source; encoded_source=$(echo "$source" | sed 's/\//%2F/g')
-             local api_response; api_response=$(get_api_call "https://gitlab.com/api/v4/projects/$encoded_source/releases")
-             local filename; filename=$(echo "$api_response" | jq -r --arg f "$filter" '.[0].assets.links[] | select(.name | test($f; "i")) | .name' | head -n 1)
+             api_response=$(get_api_call "https://gitlab.com/api/v4/projects/$encoded_source/releases")
+             if [ $? -ne 0 ]; then echo "ERROR:GITLAB_API - $api_response"; return 1; fi
+             filename=$(echo "$api_response" | jq -r --arg f "$filter" '.[0].assets.links[] | select(.name | test($f; "i")) | .name' | head -n 1)
              if [ -z "$filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$filename"; fi ;;
         "telegram_forwarder")
             local doc; doc=$(get_telegram_message_with_file "$source" "$source_channel")
-            if [[ -z "$doc" || "$doc" == "ERROR"* ]]; then echo "ERROR:TELEGRAM_FILE_NOT_FOUND"; return; fi
+            if [[ $? -ne 0 || -z "$doc" ]]; then echo "ERROR:TELEGRAM_FILE_NOT_FOUND - $doc"; return 1; fi
             echo "$doc" | jq -r '.file_name' ;;
         *) echo "ERROR:UNKNOWN_TYPE";;
     esac
@@ -108,7 +132,7 @@ get_remote_filename() {
 process_single_download() {
     local module_name=$1
     local remote_file; remote_file=$(get_remote_filename "$module_name")
-    if [[ "$remote_file" == "ERROR"* || -z "$remote_file" ]]; then echo "HATA: Uzak dosya adı alınamadı ($remote_file)."; return 1; fi
+    if [[ $? -ne 0 || "$remote_file" == "ERROR"* || -z "$remote_file" ]]; then echo "HATA: Uzak dosya adı alınamadı. Sebep: $remote_file"; return 1; fi
 
     local cached_file; cached_file=$(jq -r --arg mod "$module_name" '.[$mod] // ""' "$CACHE_MANIFEST")
     if [[ "$cached_file" == "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then
@@ -116,27 +140,33 @@ process_single_download() {
         return 0
     fi
 
-    echo "İNDİRME: '$module_name' için yeni sürüm indiriliyor: $remote_file"
+    echo "İNDİRME: '$module_name' için yeni sürüm ($remote_file) indiriliyor..."
     local module_json; module_json=$(jq --arg name "$module_name" '.modules[] | select(.name == $name)' "$MODULES_FILE")
     local type source source_channel download_url;
     type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
     source_channel=$(jq -r '.source_channel' <<< "$module_json")
 
+    local api_response
     case "$type" in
         "github_release")
-            local api_response; api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest")
+            api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest")
+            if [ $? -ne 0 ]; then echo "HATA: İndirme URL'si alınamadı (GitHub API). Sebep: $api_response"; return 1; fi
             download_url=$(echo "$api_response" | jq -r --arg fname "$remote_file" '.assets[] | select(.name == $fname) | .browser_download_url') ;;
         "github_ci")
-            local page_content; page_content=$(curl -sL "$source")
+            local page_content; page_content=$(curl -sL --fail "$source")
+            if [ $? -ne 0 ]; then echo "HATA: CI sayfasına ulaşılamadı."; return 1; fi
             download_url=$(echo "$page_content" | grep -o 'https://nightly.link/[^"]*\.zip' | head -n 1) ;;
         "gitlab_release")
             local encoded_source; encoded_source=$(echo "$source" | sed 's/\//%2F/g')
-            local api_response; api_response=$(get_api_call "https://gitlab.com/api/v4/projects/$encoded_source/releases")
+            api_response=$(get_api_call "https://gitlab.com/api/v4/projects/$encoded_source/releases")
+            if [ $? -ne 0 ]; then echo "HATA: İndirme URL'si alınamadı (GitLab API). Sebep: $api_response"; return 1; fi
             download_url=$(echo "$api_response" | jq -r --arg fname "$remote_file" '.[0].assets.links[] | select(.name == $fname) | .url' | head -n 1) ;;
         "telegram_forwarder")
             local doc; doc=$(get_telegram_message_with_file "$source" "$source_channel")
+            if [ $? -ne 0 ]; then echo "HATA: Telegram dosyası alınamadı. Sebep: $doc"; return 1; fi
             local file_id; file_id=$(echo "$doc" | jq -r '.file_id')
             local file_path_json; file_path_json=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getFile?file_id=$file_id")
+            if [ $? -ne 0 ]; then echo "HATA: Telegram dosya yolu alınamadı. Sebep: $file_path_json"; return 1; fi
             local file_path; file_path=$(echo "$file_path_json" | jq -r '.result.file_path')
             download_url="https://api.telegram.org/file/bot$BOT_TOKEN_FOR_ARCHIVE/$file_path" ;;
     esac
@@ -153,7 +183,7 @@ process_single_download() {
             rmdir "$lock_dir"
         )
         echo "BAŞARILI: '$module_name' indirildi ve manifest güncellendi."
-    else echo "HATA: İndirme başarısız oldu."; rm -f "$CACHE_DIR/$remote_file"; return 1; fi
+    else echo "HATA: İndirme başarısız oldu ($download_url)."; rm -f "$CACHE_DIR/$remote_file"; return 1; fi
 }
 
 sync_modules() {
