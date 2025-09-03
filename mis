@@ -1,8 +1,9 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v10.5 - Otomasyon Odaklı Sürüm
-# YENİLİKLER (v10.5):
-# - jq komutlarındaki hatalı değişken kullanımı ($1 yerine $name) düzeltildi.
-# - Bu düzeltme, modül bilgilerinin modules.json'dan doğru okunmasını sağlar.
+# KSU Modül Yöneticisi v10.6 - Otomasyon Odaklı Sürüm
+# YENİLİKLER (v10.6):
+# - Hata yönetimi iyileştirildi. Artık tek bir modül hatası tüm iş akışını durdurmuyor.
+# - Başarısız modüller raporlanır ancak betik 'exit 0' (başarılı) koduyla biter.
+# - Bu sayede, başarılı indirilen dosyalar bir sonraki adıma (telegram_guncelle.sh) geçebilir.
 
 # --- Yapılandırma ve Global Değişkenler ---
 MODULES_FILE="" 
@@ -18,7 +19,8 @@ NC='\033[0m'
 
 info() { echo -e "${GREEN}[BİLGİ]${NC} $1"; }
 warn() { echo -e "${YELLOW}[UYARI]${NC} $1"; }
-error() { echo -e "${RED}[HATA]${NC} $1" >&2; exit 1; }
+# 'error' fonksiyonu artık betiği sonlandırmıyor, sadece hata mesajı basıyor.
+error() { echo -e "${RED}[HATA]${NC} $1" >&2; }
 
 # --- Betik Çıkış Kontrolü ---
 cleanup() {
@@ -29,7 +31,7 @@ trap cleanup EXIT
 
 # --- Çekirdek Fonksiyonlar ---
 init_system() {
-    for cmd in curl jq git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı."; fi; done
+    for cmd in curl jq git grep sed; do if ! command -v $cmd &> /dev/null; then echo "HATA: '$cmd' bulunamadı." >&2; exit 1; fi; done
     
     if [ -f "./modules.json" ]; then
         MODULES_FILE="./modules.json"
@@ -38,7 +40,7 @@ init_system() {
         MODULES_FILE="$HOME/.config/ksu-manager/modules.json"
         info "'modules.json' standart yapılandırma dizininde bulundu."
     else
-        error "modules.json dosyası ne proje kök dizininde ne de $HOME/.config/ksu-manager dizininde bulunamadı."
+        echo "HATA: modules.json dosyası bulunamadı." >&2; exit 1;
     fi
 
     mkdir -p "$CACHE_DIR"
@@ -96,11 +98,15 @@ get_telegram_message_with_file() {
 }
 
 get_remote_filename() {
-    # DÜZELTME: jq içinde `$1` yerine `$name` kullanıldı.
     local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $name)' "$MODULES_FILE")
     local type source filter source_channel;
     type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
     filter=$(jq -r '.asset_filter' <<< "$module_json"); source_channel=$(jq -r '.source_channel' <<< "$module_json")
+
+    if [ -z "$type" ]; then
+        echo "ERROR:MODULE_NOT_FOUND_IN_JSON"
+        return 1
+    fi
 
     local api_response filename
     case "$type" in
@@ -141,7 +147,6 @@ process_single_download() {
     fi
 
     echo "İNDİRME: '$module_name' için yeni sürüm ($remote_file) indiriliyor..."
-    # DÜZELTME: jq içinde `$1` yerine `$name` kullanıldı.
     local module_json; module_json=$(jq --arg name "$module_name" '.modules[] | select(.name == $name)' "$MODULES_FILE")
     local type source source_channel download_url;
     type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
@@ -196,6 +201,7 @@ sync_modules() {
     
     for module_name in "${modules_to_sync[@]}"; do
         process_single_download "$module_name" > "$RESULTS_DIR/$module_name.result" 2>&1 &
+        
         ((job_count++)); if ((job_count >= MAX_JOBS)); then wait -n; ((job_count--)); fi
     done; wait
     
@@ -208,6 +214,10 @@ sync_modules() {
         echo
     done
     echo "-----------------------------------------------------"
+
+    # Hata olsa bile iş akışının devam etmesi için her zaman başarılı (0) çıkış koduyla bitir.
+    # Bir sonraki betik (telegram_guncelle.sh) zaten sadece başarılı indirilenleri işleyecektir.
+    info "Raporlama tamamlandı. Bir sonraki adıma geçiliyor."
 }
 
 # --- Ana Fonksiyon ---
@@ -215,7 +225,7 @@ main() {
     init_system
     case $1 in
         sync) sync_modules ;;
-        *) error "Geçersiz komut: $1. Bu betik sadece 'sync' komutunu destekler.";;
+        *) error "Geçersiz komut: $1. Bu betik sadece 'sync' komutunu destekler." && exit 1;;
     esac
 }
 main "$@"
