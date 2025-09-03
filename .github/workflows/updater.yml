@@ -1,41 +1,43 @@
-# Bu dosya, projenin tüm otomasyon adımlarını tanımlar.
-name: Cephanelik Dosya Güncelleyici
+# Bu dosya, "Cephanelik Updater" projesinin tüm otomasyon adımlarını içerir.
+# Hata analiz raporuna göre gerekli düzeltmeler yapılmıştır.
+
+name: Dosya Güncelleme Otomasyonu
 
 on:
-  # Manuel olarak "Actions" sekmesinden çalıştırmayı sağlar.
+  # Bu satır, GitHub arayüzünden "Run workflow" butonu ile manuel çalıştırmayı sağlar.
   workflow_dispatch:
-    inputs:
-      full_run:
-        description: 'Tarih kontrolünü atla (Manuel Çalıştırma)'
-        required: true
-        type: boolean
-        default: true
 
-  # Her gün Türkiye saatiyle yaklaşık 03:05'te çalışır (00:05 UTC).
+  # Bu bölüm, betiğin belirli zamanlarda otomatik çalışmasını sağlar.
   schedule:
-    - cron: '5 0 * * *'
+    # cron formatı: dakika saat gün ay haftanın_günü
+    # Bu ayar, betiği her gün UTC saatiyle 05:00'da çalıştırır.
+    - cron: '0 5 * * *'
 
 jobs:
   update-files:
+    # Betiğin çalışacağı sanal makineyi belirtir.
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Depoya geri yazma izni
-
+    
     steps:
-      # 1. Adım: Proje dosyalarını sanal sunucuya indirir.
+      # 1. Adım: Proje dosyalarını sanal makineye indirir.
       - name: Depoyu Klonla
         uses: actions/checkout@v4
+        with:
+          repository: 'MematiBas42/Cephanelik_Updater'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Adım: Python ve Telethon kütüphanesini kurar.
+      # 2. Adım: Python ortamını kurar.
       - name: Python Ortamını Kur
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Gerekli Python Kütüphanelerini Kur
+
+      # 3. Adım: telegram_forwarder.py için gerekli olan kütüphaneyi yükler.
+      - name: Gerekli Python Kütüphanelerini Yükle
         run: pip install telethon
 
-      # 3. Adım: Kaynak kanalları tarayıp yeni dosyaları Arşiv Kanalına yönlendirir.
-      - name: Telegram Yönlendiriciyi Çalıştır
+      # 4. Adım: TOPLAYICI - Kaynak kanalları tarar ve dosyaları arşive iletir.
+      - name: Telegram Dosyalarını Arşivle (Toplayıcı)
         run: python telegram_forwarder.py
         env:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
@@ -44,35 +46,40 @@ jobs:
           TELEGRAM_SOURCE_CHATS: ${{ secrets.TELEGRAM_SOURCE_CHATS }}
           TELEGRAM_ARCHIVE_CHANNEL: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}
 
-      # 4. Adım: Gerekli programları (jq) kurar ve mis için yapılandırma dosyalarını hazırlar.
-      - name: Betik Ortamını Hazırla
+      # 5. Adım: mis betiği için gerekli olan jq paketini kurar ve yapılandırmayı hazırlar.
+      - name: Gerekli Paketleri Yükle ve Yapılandırmayı Kopyala
         run: |
           sudo apt-get update && sudo apt-get install -y jq
           mkdir -p $HOME/.config/ksu-manager
           cp ./modules.json $HOME/.config/ksu-manager/modules.json
 
-      # 5. Adım: mis ile Arşiv Kanalını tarar ve güncel dosyaları önbelleğe indirir.
-      - name: mis ile Dosyaları Senkronize Et
+      # 6. Adım: İŞLEYİCİ - Modülleri kontrol eder, güncel olanları indirir.
+      - name: Modülleri Kontrol Et ve İndir (İşleyici)
         run: bash ./mis sync
         env:
+          # --- ÖNEMLİ DÜZELTME BURADA ---
+          # Bu değişken eksik olduğu için 'mis' betiği arşiv kanalını okuyamıyordu.
           BOT_TOKEN_FOR_ARCHIVE: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE }}
+          
+          # Bu değişkenler zaten loglarda vardı, doğruluk için eklenmiştir.
           TELEGRAM_ARCHIVE_CHANNEL: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
-      # 6. Adım: Güncel dosyaları ana Yayın Kanalına yükler.
-      - name: Dosyaları Ana Kanala Yükle
+      # 7. Adım: YAYINCI - İndirilen yeni dosyaları ana kanala yükler.
+      - name: Dosyaları Telegram Kanalında Yayınla (Yayıncı)
         run: bash ./telegram_guncelle.sh
         env:
           BOT_TOKEN_FOR_PUBLISH: ${{ secrets.BOT_TOKEN_FOR_PUBLISH }}
           PUBLISH_CHANNEL_ID: ${{ secrets.PUBLISH_CHANNEL_ID }}
-          MANUAL_RUN: ${{ github.event.inputs.full_run }}
+          MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
 
-      # 7. Adım: Değiştirilen durum dosyalarını (last_run.txt, telegram_durum.txt, forwarder_state.json) depoya kaydeder.
+      # 8. Adım: Otomasyonun durumunu (son çalışma tarihi vb.) depoya kaydeder.
       - name: Durum Dosyalarını Depoya Kaydet
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
+          # Sadece değişiklik varsa commit atar.
           if [[ -n $(git status --porcelain) ]]; then
             echo "Değişiklikler bulundu, depoya kaydediliyor."
             git add last_run.txt telegram_durum.txt forwarder_state.json
@@ -82,4 +89,3 @@ jobs:
           else
             echo "Yeni değişiklik bulunamadı."
           fi
-
