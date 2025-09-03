@@ -140,6 +140,14 @@
       "source": "app-release",
       "asset_filter": "",
       "source_channel": "magiskalpha"
+    },
+    {
+      "name": "test",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "app-release",
+      "asset_filter": "",
+      "source_channel": "cephanelikchat"
     }
   ]
 }
