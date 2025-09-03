@@ -15,8 +15,17 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
 # Kaynak kanallar JSON formatında okunur. Örnek: '["kanal1", "kanal2"]'
-SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '["magiskalpha"]')
-SOURCE_CHATS = json.loads(SOURCE_CHATS_JSON)
+# GÜNCELLEME: Değişken boş veya tanımsızsa, çökmemesi için varsayılan olarak boş bir liste ('[]') atanır.
+SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '[]')
+try:
+    SOURCE_CHATS = json.loads(SOURCE_CHATS_JSON)
+    if not isinstance(SOURCE_CHATS, list):
+        print("[UYARI] TELEGRAM_SOURCE_CHATS geçerli bir liste formatında değil. Boş olarak kabul ediliyor.")
+        SOURCE_CHATS = []
+except json.JSONDecodeError:
+    print(f"[HATA] TELEGRAM_SOURCE_CHATS ortam değişkeni geçerli bir JSON formatında değil: {SOURCE_CHATS_JSON}")
+    SOURCE_CHATS = []
+
 
 DESTINATION_CHANNEL = os.environ.get('TELEGRAM_ARCHIVE_CHANNEL')
 STATE_FILE = 'forwarder_state.json'
@@ -28,7 +37,10 @@ def load_state():
     """Daha önce iletilen son mesaj ID'lerini dosyadan yükler."""
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, 'r') as f:
-            return json.load(f)
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return {} # Bozuk state dosyasını yoksay
     return {}
 
 def save_state(state):
@@ -38,6 +50,11 @@ def save_state(state):
 
 async def main():
     print("Otomatik yönlendirici başlatıldı (GitHub Actions Modu).")
+    
+    if not SOURCE_CHATS:
+        print("[UYARI] İzlenecek kaynak kanal bulunamadı (TELEGRAM_SOURCE_CHATS boş). Betik sonlandırılıyor.")
+        return
+
     print(f"Kaynak kanallar: {', '.join(SOURCE_CHATS)}")
     print(f"Hedef kanal: {DESTINATION_CHANNEL}")
 
@@ -81,7 +98,16 @@ async def main():
                     # Kaynak kanal bilgisini mesaja ekle
                     caption = f"Kaynak: @{chat_username}"
                     await client.send_file(DESTINATION_CHANNEL, message.document, caption=caption)
-                    print(f"  - Dosya '{message.document.attributes[0].file_name}' yönlendirildi.")
+                    
+                    # Dosya adını güvenli bir şekilde almayı dene
+                    file_name = "Bilinmeyen Dosya"
+                    if hasattr(message.document, 'attributes'):
+                        for attr in message.document.attributes:
+                            if hasattr(attr, 'file_name'):
+                                file_name = attr.file_name
+                                break
+                    print(f"  - Dosya '{file_name}' yönlendirildi.")
+
                 except Exception as e:
                     print(f"  - HATA: Mesaj yönlendirilemedi: {e}")
             
@@ -103,10 +129,10 @@ async def run():
     await client.disconnect()
 
 if __name__ == "__main__":
-    if SESSION_STRING:
-        client.session.set_dc(2, '149.154.167.51', 80) # Oturumun hızlı başlaması için yardımcı
-        client.session.set_auth_key(None)
-        client.session.auth_key = client.session.load_for_string(SESSION_STRING)
-
-    client.loop.run_until_complete(run())
-
+    # Oturum anahtarının varlığını kontrol et
+    if not SESSION_STRING:
+        print("[HATA] TELEGRAM_SESSION_STRING ortam değişkeni bulunamadı!")
+    else:
+        # StringSession'ı doğrudan kullanmak yerine client'ı session string ile başlat
+        client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
+        client.loop.run_until_complete(run())
