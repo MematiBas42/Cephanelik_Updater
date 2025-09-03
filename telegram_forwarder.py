@@ -15,7 +15,7 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
 # Kaynak kanallar JSON formatında okunur. Örnek: '["kanal1", "kanal2"]'
-SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '[]')
+SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '["magiskalpha"]')
 SOURCE_CHATS = json.loads(SOURCE_CHATS_JSON)
 
 DESTINATION_CHANNEL = os.environ.get('TELEGRAM_ARCHIVE_CHANNEL')
