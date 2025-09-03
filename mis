@@ -2,15 +2,15 @@
 # Hata durumunda betiği sonlandır.
 set -e
 
-# KSU Modül Yöneticisi v10.2 - Otomasyon Odaklı Sürüm
-# YENİLİKLER (v10.2):
+# KSU Modül Yöneticisi v10.3 - Otomasyon Odaklı Sürüm
+# YENİLİKLER (v10.3):
+# - modules.json dosyasını önce mevcut dizinde arar, bu da CI ortamlarıyla uyumluluğu artırır.
 # - Hata ayıklamayı kolaylaştırmak için 'set -e' eklendi.
 # - Senkronizasyon sonunda her modül için detaylı sonuç raporu ekler.
 
 # --- Yapılandırma ve Global Değişkenler ---
-CONFIG_DIR="$HOME/.config/ksu-manager"
-MODULES_FILE="$CONFIG_DIR/modules.json"
-USER_CONFIG_FILE="$CONFIG_DIR/config.json" # Bu betikte kullanılmıyor ama uyumluluk için var
+# DEĞİŞTİ: MODULES_FILE yolu artık dinamik olarak belirlenecek.
+MODULES_FILE="" 
 CACHE_DIR="$HOME/.cache/ksu-manager"
 CACHE_MANIFEST="$CACHE_DIR/manifest.json"
 MAX_JOBS=4
@@ -23,14 +23,11 @@ NC='\033[0m'
 
 info() { echo -e "${GREEN}[BİLGİ]${NC} $1"; }
 warn() { echo -e "${YELLOW}[UYARI]${NC} $1"; }
-# set -e olduğu için error fonksiyonu artık daha basit olabilir.
 error() { echo -e "${RED}[HATA]${NC} $1" >&2; exit 1; }
 
 # --- Betik Çıkış Kontrolü ---
 cleanup() {
-    # Geçici sonuç dizinini sil
     if [ -n "$RESULTS_DIR" ] && [ -d "$RESULTS_DIR" ]; then rm -rf "$RESULTS_DIR"; fi
-    # Kilit dosyasını kaldır
     if [ -d "$CACHE_DIR/manifest.lock" ]; then rmdir "$CACHE_DIR/manifest.lock"; fi
 }
 trap cleanup EXIT
@@ -38,9 +35,20 @@ trap cleanup EXIT
 # --- Çekirdek Fonksiyonlar ---
 init_system() {
     for cmd in curl jq git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı."; fi; done
-    mkdir -p "$CONFIG_DIR" "$CACHE_DIR"
-    if [ ! -f "$MODULES_FILE" ]; then error "'$MODULES_FILE' bulunamadı. Lütfen depoya ekleyin."; fi
-    if [ ! -f "$CACHE_MANIFEST" ]; then warn "'$CACHE_MANIFEST' bulunamadı."; echo '{}' > "$CACHE_MANIFEST"; fi
+    
+    # YENİ: modules.json dosyasını bulmak için akıllı kontrol
+    if [ -f "./modules.json" ]; then
+        MODULES_FILE="./modules.json"
+        info "'modules.json' proje kök dizininde bulundu."
+    elif [ -f "$HOME/.config/ksu-manager/modules.json" ]; then
+        MODULES_FILE="$HOME/.config/ksu-manager/modules.json"
+        info "'modules.json' standart yapılandırma dizininde bulundu."
+    else
+        error "modules.json dosyası ne proje kök dizininde ne de $HOME/.config/ksu-manager dizininde bulunamadı."
+    fi
+
+    mkdir -p "$CACHE_DIR"
+    if [ ! -f "$CACHE_MANIFEST" ]; then warn "'$CACHE_MANIFEST' bulunamadı, yeniden oluşturuluyor."; echo '{}' > "$CACHE_MANIFEST"; fi
 }
 
 get_api_call() {
@@ -49,18 +57,13 @@ get_api_call() {
     if [[ "$url" == *"api.github.com"* && -n "$GIT_API_TOKEN" ]]; then
         headers=(-H "Authorization: Bearer $GIT_API_TOKEN")
     fi
-    # --fail: HTTP 4xx veya 5xx hatalarında betiği durdurur (set -e sayesinde)
     curl --silent --fail --location --connect-timeout 15 --max-time 30 "${headers[@]}" "$@" "$url"
 }
-
-is_valid_json() { [ -n "$1" ] && echo "$1" | jq -e . > /dev/null 2>&1; }
 
 # --- Güncelleme ve Kontrol Fonksiyonları ---
 get_telegram_message_with_file() {
     local keyword=$1 source_channel=$2
     local api_response; api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
-    # API'den gelen yanıtın geçerli JSON olup olmadığını kontrol etmeye gerek yok,
-    # curl --fail ve set -e bunu zaten yapacaktır.
     
     echo "$api_response" | jq -r --arg cid_str "$(echo $TELEGRAM_ARCHIVE_CHANNEL | sed 's/@//')" --arg kw "$keyword" --arg sc "$source_channel" '
         .result | reverse | .[] |
@@ -85,7 +88,6 @@ get_remote_filename() {
             local filename; filename=$(jq -r --arg f "$filter" '.assets[] | select(.name | test($f; "i")) | .name' <<< "$api_response" | head -n 1)
             if [ -z "$filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$filename"; fi ;;
         "github_ci")
-            # nighty.link bazen HTML yerine doğrudan yönlendirme yapabilir. -L bunu takip eder.
             local page_content; page_content=$(curl -sL "$source")
             local direct_download_url; direct_download_url=$(echo "$page_content" | grep -o 'https://nightly.link/[^"]*\.zip' | head -n 1)
             if [ -z "$direct_download_url" ]; then echo "ERROR:CI_LINK_NOT_FOUND"; else basename "$direct_download_url"; fi ;;
@@ -162,14 +164,12 @@ sync_modules() {
     RESULTS_DIR=$(mktemp -d); local job_count=0
     
     for module_name in "${modules_to_sync[@]}"; do
-        # Hata ayıklama içinstderr'i de dosyaya yönlendir
         process_single_download "$module_name" > "$RESULTS_DIR/$module_name.result" 2>&1 &
         ((job_count++)); if ((job_count >= MAX_JOBS)); then wait -n; ((job_count--)); fi
     done; wait
     
     info "Senkronizasyon tamamlandı. Sonuçlar raporlanıyor..."
     echo "-----------------------------------------------------"
-    # YENİ: Sonuçları raporla
     for module_name in "${modules_to_sync[@]}"; do
         echo -e "${YELLOW}Modül: $module_name${NC}"
         echo "----------------"
@@ -188,3 +188,4 @@ main() {
     esac
 }
 main "$@"
+
