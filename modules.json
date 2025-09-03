@@ -116,14 +116,14 @@
       "name": "Zygisk-Assistant",
       "enabled": true,
       "type": "github_release",
-      "source": "snake-4/Zygisk-Assistant/releases/latest",
+      "source": "snake-4/Zygisk-Assistant",
       "asset_filter": "\\.zip$"
     },
     {
       "name": "nohello",
       "enabled": true,
       "type": "github_release",
-      "source": "MhmRdd/NoHello/release",
+      "source": "MhmRdd/NoHello",
       "asset_filter": "\\.zip$"
     },
     {
