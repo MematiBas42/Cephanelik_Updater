@@ -1,57 +1,85 @@
-# Bu dosya, otomasyonun ne zaman ve nasıl çalışacağını tanımlar.
+# Bu dosya, projenin tüm otomasyon adımlarını tanımlar.
 name: Cephanelik Dosya Güncelleyici
 
 on:
-  # 1. Manuel Tetikleme: GitHub arayüzündeki "Actions" sekmesinden elle çalıştırmayı sağlar.
+  # Manuel olarak "Actions" sekmesinden çalıştırmayı sağlar.
   workflow_dispatch:
+    inputs:
+      full_run:
+        description: 'Tarih kontrolünü atla (Manuel Çalıştırma)'
+        required: true
+        type: boolean
+        default: true
 
-  # 2. Zamanlanmış Görev: Her gün Türkiye saatiyle yaklaşık 03:05'te çalışır (00:05 UTC).
+  # Her gün Türkiye saatiyle yaklaşık 03:05'te çalışır (00:05 UTC).
   schedule:
     - cron: '5 0 * * *'
 
 jobs:
   update-files:
-    runs-on: ubuntu-latest # Otomasyonun çalışacağı sanal sunucu türü
-
-    # Otomasyonun depoya geri yazma (push) izni olması için bu bölüm eklendi.
+    runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # Depoya geri yazma izni
 
     steps:
-      # 1. Adım: Proje dosyalarını sanal sunucuya indirir (checkout).
+      # 1. Adım: Proje dosyalarını sanal sunucuya indirir.
       - name: Depoyu Klonla
         uses: actions/checkout@v4
 
-      # 2. Adım: Betiklerin çalışması için gerekli olan 'jq' programını kurar.
-      - name: Gerekli Programları Kur (jq)
-        run: sudo apt-get update && sudo apt-get install -y jq
+      # 2. Adım: Python ve Telethon kütüphanesini kurar.
+      - name: Python Ortamını Kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Gerekli Python Kütüphanelerini Kur
+        run: pip install telethon
 
-      # 3. Adım: Ana güncelleme betiğini çalıştırır.
-      # --- İYİLEŞTİRME: ÇALIŞTIRMA TÜRÜNÜ BETİĞE BİLDİRME ---
-      # Artık betiğe, otomasyonun nasıl tetiklendiğini (manuel mi, zamanlanmış mı)
-      # bir argüman olarak iletiyoruz.
-      - name: Güncelleme Betiğini Çalıştır
-        run: bash ./telegram_guncelle.sh ${{ github.event_name }}
+      # 3. Adım: Kaynak kanalları tarayıp yeni dosyaları Arşiv Kanalına yönlendirir.
+      - name: Telegram Yönlendiriciyi Çalıştır
+        run: python telegram_forwarder.py
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          TELEGRAM_CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
+          TELEGRAM_SOURCE_CHATS: ${{ secrets.TELEGRAM_SOURCE_CHATS }}
+          TELEGRAM_ARCHIVE_CHANNEL: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}
+
+      # 4. Adım: Gerekli programları (jq) kurar ve mis için yapılandırma dosyalarını hazırlar.
+      - name: Betik Ortamını Hazırla
+        run: |
+          sudo apt-get update && sudo apt-get install -y jq
+          mkdir -p $HOME/.config/ksu-manager
+          cp ./modules.json $HOME/.config/ksu-manager/modules.json
+
+      # 5. Adım: mis ile Arşiv Kanalını tarar ve güncel dosyaları önbelleğe indirir.
+      - name: mis ile Dosyaları Senkronize Et
+        run: bash ./mis sync
+        env:
+          BOT_TOKEN_FOR_ARCHIVE: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE }}
+          TELEGRAM_ARCHIVE_CHANNEL: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
-      # 4. Adım: Betik tarafından değiştirilen durum dosyalarını depoya kaydeder (commit).
-      - name: Durum dosyalarını depoya işle
+      # 6. Adım: Güncel dosyaları ana Yayın Kanalına yükler.
+      - name: Dosyaları Ana Kanala Yükle
+        run: bash ./telegram_guncelle.sh
+        env:
+          BOT_TOKEN_FOR_PUBLISH: ${{ secrets.BOT_TOKEN_FOR_PUBLISH }}
+          PUBLISH_CHANNEL_ID: ${{ secrets.PUBLISH_CHANNEL_ID }}
+          MANUAL_RUN: ${{ github.event.inputs.full_run }}
+
+      # 7. Adım: Değiştirilen durum dosyalarını (last_run.txt, telegram_durum.txt, forwarder_state.json) depoya kaydeder.
+      - name: Durum Dosyalarını Depoya Kaydet
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           if [[ -n $(git status --porcelain) ]]; then
-            echo "Değişiklikler bulundu, commit atılıyor."
-            git add last_run.txt telegram_durum.txt
+            echo "Değişiklikler bulundu, depoya kaydediliyor."
+            git add last_run.txt telegram_durum.txt forwarder_state.json
             git commit -m "chore: Durum dosyalarını güncelle"
-            
-            echo "Uzak depoyla senkronize ediliyor ve gönderiliyor..."
             git pull --rebase
             git push
           else
-            echo "Değişiklik bulunamadı, commit atlanıyor."
+            echo "Yeni değişiklik bulunamadı."
           fi
 

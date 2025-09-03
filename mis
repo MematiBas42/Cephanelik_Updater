@@ -1,12 +1,15 @@
 #!/bin/bash
 
-# KSU Modül Yöneticisi v9.2 - Otomasyon Odaklı Sürüm
-# Bu sürüm, interaktif komutlar olmadan sadece 'sync' işlemi için sadeleştirilmiştir.
+# KSU Modül Yöneticisi v10.1 - Otomasyon Odaklı Sürüm
+# YENİLİKLER (v10.1):
+# - GitHub Actions (CI) Desteği Geri Eklendi.
+# - Yalnızca otomasyon için gerekli komutlar bırakıldı (sync).
+# - Kilit mekanizması ve kaynak kanalı doğrulaması içerir.
 
 # --- Yapılandırma ve Global Değişkenler ---
 CONFIG_DIR="$HOME/.config/ksu-manager"
 MODULES_FILE="$CONFIG_DIR/modules.json"
-USER_CONFIG_FILE="$CONFIG_DIR/config.json"
+USER_CONFIG_FILE="$CONFIG_DIR/config.json" # Bu betikte kullanılmıyor ama uyumluluk için var
 CACHE_DIR="$HOME/.cache/ksu-manager"
 CACHE_MANIFEST="$CACHE_DIR/manifest.json"
 MAX_JOBS=4
@@ -24,90 +27,78 @@ error() { echo -e "${RED}[HATA]${NC} $1" >&2; exit 1; }
 # --- Betik Çıkış Kontrolü ---
 cleanup() {
     rm -f tmp.$$.json
-    if [ -d "$CACHE_DIR/manifest.lock" ]; then rmdir "$CACHE_DIR/manifest.lock"; fi
     if [ -n "$RESULTS_DIR" ] && [ -d "$RESULTS_DIR" ]; then rm -rf "$RESULTS_DIR"; fi
+    if [ -d "$CACHE_DIR/manifest.lock" ]; then rmdir "$CACHE_DIR/manifest.lock"; fi
 }
 trap cleanup EXIT
 
 # --- Çekirdek Fonksiyonlar ---
 init_system() {
-    for cmd in curl jq unzip git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı."; fi; done
+    for cmd in curl jq git grep sed; do if ! command -v $cmd &> /dev/null; then error "'$cmd' komutu bulunamadı."; fi; done
     mkdir -p "$CONFIG_DIR" "$CACHE_DIR"
-    if [ ! -f "$MODULES_FILE" ]; then error "'$MODULES_FILE' bulunamadı."; fi
-    # Gerekli config dosyalarını oluştur
-    if [ ! -f "$USER_CONFIG_FILE" ]; then
-        echo '{"github_token": "", "telegram_bot_token": "", "telegram_listener_chat_id": ""}' > "$USER_CONFIG_FILE"
-    fi
-     if [ ! -f "$CACHE_MANIFEST" ]; then echo '{}' > "$CACHE_MANIFEST"; fi
+    if [ ! -f "$MODULES_FILE" ]; then error "'$MODULES_FILE' bulunamadı. Lütfen depoya ekleyin."; fi
+    if [ ! -f "$CACHE_MANIFEST" ]; then warn "'$CACHE_MANIFEST' bulunamadı."; echo '{}' > "$CACHE_MANIFEST"; fi
 }
 
-setup_github_token() {
-    if [ -n "$GIT_API_TOKEN" ]; then
-        jq --arg token "$GIT_API_TOKEN" '.github_token = $token' "$USER_CONFIG_FILE" > tmp.$$.json && mv tmp.$$.json "$USER_CONFIG_FILE"
-        export GITHUB_TOKEN=$GIT_API_TOKEN
+get_api_call() {
+    local url=$1; shift;
+    local headers=()
+    if [[ "$url" == *"api.github.com"* && -n "$GIT_API_TOKEN" ]]; then
+        headers=(-H "Authorization: Bearer $GIT_API_TOKEN")
     fi
+    curl --silent --fail --location --connect-timeout 15 --max-time 30 "${headers[@]}" "$@" "$url"
 }
 
-get_telegram_config() {
-    # Ortam değişkenlerinden (GitHub Secrets) oku
-    if [ -n "$BOT_TOKEN" ] && [ -n "$TELEGRAM_ARCHIVE_CHANNEL" ]; then
-         jq --arg token "$BOT_TOKEN" --arg id "$TELEGRAM_ARCHIVE_CHANNEL" \
-            '.telegram_bot_token = $token | .telegram_listener_chat_id = $id' \
-            "$USER_CONFIG_FILE" > tmp.$$.json && mv tmp.$$.json "$USER_CONFIG_FILE"
-    fi
-    # Betik içinde kullanmak için değişkenlere ata
-    TELEGRAM_BOT_TOKEN=$(jq -r '.telegram_bot_token // ""' "$USER_CONFIG_FILE")
-    TELEGRAM_LISTENER_CHAT_ID=$(jq -r '.telegram_listener_chat_id // ""' "$USER_CONFIG_FILE")
-
-    if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_LISTENER_CHAT_ID" ]; then
-        error "Telegram bot token veya arşiv kanalı ID'si bulunamadı."
-    fi
-}
-
-get_api_call() { curl --silent --fail --location --connect-timeout 15 --max-time 30 "$@" "$1"; }
 is_valid_json() { [ -n "$1" ] && echo "$1" | jq -e . > /dev/null 2>&1; }
 
-# --- Modül Kaynak Fonksiyonları ---
+# --- Güncelleme ve Kontrol Fonksiyonları ---
 get_telegram_message_with_file() {
-    local keyword=$1
-    get_telegram_config
-    local api_response
-    api_response=$(get_api_call "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getUpdates?offset=-100&limit=100")
-    if ! is_valid_json "$api_response"; then echo "ERROR:TELEGRAM_API_INVALID_RESPONSE"; return; fi
+    local keyword=$1 source_channel=$2
+    local api_response; api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
+    if ! is_valid_json "$api_response"; then echo "ERROR:TELEGRAM_API"; return; fi
     
-    echo "$api_response" | jq -r --arg chat_id "$TELEGRAM_LISTENER_CHAT_ID" --arg keyword "$keyword" '
-        .result | reverse | .[] | 
+    echo "$api_response" | jq -r --arg cid_str "$(echo $TELEGRAM_ARCHIVE_CHANNEL | sed 's/@//')" --arg kw "$keyword" --arg sc "$source_channel" '
+        .result | reverse | .[] |
         . as $update | ($update.channel_post // $update.message) |
-        select(.chat.id | tostring == $chat_id or .chat.username == $chat_id) |
+        select(.chat.id == ($cid_str | tonumber) or .chat.username == $cid_str) |
         select(.document) |
-        select(.document.file_name | test($keyword; "i")) |
+        select(.document.file_name | test($kw; "i")) |
+        select(.caption and (.caption | contains("Kaynak: @" + $sc))) |
         .document
     ' | head -n 1
 }
 
 get_remote_filename() {
     local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $1)' "$MODULES_FILE")
-    local type source filter;
-    type=$(jq -r '.type' <<< "$module_json")
-    source=$(jq -r '.source' <<< "$module_json")
-    filter=$(jq -r '.asset_filter' <<< "$module_json")
+    local type source filter source_channel;
+    type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
+    filter=$(jq -r '.asset_filter' <<< "$module_json"); source_channel=$(jq -r '.source_channel' <<< "$module_json")
 
     case "$type" in
         "github_release")
-            local api_response; api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest" -H "Authorization: Bearer $GITHUB_TOKEN")
+            local api_response; api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest")
             if ! is_valid_json "$api_response"; then echo "ERROR:GITHUB_API"; return; fi
-            jq -r --arg f "$filter" '.assets[] | select(.name | test($f; "i")) | .name' <<< "$api_response" | head -n 1
-            ;;
+            local filename; filename=$(jq -r --arg f "$filter" '.assets[] | select(.name | test($f; "i")) | .name' <<< "$api_response" | head -n 1)
+            if [ -z "$filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$filename"; fi ;;
+        "github_ci")
+            local page_content; page_content=$(curl -sL "$source")
+            local direct_download_url; direct_download_url=$(echo "$page_content" | grep -o 'https://nightly.link/[^"]*\.zip' | head -n 1)
+            if [ -z "$direct_download_url" ]; then echo "ERROR:CI_LINK_NOT_FOUND"; else basename "$direct_download_url"; fi ;;
+        "gitlab_release")
+             local encoded_source; encoded_source=$(echo "$source" | sed 's/\//%2F/g')
+             local api_response; api_response=$(get_api_call "https://gitlab.com/api/v4/projects/$encoded_source/releases")
+             if ! is_valid_json "$api_response"; then echo "ERROR:GITLAB_API"; return; fi
+             local filename; filename=$(echo "$api_response" | jq -r --arg f "$filter" '.[0].assets.links[] | select(.name | test($f; "i")) | .name' | head -n 1)
+             if [ -z "$filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$filename"; fi ;;
         "telegram_forwarder")
-            local doc; doc=$(get_telegram_message_with_file "$source")
+            local doc; doc=$(get_telegram_message_with_file "$source" "$source_channel")
             if [[ -z "$doc" || "$doc" == "ERROR"* ]]; then echo "ERROR:TELEGRAM_FILE_NOT_FOUND"; return; fi
-            echo "$doc" | jq -r '.file_name'
-            ;;
+            echo "$doc" | jq -r '.file_name' ;;
         *) echo "ERROR:UNKNOWN_TYPE";;
     esac
 }
 
-# --- İndirme ve Senkronizasyon ---
+# --- İndirme ve Senkronizasyon Fonksiyonları ---
 process_single_download() {
     local module_name=$1
     local remote_file; remote_file=$(get_remote_filename "$module_name")
@@ -115,54 +106,53 @@ process_single_download() {
 
     local cached_file; cached_file=$(jq -r --arg mod "$module_name" '.[$mod] // ""' "$CACHE_MANIFEST")
     if [[ "$cached_file" == "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then
-        echo -e "OK: '$module_name' güncel." >&2; return 0
+        echo "OK: '$module_name' güncel." >&2; return 0
     fi
 
+    info "'$module_name' için yeni sürüm indiriliyor: $remote_file"
     local module_json; module_json=$(jq --arg name "$module_name" '.modules[] | select(.name == $name)' "$MODULES_FILE")
-    local type source download_url;
-    type=$(jq -r '.type' <<< "$module_json")
-    source=$(jq -r '.source' <<< "$module_json")
+    local type source source_channel download_url;
+    type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
+    source_channel=$(jq -r '.source_channel' <<< "$module_json")
 
     case "$type" in
         "github_release")
-            local api_response; api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest" -H "Authorization: Bearer $GITHUB_TOKEN")
-            download_url=$(echo "$api_response" | jq -r --arg fname "$remote_file" '.assets[] | select(.name == $fname) | .browser_download_url')
-            ;;
+            local api_response; api_response=$(get_api_call "https://api.github.com/repos/$source/releases/latest")
+            download_url=$(echo "$api_response" | jq -r --arg fname "$remote_file" '.assets[] | select(.name == $fname) | .browser_download_url') ;;
+        "github_ci")
+            local page_content; page_content=$(curl -sL "$source")
+            download_url=$(echo "$page_content" | grep -o 'https://nightly.link/[^"]*\.zip' | head -n 1) ;;
+        "gitlab_release")
+            local encoded_source; encoded_source=$(echo "$source" | sed 's/\//%2F/g')
+            local api_response; api_response=$(get_api_call "https://gitlab.com/api/v4/projects/$encoded_source/releases")
+            download_url=$(echo "$api_response" | jq -r --arg fname "$remote_file" '.[0].assets.links[] | select(.name == $fname) | .url' | head -n 1) ;;
         "telegram_forwarder")
-            local doc; doc=$(get_telegram_message_with_file "$source")
+            local doc; doc=$(get_telegram_message_with_file "$source" "$source_channel")
             local file_id; file_id=$(echo "$doc" | jq -r '.file_id')
-            local file_path_json; file_path_json=$(get_api_call "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getFile?file_id=$file_id")
+            local file_path_json; file_path_json=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getFile?file_id=$file_id")
             if ! is_valid_json "$file_path_json"; then echo "ERROR:GET_FILE_FAILED"; return 1; fi
             local file_path; file_path=$(echo "$file_path_json" | jq -r '.result.file_path')
-            download_url="https://api.telegram.org/file/bot$TELEGRAM_BOT_TOKEN/$file_path"
-            ;;
+            download_url="https://api.telegram.org/file/bot$BOT_TOKEN_FOR_ARCHIVE/$file_path" ;;
     esac
-
     if [ -z "$download_url" ]; then echo "ERROR:DOWNLOAD_URL_NOT_FOUND"; return 1; fi
 
-    info "'$module_name' için yeni sürüm indiriliyor: $remote_file"
     if curl -L --fail -o "$CACHE_DIR/$remote_file" "$download_url"; then
         (
             lock_dir="$CACHE_DIR/manifest.lock"
             while ! mkdir "$lock_dir" 2>/dev/null; do sleep 1; done
             current_manifest=$(cat "$CACHE_MANIFEST")
             old_cached_file=$(echo "$current_manifest" | jq -r --arg mod "$module_name" '.[$mod] // ""')
-            if [[ -n "$old_cached_file" && "$old_cached_file" != "$remote_file" && -f "$CACHE_DIR/$old_cached_file" ]]; then
-                rm -f "$CACHE_DIR/$old_cached_file"
-            fi
+            if [[ -n "$old_cached_file" && "$old_cached_file" != "$remote_file" && -f "$CACHE_DIR/$old_cached_file" ]]; then rm -f "$CACHE_DIR/$old_cached_file"; fi
             echo "$current_manifest" | jq --arg mod "$module_name" --arg file "$remote_file" '.[$mod] = $file' > "$CACHE_MANIFEST.tmp" && mv "$CACHE_MANIFEST.tmp" "$CACHE_MANIFEST"
             rmdir "$lock_dir"
         )
-    else
-        echo "ERROR:DOWNLOAD_FAILED"; rm -f "$CACHE_DIR/$remote_file"; return 1
-    fi
+    else echo "ERROR:DOWNLOAD_FAILED"; rm -f "$CACHE_DIR/$remote_file"; return 1; fi
 }
 
 sync_modules() {
     info "Aktif modüllerin önbellekleri senkronize ediliyor..."
     mapfile -t modules_to_sync < <(jq -r '.modules[] | select(.enabled == true) | .name' "$MODULES_FILE")
     if [ ${#modules_to_sync[@]} -eq 0 ]; then warn "Senkronize edilecek modül yok."; return; fi
-
     RESULTS_DIR=$(mktemp -d); local job_count=0
     for module_name in "${modules_to_sync[@]}"; do
         process_single_download "$module_name" > "$RESULTS_DIR/$module_name.result" &
@@ -174,12 +164,10 @@ sync_modules() {
 # --- Ana Fonksiyon ---
 main() {
     init_system
-    setup_github_token
-    
-    if [ "$1" != "sync" ]; then
-        error "Bu otomasyon betiği sadece 'sync' komutunu destekler."
-    fi
-    sync_modules
+    case $1 in
+        sync) sync_modules ;;
+        *) error "Geçersiz komut: $1. Bu betik sadece 'sync' komutunu destekler.";;
+    esac
 }
-
 main "$@"
+
