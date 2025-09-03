@@ -132,6 +132,14 @@
       "type": "github_release",
       "source": "YurikeyDev/yurikey",
       "asset_filter": "\\.zip$"
+    },
+    {
+      "name": "magiskalpha",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "app-release",
+      "asset_filter": "",
+      "source_channel": "magiskalpha"
     }
   ]
 }
