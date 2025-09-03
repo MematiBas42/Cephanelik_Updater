@@ -1,9 +1,8 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v10.4 - Otomasyon Odaklı Sürüm
-# YENİLİKLER (v10.4):
-# - 'set -e' kaldırıldı ve hata yönetimi fonksiyonlara devredildi.
-# - Her bir API çağrısı ve indirme işlemi artık kendi hata durumunu raporluyor.
-# - Bu sayede tek bir modülün hatası tüm betiği durdurmuyor ve sonunda detaylı bir hata raporu alınabiliyor.
+# KSU Modül Yöneticisi v10.5 - Otomasyon Odaklı Sürüm
+# YENİLİKLER (v10.5):
+# - jq komutlarındaki hatalı değişken kullanımı ($1 yerine $name) düzeltildi.
+# - Bu düzeltme, modül bilgilerinin modules.json'dan doğru okunmasını sağlar.
 
 # --- Yapılandırma ve Global Değişkenler ---
 MODULES_FILE="" 
@@ -97,7 +96,8 @@ get_telegram_message_with_file() {
 }
 
 get_remote_filename() {
-    local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $1)' "$MODULES_FILE")
+    # DÜZELTME: jq içinde `$1` yerine `$name` kullanıldı.
+    local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $name)' "$MODULES_FILE")
     local type source filter source_channel;
     type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
     filter=$(jq -r '.asset_filter' <<< "$module_json"); source_channel=$(jq -r '.source_channel' <<< "$module_json")
@@ -141,6 +141,7 @@ process_single_download() {
     fi
 
     echo "İNDİRME: '$module_name' için yeni sürüm ($remote_file) indiriliyor..."
+    # DÜZELTME: jq içinde `$1` yerine `$name` kullanıldı.
     local module_json; module_json=$(jq --arg name "$module_name" '.modules[] | select(.name == $name)' "$MODULES_FILE")
     local type source source_channel download_url;
     type=$(jq -r '.type' <<< "$module_json"); source=$(jq -r '.source' <<< "$module_json")
