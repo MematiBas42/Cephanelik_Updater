@@ -15,7 +15,7 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
 # Kaynak ve hedef kanallar
 # Kaynak kanalları JSON formatında bir string olarak al ve parse et
-SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '[]')
+SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '["magiskalpha"]')
 SOURCE_CHATS = json.loads(SOURCE_CHATS_JSON)
 DESTINATION_CHANNEL = os.environ.get('TELEGRAM_ARCHIVE_CHANNEL')
 STATE_FILE = 'forwarder_state.json'
