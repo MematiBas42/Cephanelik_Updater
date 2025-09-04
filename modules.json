@@ -131,7 +131,7 @@
       "enabled": true,
       "type": "telegram_forwarder",
       "source": "Shamiko",
-      "asset_filter": ""
+      "asset_filter": "",
       "source_channel": "LSPosed"
     },
     {
