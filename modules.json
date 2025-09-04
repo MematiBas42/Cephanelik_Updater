@@ -135,6 +135,14 @@
       "source_channel": "LSPosed"
     },
     {
+      "name": "reveny",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "native-root-detector",
+      "asset_filter": "",
+      "source_channel": "rootdetector"
+    },
+    {
       "name": "magiskalpha",
       "enabled": true,
       "type": "telegram_forwarder",
