@@ -33,7 +33,8 @@ jobs:
         with:
           repository: 'MematiBas42/Cephanelik_Updater'
           token: ${{ secrets.GITHUB_TOKEN }}
-   # ------------------- GEÇİCİ HATA AYIKLAMA ADIMI -------------------
+      
+      # ------------------- GEÇİCİ HATA AYIKLAMA ADIMI -------------------
       # BU ADIMI İŞİNİZ BİTTİĞİNDE MUTLAKA SİLİN!
       - name: ⚠️ Sırların Değerlerini Kontrol Et
         run: |
@@ -107,3 +108,4 @@ jobs:
           else
             echo "Yeni değişiklik bulunamadı."
           fi
+
