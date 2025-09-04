@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # ==============================================================================
-# CEPHANELİK UPDATER - vFINAL - TEK DOSYALI NİHAİ OTOMASYON BETİĞİ
+# CEPHANELİK UPDATER - vFINAL.2 - PERFORMANS OPTİMİZASYONLU SÜRÜM
 # ==============================================================================
-# AÇIKLAMA: Bu betik, projenin tüm işlevselliğini (modül indirme ve yayınlama)
-# tek bir dosyada birleştirir. Sade, performanslı ve son derece sağlam bir yapı
-# sunmak üzere tasarlanmıştır.
+# AÇIKLAMA: Bu betik, projenin tüm işlevselliğini tek bir dosyada birleştirir.
+# Bu sürümde, dosyaları indirmeden önce buluttaki sürüm ile Telegram'daki
+# sürümü karşılaştıran akıllı bir kontrol mekanizması eklenmiştir. Bu sayede
+# sadece gerçekten güncellenmesi gereken dosyalar indirilir.
 
 import os
 import json
@@ -180,49 +181,63 @@ class ModuleHandler:
             print(f"[KRİTİK HATA] '{MODULES_FILE_SRC}' dosyası bulunamadı veya bozuk. Çıkılıyor.")
             return
 
+        telegram_durum = self.state_manager.load_telegram_durum()
+        manifest_was_updated = False
+
         for module in sorted([m for m in modules if m.get('enabled')], key=lambda x: x['name']):
             name, type = module['name'], module['type']
-            print(f"\n[İŞLEM] Modül kontrol ediliyor: {name} (Tip: {type})")
+            print(f"\n[İŞLEM] Uzak sürüm kontrol ediliyor: {name} (Tip: {type})")
 
-            getters = {
+            getter_func = {
                 'telegram_forwarder': self._get_telegram_remote_file,
                 'github_release': self._get_github_release_remote_file,
                 'github_ci': self._get_github_ci_remote_file,
                 'gitlab_release': self._get_gitlab_release_remote_file,
-            }
+            }.get(type)
 
-            if type not in getters:
+            if not getter_func:
                 print(f"[UYARI] Desteklenmeyen modül tipi: {type}. Atlanıyor.")
                 continue
             
-            # Asenkron fonksiyonlar için özel işlem
-            if asyncio.iscoroutinefunction(getters[type]):
-                info = await getters[type](module)
-            else:
-                info = getters[type](module)
+            info = await getter_func(module) if asyncio.iscoroutinefunction(getter_func) else getter_func(module)
 
             if not info:
-                print(f"[BİLGİ] '{name}' için yeni sürüm bulunamadı.")
+                print(f"[BİLGİ] '{name}' için kaynakta dosya bulunamadı.")
                 continue
 
-            cached_info = self.manifest.get(name, {})
-            if info['file_name'] == cached_info.get('file_name') and os.path.exists(os.path.join(CACHE_DIR, info['file_name'])):
-                print(f"[BİLGİ] '{name}' zaten güncel.")
+            remote_filename = info['file_name']
+            posted_filename = telegram_durum.get(name, {}).get('file_name')
+
+            if remote_filename == posted_filename:
+                print(f"[BİLGİ] '{name}' Telegram'da zaten güncel ({posted_filename}). İndirme atlanıyor.")
                 continue
 
-            print(f"[İNDİRME] '{name}' için yeni sürüm ({info['file_name']}) indiriliyor...")
-            path = os.path.join(CACHE_DIR, info['file_name'])
+            print(f"[İNDİRME] '{name}' için yeni sürüm ({remote_filename}) indirilecek çünkü kanaldaki sürüm ({posted_filename or 'YOK'}) farklı.")
+            path = os.path.join(CACHE_DIR, remote_filename)
             downloader = info.pop('downloader')
-            success = await downloader(path) if asyncio.iscoroutinefunction(downloader) else downloader(path)
+            
+            result = downloader(path)
+            if asyncio.iscoroutine(result):
+                downloaded_path = await result
+                success = downloaded_path is not None
+            else:
+                success = result
 
             if success:
-                old_file = cached_info.get('file_name')
-                if old_file and old_file != info['file_name'] and os.path.exists(os.path.join(CACHE_DIR, old_file)):
-                    os.remove(os.path.join(CACHE_DIR, old_file))
+                manifest_was_updated = True
+                old_file_in_manifest = self.manifest.get(name, {}).get('file_name')
+                if old_file_in_manifest and old_file_in_manifest != remote_filename and os.path.exists(os.path.join(CACHE_DIR, old_file_in_manifest)):
+                    os.remove(os.path.join(CACHE_DIR, old_file_in_manifest))
                 self.manifest[name] = info
                 print(f"[BAŞARILI] '{name}' indirildi ve manifest güncellendi.")
+            else:
+                print(f"[HATA] '{name}' indirilemediği için bu döngüde atlanacak.")
 
-        self.state_manager.save_manifest(self.manifest)
+        if manifest_was_updated:
+            self.state_manager.save_manifest(self.manifest)
+        else:
+            print("\n[BİLGİ] Hiçbir modül indirilmedi, manifest dosyası değişmedi.")
+        
         print("--- Modül Kontrol ve İndirme Aşaması Tamamlandı ---")
 
 
@@ -288,26 +303,22 @@ class TelethonPublisher:
 async def main():
     """Ana otomasyon fonksiyonu."""
     print("==============================================")
-    print(f"   Cephanelik Updater vFINAL Başlatıldı")
+    print(f"   Cephanelik Updater vFINAL.2 Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
     
-    # Gerekli tüm sırlar (secrets) var mı diye kontrol et
     if not all([API_ID, API_HASH, SESSION_STRING, GIT_API_TOKEN]):
-        raise ValueError("TELEGRAM_API_ID, TELEGRAM_API_HASH, TELEGRAM_SESSION_STRING ve GIT_API_TOKEN ortam değişkenleri ayarlanmalıdır.")
+        raise ValueError("Gerekli tüm ortam değişkenleri ayarlanmalıdır.")
 
     state_manager = StateManager(STATE_DIR)
     
     async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
-        # 1. Adım: Modülleri indir/güncelle
         handler = ModuleHandler(client, state_manager)
         await handler.process_modules()
         
-        # 2. Adım: Güncellenen modülleri yayınla
         publisher = TelethonPublisher(client, state_manager)
         await publisher.publish_updates()
 
-    # 3. Adım: Son çalışma tarihini kaydet
     with open(LAST_RUN_FILE, "w") as f:
         f.write(datetime.now().strftime("%Y-%m-%d"))
 
@@ -316,3 +327,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
