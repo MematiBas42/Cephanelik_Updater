@@ -77,7 +77,7 @@ class ModuleHandler:
                         'file_name': message.document.attributes[0].file_name,
                         'version_id': str(message.id),
                         'source_url': f"https://t.me/{message.chat.username}/{message.id}",
-                        'date': message.date.strftime("%d.%m.%Y"),
+                        'date': message.date.strftime("%d.%m.%Y %H:%M"),
                         'telegram_message': message
                     }
             return None
@@ -95,7 +95,7 @@ class ModuleHandler:
                 'file_name': asset['name'],
                 'version_id': asset['updated_at'],
                 'source_url': data.get('html_url', '#'),
-                'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y"),
+                'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M"),
                 'download_url': asset['browser_download_url']
             }
         return None
@@ -109,7 +109,7 @@ class ModuleHandler:
             filename = os.path.basename(url)
             return {
                 'file_name': filename, 'version_id': filename,
-                'source_url': module['source'], 'date': datetime.now().strftime("%d.%m.%Y"),
+                'source_url': module['source'], 'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
                 'download_url': url
             }
         return None
@@ -124,7 +124,7 @@ class ModuleHandler:
             return {
                 'file_name': link['name'], 'version_id': release['released_at'],
                 'source_url': release.get('_links', {}).get('self', '#'),
-                'date': datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z").strftime("%d.%m.%Y"),
+                'date': datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z").strftime("%d.%m.%Y %H:%M"),
                 'download_url': link['url']
             }
         return None
@@ -267,8 +267,6 @@ class TelethonPublisher:
                 f"📄 <b>Dosya Adı:</b> <code>{info['file_name']}</code>\n"
                 f"📅 <b>Güncelleme Tarihi:</b> {info['date']}\n\n"
                 f"🔗 <b><a href='{info['source_url']}'>Kaynak</a></b>\n"
-                f"⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\n"
-                f"<i>Otomatik olarak güncellendi.</i>"
             )
 
             print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
@@ -292,7 +290,7 @@ class TelethonPublisher:
 async def main():
     """Ana otomasyon fonksiyonu."""
     print("==============================================")
-    print(f"   Cephanelik Updater vFINAL.6 Başlatıldı")
+    print(f"   Cephanelik Updater vFINAL.7 Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
     
