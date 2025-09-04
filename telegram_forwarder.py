@@ -27,8 +27,8 @@ except json.JSONDecodeError:
     print(f"[HATA] TELEGRAM_SOURCE_CHATS ortam değişkeni geçerli bir JSON formatında değil: {SOURCE_CHATS_JSON}")
     SOURCE_CHATS = []
 
-
-DESTINATION_CHANNEL = os.environ.get('TELEGRAM_ARCHIVE_CHANNEL')
+raw_channel_id = os.environ.get('TELEGRAM_ARCHIVE_CHANNEL')
+DESTINATION_CHANNEL = int(f"-{raw_channel_id}") if raw_channel_id else None
 STATE_FILE = 'forwarder_state.json'
 
 # --- BETİK KODU ---

@@ -1,0 +1,634 @@
+2025-09-04T10:11:05.1302355Z Current runner version: '2.328.0'
+2025-09-04T10:11:05.1326447Z ##[group]Runner Image Provisioner
+2025-09-04T10:11:05.1327408Z Hosted Compute Agent
+2025-09-04T10:11:05.1328092Z Version: 20250829.383
+2025-09-04T10:11:05.1328749Z Commit: 27cb235aab5b0e52e153a26cd86b4742e89dac5d
+2025-09-04T10:11:05.1329585Z Build Date: 2025-08-29T13:48:48Z
+2025-09-04T10:11:05.1330282Z ##[endgroup]
+2025-09-04T10:11:05.1330913Z ##[group]Operating System
+2025-09-04T10:11:05.1331595Z Ubuntu
+2025-09-04T10:11:05.1332109Z 24.04.3
+2025-09-04T10:11:05.1332737Z LTS
+2025-09-04T10:11:05.1333269Z ##[endgroup]
+2025-09-04T10:11:05.1333872Z ##[group]Runner Image
+2025-09-04T10:11:05.1334540Z Image: ubuntu-24.04
+2025-09-04T10:11:05.1335278Z Version: 20250831.1.0
+2025-09-04T10:11:05.1336509Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250831.1/images/ubuntu/Ubuntu2404-Readme.md
+2025-09-04T10:11:05.1338139Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250831.1
+2025-09-04T10:11:05.1339294Z ##[endgroup]
+2025-09-04T10:11:05.1340521Z ##[group]GITHUB_TOKEN Permissions
+2025-09-04T10:11:05.1342361Z Contents: write
+2025-09-04T10:11:05.1343093Z Metadata: read
+2025-09-04T10:11:05.1343694Z ##[endgroup]
+2025-09-04T10:11:05.1346859Z Secret source: Actions
+2025-09-04T10:11:05.1347920Z Prepare workflow directory
+2025-09-04T10:11:05.1681120Z Prepare all required actions
+2025-09-04T10:11:05.1720765Z Getting action download info
+2025-09-04T10:11:05.5128060Z Download action repository 'actions/checkout@v4' (SHA:08eba0b27e820071cde6df949e0beb9ba4906955)
+2025-09-04T10:11:06.0053965Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2025-09-04T10:11:06.2062691Z Complete job name: update-files
+2025-09-04T10:11:06.2801626Z ##[group]Run actions/checkout@v4
+2025-09-04T10:11:06.2802601Z with:
+2025-09-04T10:11:06.2803141Z   repository: MematiBas42/Cephanelik_Updater
+2025-09-04T10:11:06.2804007Z   token: ***
+2025-09-04T10:11:06.2804491Z   ssh-strict: true
+2025-09-04T10:11:06.2805192Z   ssh-user: git
+2025-09-04T10:11:06.2805705Z   persist-credentials: true
+2025-09-04T10:11:06.2806256Z   clean: true
+2025-09-04T10:11:06.2806765Z   sparse-checkout-cone-mode: true
+2025-09-04T10:11:06.2807353Z   fetch-depth: 1
+2025-09-04T10:11:06.2807914Z   fetch-tags: false
+2025-09-04T10:11:06.2808427Z   show-progress: true
+2025-09-04T10:11:06.2808936Z   lfs: false
+2025-09-04T10:11:06.2809418Z   submodules: false
+2025-09-04T10:11:06.2809930Z   set-safe-directory: true
+2025-09-04T10:11:06.2810728Z ##[endgroup]
+2025-09-04T10:11:06.3896770Z Syncing repository: MematiBas42/Cephanelik_Updater
+2025-09-04T10:11:06.3898845Z ##[group]Getting Git version info
+2025-09-04T10:11:06.3899894Z Working directory is '/home/runner/work/Cephanelik_Updater/Cephanelik_Updater'
+2025-09-04T10:11:06.3901155Z [command]/usr/bin/git version
+2025-09-04T10:11:06.3966207Z git version 2.51.0
+2025-09-04T10:11:06.3992101Z ##[endgroup]
+2025-09-04T10:11:06.4006514Z Temporarily overriding HOME='/home/runner/work/_temp/a6ec4368-dc9f-451d-b9af-5ccfb623e25b' before making global git config changes
+2025-09-04T10:11:06.4008914Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-04T10:11:06.4019015Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Cephanelik_Updater/Cephanelik_Updater
+2025-09-04T10:11:06.4055046Z Deleting the contents of '/home/runner/work/Cephanelik_Updater/Cephanelik_Updater'
+2025-09-04T10:11:06.4058632Z ##[group]Initializing the repository
+2025-09-04T10:11:06.4062499Z [command]/usr/bin/git init /home/runner/work/Cephanelik_Updater/Cephanelik_Updater
+2025-09-04T10:11:06.4153688Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-09-04T10:11:06.4155463Z hint: is subject to change. To configure the initial branch name to use in all
+2025-09-04T10:11:06.4156522Z hint: of your new repositories, which will suppress this warning, call:
+2025-09-04T10:11:06.4157347Z hint:
+2025-09-04T10:11:06.4158022Z hint: 	git config --global init.defaultBranch <name>
+2025-09-04T10:11:06.4159492Z hint:
+2025-09-04T10:11:06.4160169Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-09-04T10:11:06.4161201Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-09-04T10:11:06.4162008Z hint:
+2025-09-04T10:11:06.4162494Z hint: 	git branch -m <name>
+2025-09-04T10:11:06.4163029Z hint:
+2025-09-04T10:11:06.4164075Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2025-09-04T10:11:06.4165979Z Initialized empty Git repository in /home/runner/work/Cephanelik_Updater/Cephanelik_Updater/.git/
+2025-09-04T10:11:06.4169801Z [command]/usr/bin/git remote add origin https://github.com/MematiBas42/Cephanelik_Updater
+2025-09-04T10:11:06.4205219Z ##[endgroup]
+2025-09-04T10:11:06.4206143Z ##[group]Disabling automatic garbage collection
+2025-09-04T10:11:06.4208923Z [command]/usr/bin/git config --local gc.auto 0
+2025-09-04T10:11:06.4238427Z ##[endgroup]
+2025-09-04T10:11:06.4240052Z ##[group]Setting up auth
+2025-09-04T10:11:06.4246165Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-04T10:11:06.4277032Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-04T10:11:06.4691505Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-04T10:11:06.4722258Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-04T10:11:06.4942664Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-09-04T10:11:06.4977594Z ##[endgroup]
+2025-09-04T10:11:06.4994124Z ##[group]Fetching the repository
+2025-09-04T10:11:06.4996491Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9cc28efbb50686f5bbb1ba29cbade964972a5168:refs/remotes/origin/main
+2025-09-04T10:11:06.8362576Z From https://github.com/MematiBas42/Cephanelik_Updater
+2025-09-04T10:11:06.8366886Z  * [new ref]         9cc28efbb50686f5bbb1ba29cbade964972a5168 -> origin/main
+2025-09-04T10:11:06.8393839Z ##[endgroup]
+2025-09-04T10:11:06.8395758Z ##[group]Determining the checkout info
+2025-09-04T10:11:06.8397435Z ##[endgroup]
+2025-09-04T10:11:06.8401220Z [command]/usr/bin/git sparse-checkout disable
+2025-09-04T10:11:06.8440332Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-09-04T10:11:06.8469511Z ##[group]Checking out the ref
+2025-09-04T10:11:06.8472930Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2025-09-04T10:11:06.8520414Z Switched to a new branch 'main'
+2025-09-04T10:11:06.8523023Z branch 'main' set up to track 'origin/main'.
+2025-09-04T10:11:06.8529837Z ##[endgroup]
+2025-09-04T10:11:06.8561756Z [command]/usr/bin/git log -1 --format=%H
+2025-09-04T10:11:06.8583738Z 9cc28efbb50686f5bbb1ba29cbade964972a5168
+2025-09-04T10:11:06.8883677Z ##[group]Run actions/setup-python@v5
+2025-09-04T10:11:06.8885276Z with:
+2025-09-04T10:11:06.8886452Z   python-version: 3.11
+2025-09-04T10:11:06.8887793Z   check-latest: false
+2025-09-04T10:11:06.8889408Z   token: ***
+2025-09-04T10:11:06.8890455Z   update-environment: true
+2025-09-04T10:11:06.8891694Z   allow-prereleases: false
+2025-09-04T10:11:06.8892882Z   freethreaded: false
+2025-09-04T10:11:06.8893947Z ##[endgroup]
+2025-09-04T10:11:07.0618703Z ##[group]Installed versions
+2025-09-04T10:11:07.1119790Z Successfully set up CPython (3.11.13)
+2025-09-04T10:11:07.1122835Z ##[endgroup]
+2025-09-04T10:11:07.1273741Z ##[group]Run pip install telethon
+2025-09-04T10:11:07.1275345Z [36;1mpip install telethon[0m
+2025-09-04T10:11:07.1452684Z shell: /usr/bin/bash -e {0}
+2025-09-04T10:11:07.1453784Z env:
+2025-09-04T10:11:07.1455203Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:07.1457447Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib/pkgconfig
+2025-09-04T10:11:07.1459325Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:07.1461002Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:07.1462686Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:07.1464400Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib
+2025-09-04T10:11:07.1465964Z ##[endgroup]
+2025-09-04T10:11:11.3439286Z Collecting telethon
+2025-09-04T10:11:11.4268670Z   Downloading telethon-1.41.0-py3-none-any.whl.metadata (3.9 kB)
+2025-09-04T10:11:11.4486446Z Collecting pyaes (from telethon)
+2025-09-04T10:11:11.4647010Z   Downloading pyaes-1.6.1.tar.gz (28 kB)
+2025-09-04T10:11:11.4852867Z   Installing build dependencies: started
+2025-09-04T10:11:12.8777078Z   Installing build dependencies: finished with status 'done'
+2025-09-04T10:11:12.8782994Z   Getting requirements to build wheel: started
+2025-09-04T10:11:13.2780336Z   Getting requirements to build wheel: finished with status 'done'
+2025-09-04T10:11:13.2788292Z   Preparing metadata (pyproject.toml): started
+2025-09-04T10:11:13.4475902Z   Preparing metadata (pyproject.toml): finished with status 'done'
+2025-09-04T10:11:13.4716552Z Collecting rsa (from telethon)
+2025-09-04T10:11:13.4885315Z   Downloading rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+2025-09-04T10:11:13.5223527Z Collecting pyasn1>=0.1.3 (from rsa->telethon)
+2025-09-04T10:11:13.5381771Z   Downloading pyasn1-0.6.1-py3-none-any.whl.metadata (8.4 kB)
+2025-09-04T10:11:13.5584706Z Downloading telethon-1.41.0-py3-none-any.whl (744 kB)
+2025-09-04T10:11:13.6123803Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 744.9/744.9 kB 24.8 MB/s  0:00:00
+2025-09-04T10:11:13.6281740Z Downloading rsa-4.9.1-py3-none-any.whl (34 kB)
+2025-09-04T10:11:13.6462510Z Downloading pyasn1-0.6.1-py3-none-any.whl (83 kB)
+2025-09-04T10:11:13.6549526Z Building wheels for collected packages: pyaes
+2025-09-04T10:11:13.6557629Z   Building wheel for pyaes (pyproject.toml): started
+2025-09-04T10:11:13.8520404Z   Building wheel for pyaes (pyproject.toml): finished with status 'done'
+2025-09-04T10:11:13.8527465Z   Created wheel for pyaes: filename=pyaes-1.6.1-py3-none-any.whl size=26422 sha256=b82507a0c7ca13345f75d6be8f58447009b970296f327c66d6576f5d9a0a0fdf
+2025-09-04T10:11:13.8529270Z   Stored in directory: /home/runner/.cache/pip/wheels/4e/52/33/010d0843550bffb6a591b11629070ae140c0ad4f53e68a3bd3
+2025-09-04T10:11:13.8550423Z Successfully built pyaes
+2025-09-04T10:11:13.8653368Z Installing collected packages: pyaes, pyasn1, rsa, telethon
+2025-09-04T10:11:14.8381669Z 
+2025-09-04T10:11:14.8392124Z Successfully installed pyaes-1.6.1 pyasn1-0.6.1 rsa-4.9.1 telethon-1.41.0
+2025-09-04T10:11:15.0168787Z ##[group]Run python telegram_forwarder.py
+2025-09-04T10:11:15.0169175Z [36;1mpython telegram_forwarder.py[0m
+2025-09-04T10:11:15.0199511Z shell: /usr/bin/bash -e {0}
+2025-09-04T10:11:15.0199806Z env:
+2025-09-04T10:11:15.0200142Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:15.0200597Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib/pkgconfig
+2025-09-04T10:11:15.0201038Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:15.0201425Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:15.0201814Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:15.0202201Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib
+2025-09-04T10:11:15.0202660Z   TELEGRAM_API_ID: ***
+2025-09-04T10:11:15.0202952Z   TELEGRAM_API_HASH: ***
+2025-09-04T10:11:15.0204620Z   TELEGRAM_SESSION_STRING: ***
+2025-09-04T10:11:15.0205218Z   TELEGRAM_SOURCE_CHATS: ***
+2025-09-04T10:11:15.0205553Z   TELEGRAM_ARCHIVE_CHANNEL: ***
+2025-09-04T10:11:15.0205806Z ##[endgroup]
+2025-09-04T10:11:18.2497020Z Otomatik yönlendirici başlatıldı (GitHub Actions Modu).
+2025-09-04T10:11:18.2499036Z Kaynak kanallar: magiskalpha, LSPosed, rootdetector
+2025-09-04T10:11:18.2500088Z Hedef kanal: ***
+2025-09-04T10:11:18.2500307Z 
+2025-09-04T10:11:18.2500584Z [magiskalpha] kanalı kontrol ediliyor...
+2025-09-04T10:11:18.2501100Z -> Yeni dosya bulunamadı.
+2025-09-04T10:11:18.2501338Z 
+2025-09-04T10:11:18.2501566Z [LSPosed] kanalı kontrol ediliyor...
+2025-09-04T10:11:18.2502124Z -> 1 adet yeni dosya bulundu. Yönlendiriliyor...
+2025-09-04T10:11:18.2503133Z   - HATA: Mesaj yönlendirilemedi: Cannot find any entity corresponding to "***"
+2025-09-04T10:11:18.2503630Z 
+2025-09-04T10:11:18.2503911Z [rootdetector] kanalı kontrol ediliyor...
+2025-09-04T10:11:18.2504505Z -> 1 adet yeni dosya bulundu. Yönlendiriliyor...
+2025-09-04T10:11:18.2505621Z   - HATA: Mesaj yönlendirilemedi: Cannot find any entity corresponding to "***"
+2025-09-04T10:11:18.2506147Z 
+2025-09-04T10:11:18.2506460Z Tüm işlemler tamamlandı. Yönlendirici durduruluyor.
+2025-09-04T10:11:18.2957350Z ##[group]Run sudo apt-get update && sudo apt-get install -y jq
+2025-09-04T10:11:18.2957859Z [36;1msudo apt-get update && sudo apt-get install -y jq[0m
+2025-09-04T10:11:18.2958246Z [36;1mmkdir -p $HOME/.config/ksu-manager[0m
+2025-09-04T10:11:18.2958618Z [36;1mcp ./modules.json $HOME/.config/ksu-manager/modules.json[0m
+2025-09-04T10:11:18.2988754Z shell: /usr/bin/bash -e {0}
+2025-09-04T10:11:18.2989000Z env:
+2025-09-04T10:11:18.2989265Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:18.2989700Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib/pkgconfig
+2025-09-04T10:11:18.2990116Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:18.2990487Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:18.2990855Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:18.2991223Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib
+2025-09-04T10:11:18.2991571Z ##[endgroup]
+2025-09-04T10:11:18.4475982Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2025-09-04T10:11:18.4896523Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2025-09-04T10:11:18.4925055Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2025-09-04T10:11:18.4956171Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2025-09-04T10:11:18.5017008Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2025-09-04T10:11:18.5397004Z Get:6 https://packages.microsoft.com/repos/azure-cli noble InRelease [3564 B]
+2025-09-04T10:11:18.5526503Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2025-09-04T10:11:18.6676435Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1389 kB]
+2025-09-04T10:11:18.6841266Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [274 kB]
+2025-09-04T10:11:18.6871449Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [175 kB]
+2025-09-04T10:11:18.6891836Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 c-n-f Metadata [14.9 kB]
+2025-09-04T10:11:18.6903090Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1481 kB]
+2025-09-04T10:11:18.6990658Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [298 kB]
+2025-09-04T10:11:18.7015857Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [376 kB]
+2025-09-04T10:11:18.7058525Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 c-n-f Metadata [31.0 kB]
+2025-09-04T10:11:18.7071729Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1791 kB]
+2025-09-04T10:11:18.7168424Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [400 kB]
+2025-09-04T10:11:18.7632180Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Components [212 B]
+2025-09-04T10:11:18.7642987Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+2025-09-04T10:11:18.7654698Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [7076 B]
+2025-09-04T10:11:18.7666915Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [19.2 kB]
+2025-09-04T10:11:18.7679411Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-backports/restricted amd64 Components [216 B]
+2025-09-04T10:11:18.7689760Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+2025-09-04T10:11:18.7811837Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1118 kB]
+2025-09-04T10:11:18.7892797Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [191 kB]
+2025-09-04T10:11:18.7917851Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [21.6 kB]
+2025-09-04T10:11:18.7930893Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 c-n-f Metadata [8712 B]
+2025-09-04T10:11:18.7945391Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [879 kB]
+2025-09-04T10:11:18.8000812Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [194 kB]
+2025-09-04T10:11:18.8023963Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [52.2 kB]
+2025-09-04T10:11:18.8037834Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1705 kB]
+2025-09-04T10:11:18.8551550Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [382 kB]
+2025-09-04T10:11:18.8568611Z Get:35 https://packages.microsoft.com/repos/azure-cli noble/main amd64 Packages [1568 B]
+2025-09-04T10:11:18.8582850Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Components [208 B]
+2025-09-04T10:11:18.8592124Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Components [208 B]
+2025-09-04T10:11:18.9037401Z Get:36 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [50.3 kB]
+2025-09-04T10:11:18.9320916Z Get:37 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [34.1 kB]
+2025-09-04T10:11:26.9625166Z Fetched 11.3 MB in 1s (8188 kB/s)
+2025-09-04T10:11:27.7033412Z Reading package lists...
+2025-09-04T10:11:27.7353621Z Reading package lists...
+2025-09-04T10:11:27.9059454Z Building dependency tree...
+2025-09-04T10:11:27.9067194Z Reading state information...
+2025-09-04T10:11:28.1178797Z jq is already the newest version (1.7.1-3ubuntu0.24.04.1).
+2025-09-04T10:11:28.1179704Z 0 upgraded, 0 newly installed, 0 to remove and 15 not upgraded.
+2025-09-04T10:11:28.1252545Z ##[group]Run bash ./mis sync
+2025-09-04T10:11:28.1252840Z [36;1mbash ./mis sync[0m
+2025-09-04T10:11:28.1282384Z shell: /usr/bin/bash -e {0}
+2025-09-04T10:11:28.1282633Z env:
+2025-09-04T10:11:28.1282908Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:28.1283344Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib/pkgconfig
+2025-09-04T10:11:28.1283776Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:28.1284147Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:28.1284527Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:28.1285117Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib
+2025-09-04T10:11:28.1285839Z   BOT_TOKEN_FOR_ARCHIVE: ***
+2025-09-04T10:11:28.1286133Z   TELEGRAM_ARCHIVE_CHANNEL: ***
+2025-09-04T10:11:28.1286694Z   GIT_API_TOKEN: ***
+2025-09-04T10:11:28.1286917Z ##[endgroup]
+2025-09-04T10:11:28.1357962Z [0;32m[BİLGİ][0m 'modules.json' proje kök dizininde bulundu.
+2025-09-04T10:11:28.1371261Z [1;33m[UYARI][0m '/home/runner/.cache/ksu-manager/manifest.json' bulunamadı, yeniden oluşturuluyor.
+2025-09-04T10:11:28.1372308Z [0;32m[BİLGİ][0m Aktif modüllerin önbellekleri senkronize ediliyor...
+2025-09-04T10:11:37.7809879Z [0;32m[BİLGİ][0m Senkronizasyon tamamlandı. Sonuçlar raporlanıyor...
+2025-09-04T10:11:37.7810615Z -----------------------------------------------------
+2025-09-04T10:11:37.7810983Z [1;33mModül: TrickyStore[0m
+2025-09-04T10:11:37.7811233Z ----------------
+2025-09-04T10:11:37.7819180Z İNDİRME: 'TrickyStore' için yeni sürüm (Tricky-Store-v1.3.0-180-8acfa57-release.zip) indiriliyor...
+2025-09-04T10:11:37.7820036Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7820678Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7821027Z 
+2025-09-04T10:11:37.7821246Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7821752Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7822073Z 
+2025-09-04T10:11:37.7822331Z 100 2630k  100 2630k    0     0  7203k      0 --:--:-- --:--:-- --:--:-- 7203k
+2025-09-04T10:11:37.7822903Z BAŞARILI: 'TrickyStore' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7823156Z 
+2025-09-04T10:11:37.7823299Z [1;33mModül: pif[0m
+2025-09-04T10:11:37.7823522Z ----------------
+2025-09-04T10:11:37.7830035Z İNDİRME: 'pif' için yeni sürüm (PlayIntegrityFix_v4.3-inject-s_164.zip) indiriliyor...
+2025-09-04T10:11:37.7830538Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7830933Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7831223Z 
+2025-09-04T10:11:37.7831429Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7831789Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7831985Z 
+2025-09-04T10:11:37.7832131Z 100  501k  100  501k    0     0   621k      0 --:--:-- --:--:-- --:--:--  621k
+2025-09-04T10:11:37.7832495Z 100  501k  100  501k    0     0   621k      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7832924Z BAŞARILI: 'pif' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7833177Z 
+2025-09-04T10:11:37.7833317Z [1;33mModül: ZygiskNext[0m
+2025-09-04T10:11:37.7833559Z ----------------
+2025-09-04T10:11:37.7841003Z İNDİRME: 'ZygiskNext' için yeni sürüm (Zygisk-Next-1.2.9.1-534-b8e7e21-release.zip) indiriliyor...
+2025-09-04T10:11:37.7841561Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7841980Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7842360Z 
+2025-09-04T10:11:37.7842503Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7843058Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7843275Z 
+2025-09-04T10:11:37.7843433Z 100 4953k  100 4953k    0     0  10.8M      0 --:--:-- --:--:-- --:--:-- 10.8M
+2025-09-04T10:11:37.7843902Z BAŞARILI: 'ZygiskNext' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7844133Z 
+2025-09-04T10:11:37.7844260Z [1;33mModül: taddon[0m
+2025-09-04T10:11:37.7844490Z ----------------
+2025-09-04T10:11:37.7851901Z İNDİRME: 'taddon' için yeni sürüm (TrickyAddonModule-v4.1-584-canary.zip) indiriliyor...
+2025-09-04T10:11:37.7852865Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7853490Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7853871Z 
+2025-09-04T10:11:37.7854068Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7854602Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7854997Z 
+2025-09-04T10:11:37.7855192Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7855559Z 100 4201k  100 4201k    0     0  3712k      0  0:00:01  0:00:01 --:--:-- 7294k
+2025-09-04T10:11:37.7856032Z BAŞARILI: 'taddon' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7856269Z 
+2025-09-04T10:11:37.7856395Z [1;33mModül: viper[0m
+2025-09-04T10:11:37.7856794Z ----------------
+2025-09-04T10:11:37.7862980Z İNDİRME: 'viper' için yeni sürüm (viper4android_module.zip) indiriliyor...
+2025-09-04T10:11:37.7863482Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7863905Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7864238Z 
+2025-09-04T10:11:37.7864449Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7865268Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7865497Z 
+2025-09-04T10:11:37.7865693Z 100 1800k  100 1800k    0     0  5074k      0 --:--:-- --:--:-- --:--:-- 5074k
+2025-09-04T10:11:37.7866460Z BAŞARILI: 'viper' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7866849Z 
+2025-09-04T10:11:37.7867057Z [1;33mModül: ytm[0m
+2025-09-04T10:11:37.7867428Z ----------------
+2025-09-04T10:11:37.7874310Z İNDİRME: 'ytm' için yeni sürüm (RVX.Anddea.YTM.arm64-v8a.zip) indiriliyor...
+2025-09-04T10:11:37.7874827Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7875699Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7876094Z 
+2025-09-04T10:11:37.7876305Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7876857Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7877227Z 
+2025-09-04T10:11:37.7877463Z  35 55.3M   35 19.4M    0     0  42.9M      0  0:00:01 --:--:--  0:00:01 42.9M
+2025-09-04T10:11:37.7877895Z 100 55.3M  100 55.3M    0     0  72.0M      0 --:--:-- --:--:-- --:--:--  113M
+2025-09-04T10:11:37.7878356Z BAŞARILI: 'ytm' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7878607Z 
+2025-09-04T10:11:37.7878729Z [1;33mModül: YT[0m
+2025-09-04T10:11:37.7878974Z ----------------
+2025-09-04T10:11:37.7885106Z İNDİRME: 'YT' için yeni sürüm (RVX.Anddea.YT.zip) indiriliyor...
+2025-09-04T10:11:37.7885812Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7886420Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7886698Z 
+2025-09-04T10:11:37.7886833Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7887311Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7887574Z 
+2025-09-04T10:11:37.7887727Z   7  177M    7 14.0M    0     0  27.6M      0  0:00:06 --:--:--  0:00:06 27.6M
+2025-09-04T10:11:37.7888301Z  67  177M   67  120M    0     0  80.8M      0  0:00:02  0:00:01  0:00:01  108M
+2025-09-04T10:11:37.7888710Z 100  177M  100  177M    0     0  85.9M      0  0:00:02  0:00:02 --:--:--  105M
+2025-09-04T10:11:37.7889185Z BAŞARILI: 'YT' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7889426Z 
+2025-09-04T10:11:37.7889562Z [1;33mModül: bindh[0m
+2025-09-04T10:11:37.7889802Z ----------------
+2025-09-04T10:11:37.7895463Z İNDİRME: 'bindh' için yeni sürüm (bindhosts_207-0a81a11.zip) indiriliyor...
+2025-09-04T10:11:37.7895942Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7896365Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7896603Z 
+2025-09-04T10:11:37.7896819Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7897250Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7897471Z 
+2025-09-04T10:11:37.7897627Z  39  120k   39 48292    0     0  63115      0  0:00:01 --:--:--  0:00:01 63115
+2025-09-04T10:11:37.7898015Z 100  120k  100  120k    0     0   147k      0 --:--:-- --:--:-- --:--:-- 1518k
+2025-09-04T10:11:37.7898451Z BAŞARILI: 'bindh' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7898925Z 
+2025-09-04T10:11:37.7899155Z [1;33mModül: susfs[0m
+2025-09-04T10:11:37.7899799Z ----------------
+2025-09-04T10:11:37.7906313Z İNDİRME: 'susfs' için yeni sürüm (release-1.5.2%2B_16578fd.zip) indiriliyor...
+2025-09-04T10:11:37.7906816Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7907228Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7907589Z 
+2025-09-04T10:11:37.7907775Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7908115Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7908441Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7908642Z 
+2025-09-04T10:11:37.7908799Z 100 1327k  100 1327k    0     0  1134k      0  0:00:01  0:00:01 --:--:-- 1134k
+2025-09-04T10:11:37.7909239Z BAŞARILI: 'susfs' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7909474Z 
+2025-09-04T10:11:37.7909606Z [1;33mModül: lsposed[0m
+2025-09-04T10:11:37.7909848Z ----------------
+2025-09-04T10:11:37.7917124Z İNDİRME: 'lsposed' için yeni sürüm (LSPosed-v1.10.2-7189-zygisk-release.zip) indiriliyor...
+2025-09-04T10:11:37.7917663Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7918083Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7918474Z 
+2025-09-04T10:11:37.7918627Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7918950Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7919274Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7919481Z 
+2025-09-04T10:11:37.7919635Z 100 6327k  100 6327k    0     0  3937k      0  0:00:01  0:00:01 --:--:-- 3937k
+2025-09-04T10:11:37.7920068Z BAŞARILI: 'lsposed' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7920296Z 
+2025-09-04T10:11:37.7920417Z [1;33mModül: trm[0m
+2025-09-04T10:11:37.7920639Z ----------------
+2025-09-04T10:11:37.7927601Z İNDİRME: 'trm' için yeni sürüm (TermuxRootMods-v1.0.20.zip) indiriliyor...
+2025-09-04T10:11:37.7928070Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7928473Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7928705Z 
+2025-09-04T10:11:37.7928906Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7929327Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7929526Z 
+2025-09-04T10:11:37.7929853Z 100  243k  100  243k    0     0   834k      0 --:--:-- --:--:-- --:--:--  834k
+2025-09-04T10:11:37.7930292Z BAŞARILI: 'trm' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7930520Z 
+2025-09-04T10:11:37.7930644Z [1;33mModül: ReLSPosed[0m
+2025-09-04T10:11:37.7930881Z ----------------
+2025-09-04T10:11:37.7938471Z İNDİRME: 'ReLSPosed' için yeni sürüm (LSPosed-v1.0.1-7195-zygisk-release.zip) indiriliyor...
+2025-09-04T10:11:37.7939025Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7939440Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7939801Z 
+2025-09-04T10:11:37.7939977Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7940308Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7940631Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7940857Z 
+2025-09-04T10:11:37.7941000Z  11 6378k   11  735k    0     0   729k      0  0:00:08  0:00:01  0:00:07  729k
+2025-09-04T10:11:37.7941391Z 100 6378k  100 6378k    0     0  5179k      0  0:00:01  0:00:01 --:--:-- 24.6M
+2025-09-04T10:11:37.7941852Z BAŞARILI: 'ReLSPosed' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7942100Z 
+2025-09-04T10:11:37.7942240Z [1;33mModül: GPhotosUnlimited[0m
+2025-09-04T10:11:37.7942663Z ----------------
+2025-09-04T10:11:37.7949384Z İNDİRME: 'GPhotosUnlimited' için yeni sürüm (gphoto-unlimited-zygisk-v1.1-stable.zip) indiriliyor...
+2025-09-04T10:11:37.7949960Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7950472Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7950777Z 
+2025-09-04T10:11:37.7950899Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7951240Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7951595Z 100 98633  100 98633    0     0  75694      0  0:00:01  0:00:01 --:--:-- 75754
+2025-09-04T10:11:37.7952069Z BAŞARILI: 'GPhotosUnlimited' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7952335Z 
+2025-09-04T10:11:37.7952447Z [1;33mModül: hma[0m
+2025-09-04T10:11:37.7952672Z ----------------
+2025-09-04T10:11:37.7959801Z İNDİRME: 'hma' için yeni sürüm (HMA-V3.5.apk) indiriliyor...
+2025-09-04T10:11:37.7960246Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7960664Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7960895Z 
+2025-09-04T10:11:37.7961089Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7961539Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7961761Z 
+2025-09-04T10:11:37.7961923Z  10 3201k   10  335k    0     0   931k      0  0:00:03 --:--:--  0:00:03  931k
+2025-09-04T10:11:37.7962320Z 100 3201k  100 3201k    0     0  7230k      0 --:--:-- --:--:-- --:--:-- 34.1M
+2025-09-04T10:11:37.7962759Z BAŞARILI: 'hma' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7962994Z 
+2025-09-04T10:11:37.7963119Z [1;33mModül: rezygisk[0m
+2025-09-04T10:11:37.7963362Z ----------------
+2025-09-04T10:11:37.7970558Z İNDİRME: 'rezygisk' için yeni sürüm (ReZygisk-v1.0.0-rc.3-debug.zip) indiriliyor...
+2025-09-04T10:11:37.7971112Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7971557Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7971927Z 
+2025-09-04T10:11:37.7972095Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7972443Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7972669Z 
+2025-09-04T10:11:37.7972986Z 100  877k  100  877k    0     0  2719k      0 --:--:-- --:--:-- --:--:-- 2719k
+2025-09-04T10:11:37.7973481Z BAŞARILI: 'rezygisk' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7973743Z 
+2025-09-04T10:11:37.7973893Z [1;33mModül: Zygisk-Assistant[0m
+2025-09-04T10:11:37.7974171Z ----------------
+2025-09-04T10:11:37.7981255Z İNDİRME: 'Zygisk-Assistant' için yeni sürüm (Zygisk-Assistant-v2.1.4-1013f8a-debug.zip) indiriliyor...
+2025-09-04T10:11:37.7981891Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7982429Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7982799Z 
+2025-09-04T10:11:37.7982934Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7983282Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7983630Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7983853Z 
+2025-09-04T10:11:37.7984049Z 100  949k  100  949k    0     0  2695k      0 --:--:-- --:--:-- --:--:-- 2695k
+2025-09-04T10:11:37.7984567Z BAŞARILI: 'Zygisk-Assistant' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7985084Z 
+2025-09-04T10:11:37.7985240Z [1;33mModül: nohello[0m
+2025-09-04T10:11:37.7985494Z ----------------
+2025-09-04T10:11:37.7991986Z İNDİRME: 'nohello' için yeni sürüm (Nohello-v0.0.7-53-4d53ecf-debug.zip) indiriliyor...
+2025-09-04T10:11:37.7992705Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.7993272Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.7993586Z 
+2025-09-04T10:11:37.7993719Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7994068Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.7994290Z 
+2025-09-04T10:11:37.7994463Z 100 1703k  100 1703k    0     0  4578k      0 --:--:-- --:--:-- --:--:-- 4578k
+2025-09-04T10:11:37.7995134Z BAŞARILI: 'nohello' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.7995399Z 
+2025-09-04T10:11:37.7995539Z [1;33mModül: yurikey[0m
+2025-09-04T10:11:37.7995781Z ----------------
+2025-09-04T10:11:37.8003268Z İNDİRME: 'yurikey' için yeni sürüm (YuriKey_v1.8.zip) indiriliyor...
+2025-09-04T10:11:37.8003776Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2025-09-04T10:11:37.8004249Z                                  Dload  Upload   Total   Spent    Left  Speed
+2025-09-04T10:11:37.8004578Z 
+2025-09-04T10:11:37.8004787Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.8005443Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2025-09-04T10:11:37.8005791Z 
+2025-09-04T10:11:37.8005964Z 100 2330k  100 2330k    0     0  6781k      0 --:--:-- --:--:-- --:--:-- 6781k
+2025-09-04T10:11:37.8006468Z BAŞARILI: 'yurikey' indirildi ve manifest güncellendi.
+2025-09-04T10:11:37.8006721Z 
+2025-09-04T10:11:37.8006869Z [1;33mModül: shamiko[0m
+2025-09-04T10:11:37.8007113Z ----------------
+2025-09-04T10:11:37.8013704Z jq: parse error: Unfinished JSON term at EOF at line 2, column 0
+2025-09-04T10:11:37.8014178Z HATA: Uzak dosya adı alınamadı. Sebep: 
+2025-09-04T10:11:37.8015243Z 
+2025-09-04T10:11:37.8015683Z [1;33mModül: reveny[0m
+2025-09-04T10:11:37.8015950Z ----------------
+2025-09-04T10:11:37.8024560Z HATA: Uzak dosya adı alınamadı. Sebep: ERROR:TELEGRAM_FILE_NOT_FOUND - 
+2025-09-04T10:11:37.8026800Z 
+2025-09-04T10:11:37.8027246Z [1;33mModül: magiskalpha[0m
+2025-09-04T10:11:37.8027692Z ----------------
+2025-09-04T10:11:37.8036249Z HATA: Uzak dosya adı alınamadı. Sebep: ERROR:TELEGRAM_FILE_NOT_FOUND - 
+2025-09-04T10:11:37.8037843Z 
+2025-09-04T10:11:37.8038233Z -----------------------------------------------------
+2025-09-04T10:11:37.8039084Z [0;32m[BİLGİ][0m Raporlama tamamlandı. Bir sonraki adıma geçiliyor.
+2025-09-04T10:11:37.8086830Z ##[group]Run bash ./telegram_guncelle.sh
+2025-09-04T10:11:37.8087171Z [36;1mbash ./telegram_guncelle.sh[0m
+2025-09-04T10:11:37.8116711Z shell: /usr/bin/bash -e {0}
+2025-09-04T10:11:37.8116963Z env:
+2025-09-04T10:11:37.8117224Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:37.8117668Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib/pkgconfig
+2025-09-04T10:11:37.8118094Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:37.8118479Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:37.8118847Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:37.8119217Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib
+2025-09-04T10:11:37.8119741Z   BOT_TOKEN_FOR_PUBLISH: ***
+2025-09-04T10:11:37.8120047Z   PUBLISH_CHANNEL_ID: ***
+2025-09-04T10:11:37.8120279Z   MANUAL_RUN: true
+2025-09-04T10:11:37.8120488Z ##[endgroup]
+2025-09-04T10:11:37.8192442Z -------------------------------------
+2025-09-04T10:11:37.8204786Z Otomasyon Başlatıldı: Thu Sep  4 10:11:37 UTC 2025
+2025-09-04T10:11:37.8232059Z ---
+2025-09-04T10:11:37.8232634Z [İŞLEM] Modül kontrol ediliyor: TrickyStore
+2025-09-04T10:11:37.8307699Z [BİLGİ] 'TrickyStore' Telegram'da zaten güncel (Tricky-Store-v1.3.0-180-8acfa57-release.zip). İşlem yapılmadı.
+2025-09-04T10:11:37.8308546Z ---
+2025-09-04T10:11:37.8308961Z [İŞLEM] Modül kontrol ediliyor: pif
+2025-09-04T10:11:37.8381022Z [GÜNCELLEME] 'pif' için yeni sürüm bulundu: PlayIntegrityFix_v4.3-inject-s_164.zip
+2025-09-04T10:11:37.8439538Z [TELEGRAM] Eski mesaj siliniyor (ID: 187)...
+2025-09-04T10:11:38.1839061Z [TELEGRAM] Yeni dosya 'PlayIntegrityFix_v4.3-inject-s_164.zip' kanala sessizce yükleniyor...
+2025-09-04T10:11:38.1939932Z [HATA] Telegram'a yüklenemedi. API Yanıtı: 
+2025-09-04T10:11:38.1940441Z ---
+2025-09-04T10:11:38.1940892Z [İŞLEM] Modül kontrol ediliyor: ZygiskNext
+2025-09-04T10:11:38.2014034Z [BİLGİ] 'ZygiskNext' Telegram'da zaten güncel (Zygisk-Next-1.2.9.1-534-b8e7e21-release.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2015048Z ---
+2025-09-04T10:11:38.2015530Z [İŞLEM] Modül kontrol ediliyor: taddon
+2025-09-04T10:11:38.2086434Z [BİLGİ] 'taddon' Telegram'da zaten güncel (TrickyAddonModule-v4.1-584-canary.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2087064Z ---
+2025-09-04T10:11:38.2087536Z [İŞLEM] Modül kontrol ediliyor: viper
+2025-09-04T10:11:38.2157624Z [BİLGİ] 'viper' Telegram'da zaten güncel (viper4android_module.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2158153Z ---
+2025-09-04T10:11:38.2158591Z [İŞLEM] Modül kontrol ediliyor: ytm
+2025-09-04T10:11:38.2229290Z [GÜNCELLEME] 'ytm' için yeni sürüm bulundu: RVX.Anddea.YTM.arm64-v8a.zip
+2025-09-04T10:11:38.2289042Z [TELEGRAM] Yeni dosya 'RVX.Anddea.YTM.arm64-v8a.zip' kanala sessizce yükleniyor...
+2025-09-04T10:11:38.2387427Z [HATA] Telegram'a yüklenemedi. API Yanıtı: 
+2025-09-04T10:11:38.2387967Z ---
+2025-09-04T10:11:38.2388415Z [İŞLEM] Modül kontrol ediliyor: YT
+2025-09-04T10:11:38.2477123Z [GÜNCELLEME] 'YT' için yeni sürüm bulundu: RVX.Anddea.YT.zip
+2025-09-04T10:11:38.2522073Z [TELEGRAM] Yeni dosya 'RVX.Anddea.YT.zip' kanala sessizce yükleniyor...
+2025-09-04T10:11:38.2617605Z [HATA] Telegram'a yüklenemedi. API Yanıtı: 
+2025-09-04T10:11:38.2618007Z ---
+2025-09-04T10:11:38.2618379Z [İŞLEM] Modül kontrol ediliyor: bindh
+2025-09-04T10:11:38.2689702Z [BİLGİ] 'bindh' Telegram'da zaten güncel (bindhosts_207-0a81a11.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2690260Z ---
+2025-09-04T10:11:38.2690754Z [İŞLEM] Modül kontrol ediliyor: susfs
+2025-09-04T10:11:38.2762970Z [BİLGİ] 'susfs' Telegram'da zaten güncel (release-1.5.2%2B_16578fd.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2763574Z ---
+2025-09-04T10:11:38.2764029Z [İŞLEM] Modül kontrol ediliyor: lsposed
+2025-09-04T10:11:38.2842367Z [BİLGİ] 'lsposed' Telegram'da zaten güncel (LSPosed-v1.10.2-7189-zygisk-release.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2843246Z ---
+2025-09-04T10:11:38.2843773Z [İŞLEM] Modül kontrol ediliyor: trm
+2025-09-04T10:11:38.2919543Z [BİLGİ] 'trm' Telegram'da zaten güncel (TermuxRootMods-v1.0.20.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2920269Z ---
+2025-09-04T10:11:38.2920726Z [İŞLEM] Modül kontrol ediliyor: ReLSPosed
+2025-09-04T10:11:38.2996770Z [BİLGİ] 'ReLSPosed' Telegram'da zaten güncel (LSPosed-v1.0.1-7195-zygisk-release.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.2997431Z ---
+2025-09-04T10:11:38.2997743Z [İŞLEM] Modül kontrol ediliyor: GPhotosUnlimited
+2025-09-04T10:11:38.3069672Z [BİLGİ] 'GPhotosUnlimited' Telegram'da zaten güncel (gphoto-unlimited-zygisk-v1.1-stable.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.3070505Z ---
+2025-09-04T10:11:38.3070950Z [İŞLEM] Modül kontrol ediliyor: hma
+2025-09-04T10:11:38.3141422Z [BİLGİ] 'hma' Telegram'da zaten güncel (HMA-V3.5.apk). İşlem yapılmadı.
+2025-09-04T10:11:38.3142023Z ---
+2025-09-04T10:11:38.3142365Z [İŞLEM] Modül kontrol ediliyor: rezygisk
+2025-09-04T10:11:38.3214132Z [BİLGİ] 'rezygisk' Telegram'da zaten güncel (ReZygisk-v1.0.0-rc.3-debug.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.3214772Z ---
+2025-09-04T10:11:38.3215322Z [İŞLEM] Modül kontrol ediliyor: Zygisk-Assistant
+2025-09-04T10:11:38.3287641Z [BİLGİ] 'Zygisk-Assistant' Telegram'da zaten güncel (Zygisk-Assistant-v2.1.4-1013f8a-debug.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.3288257Z ---
+2025-09-04T10:11:38.3288528Z [İŞLEM] Modül kontrol ediliyor: nohello
+2025-09-04T10:11:38.3359687Z [BİLGİ] 'nohello' Telegram'da zaten güncel (Nohello-v0.0.7-53-4d53ecf-debug.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.3360746Z ---
+2025-09-04T10:11:38.3361036Z [İŞLEM] Modül kontrol ediliyor: yurikey
+2025-09-04T10:11:38.3432201Z [BİLGİ] 'yurikey' Telegram'da zaten güncel (YuriKey_v1.8.zip). İşlem yapılmadı.
+2025-09-04T10:11:38.3432860Z ---
+2025-09-04T10:11:38.3433290Z [İŞLEM] Modül kontrol ediliyor: shamiko
+2025-09-04T10:11:38.3458712Z [UYARI] 'shamiko' için manifest dosyasında bir kayıt bulunamadı. Atlanıyor.
+2025-09-04T10:11:38.3459308Z ---
+2025-09-04T10:11:38.3459579Z [İŞLEM] Modül kontrol ediliyor: reveny
+2025-09-04T10:11:38.3485626Z [UYARI] 'reveny' için manifest dosyasında bir kayıt bulunamadı. Atlanıyor.
+2025-09-04T10:11:38.3486242Z ---
+2025-09-04T10:11:38.3486700Z [İŞLEM] Modül kontrol ediliyor: magiskalpha
+2025-09-04T10:11:38.3512336Z [UYARI] 'magiskalpha' için manifest dosyasında bir kayıt bulunamadı. Atlanıyor.
+2025-09-04T10:11:38.3528017Z -------------------------------------
+2025-09-04T10:11:38.3540427Z Otomasyon Tamamlandı: Thu Sep  4 10:11:38 UTC 2025
+2025-09-04T10:11:38.3540897Z 
+2025-09-04T10:11:38.3568551Z ##[group]Run git config --global user.name 'github-actions[bot]'
+2025-09-04T10:11:38.3569063Z [36;1mgit config --global user.name 'github-actions[bot]'[0m
+2025-09-04T10:11:38.3569541Z [36;1mgit config --global user.email 'github-actions[bot]@users.noreply.github.com'[0m
+2025-09-04T10:11:38.3569937Z [36;1m[0m
+2025-09-04T10:11:38.3570176Z [36;1m# Sadece değişiklik varsa commit atar.[0m
+2025-09-04T10:11:38.3570520Z [36;1mif [[ -n $(git status --porcelain) ]]; then[0m
+2025-09-04T10:11:38.3570896Z [36;1m  echo "Değişiklikler bulundu, depoya kaydediliyor."[0m
+2025-09-04T10:11:38.3571311Z [36;1m  git add last_run.txt telegram_durum.txt forwarder_state.json[0m
+2025-09-04T10:11:38.3571724Z [36;1m  git commit -m "ci: Otomasyon durum dosyalarını güncelle"[0m
+2025-09-04T10:11:38.3572046Z [36;1m  [0m
+2025-09-04T10:11:38.3572305Z [36;1m  # ESKİ VERSİYONDAN ALINAN GÜVENLİ PUSH YÖNTEMİ[0m
+2025-09-04T10:11:38.3572775Z [36;1m  # Olası çakışmaları önlemek için önce depodaki değişiklikleri çeker.[0m
+2025-09-04T10:11:38.3573158Z [36;1m  git pull --rebase[0m
+2025-09-04T10:11:38.3573404Z [36;1m  git push[0m
+2025-09-04T10:11:38.3573613Z [36;1melse[0m
+2025-09-04T10:11:38.3573845Z [36;1m  echo "Yeni değişiklik bulunamadı."[0m
+2025-09-04T10:11:38.3574126Z [36;1mfi[0m
+2025-09-04T10:11:38.3603963Z shell: /usr/bin/bash -e {0}
+2025-09-04T10:11:38.3604219Z env:
+2025-09-04T10:11:38.3604492Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:38.3605206Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib/pkgconfig
+2025-09-04T10:11:38.3605641Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:38.3606024Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:38.3606405Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.13/x64
+2025-09-04T10:11:38.3606786Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.13/x64/lib
+2025-09-04T10:11:38.3607104Z ##[endgroup]
+2025-09-04T10:11:38.3707964Z Değişiklikler bulundu, depoya kaydediliyor.
+2025-09-04T10:11:38.3770255Z [main 0a540a8] ci: Otomasyon durum dosyalarını güncelle
+2025-09-04T10:11:38.3770859Z  1 file changed, 3 insertions(+), 1 deletion(-)
+2025-09-04T10:11:38.6745458Z Current branch main is up to date.
+2025-09-04T10:11:39.3689735Z To https://github.com/MematiBas42/Cephanelik_Updater
+2025-09-04T10:11:39.3690253Z    9cc28ef..0a540a8  main -> main
+2025-09-04T10:11:39.3806788Z Post job cleanup.
+2025-09-04T10:11:39.5417503Z Post job cleanup.
+2025-09-04T10:11:39.6364774Z [command]/usr/bin/git version
+2025-09-04T10:11:39.6401558Z git version 2.51.0
+2025-09-04T10:11:39.6439943Z Copying '/home/runner/.gitconfig' to '/home/runner/work/_temp/5d313897-1906-4f15-b9d6-c826e91ff282/.gitconfig'
+2025-09-04T10:11:39.6449700Z Temporarily overriding HOME='/home/runner/work/_temp/5d313897-1906-4f15-b9d6-c826e91ff282' before making global git config changes
+2025-09-04T10:11:39.6451055Z Adding repository directory to the temporary git global config as a safe directory
+2025-09-04T10:11:39.6456845Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Cephanelik_Updater/Cephanelik_Updater
+2025-09-04T10:11:39.6493935Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-09-04T10:11:39.6526631Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-09-04T10:11:39.6748639Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-09-04T10:11:39.6769844Z http.https://github.com/.extraheader
+2025-09-04T10:11:39.6783284Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-09-04T10:11:39.6816029Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-09-04T10:11:39.7140231Z Cleaning up orphan processes

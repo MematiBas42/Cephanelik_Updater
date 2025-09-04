@@ -86,7 +86,7 @@ get_telegram_message_with_file() {
     api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
     if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
     
-    echo "$api_response" | jq -r --arg cid_str "$(echo $TELEGRAM_ARCHIVE_CHANNEL | sed 's/@//')" --arg kw "$keyword" --arg sc "$source_channel" '
+    echo "$api_response" | jq -r --arg cid_str "$(echo "-$TELEGRAM_ARCHIVE_CHANNEL" | sed 's/@//')" --arg kw "$keyword" --arg sc "$source_channel" '
         .result | reverse | .[] |
         . as $update | ($update.channel_post // $update.message) |
         select(.chat.id == ($cid_str | tonumber) or .chat.username == $cid_str) |

@@ -92,7 +92,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
     # Eski mesaj varsa sil
     if [ ! -z "$eski_mesaj_id" ]; then
         echo "[TELEGRAM] Eski mesaj siliniyor (ID: $eski_mesaj_id)..."
-        curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
+        curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=-$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
     fi
 
     # Yeni dosyayı sessizce gönder
@@ -100,7 +100,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
     API_YANITI=$(curl -s -F document=@"$guncel_dosya_yolu" \
                      -F caption="$caption" \
                      -F parse_mode="HTML" \
-                     "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=$PUBLISH_CHANNEL_ID&disable_notification=true")
+                     "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=-$PUBLISH_CHANNEL_ID&disable_notification=true")
 
     # Yeni mesaj ID'sini al ve durum dosyasını güncelle
     yeni_mesaj_id=$(echo "$API_YANITI" | jq -r '.result.message_id')
