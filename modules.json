@@ -14,7 +14,7 @@
       "type": "github_ci",
       "source": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
       "asset_filter": "\\.zip$",
-      "description": "KOWX712/PlayIntegrityFix"
+      "description": "KOWX712/PlayIntegrityFix (inject_s)"
     },
     {
       "name": "ZygiskNext",
@@ -101,7 +101,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "PerformanC/ReZygisk",
-      "asset_filter": "\\release.zip",
+      "asset_filter": "release\\.zip$",
       "description": "PerformanC/ReZygisk"
     },
     {
@@ -109,7 +109,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "snake-4/Zygisk-Assistant",
-      "asset_filter": "\\release.zip$",
+      "asset_filter": "release\\.zip$",
       "description": "Zygisk-Assistant"
     },
     {
@@ -117,7 +117,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "MhmRdd/NoHello",
-      "asset_filter": "\\release.zip",
+      "asset_filter": "release\\.zip$",
       "description": "MhmRdd/NoHello"
     },
     {
