@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-# ==============================================================================
-# CEPHANELİK UPDATER - vFINAL.4 - AKILLI SÜRÜM KONTROLÜ
-# ==============================================================================
-# AÇIKLAMA: Bu betik, projenin tüm işlevselliğini tek bir dosyada birleştirir.
-# Sadece dosya adına güvenmek yerine, her kaynak tipi için (GitHub/GitLab
-# zaman damgası, Telegram mesaj ID'si gibi) benzersiz bir "sürüm kimliği"
-# kullanarak, geliştirici dosyayı aynı isimle güncellese bile bunu doğru
-# bir şekilde tespit eder. Durum yönetimi JSON formatında yapılır.
-
 import os
 import json
 import asyncio
@@ -32,7 +22,7 @@ STATE_DIR = "./state"
 CACHE_DIR = os.path.expanduser("~/.cache/ksu-manager")
 MODULES_FILE_SRC = "./modules.json"
 MANIFEST_FILE = os.path.join(STATE_DIR, "manifest.json")
-TELEGRAM_DURUM_FILE = os.path.join(STATE_DIR, "telegram_durum.json") # JSON formatına geçildi
+TELEGRAM_DURUM_FILE = os.path.join(STATE_DIR, "telegram_durum.json")
 LAST_RUN_FILE = os.path.join(STATE_DIR, "last_run.txt")
 
 
@@ -85,10 +75,10 @@ class ModuleHandler:
                 if message.document and hasattr(message.document.attributes[0], 'file_name') and keyword.lower() in message.document.attributes[0].file_name.lower():
                     return {
                         'file_name': message.document.attributes[0].file_name,
-                        'version_id': str(message.id), # Mesaj ID'si sürüm kimliğidir
+                        'version_id': str(message.id),
                         'source_url': f"https://t.me/{message.chat.username}/{message.id}",
                         'date': message.date.strftime("%d.%m.%Y"),
-                        'downloader': lambda path: self.client.download_media(message, path)
+                        'telegram_message': message # İndirme için mesaj objesini sakla
                     }
             return None
         except Exception as e:
@@ -103,10 +93,10 @@ class ModuleHandler:
         if asset:
             return {
                 'file_name': asset['name'],
-                'version_id': asset['updated_at'], # Zaman damgası sürüm kimliğidir
+                'version_id': asset['updated_at'],
                 'source_url': data.get('html_url', '#'),
                 'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y"),
-                'downloader': lambda path: self._download_file(asset['browser_download_url'], path)
+                'download_url': asset['browser_download_url'] # İndirme için URL sakla
             }
         return None
 
@@ -118,10 +108,9 @@ class ModuleHandler:
             url = match.group(0)
             filename = os.path.basename(url)
             return {
-                'file_name': filename,
-                'version_id': filename, # CI için dosya adı genellikle benzersizdir
+                'file_name': filename, 'version_id': filename,
                 'source_url': module['source'], 'date': datetime.now().strftime("%d.%m.%Y"),
-                'downloader': lambda path: self._download_file(url, path)
+                'download_url': url
             }
         return None
         
@@ -133,15 +122,14 @@ class ModuleHandler:
         link = next((l for l in release.get('assets', {}).get('links', []) if re.search(module['asset_filter'], l['name'])), None)
         if link:
             return {
-                'file_name': link['name'],
-                'version_id': release['released_at'], # Zaman damgası sürüm kimliğidir
+                'file_name': link['name'], 'version_id': release['released_at'],
                 'source_url': release.get('_links', {}).get('self', '#'),
                 'date': datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z").strftime("%d.%m.%Y"),
-                'downloader': lambda path: self._download_file(link['url'], path)
+                'download_url': link['url']
             }
         return None
 
-    def _download_file(self, url, path):
+    def _download_file_sync(self, url, path):
         print(f"   -> İndiriliyor: {url}")
         try:
             with requests.get(url, stream=True, timeout=180) as r:
@@ -195,10 +183,14 @@ class ModuleHandler:
 
             print(f"[İNDİRME] '{name}' için yeni sürüm indirilecek (Bulut ID: {remote_version_id}, Kanal ID: {posted_version_id or 'YOK'})")
             path = os.path.join(CACHE_DIR, remote_info['file_name'])
-            downloader = remote_info.pop('downloader')
             
-            result = downloader(path)
-            success = await result if asyncio.iscoroutine(result) else result
+            success = False
+            if 'telegram_message' in remote_info:
+                message_to_download = remote_info.pop('telegram_message')
+                downloaded_path = await self.client.download_media(message_to_download, path)
+                success = downloaded_path is not None
+            elif 'download_url' in remote_info:
+                success = self._download_file_sync(remote_info.pop('download_url'), path)
 
             if success:
                 manifest_was_updated = True
@@ -235,7 +227,11 @@ class TelethonPublisher:
         for name, info in sorted(self.manifest.items()):
             print(f"\n[İŞLEM] Yayın durumu kontrol ediliyor: {name}")
             
-            current_version_id = info['version_id']
+            current_version_id = info.get('version_id')
+            if not current_version_id:
+                print(f"[UYARI] Manifest'te '{name}' için version_id bulunamadı. Atlanıyor.")
+                continue
+
             posted_version_id = self.telegram_durum.get(name, {}).get('version_id')
 
             if current_version_id == posted_version_id:
@@ -250,7 +246,7 @@ class TelethonPublisher:
                 continue
 
             posted_info = self.telegram_durum.get(name)
-            if posted_info:
+            if posted_info and 'message_id' in posted_info:
                 print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {posted_info['message_id']})...")
                 try:
                     await self.client.delete_messages(PUBLISH_CHANNEL_ID, posted_info['message_id'])
@@ -270,7 +266,6 @@ class TelethonPublisher:
                 message = await self.client.send_file(
                     PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True)
                 
-                # Durumu yeni sürüm kimliği ile güncelle
                 self.telegram_durum[name] = {
                     'message_id': message.id, 
                     'file_name': current_filename,
@@ -287,7 +282,7 @@ class TelethonPublisher:
 async def main():
     """Ana otomasyon fonksiyonu."""
     print("==============================================")
-    print(f"   Cephanelik Updater vFINAL.4 Başlatıldı")
+    print(f"   Cephanelik Updater vFINAL.5 Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
     
@@ -297,9 +292,6 @@ async def main():
     state_manager = StateManager(STATE_DIR)
     
     async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
-        # Not: Bu versiyonda kanal taraması yerine sürüm kimliği kullanıldığı
-        # için Reconciler'a gerek kalmamıştır. Sistem daha verimlidir.
-        
         handler = ModuleHandler(client, state_manager)
         await handler.process_modules()
         
