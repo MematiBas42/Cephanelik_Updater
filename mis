@@ -1,9 +1,9 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v14 - Ön Kontrollü Nihai Sürüm
-# YENİLİK: Betik başlangıcında Telegram Bot API'sine bağlantıyı test eden bir
-# ön kontrol mekanizması eklendi. Bu, olası token veya ağ sorunlarını
-# en başta tespit ederek betiğin daha kararlı çalışmasını sağlar ve hata
-# ayıklamayı kolaylaştırır.
+# KSU Modül Yöneticisi v15 - Bağlantı Korumalı Nihai Sürüm
+# YENİLİK: Telegram API'sinden gelebilecek bozuk veya eksik JSON yanıtlarına
+# karşı `jq` komutu daha dayanıklı hale getirildi. Artık bozuk veri geldiğinde
+# betik hata verip durmak yerine, bunu "sonuç yok" olarak kabul edip tekrar
+# deneme mekanizmasını daha verimli kullanacak.
 
 # --- Yapılandırma ve Global Değişkenler ---
 TELEGRAM_ARCHIVE_CHANNEL="-1002542617400"
@@ -97,26 +97,21 @@ get_telegram_message_with_file() {
         api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
         if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
 
-        if ! jq -e . >/dev/null 2>&1 <<< "$api_response"; then
-            if (( i < attempts )); then
-                warn "Telegram API'sinden bozuk yanıt alındı ($i. deneme), 5sn sonra tekrar denenecek..."
-                sleep 5
-                continue
-            else
-                echo "ERROR:TELEGRAM_INVALID_JSON - API yanıtı geçerli JSON değil: $api_response"; return 1;
-            fi
-        fi
-
+        # NİHAİ ÇÖZÜM: jq hatalarını yok sayarak bozuk yanıtlara karşı dayanıklılık sağla
         local doc
         doc=$(echo "$api_response" | jq -r --arg cid_str "$TELEGRAM_ARCHIVE_CHANNEL" --arg kw "$keyword" --arg sc "$source_channel" '
-            .result | reverse | .[] |
-            . as $update | ($update.channel_post // $update.message) |
-            select(.chat.id == ($cid_str | tonumber)) |
-            select(.document) |
-            select(.document.file_name | test($kw; "i")) |
-            select(.caption and (.caption | contains("Kaynak: @" + $sc))) |
-            .document
-        ' | head -n 1)
+            if .result then
+                .result | reverse | .[] |
+                . as $update | ($update.channel_post // $update.message) |
+                select(.chat.id == ($cid_str | tonumber)) |
+                select(.document) |
+                select(.document.file_name | test($kw; "i")) |
+                select(.caption and (.caption | contains("Kaynak: @" + $sc))) |
+                .document
+            else
+                empty
+            end
+        ' 2>/dev/null | head -n 1) # jq'dan gelebilecek parse hatalarını stderr'e yönlendirip gizle
 
         if [[ -n "$doc" && "$doc" != "null" ]]; then
             echo "$doc"
@@ -124,7 +119,7 @@ get_telegram_message_with_file() {
         fi
 
         if (( i < attempts )); then
-            warn "Arşivde dosya bulunamadı ($i. deneme), API gecikmesi olabilir, 5sn sonra tekrar denenecek..."
+            warn "Arşivde dosya bulunamadı veya API yanıtı bozuk ($i. deneme), 5sn sonra tekrar denenecek..."
             sleep 5
         fi
     done
@@ -206,7 +201,8 @@ process_single_download() {
 
     if [ -z "$download_url" ]; then echo "HATA: İndirme URL'si bulunamadı."; return 1; fi
 
-    if curl -L --fail -o "$CACHE_DIR/$remote_file" "$download_url"; then
+    # İndirme işlemi için de ağa karşı dayanıklılık ekleyelim
+    if curl -L --fail --retry 3 --retry-delay 5 -o "$CACHE_DIR/$remote_file" "$download_url"; then
         (
             lock_dir="$CACHE_DIR/manifest.lock"
             while ! mkdir "$lock_dir" 2>/dev/null; do sleep 1; done
