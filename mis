@@ -75,10 +75,9 @@ get_telegram_message_with_file() {
         api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
         if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
 
-        # API yanıtının geçerli bir JSON olup olmadığını kontrol et
         if ! jq -e . >/dev/null 2>&1 <<< "$api_response"; then
             if (( i < attempts )); then
-                warn "Telegram API'sinden bozuk yanıt alındı, $i. deneme başarısız. 5 saniye sonra tekrar denenecek..."
+                warn "Telegram API'sinden bozuk yanıt alındı ($i. deneme), 5sn sonra tekrar denenecek..."
                 sleep 5
                 continue
             else
@@ -103,7 +102,7 @@ get_telegram_message_with_file() {
         fi
 
         if (( i < attempts )); then
-            warn "Arşivde dosya bulunamadı, $i. deneme başarısız. API gecikmesi olabilir, 5 saniye sonra tekrar denenecek..."
+            warn "Arşivde dosya bulunamadı ($i. deneme), API gecikmesi olabilir, 5sn sonra tekrar denenecek..."
             sleep 5
         fi
     done
@@ -111,11 +110,6 @@ get_telegram_message_with_file() {
     echo "ERROR:FILE_NOT_FOUND_IN_ARCHIVE"
     return 1
 }
-
-# Diğer tüm fonksiyonlar (get_remote_filename, process_single_download, vb.)
-# get_telegram_message_with_file fonksiyonunu kullandığı için bu yeni
-# "retry" mekanizmasından otomatik olarak faydalanacaktır.
-# Fonksiyonların geri kalanını değiştirmeye gerek yoktur.
 
 get_remote_filename() {
     local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $name)' "$MODULES_FILE")

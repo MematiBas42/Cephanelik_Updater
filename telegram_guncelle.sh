@@ -1,9 +1,8 @@
 #!/bin/bash
-# v4 - Dosya Boyutu Kontrollü ve Sağlamlaştırılmış Sürüm
-# YENİLİK: Dosyaları yüklemeden önce boyutlarını kontrol eder. 48 MB'dan büyük
-# dosyaları yüklemeye çalışmak yerine, Telegram kanalına bu dosyanın doğrudan
-# indirme linkini gönderir. Bu, Telegram'ın 50 MB'lık bot API limitine
-# takılmayı tamamen önler. Ayrıca curl hata yönetimi iyileştirildi.
+# v5 - Gelişmiş Hata Raporlama ve Sağlamlaştırılmış Sürüm
+# YENİLİK: Dosya yükleme işlemi başarısız olduğunda, Telegram API'sinden
+# gelen hatayı ve HTTP durum kodunu yakalayıp net bir şekilde loglar.
+# Bu, "API Yanıtı: (boş)" gibi belirsiz hataların kök nedenini bulmayı sağlar.
 
 # --- AYARLAR ---
 PUBLISH_CHANNEL_ID="-1002477121598"
@@ -63,18 +62,15 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         continue
     fi
 
-    # Eski mesajı sil (varsa)
     if [ -n "$eski_mesaj_id" ]; then
         echo "[TELEGRAM] Eski mesaj siliniyor (ID: $eski_mesaj_id)..."
         curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
     fi
 
-    # YENİ: Dosya boyutu kontrolü
     dosya_boyutu=$(stat -c%s "$guncel_dosya_yolu")
     API_YANITI=""
 
     if (( dosya_boyutu > FILE_SIZE_LIMIT_BYTES )); then
-        # Dosya çok büyük, link gönder
         echo "[UYARI] Dosya boyutu (${dosya_boyutu} bayt) Telegram limitini aşıyor. Direkt indirme linki gönderilecek."
         
         module_info=$(jq -r --arg name "$modul_adi" '.modules[] | select(.name == $name) | "\(.type);\(.source)"' "$MIS_MODULES_FILE")
@@ -82,42 +78,37 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         source=$(echo "$module_info" | cut -d';' -f2)
         download_url="Bulunamadı"
 
-        if [[ "$type" == "github_release" ]]; then
-            download_url="https://github.com/$source/releases/latest"
-        elif [[ "$type" == "github_ci" ]]; then
-            download_url="$source" # CI linki zaten indirme sayfasına gider
-        fi
+        if [[ "$type" == "github_release" ]]; then download_url="https://github.com/$source/releases/latest";
+        elif [[ "$type" == "github_ci" ]]; then download_url="$source"; fi
 
         caption="<b>$guncel_dosya_adi</b>\n\n⚠️ Bu dosya Telegram limitlerini aştığı için direkt yüklenemedi.\n\n<a href=\"$download_url\">Buradan İndirin</a>"
-        
-        API_YANITI=$(curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendMessage" \
-                          -d chat_id="$PUBLISH_CHANNEL_ID" \
-                          -d text="$caption" \
-                          -d parse_mode="HTML" \
-                          -d disable_notification="true")
+        API_YANITI=$(curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendMessage" -d chat_id="$PUBLISH_CHANNEL_ID" -d text="$caption" -d parse_mode="HTML" -d disable_notification="true")
     else
-        # Dosya boyutu uygun, dosyayı gönder
         echo "[TELEGRAM] Yeni dosya '$guncel_dosya_adi' kanala sessizce yükleniyor..."
         
         module_info=$(jq -r --arg name "$modul_adi" '.modules[] | select(.name == $name) | "\(.type);\(.source)"' "$MIS_MODULES_FILE")
-        type=$(echo "$module_info" | cut -d';' -f1)
-        source=$(echo "$module_info" | cut -d';' -f2)
-        repo_url=""
-        changelog_url=""
+        type=$(echo "$module_info" | cut -d';' -f1); source=$(echo "$module_info" | cut -d';' -f2)
+        repo_url=""; changelog_url=""
         if [[ "$type" == "github_release" ]]; then
-            repo_url="https://github.com/$source"
-            changelog_url="https://github.com/$source/releases/latest"
+            repo_url="https://github.com/$source"; changelog_url="https://github.com/$source/releases/latest"
         fi
 
         caption="<b>$guncel_dosya_adi</b>"
-        if [ -n "$repo_url" ]; then
-            caption+="\n\n<a href=\"$repo_url\">Ana Depo</a> | <a href=\"$changelog_url\">Değişiklik Kaydı</a>"
-        fi
-
-        API_YANITI=$(curl -s -F document=@"$guncel_dosya_yolu" \
+        if [ -n "$repo_url" ]; then caption+="\n\n<a href=\"$repo_url\">Ana Depo</a> | <a href=\"$changelog_url\">Değişiklik Kaydı</a>"; fi
+        
+        # YENİ: Gelişmiş curl komutu ile hata yakalama
+        RESPONSE_FILE=$(mktemp)
+        HTTP_STATUS=$(curl --silent --write-out "%{http_code}" --output "$RESPONSE_FILE" \
+                         -F document=@"$guncel_dosya_yolu" \
                          -F caption="$caption" \
                          -F parse_mode="HTML" \
                          "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=$PUBLISH_CHANNEL_ID&disable_notification=true")
+        API_YANITI=$(cat "$RESPONSE_FILE")
+        rm "$RESPONSE_FILE"
+
+        if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "[HATA] Telegram API'sine dosya yüklenirken HTTP $HTTP_STATUS hatası alındı."
+        fi
     fi
 
     yeni_mesaj_id=$(echo "$API_YANITI" | jq -r '.result.message_id')
