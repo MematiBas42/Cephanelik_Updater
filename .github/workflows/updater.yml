@@ -5,7 +5,7 @@
 # (`main_automation.py`) çalıştırır. Maksimum sadelik, okunabilirlik ve
 # sağlamlık sunar.
 
-name: Dosya Güncelleme Otomasyonu (Final Sürüm)
+name: CPUpdater Otomasyon 
 
 on:
   workflow_dispatch:
