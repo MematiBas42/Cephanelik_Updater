@@ -1,29 +1,28 @@
 # ==============================================================================
-# CEPHANELİK UPDATER - FİNAL GITHUB ACTIONS WORKFLOW'U
+# CEPHANELİK UPDATER - NİHAİ VE EN SAĞLAM GITHUB ACTIONS WORKFLOW'U
 # ==============================================================================
-# Bu workflow, projenin tüm adımlarını (Topla, İşle, Yayınla) tam otomatik
-# olarak çalıştırır. Gerekli tüm izinler ve ortam değişkenleri tanımlanmıştır.
+# AÇIKLAMA: Bu versiyon, formatlama hatası giderilerek ve eski versiyondaki
+# güvenli 'git push' mantığı eklenerek oluşturulmuştur.
 
 name: Dosya Güncelleme Otomasyonu
 
 on:
-  # Bu satır, GitHub arayüzünden "Run workflow" butonu ile manuel çalıştırmayı sağlar.
+  # GitHub arayüzünden "Run workflow" butonu ile manuel çalıştırmayı sağlar.
   workflow_dispatch:
 
-  # Bu bölüm, betiğin belirli zamanlarda otomatik çalışmasını sağlar.
-  # Bu ayar, betiği her gün UTC saatiyle 05:00'da çalıştırır (Türkiye saatiyle yaklaşık 08:00).
+  # Her gün UTC saatiyle 05:00'da çalışır (Türkiye saatiyle yaklaşık 08:00).
   schedule:
     - cron: '0 5 * * *'
 
 jobs:
-  environment: production
-  
   update-files:
+    # Bu satır, GitHub'daki "production" ortam sırlarını kullanacağınızı belirtir.
+    # ÖNCEKİ HATANIN DÜZELTİLDİĞİ YER: 'environment' anahtar kelimesi, 
+    # çalışacağı işin (job) altına, doğru yere taşındı.
+    environment: production
     runs-on: ubuntu-latest
     
-    # --- ÖNEMLİ DÜZELTME ---
-    # Bu blok, workflow'un depoya geri yazma (git push) yapabilmesi için
-    # gerekli olan izni açıkça tanımlar. İzin hatalarını önler.
+    # Workflow'un depoya geri yazma (git push) yapabilmesi için gerekli izin.
     permissions:
       contents: write
 
@@ -33,10 +32,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: 'MematiBas42/Cephanelik_Updater'
-          # GITHUB_TOKEN, Actions tarafından otomatik olarak sağlanır.
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Adım: Python ortamını ve gerekli kütüphaneyi kurar.
+      # 2. Adım: Python ortamını ve Telethon kütüphanesini kurar.
       - name: Python Ortamını Kur ve Telethon Yükle
         uses: actions/setup-python@v5
         with:
@@ -44,21 +42,16 @@ jobs:
       - run: pip install telethon
 
       # 3. Adım: TOPLAYICI - Kaynak kanalları tarar ve dosyaları arşive iletir.
-      # Bu adım, kişisel Telegram hesabınız gibi çalışır.
       - name: Telegram Dosyalarını Arşivle (Toplayıcı)
         run: python telegram_forwarder.py
         env:
-          # my.telegram.org adresinden alınan API kimlik bilgileri
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
-          # generate_session.py ile oluşturulan ve kullanıcı hesabını temsil eden anahtar
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
-          # Dosyaların taranacağı kaynak kanallar (JSON formatında, örn: '["kanal1", "kanal2"]')
           TELEGRAM_SOURCE_CHATS: ${{ secrets.TELEGRAM_SOURCE_CHATS }}
-          # Dosyaların yönlendirileceği Arşiv Kanalı'nın sayısal ID'si (-100 ile başlamalı)
           TELEGRAM_ARCHIVE_CHANNEL: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}
 
-      # 4. Adım: mis betiği için gerekli olan jq paketini kurar ve yapılandırmayı hazırlar.
+      # 4. Adım: Gerekli paketleri kurar ve yapılandırmayı hazırlar.
       - name: Gerekli Paketleri Yükle ve Yapılandırmayı Kopyala
         run: |
           sudo apt-get update && sudo apt-get install -y jq
@@ -66,27 +59,38 @@ jobs:
           cp ./modules.json $HOME/.config/ksu-manager/modules.json
 
       # 5. Adım: İŞLEYİCİ - Modülleri kontrol eder, güncel olanları indirir.
-      # Bu adım, Arşiv Botu (KsuModulTakipBot) gibi çalışır.
       - name: Modülleri Kontrol Et ve İndir (İşleyici)
         run: bash ./mis sync
         env:
-          # Arşiv Kanalı'nı okuyacak olan botun (KsuModulTakipBot) token'ı
           BOT_TOKEN_FOR_ARCHIVE: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE }}
-          # Arşiv Kanalı'nın sayısal ID'si (-100 ile başlamalı)
           TELEGRAM_ARCHIVE_CHANNEL: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}
-          # GitHub API limitlerine takılmamak için kişisel erişim token'ı
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
       # 6. Adım: YAYINCI - İndirilen yeni dosyaları ana kanala yükler.
-      # Bu adım, Yayıncı Bot (CpUpdater_bot) gibi çalışır.
       - name: Dosyaları Telegram Kanalında Yayınla (Yayıncı)
         run: bash ./telegram_guncelle.sh
         env:
-          # Yayın Kanalı'na yazacak olan botun (CpUpdater_bot) token'ı
           BOT_TOKEN_FOR_PUBLISH: ${{ secrets.BOT_TOKEN_FOR_PUBLISH }}
-          # Yayın Kanalı'nın sayısal ID'si (-100 ile başlamalı)
           PUBLISH_CHANNEL_ID: ${{ secrets.PUBLISH_CHANNEL_ID }}
-          # Betiğin manuel mi yoksa zamanlanmış mı çalıştığını belirler
+          # 'true' veya 'false' değerini otomatik olarak ayarlar.
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
 
-      # 7. Adım: Ot
+      # 7. Adım: Otomasyonun durumunu depoya kaydeder.
+      - name: Durum Dosyalarını Depoya Kaydet
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Sadece değişiklik varsa commit atar.
+          if [[ -n $(git status --porcelain) ]]; then
+            echo "Değişiklikler bulundu, depoya kaydediliyor."
+            git add last_run.txt telegram_durum.txt forwarder_state.json
+            git commit -m "ci: Otomasyon durum dosyalarını güncelle"
+            
+            # ESKİ VERSİYONDAN ALINAN GÜVENLİ PUSH YÖNTEMİ
+            # Olası çakışmaları önlemek için önce depodaki değişiklikleri çeker.
+            git pull --rebase
+            git push
+          else
+            echo "Yeni değişiklik bulunamadı."
+          fi
