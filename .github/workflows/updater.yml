@@ -10,7 +10,7 @@ name: Dosya Güncelleme Otomasyonu (Final Sürüm)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    - cron: '0 * * * *'
 
 jobs:
   update-and-publish:
