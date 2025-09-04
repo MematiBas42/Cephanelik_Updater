@@ -1,8 +1,9 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v13 - Tekrarlı Deneme ve Sağlamlık Sürümü
-# YENİLİK: Telegram API'sinden dosya ararken, olası gecikmelere karşı
-# 5 saniye aralıklarla 3 kez deneme mekanizması eklendi. API'den gelen
-# bozuk JSON yanıtlarına karşı daha dayanıklı hale getirildi.
+# KSU Modül Yöneticisi v14 - Ön Kontrollü Nihai Sürüm
+# YENİLİK: Betik başlangıcında Telegram Bot API'sine bağlantıyı test eden bir
+# ön kontrol mekanizması eklendi. Bu, olası token veya ağ sorunlarını
+# en başta tespit ederek betiğin daha kararlı çalışmasını sağlar ve hata
+# ayıklamayı kolaylaştırır.
 
 # --- Yapılandırma ve Global Değişkenler ---
 TELEGRAM_ARCHIVE_CHANNEL="-1002542617400"
@@ -38,6 +39,27 @@ init_system() {
     fi
     mkdir -p "$CACHE_DIR"
     if [ ! -f "$CACHE_MANIFEST" ]; then warn "'$CACHE_MANIFEST' bulunamadı, yeniden oluşturuluyor."; echo '{}' > "$CACHE_MANIFEST"; fi
+}
+
+check_telegram_connection() {
+    info "Telegram Bot API bağlantısı kontrol ediliyor..."
+    if [ -z "$BOT_TOKEN_FOR_ARCHIVE" ]; then
+        error "BOT_TOKEN_FOR_ARCHIVE sırrı ayarlanmamış. Telegram bağlantısı test edilemiyor."
+        return 1
+    fi
+
+    local api_response
+    api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getMe")
+
+    if [[ $? -ne 0 || $(echo "$api_response" | jq -r '.ok' 2>/dev/null) != "true" ]]; then
+        error "Telegram Bot API'sine bağlanılamadı. Lütfen BOT_TOKEN_FOR_ARCHIVE sırrının doğruluğunu ve ağ bağlantısını kontrol edin."
+        error "API Yanıtı: $api_response"
+        return 1
+    fi
+
+    local bot_name=$(echo "$api_response" | jq -r '.result.first_name')
+    info "Telegram bağlantısı başarılı. Bot Adı: $bot_name"
+    return 0
 }
 
 get_api_call() {
@@ -221,6 +243,9 @@ sync_modules() {
 
 main() {
     init_system
+    if ! check_telegram_connection; then
+        exit 1
+    fi
     case $1 in
         sync) sync_modules ;;
         *) error "Geçersiz komut: $1. Bu betik sadece 'sync' komutunu destekler." && exit 1;;
