@@ -99,13 +99,6 @@
       "asset_filter": ".apk"
     },
     {
-      "name": "shamiko",
-      "enabled": true,
-      "type": "github_release",
-      "source": "LSPosed/LSPosed.github.io",
-      "asset_filter": "Shamiko"
-    },
-    {
       "name": "rezygisk",
       "enabled": true,
       "type": "github_release",
@@ -134,20 +127,20 @@
       "asset_filter": "\\.zip$"
     },
     {
+      "name": "shamiko",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "Shamiko",
+      "asset_filter": ""
+      "source_channel": "LSPosed"
+    },
+    {
       "name": "magiskalpha",
       "enabled": true,
       "type": "telegram_forwarder",
       "source": "app-release",
       "asset_filter": "",
       "source_channel": "magiskalpha"
-    },
-    {
-      "name": "test",
-      "enabled": true,
-      "type": "telegram_forwarder",
-      "source": "app-release",
-      "asset_filter": "",
-      "source_channel": "cephanelikchat"
     }
   ]
 }
