@@ -1,16 +1,16 @@
 # ==============================================================================
-# CEPHANELİK UPDATER - NİHAİ VE EN SAĞLAM GITHUB ACTIONS WORKFLOW'U
+# CEPHANELİK UPDATER - v7 - NİHAİ TELETHON TABANLI WORKFLOW
 # ==============================================================================
-# AÇIKLAMA: Bu versiyon, hassas olmayan verilerin (kanal ID'leri) doğrudan
-# ilgili betiklere gömülmesiyle sadeleştirilmiştir.
+# AÇIKLAMA: Bu versiyon, yayınlama (publish) işlemi için bot token'ı yerine
+# doğrudan kullanıcı hesabı (Telethon) kullanır. Bu sayede botların getirdiği
+# 50MB dosya limiti ve ağ bağlantı sorunları aşılmıştır.
+# `telegram_guncelle.sh` betiği tamamen kaldırılmış, yerine `telethon_publisher.py`
+# betiği getirilmiştir.
 
-name: Dosya Güncelleme Otomasyonu
+name: Dosya Güncelleme Otomasyonu (Telethon Tabanlı)
 
 on:
-  # GitHub arayüzünden "Run workflow" butonu ile manuel çalıştırmayı sağlar.
   workflow_dispatch:
-
-  # Her gün UTC saatiyle 05:00'da çalışır (Türkiye saatiyle yaklaşık 08:00).
   schedule:
     - cron: '0 5 * * *'
 
@@ -19,59 +19,57 @@ jobs:
     environment: production
     runs-on: ubuntu-latest
     
-    # Workflow'un depoya geri yazma (git push) yapabilmesi için gerekli izin.
     permissions:
       contents: write
 
     steps:
-      # 1. Adım: Proje dosyalarını sanal makineye indirir.
+      # 1. Adım: Depoyu klonla
       - name: Depoyu Klonla
         uses: actions/checkout@v4
         with:
           repository: 'MematiBas42/Cephanelik_Updater'
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      # 2. Adım: Python ortamını ve Telethon kütüphanesini kurar.
+      # 2. Adım: Python ve Telethon kurulumu
       - name: Python Ortamını Kur ve Telethon Yükle
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: pip install telethon
 
-      # 3. Adım: TOPLAYICI - Kaynak kanalları tarar ve dosyaları arşive iletir.
-      # Kanal ID'leri artık doğrudan telegram_forwarder.py betiğinin içindedir.
+      # 3. Adım: TOPLAYICI - Kaynak kanalları tara ve arşivle
       - name: Telegram Dosyalarını Arşivle (Toplayıcı)
         run: python telegram_forwarder.py
         env:
-          # Sadece hassas bilgiler sır olarak kalır.
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
 
-      # 4. Adım: Gerekli paketleri kurar ve yapılandırmayı hazırlar.
+      # 4. Adım: Gerekli paketleri kur ve yapılandırmayı hazırla
       - name: Gerekli Paketleri Yükle ve Yapılandırmayı Kopyala
         run: |
           sudo apt-get update && sudo apt-get install -y jq
           mkdir -p $HOME/.config/ksu-manager
           cp ./modules.json $HOME/.config/ksu-manager/modules.json
 
-      # 5. Adım: İŞLEYİCİ - Modülleri kontrol eder, güncel olanları indirir.
-      # Arşiv Kanalı ID'si artık doğrudan 'mis' betiğinin içindedir.
+      # 5. Adım: İŞLEYİCİ - Modülleri kontrol et ve indir
       - name: Modülleri Kontrol Et ve İndir (İşleyici)
         run: bash ./mis sync
         env:
           BOT_TOKEN_FOR_ARCHIVE: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE }}
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
-      # 6. Adım: YAYINCI - İndirilen yeni dosyaları ana kanala yükler.
-      # Yayın Kanalı ID'si artık doğrudan 'telegram_guncelle.sh' betiğinin içindedir.
-      - name: Dosyaları Telegram Kanalında Yayınla (Yayıncı)
-        run: bash ./telegram_guncelle.sh
+      # 6. Adım: YAYINCI (YENİ) - Dosyaları Telethon ile yayınla
+      - name: Dosyaları Telegram Kanalında Yayınla (Telethon Yayıncı)
+        run: python telethon_publisher.py
         env:
-          BOT_TOKEN_FOR_PUBLISH: ${{ secrets.BOT_TOKEN_FOR_PUBLISH }}
+          # BOT_TOKEN_FOR_PUBLISH ARTIK GEREKLİ DEĞİL!
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
 
-      # 7. Adım: Otomasyonun durumunu depoya kaydeder.
+      # 7. Adım: Durum dosyalarını depoya kaydet
       - name: Durum Dosyalarını Depoya Kaydet
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -86,4 +84,3 @@ jobs:
           else
             echo "Yeni değişiklik bulunamadı."
           fi
-

@@ -1,124 +1,160 @@
-# Bu betik, bir Telegram "kullanıcı hesabı" gibi davranarak belirtilen kanalları
-# tarar ve son 24 saat içinde gönderilmiş yeni dosyaları, kaynak kanal
-# bilgisini ekleyerek özel bir arşiv kanalına iletir.
-# v2 - Sağlamlaştırılmış Sürüm: Session string hatası daha net loglanır ve 'chats' dosyası daha basit okunur.
+# -*- coding: utf-8 -*-
+# v1.0 - Kullanıcı Hesabıyla Çalışan Nihai Yayıncı
+# AÇIKLAMA: Bu betik, Telegram Bot API limitlerinden ve sorunlarından kaçınmak için
+# bot yerine doğrudan bir kullanıcı hesabı (Telethon aracılığıyla) kullanarak
+# indirilen modül dosyalarını yayın kanalına gönderir. Bu yöntem, 50MB dosya
+# limiti sorununu ortadan kaldırır ve ağ hatalarına karşı çok daha dayanıklıdır.
+# telegram_guncelle.sh betiğinin yerini almıştır.
 
 import os
 import json
-from datetime import datetime, timezone, timedelta
+import asyncio
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
+from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError, MessageIdInvalidError
 
 # --- YAPILANDIRMA (HASSAS BİLGİLER) ---
-API_ID_STR = os.environ.get('TELEGRAM_API_ID')
-if not API_ID_STR:
-    raise ValueError("[HATA] TELEGRAM_API_ID ortam değişkeni ayarlanmamış!")
-API_ID = int(API_ID_STR)
+API_ID = os.environ.get('TELEGRAM_API_ID')
 API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
-# --- YAPILANDIRMA (HASSAS OLMAYAN BİLGİLER) ---
-DESTINATION_CHANNEL = -1002542617400
-CHATS_FILE = 'chats'
-STATE_FILE = 'forwarder_state.json'
-client = None
+# --- AYARLAR ---
+PUBLISH_CHANNEL_ID = -1002477121598
+CACHE_DIR = os.path.expanduser("~/.cache/ksu-manager")
+CACHE_MANIFEST = os.path.join(CACHE_DIR, "manifest.json")
+MODULES_FILE = os.path.expanduser("~/.config/ksu-manager/modules.json")
+TELEGRAM_DURUM_DOSYASI = "./telegram_durum.txt"
+LAST_RUN_FILE = "./last_run.txt"
+MANUAL_RUN = os.environ.get('MANUAL_RUN') == 'true'
 
-def read_source_chats():
-    """Kaynak kanalları 'chats' dosyasından (her satır bir kanal) okur."""
-    if not os.path.exists(CHATS_FILE):
-        print(f"[HATA] Kaynak kanalları içeren '{CHATS_FILE}' dosyası bulunamadı.")
+# --- Yardımcı Fonksiyonlar ---
+def load_modules():
+    try:
+        with open(MODULES_FILE, 'r', encoding='utf-8') as f:
+            return json.load(f).get('modules', [])
+    except (FileNotFoundError, json.JSONDecodeError):
+        print(f"[HATA] '{MODULES_FILE}' dosyası okunamadı.")
         return []
-    with open(CHATS_FILE, 'r') as f:
-        # Sadece satır satır oku, boş satırları ve yorumları atla.
-        return [line.strip() for line in f if line.strip() and not line.startswith('#')]
 
-def load_state():
-    """Daha önce iletilen son mesaj ID'lerini dosyadan yükler."""
-    if os.path.exists(STATE_FILE):
-        with open(STATE_FILE, 'r') as f:
-            try:
-                return json.load(f)
-            except json.JSONDecodeError:
-                return {}
-    return {}
+def load_manifest():
+    try:
+        with open(CACHE_MANIFEST, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        print(f"[HATA] '{CACHE_MANIFEST}' dosyası okunamadı.")
+        return {}
 
-def save_state(state):
-    """En son iletilen mesaj ID'lerini dosyaya kaydeder."""
-    with open(STATE_FILE, 'w') as f:
-        json.dump(state, f, indent=2)
+def load_telegram_durum():
+    durum = {}
+    if not os.path.exists(TELEGRAM_DURUM_DOSYASI):
+        return durum
+    try:
+        with open(TELEGRAM_DURUM_DOSYASI, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split(';', 2)
+                if len(parts) == 3:
+                    modul_adi, mesaj_id, dosya_adi = parts
+                    durum[modul_adi] = {'mesaj_id': int(mesaj_id), 'dosya_adi': dosya_adi}
+    except Exception as e:
+        print(f"[UYARI] '{TELEGRAM_DURUM_DOSYASI}' okunurken hata: {e}")
+    return durum
 
-async def main():
-    print("Otomatik yönlendirici başlatıldı (GitHub Actions Modu).")
+def save_telegram_durum(durum):
+    try:
+        with open(TELEGRAM_DURUM_DOSYASI, 'w', encoding='utf-8') as f:
+            for modul_adi, data in sorted(durum.items()):
+                f.write(f"{modul_adi};{data['mesaj_id']};{data['dosya_adi']}\n")
+    except Exception as e:
+        print(f"[HATA] '{TELEGRAM_DURUM_DOSYASI}' yazılırken hata: {e}")
 
-    SOURCE_CHATS = read_source_chats()
-    if not SOURCE_CHATS:
-        print(f"[UYARI] İzlenecek kaynak kanal bulunamadı ('{CHATS_FILE}' dosyası boş veya hatalı). Betik sonlandırılıyor.")
+# --- Ana İşleyici ---
+async def main(client):
+    print("-------------------------------------")
+    print(f"Telethon Yayıncı Başlatıldı: {asyncio.get_event_loop().time()}")
+
+    modules = load_modules()
+    manifest = load_manifest()
+    telegram_durum = load_telegram_durum()
+    
+    if not modules or not manifest:
+        print("[HATA] Gerekli modül veya manifest dosyaları olmadan işlem yapılamaz. Çıkılıyor.")
         return
 
-    print(f"Kaynak kanallar: {', '.join(SOURCE_CHATS)}")
-    print(f"Hedef kanal: {DESTINATION_CHANNEL}")
+    for module in modules:
+        if not module.get('enabled', False):
+            continue
 
-    state = load_state()
-    time_limit = datetime.now(timezone.utc) - timedelta(days=1)
+        modul_adi = module.get('name')
+        print(f"---\n[İŞLEM] Modül kontrol ediliyor: {modul_adi}")
 
-    for chat_username in SOURCE_CHATS:
+        guncel_dosya_adi = manifest.get(modul_adi)
+        if not guncel_dosya_adi:
+            print(f"[UYARI] '{modul_adi}' için manifest'te kayıt bulunamadı. Atlanıyor.")
+            continue
+
+        eski_kayit = telegram_durum.get(modul_adi, {})
+        eski_dosya_adi = eski_kayit.get('dosya_adi')
+
+        if guncel_dosya_adi == eski_dosya_adi:
+            print(f"[BİLGİ] '{modul_adi}' zaten güncel ({guncel_dosya_adi}).")
+            continue
+
+        print(f"[GÜNCELLEME] '{modul_adi}' için yeni sürüm bulundu: {guncel_dosya_adi}")
+        guncel_dosya_yolu = os.path.join(CACHE_DIR, guncel_dosya_adi)
+
+        if not os.path.exists(guncel_dosya_yolu):
+            print(f"[HATA] Dosya manifest'te var ama diskte yok: {guncel_dosya_yolu}. Atlanıyor.")
+            continue
+
+        # Eski mesajı silme
+        eski_mesaj_id = eski_kayit.get('mesaj_id')
+        if eski_mesaj_id:
+            print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {eski_mesaj_id})...")
+            try:
+                await client.delete_messages(PUBLISH_CHANNEL_ID, eski_mesaj_id)
+            except (MessageDeleteForbiddenError, MessageIdInvalidError):
+                print("[UYARI] Eski mesaj silinemedi (muhtemelen zaten silinmiş veya yetki yok). Devam ediliyor.")
+            except Exception as e:
+                print(f"[HATA] Eski mesaj silinirken beklenmedik hata: {e}")
+        
+        # Yeni dosyayı gönderme
+        repo_url, changelog_url = "", ""
+        if module.get('type') == "github_release":
+            source = module.get('source', '')
+            repo_url = f"https://github.com/{source}"
+            changelog_url = f"https://github.com/{source}/releases/latest"
+
+        caption = f"<b>{guncel_dosya_adi}</b>"
+        if repo_url:
+            caption += f"\n\n<a href='{repo_url}'>Ana Depo</a> | <a href='{changelog_url}'>Değişiklik Kaydı</a>"
+
+        print(f"[TELEGRAM] Yeni dosya '{guncel_dosya_adi}' kanala yükleniyor...")
         try:
-            print(f"\n[{chat_username}] kanalı kontrol ediliyor...")
-            chat_entity = await client.get_entity(chat_username)
-            chat_id_str = str(chat_entity.id)
-            last_forwarded_id = state.get(chat_id_str, 0)
-            new_messages_to_forward = []
-            highest_message_id_in_batch = last_forwarded_id
-
-            async for message in client.iter_messages(chat_entity, min_id=last_forwarded_id, limit=200):
-                if message.date < time_limit:
-                    break
-                if message.id > highest_message_id_in_batch:
-                    highest_message_id_in_batch = message.id
-                if message.document:
-                    new_messages_to_forward.append(message)
-
-            if not new_messages_to_forward:
-                print("-> Yeni dosya bulunamadı.")
-                state[chat_id_str] = highest_message_id_in_batch # İlerlemeyi kaydet
-                continue
-
-            print(f"-> {len(new_messages_to_forward)} adet yeni dosya bulundu. Yönlendiriliyor...")
-            for message in reversed(new_messages_to_forward):
-                try:
-                    caption = f"Kaynak: @{chat_username}"
-                    await client.send_file(DESTINATION_CHANNEL, message.document, caption=caption)
-                    file_name = "Bilinmeyen Dosya"
-                    if hasattr(message.document, 'attributes'):
-                        for attr in message.document.attributes:
-                            if hasattr(attr, 'file_name'):
-                                file_name = attr.file_name
-                                break
-                    print(f"  - Dosya '{file_name}' yönlendirildi.")
-                except Exception as e:
-                    print(f"  - HATA: Mesaj yönlendirilemedi: {e}")
-
-            state[chat_id_str] = highest_message_id_in_batch
+            sent_message = await client.send_file(
+                PUBLISH_CHANNEL_ID,
+                guncel_dosya_yolu,
+                caption=caption,
+                parse_mode='html',
+                silent=True
+            )
+            telegram_durum[modul_adi] = {'mesaj_id': sent_message.id, 'dosya_adi': guncel_dosya_adi}
+            print(f"[BAŞARILI] '{modul_adi}' güncellendi. Yeni Mesaj ID: {sent_message.id}")
         except Exception as e:
-            print(f"[{chat_username}] kanalı işlenirken bir hata oluştu: {e}")
+            print(f"[HATA] Dosya gönderilemedi: {e}")
 
-    save_state(state)
-    print("\nTüm işlemler tamamlandı. Yönlendirici durduruluyor.")
+    save_telegram_durum(telegram_durum)
+    print("-------------------------------------")
+    print(f"Telethon Yayıncı Tamamlandı: {asyncio.get_event_loop().time()}")
+    print()
 
-async def run_with_client():
-    async with client:
-        is_authorized = await client.is_user_authorized()
-        if not is_authorized:
-            print("\n" + "="*60)
-            print("[KRİTİK HATA] Oturum anahtarı (TELEGRAM_SESSION_STRING) geçersiz veya süresi dolmuş!")
-            print("[ÇÖZÜM] Lütfen yeni bir oturum anahtarı oluşturup projenizin GitHub Secrets bölümünü güncelleyin.")
-            print("="*60 + "\n")
-            return
-        await main()
 
 if __name__ == "__main__":
-    if not SESSION_STRING:
-        print("[HATA] TELEGRAM_SESSION_STRING ortam değişkeni bulunamadı!")
-    else:
-        client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
-        client.loop.run_until_complete(run_with_client())
+    if not all([API_ID, API_HASH, SESSION_STRING]):
+        raise ValueError("TELEGRAM_API_ID, TELEGRAM_API_HASH, ve TELEGRAM_SESSION_STRING ortam değişkenleri ayarlanmalıdır.")
+    
+    # Telethon'un event loop ile ilgili uyarısını bastırmak için
+    # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) # Sadece Windows için
+    
+    client = TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH)
+    with client:
+        client.loop.run_until_complete(main(client))
