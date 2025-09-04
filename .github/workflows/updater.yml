@@ -16,6 +16,8 @@ on:
     - cron: '0 5 * * *'
 
 jobs:
+  environment: production
+  
   update-files:
     runs-on: ubuntu-latest
     
