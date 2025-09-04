@@ -1,5 +1,7 @@
 #!/bin/bash
-# Adli Tıp Loglama Modu
+# v2 - Sağlamlaştırılmış Sürüm
+# YENİLİK: Dosyayı yüklemeden önce diskte fiziksel olarak var olup olmadığını
+# kontrol ederek 'curl: (26)' hatasını önler ve daha net loglama sağlar.
 
 # --- AYARLAR ---
 PUBLISH_CHANNEL_ID="-1002477121598"
@@ -35,7 +37,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
 
     guncel_dosya_adi=$(jq -r --arg mod "$modul_adi" '.[$mod] // ""' "$MIS_CACHE_MANIFEST")
     if [ -z "$guncel_dosya_adi" ]; then
-        echo "[UYARI] '$modul_adi' için manifest dosyasında bir kayıt bulunamadı. Atlanıyor."
+        echo "[UYARI] '$modul_adi' için manifest dosyasında bir kayıt bulunamadı ('mis' adımında indirilememiş olabilir). Atlanıyor."
         continue
     fi
     
@@ -50,8 +52,10 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
 
     echo "[GÜNCELLEME] '$modul_adi' için yeni sürüm bulundu: $guncel_dosya_adi"
     guncel_dosya_yolu="$MIS_CACHE_DIR/$guncel_dosya_adi"
+
+    # YENİ KONTROL: Dosya diskte gerçekten var mı?
     if [ ! -f "$guncel_dosya_yolu" ]; then
-        echo "[HATA] Dosya önbellekte bulunamadı: $guncel_dosya_yolu. Atlanıyor."
+        echo "[HATA] Dosya manifest'te listeleniyor ancak diskte bulunamadı: $guncel_dosya_yolu. 'mis' adımında bir sorun olmuş olabilir. Atlanıyor."
         continue
     fi
 
@@ -76,15 +80,10 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
     fi
 
     echo "[TELEGRAM] Yeni dosya '$guncel_dosya_adi' kanala sessizce yükleniyor..."
-    # GÜNCELLEME: -v (verbose) parametresi ile daha detaylı curl çıktısı alınır.
-    API_YANITI=$(curl --verbose -F document=@"$guncel_dosya_yolu" \
+    API_YANITI=$(curl -s -F document=@"$guncel_dosya_yolu" \
                      -F caption="$caption" \
                      -F parse_mode="HTML" \
                      "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=$PUBLISH_CHANNEL_ID&disable_notification=true")
-
-    echo "[DEBUG] Alınan Ham API Yanıtı:"
-    echo "$API_YANITI"
-    echo "--- Yanıt Sonu ---"
 
     yeni_mesaj_id=$(echo "$API_YANITI" | jq -r '.result.message_id')
     if [ ! -z "$yeni_mesaj_id" ] && [ "$yeni_mesaj_id" != "null" ]; then
@@ -94,7 +93,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         echo "$modul_adi;$yeni_mesaj_id;$guncel_dosya_adi" >> "$TELEGRAM_DURUM_DOSYASI"
         echo "[BAŞARILI] '$modul_adi' güncellendi. Yeni Mesaj ID: $yeni_mesaj_id"
     else
-        echo "[HATA] Telegram'a yüklenemedi."
+        echo "[HATA] Telegram'a yüklenemedi. API Yanıtı: $API_YANITI"
     fi
 done
 
