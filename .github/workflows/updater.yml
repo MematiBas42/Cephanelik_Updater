@@ -1,12 +1,11 @@
 # ==============================================================================
-# CEPHANELİK UPDATER - v8 - TEK İŞLEYİCİLİ NİHAİ WORKFLOW
+# CEPHANELİK UPDATER - vFINAL - TEK İŞLEYİCİLİ NİHAİ WORKFLOW
 # ==============================================================================
-# AÇIKLAMA: Bu versiyon, `mis` ve `telegram_forwarder` betiklerini tek bir
-# Python betiğinde (`module_handler.py`) birleştirir. Bu sayede sistem
-# maksimum basitliğe ve sağlamlığa ulaşır. Arşiv kanalı ve arşiv botu
-# token'ı tamamen ortadan kaldırılmıştır.
+# AÇIKLAMA: Bu versiyon, projenin tüm mantığını tek bir Python betiğinde
+# (`main_automation.py`) çalıştırır. Maksimum sadelik, okunabilirlik ve
+# sağlamlık sunar.
 
-name: Dosya Güncelleme Otomasyonu (Nihai Sürüm)
+name: Dosya Güncelleme Otomasyonu (Final Sürüm)
 
 on:
   workflow_dispatch:
@@ -14,7 +13,7 @@ on:
     - cron: '0 5 * * *'
 
 jobs:
-  update-files:
+  update-and-publish:
     environment: production
     runs-on: ubuntu-latest
     
@@ -22,58 +21,45 @@ jobs:
       contents: write
 
     steps:
-      # 1. Adım: Depoyu klonla
+      # 1. Adım: Proje dosyalarını sanal makineye indirir.
       - name: Depoyu Klonla
         uses: actions/checkout@v4
         with:
           repository: 'MematiBas42/Cephanelik_Updater'
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      # 2. Adım: Python ve Gerekli Kütüphaneleri Kur
+      # 2. Adım: Python ortamını ve gerekli kütüphaneleri kurar.
       - name: Python Ortamını Kur ve Kütüphaneleri Yükle
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: pip install telethon requests
 
-      # 3. Adım: İŞLEYİCİ (BİRLEŞTİRİLMİŞ)
-      # Bu adım hem dosyaları toplar hem de indirir.
-      - name: Modülleri Kontrol Et ve İndir (Birleşik İşleyici)
-        run: python module_handler.py
+      # 3. Adım: TÜM İŞLEMLERİ ÇALIŞTIR (BİRLEŞİK)
+      # Bu tek adım hem modülleri indirir hem de Telegram'a yayınlar.
+      - name: Modülleri İndir ve Telegram'da Yayınla
+        run: python main_automation.py
         env:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
-      # 4. Adım: YAYINCI - Dosyaları Telethon ile yayınla
-      - name: Dosyaları Telegram Kanalında Yayınla (Telethon Yayıncı)
-        run: python telethon_publisher.py
-        env:
-          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
-          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
-          TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
-          MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
-
-      # 5. Adım: Durum dosyalarını depoya kaydet
+      # 4. Adım: Durum dosyalarını (state klasörü) depoya kaydeder.
       - name: Durum Dosyalarını Depoya Kaydet
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # Depoya kaydetmeden önce cache dizininin varlığını kontrol et
-          if [ -d ".cache/ksu-manager" ]; then
-            if [[ -n $(git status --porcelain) ]]; then
-              echo "Değişiklikler bulundu, depoya kaydediliyor."
-              # ÖNEMLİ: manifest.json'ı da depoya ekliyoruz
-              git add last_run.txt telegram_durum.txt .cache/ksu-manager/manifest.json
-              git commit -m "ci: Otomasyon durum dosyalarını güncelle"
-              git pull --rebase
-              git push
-            else
-              echo "Yeni değişiklik bulunamadı."
-            fi
+          # Depoya kaydedilecek bir değişiklik var mı diye kontrol et.
+          # Sadece state klasöründeki değişikliklere odaklanıyoruz.
+          if [[ -n $(git status --porcelain state) ]]; then
+            echo "Durum dosyalarında değişiklikler bulundu, depoya kaydediliyor."
+            git add state/
+            git commit -m "ci: Otomasyon durum dosyalarını güncelle"
+            git pull --rebase
+            git push
           else
-            echo "Cache dizini bulunamadığı için depoya kaydedilecek bir değişiklik yok."
+            echo "Yeni değişiklik bulunamadı."
           fi
 
