@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-# v1.0 - Kullanıcı Hesabıyla Çalışan Nihai Yayıncı
-# AÇIKLAMA: Bu betik, Telegram Bot API limitlerinden ve sorunlarından kaçınmak için
-# bot yerine doğrudan bir kullanıcı hesabı (Telethon aracılığıyla) kullanarak
-# indirilen modül dosyalarını yayın kanalına gönderir. Bu yöntem, 50MB dosya
-# limiti sorununu ortadan kaldırır ve ağ hatalarına karşı çok daha dayanıklıdır.
-# telegram_guncelle.sh betiğinin yerini almıştır.
+# v2.0 - Sağlamlaştırılmış ve Birleştirilmiş Telethon Yayıncısı
+# AÇIKLAMA: Bu betik, `module_handler.py` tarafından indirilen ve
+# manifest'te listelenen yeni dosyaları Telegram kanalına gönderir.
+# Artık bot yerine doğrudan kullanıcı hesabıyla (Telethon) çalışır,
+# bu sayede 50MB dosya limiti ortadan kalkar ve ağ hatalarına karşı
+# daha dirençli hale gelir.
 
 import os
 import json
 import asyncio
+from datetime import datetime
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
-from telethon.errors.rpcerrorlist import MessageDeleteForbiddenError, MessageIdInvalidError
 
 # --- YAPILANDIRMA (HASSAS BİLGİLER) ---
 API_ID = os.environ.get('TELEGRAM_API_ID')
@@ -19,142 +19,127 @@ API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
 # --- AYARLAR ---
-PUBLISH_CHANNEL_ID = -1002477121598
+PUBLISH_CHANNEL_ID = -1002477121598  # Yayın yapılacak kanalın ID'si
 CACHE_DIR = os.path.expanduser("~/.cache/ksu-manager")
+CONFIG_DIR = os.path.expanduser("~/.config/ksu-manager")
+MODULES_FILE = os.path.join(CONFIG_DIR, "modules.json")
 CACHE_MANIFEST = os.path.join(CACHE_DIR, "manifest.json")
-MODULES_FILE = os.path.expanduser("~/.config/ksu-manager/modules.json")
 TELEGRAM_DURUM_DOSYASI = "./telegram_durum.txt"
 LAST_RUN_FILE = "./last_run.txt"
-MANUAL_RUN = os.environ.get('MANUAL_RUN') == 'true'
 
-# --- Yardımcı Fonksiyonlar ---
-def load_modules():
+def load_json_file(path, description):
+    """Bir JSON dosyasını güvenli bir şekilde yükler."""
+    if not os.path.exists(path):
+        print(f"[HATA] Gerekli '{description}' dosyası bulunamadı: {path}")
+        return None
     try:
-        with open(MODULES_FILE, 'r', encoding='utf-8') as f:
-            return json.load(f).get('modules', [])
-    except (FileNotFoundError, json.JSONDecodeError):
-        print(f"[HATA] '{MODULES_FILE}' dosyası okunamadı.")
-        return []
-
-def load_manifest():
-    try:
-        with open(CACHE_MANIFEST, 'r', encoding='utf-8') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        print(f"[HATA] '{CACHE_MANIFEST}' dosyası okunamadı.")
-        return {}
+    except (json.JSONDecodeError, FileNotFoundError):
+        print(f"[HATA] '{description}' dosyası okunamadı veya bozuk: {path}")
+        return None
 
 def load_telegram_durum():
+    """Telegram durum dosyasını (modul;mesaj_id;dosya_adi) bir sözlüğe yükler."""
     durum = {}
     if not os.path.exists(TELEGRAM_DURUM_DOSYASI):
+        # Dosya yoksa oluştur
+        open(TELEGRAM_DURUM_DOSYASI, 'a').close()
         return durum
-    try:
-        with open(TELEGRAM_DURUM_DOSYASI, 'r', encoding='utf-8') as f:
-            for line in f:
+    
+    with open(TELEGRAM_DURUM_DOSYASI, 'r', encoding='utf-8') as f:
+        for line in f:
+            if line.strip():
                 parts = line.strip().split(';', 2)
                 if len(parts) == 3:
-                    modul_adi, mesaj_id, dosya_adi = parts
-                    durum[modul_adi] = {'mesaj_id': int(mesaj_id), 'dosya_adi': dosya_adi}
-    except Exception as e:
-        print(f"[UYARI] '{TELEGRAM_DURUM_DOSYASI}' okunurken hata: {e}")
+                    durum[parts[0]] = {'message_id': int(parts[1]), 'file_name': parts[2]}
     return durum
 
 def save_telegram_durum(durum):
-    try:
-        with open(TELEGRAM_DURUM_DOSYASI, 'w', encoding='utf-8') as f:
-            for modul_adi, data in sorted(durum.items()):
-                f.write(f"{modul_adi};{data['mesaj_id']};{data['dosya_adi']}\n")
-    except Exception as e:
-        print(f"[HATA] '{TELEGRAM_DURUM_DOSYASI}' yazılırken hata: {e}")
+    """Telegram durum sözlüğünü dosyaya yazar."""
+    with open(TELEGRAM_DURUM_DOSYASI, 'w', encoding='utf-8') as f:
+        for modul, data in durum.items():
+            f.write(f"{modul};{data['message_id']};{data['file_name']}\n")
 
-# --- Ana İşleyici ---
-async def main(client):
+async def main():
     print("-------------------------------------")
-    print(f"Telethon Yayıncı Başlatıldı: {asyncio.get_event_loop().time()}")
+    print(f"Telethon Yayıncı Başlatıldı: {datetime.now()}")
 
-    modules = load_modules()
-    manifest = load_manifest()
-    telegram_durum = load_telegram_durum()
+    # Gerekli dosyaları yükle
+    modules_data = load_json_file(MODULES_FILE, "Modül Listesi")
+    manifest_data = load_json_file(CACHE_MANIFEST, "İndirme Manifestosu")
     
-    if not modules or not manifest:
+    if not modules_data or not manifest_data:
         print("[HATA] Gerekli modül veya manifest dosyaları olmadan işlem yapılamaz. Çıkılıyor.")
         return
 
-    for module in modules:
-        if not module.get('enabled', False):
-            continue
+    telegram_durum = load_telegram_durum()
+    all_modules = {m['name']: m for m in modules_data.get('modules', [])}
 
-        modul_adi = module.get('name')
-        print(f"---\n[İŞLEM] Modül kontrol ediliyor: {modul_adi}")
+    async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
+        for modul_adi, guncel_dosya_adi in manifest_data.items():
+            print(f"---\n[İŞLEM] Modül kontrol ediliyor: {modul_adi}")
+            
+            eski_kayit = telegram_durum.get(modul_adi)
+            eski_dosya_adi = eski_kayit['file_name'] if eski_kayit else None
 
-        guncel_dosya_adi = manifest.get(modul_adi)
-        if not guncel_dosya_adi:
-            print(f"[UYARI] '{modul_adi}' için manifest'te kayıt bulunamadı. Atlanıyor.")
-            continue
+            if guncel_dosya_adi == eski_dosya_adi:
+                print(f"[BİLGİ] '{modul_adi}' Telegram'da zaten güncel.")
+                continue
 
-        eski_kayit = telegram_durum.get(modul_adi, {})
-        eski_dosya_adi = eski_kayit.get('dosya_adi')
+            print(f"[GÜNCELLEME] '{modul_adi}' için yeni sürüm bulundu: {guncel_dosya_adi}")
+            guncel_dosya_yolu = os.path.join(CACHE_DIR, guncel_dosya_adi)
 
-        if guncel_dosya_adi == eski_dosya_adi:
-            print(f"[BİLGİ] '{modul_adi}' zaten güncel ({guncel_dosya_adi}).")
-            continue
+            if not os.path.exists(guncel_dosya_yolu):
+                print(f"[HATA] Dosya manifest'te listeleniyor ancak diskte bulunamadı: {guncel_dosya_yolu}. Atlanıyor.")
+                continue
 
-        print(f"[GÜNCELLEME] '{modul_adi}' için yeni sürüm bulundu: {guncel_dosya_adi}")
-        guncel_dosya_yolu = os.path.join(CACHE_DIR, guncel_dosya_adi)
+            # Eski mesajı sil
+            if eski_kayit:
+                print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {eski_kayit['message_id']})...")
+                try:
+                    await client.delete_messages(PUBLISH_CHANNEL_ID, eski_kayit['message_id'])
+                except Exception as e:
+                    print(f"[UYARI] Eski mesaj silinemedi (muhtemelen zaten yok): {e}")
 
-        if not os.path.exists(guncel_dosya_yolu):
-            print(f"[HATA] Dosya manifest'te var ama diskte yok: {guncel_dosya_yolu}. Atlanıyor.")
-            continue
+            # Caption oluştur
+            module_info = all_modules.get(modul_adi, {})
+            repo_url, changelog_url = "", ""
+            if module_info.get('type') == "github_release":
+                source = module_info.get('source', '')
+                repo_url = f"https://github.com/{source}"
+                changelog_url = f"https://github.com/{source}/releases/latest"
+            
+            caption = f"<b>{guncel_dosya_adi}</b>"
+            if repo_url and changelog_url:
+                caption += f"\n\n<a href='{repo_url}'>Ana Depo</a> | <a href='{changelog_url}'>Değişiklik Kaydı</a>"
 
-        # Eski mesajı silme
-        eski_mesaj_id = eski_kayit.get('mesaj_id')
-        if eski_mesaj_id:
-            print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {eski_mesaj_id})...")
+            # Yeni dosyayı gönder
+            print(f"[TELEGRAM] Yeni dosya '{guncel_dosya_adi}' kanala yükleniyor...")
             try:
-                await client.delete_messages(PUBLISH_CHANNEL_ID, eski_mesaj_id)
-            except (MessageDeleteForbiddenError, MessageIdInvalidError):
-                print("[UYARI] Eski mesaj silinemedi (muhtemelen zaten silinmiş veya yetki yok). Devam ediliyor.")
+                yeni_mesaj = await client.send_file(
+                    PUBLISH_CHANNEL_ID,
+                    guncel_dosya_yolu,
+                    caption=caption,
+                    parse_mode='html',
+                    silent=True
+                )
+                telegram_durum[modul_adi] = {'message_id': yeni_mesaj.id, 'file_name': guncel_dosya_adi}
+                print(f"[BAŞARILI] '{modul_adi}' güncellendi. Yeni Mesaj ID: {yeni_mesaj.id}")
             except Exception as e:
-                print(f"[HATA] Eski mesaj silinirken beklenmedik hata: {e}")
-        
-        # Yeni dosyayı gönderme
-        repo_url, changelog_url = "", ""
-        if module.get('type') == "github_release":
-            source = module.get('source', '')
-            repo_url = f"https://github.com/{source}"
-            changelog_url = f"https://github.com/{source}/releases/latest"
-
-        caption = f"<b>{guncel_dosya_adi}</b>"
-        if repo_url:
-            caption += f"\n\n<a href='{repo_url}'>Ana Depo</a> | <a href='{changelog_url}'>Değişiklik Kaydı</a>"
-
-        print(f"[TELEGRAM] Yeni dosya '{guncel_dosya_adi}' kanala yükleniyor...")
-        try:
-            sent_message = await client.send_file(
-                PUBLISH_CHANNEL_ID,
-                guncel_dosya_yolu,
-                caption=caption,
-                parse_mode='html',
-                silent=True
-            )
-            telegram_durum[modul_adi] = {'mesaj_id': sent_message.id, 'dosya_adi': guncel_dosya_adi}
-            print(f"[BAŞARILI] '{modul_adi}' güncellendi. Yeni Mesaj ID: {sent_message.id}")
-        except Exception as e:
-            print(f"[HATA] Dosya gönderilemedi: {e}")
+                print(f"[HATA] Dosya yüklenemedi: {e}")
 
     save_telegram_durum(telegram_durum)
-    print("-------------------------------------")
-    print(f"Telethon Yayıncı Tamamlandı: {asyncio.get_event_loop().time()}")
-    print()
+    
+    # Son çalışma tarihini güncelle
+    with open(LAST_RUN_FILE, "w") as f:
+        f.write(datetime.now().strftime("%Y-%m-%d"))
 
+    print("-------------------------------------")
+    print(f"Yayıncı Otomasyonu Tamamlandı: {datetime.now()}")
 
 if __name__ == "__main__":
     if not all([API_ID, API_HASH, SESSION_STRING]):
-        raise ValueError("TELEGRAM_API_ID, TELEGRAM_API_HASH, ve TELEGRAM_SESSION_STRING ortam değişkenleri ayarlanmalıdır.")
-    
-    # Telethon'un event loop ile ilgili uyarısını bastırmak için
-    # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) # Sadece Windows için
-    
-    client = TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH)
-    with client:
-        client.loop.run_until_complete(main(client))
+        raise ValueError("TELEGRAM_API_ID, TELEGRAM_API_HASH ve TELEGRAM_SESSION_STRING ortam değişkenleri ayarlanmalıdır.")
+    asyncio.run(main())
+
