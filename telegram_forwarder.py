@@ -1,7 +1,7 @@
 # Bu betik, bir Telegram "kullanıcı hesabı" gibi davranarak belirtilen kanalları
 # tarar ve son 24 saat içinde gönderilmiş yeni dosyaları, kaynak kanal
 # bilgisini ekleyerek özel bir arşiv kanalına iletir.
-# Bu betik, GitHub Actions üzerinde günde bir kez çalışmak üzere tasarlanmıştır.
+# v2 - Sağlamlaştırılmış Sürüm: Session string hatası daha net loglanır ve 'chats' dosyası daha basit okunur.
 
 import os
 import json
@@ -10,37 +10,27 @@ from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
 
 # --- YAPILANDIRMA (HASSAS BİLGİLER) ---
-# Bu bilgiler GitHub Actions ortam değişkenlerinden (Secrets) alınır.
-API_ID = int(os.environ.get('TELEGRAM_API_ID'))
+API_ID_STR = os.environ.get('TELEGRAM_API_ID')
+if not API_ID_STR:
+    raise ValueError("[HATA] TELEGRAM_API_ID ortam değişkeni ayarlanmamış!")
+API_ID = int(API_ID_STR)
 API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
 # --- YAPILANDIRMA (HASSAS OLMAYAN BİLGİLER) ---
-# Kanal ID'si ve kaynak dosyası gibi bilgiler artık doğrudan koda gömülmüştür.
-DESTINATION_CHANNEL = -1002542617400 # <<<< LÜTFEN ARŞİV KANALINIZIN ID'SİNİ BURAYA GİRİN
+DESTINATION_CHANNEL = -1002542617400
 CHATS_FILE = 'chats'
 STATE_FILE = 'forwarder_state.json'
 client = None
 
 def read_source_chats():
-    """Kaynak kanalları 'chats' dosyasından okur."""
+    """Kaynak kanalları 'chats' dosyasından (her satır bir kanal) okur."""
     if not os.path.exists(CHATS_FILE):
         print(f"[HATA] Kaynak kanalları içeren '{CHATS_FILE}' dosyası bulunamadı.")
         return []
     with open(CHATS_FILE, 'r') as f:
-        try:
-            # Önce dosyanın ["kanal1", "kanal2"] formatında bir JSON olup olmadığını kontrol et
-            f.seek(0)
-            chats = json.load(f)
-            if isinstance(chats, list):
-                return chats
-            else:
-                 print(f"[UYARI] '{CHATS_FILE}' dosyası geçerli bir JSON listesi değil.")
-                 return []
-        except json.JSONDecodeError:
-            # JSON değilse, her satırı bir kanal adı olarak okumayı dener
-            f.seek(0)
-            return [line.strip() for line in f if line.strip() and not line.startswith('#')]
+        # Sadece satır satır oku, boş satırları ve yorumları atla.
+        return [line.strip() for line in f if line.strip() and not line.startswith('#')]
 
 def load_state():
     """Daha önce iletilen son mesaj ID'lerini dosyadan yükler."""
@@ -90,6 +80,7 @@ async def main():
 
             if not new_messages_to_forward:
                 print("-> Yeni dosya bulunamadı.")
+                state[chat_id_str] = highest_message_id_in_batch # İlerlemeyi kaydet
                 continue
 
             print(f"-> {len(new_messages_to_forward)} adet yeni dosya bulundu. Yönlendiriliyor...")
@@ -116,8 +107,13 @@ async def main():
 
 async def run_with_client():
     async with client:
-        if not await client.is_user_authorized():
-            raise Exception("Oturum anahtarı (session string) geçersiz veya süresi dolmuş!")
+        is_authorized = await client.is_user_authorized()
+        if not is_authorized:
+            print("\n" + "="*60)
+            print("[KRİTİK HATA] Oturum anahtarı (TELEGRAM_SESSION_STRING) geçersiz veya süresi dolmuş!")
+            print("[ÇÖZÜM] Lütfen yeni bir oturum anahtarı oluşturup projenizin GitHub Secrets bölümünü güncelleyin.")
+            print("="*60 + "\n")
+            return
         await main()
 
 if __name__ == "__main__":
@@ -126,4 +122,3 @@ if __name__ == "__main__":
     else:
         client = TelegramClient(StringSession(SESSION_STRING), API_ID, API_HASH)
         client.loop.run_until_complete(run_with_client())
-

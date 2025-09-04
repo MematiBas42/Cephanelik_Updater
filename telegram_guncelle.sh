@@ -1,5 +1,5 @@
 #!/bin/bash
-# v2 - Sağlamlaştırılmış Sürüm
+# v3 - Sağlamlaştırılmış Sürüm
 # YENİLİK: Dosyayı yüklemeden önce diskte fiziksel olarak var olup olmadığını
 # kontrol ederek 'curl: (26)' hatasını önler ve daha net loglama sağlar.
 
@@ -15,6 +15,7 @@ LAST_RUN_FILE="./last_run.txt"
 
 if ! command -v jq &> /dev/null; then echo "HATA: 'jq' komutu bulunamadı."; exit 1; fi
 if [ ! -f "$MIS_MODULES_FILE" ]; then echo "HATA: mis modül dosyası bulunamadı: $MIS_MODULES_FILE"; exit 1; fi
+if [ ! -f "$MIS_CACHE_MANIFEST" ]; then echo "HATA: mis manifest dosyası bulunamadı: $MIS_CACHE_MANIFEST. 'mis' adımı çalışmamış olabilir."; exit 1; fi
 touch "$TELEGRAM_DURUM_DOSYASI"
 
 if [ "$MANUAL_RUN" != "true" ]; then
@@ -29,7 +30,7 @@ if [ "$MANUAL_RUN" != "true" ]; then
 fi
 
 echo "-------------------------------------"
-echo "Otomasyon Başlatıldı: $(date)"
+echo "Yayıncı Otomasyonu Başlatıldı: $(date)"
 
 jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | while read -r modul_adi; do
     echo "---"
@@ -53,7 +54,6 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
     echo "[GÜNCELLEME] '$modul_adi' için yeni sürüm bulundu: $guncel_dosya_adi"
     guncel_dosya_yolu="$MIS_CACHE_DIR/$guncel_dosya_adi"
 
-    # YENİ KONTROL: Dosya diskte gerçekten var mı?
     if [ ! -f "$guncel_dosya_yolu" ]; then
         echo "[HATA] Dosya manifest'te listeleniyor ancak diskte bulunamadı: $guncel_dosya_yolu. 'mis' adımında bir sorun olmuş olabilir. Atlanıyor."
         continue
@@ -93,12 +93,11 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         echo "$modul_adi;$yeni_mesaj_id;$guncel_dosya_adi" >> "$TELEGRAM_DURUM_DOSYASI"
         echo "[BAŞARILI] '$modul_adi' güncellendi. Yeni Mesaj ID: $yeni_mesaj_id"
     else
-        echo "[HATA] Telegram'a yüklenemedi. API Yanıtı: $API_YANITI"
+        echo "[HATA] Telegram'a yüklenemedi. API Yanıtı: $(echo $API_YANITI | jq .)"
     fi
 done
 
 echo "$(date +%Y-%m-%d)" > "$LAST_RUN_FILE"
 echo "-------------------------------------"
-echo "Otomasyon Tamamlandı: $(date)"
+echo "Yayıncı Otomasyonu Tamamlandı: $(date)"
 echo
-
