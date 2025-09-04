@@ -33,6 +33,19 @@ jobs:
         with:
           repository: 'MematiBas42/Cephanelik_Updater'
           token: ${{ secrets.GITHUB_TOKEN }}
+   # ------------------- GEÇİCİ HATA AYIKLAMA ADIMI -------------------
+      # BU ADIMI İŞİNİZ BİTTİĞİNDE MUTLAKA SİLİN!
+      - name: ⚠️ Sırların Değerlerini Kontrol Et
+        run: |
+          echo "====================== SIR KONTROLÜ (ACTIONS ORTAMI) ======================"
+          echo "API_ID dolu mu?: ${{ secrets.TELEGRAM_API_ID != '' }}"
+          echo "ARŞİV KANALI DEĞERİ: ${{ secrets.TELEGRAM_ARCHIVE_CHANNEL }}"
+          echo "YAYIN KANALI DEĞERİ: ${{ secrets.PUBLISH_CHANNEL_ID }}"
+          echo "ARŞİV BOT TOKEN'I dolu mu?: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE != '' }}"
+          echo "YAYIN BOT TOKEN'I dolu mu?: ${{ secrets.BOT_TOKEN_FOR_PUBLISH != '' }}"
+          echo "SESSION STRING dolu mu?: ${{ secrets.TELEGRAM_SESSION_STRING != '' }}"
+          echo "=========================================================================="
+      # -------------------------------------------------------------------------
 
       # 2. Adım: Python ortamını ve Telethon kütüphanesini kurar.
       - name: Python Ortamını Kur ve Telethon Yükle
