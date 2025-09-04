@@ -14,6 +14,11 @@
     "message_id": 222,
     "version_id": "2025-06-18T12:19:12Z"
   },
+  "Zygisk-Assistant": {
+    "file_name": "Zygisk-Assistant-v2.1.4-1013f8a-release.zip",
+    "message_id": 239,
+    "version_id": "2025-02-23T00:18:35Z"
+  },
   "ZygiskNext": {
     "file_name": "Zygisk-Next-1.2.9.1-534-b8e7e21-release.zip",
     "message_id": 224,
@@ -39,6 +44,11 @@
     "message_id": 228,
     "version_id": "693"
   },
+  "nohello": {
+    "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
+    "message_id": 240,
+    "version_id": "2025-05-31T03:10:36Z"
+  },
   "pif": {
     "file_name": "PlayIntegrityFix_v4.3-inject-s_164.zip",
     "message_id": 230,
@@ -48,6 +58,11 @@
     "file_name": "native-root-detector-v7.4.0.apk",
     "message_id": 231,
     "version_id": "46"
+  },
+  "rezygisk": {
+    "file_name": "ReZygisk-v1.0.0-rc.3-release.zip",
+    "message_id": 241,
+    "version_id": "2025-07-14T02:25:39Z"
   },
   "shamiko": {
     "file_name": "Shamiko-v1.2.5.1-417-release.zip",
