@@ -1,13 +1,12 @@
 # ==============================================================================
-# CEPHANELİK UPDATER - v7 - NİHAİ TELETHON TABANLI WORKFLOW
+# CEPHANELİK UPDATER - v8 - TEK İŞLEYİCİLİ NİHAİ WORKFLOW
 # ==============================================================================
-# AÇIKLAMA: Bu versiyon, yayınlama (publish) işlemi için bot token'ı yerine
-# doğrudan kullanıcı hesabı (Telethon) kullanır. Bu sayede botların getirdiği
-# 50MB dosya limiti ve ağ bağlantı sorunları aşılmıştır.
-# `telegram_guncelle.sh` betiği tamamen kaldırılmış, yerine `telethon_publisher.py`
-# betiği getirilmiştir.
+# AÇIKLAMA: Bu versiyon, `mis` ve `telegram_forwarder` betiklerini tek bir
+# Python betiğinde (`module_handler.py`) birleştirir. Bu sayede sistem
+# maksimum basitliğe ve sağlamlığa ulaşır. Arşiv kanalı ve arşiv botu
+# token'ı tamamen ortadan kaldırılmıştır.
 
-name: Dosya Güncelleme Otomasyonu (Telethon Tabanlı)
+name: Dosya Güncelleme Otomasyonu (Nihai Sürüm)
 
 on:
   workflow_dispatch:
@@ -30,46 +29,33 @@ jobs:
           repository: 'MematiBas42/Cephanelik_Updater'
           token: ${{ secrets.GITHUB_TOKEN }}
       
-      # 2. Adım: Python ve Telethon kurulumu
-      - name: Python Ortamını Kur ve Telethon Yükle
+      # 2. Adım: Python ve Gerekli Kütüphaneleri Kur
+      - name: Python Ortamını Kur ve Kütüphaneleri Yükle
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install telethon
+      - run: pip install telethon requests
 
-      # 3. Adım: TOPLAYICI - Kaynak kanalları tara ve arşivle
-      - name: Telegram Dosyalarını Arşivle (Toplayıcı)
-        run: python telegram_forwarder.py
+      # 3. Adım: İŞLEYİCİ (BİRLEŞTİRİLMİŞ)
+      # Bu adım hem dosyaları toplar hem de indirir.
+      - name: Modülleri Kontrol Et ve İndir (Birleşik İşleyici)
+        run: python module_handler.py
         env:
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
-
-      # 4. Adım: Gerekli paketleri kur ve yapılandırmayı hazırla
-      - name: Gerekli Paketleri Yükle ve Yapılandırmayı Kopyala
-        run: |
-          sudo apt-get update && sudo apt-get install -y jq
-          mkdir -p $HOME/.config/ksu-manager
-          cp ./modules.json $HOME/.config/ksu-manager/modules.json
-
-      # 5. Adım: İŞLEYİCİ - Modülleri kontrol et ve indir
-      - name: Modülleri Kontrol Et ve İndir (İşleyici)
-        run: bash ./mis sync
-        env:
-          BOT_TOKEN_FOR_ARCHIVE: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE }}
           GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
 
-      # 6. Adım: YAYINCI (YENİ) - Dosyaları Telethon ile yayınla
+      # 4. Adım: YAYINCI - Dosyaları Telethon ile yayınla
       - name: Dosyaları Telegram Kanalında Yayınla (Telethon Yayıncı)
         run: python telethon_publisher.py
         env:
-          # BOT_TOKEN_FOR_PUBLISH ARTIK GEREKLİ DEĞİL!
           TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
           TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
           TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
           MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
 
-      # 7. Adım: Durum dosyalarını depoya kaydet
+      # 5. Adım: Durum dosyalarını depoya kaydet
       - name: Durum Dosyalarını Depoya Kaydet
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -77,7 +63,8 @@ jobs:
           
           if [[ -n $(git status --porcelain) ]]; then
             echo "Değişiklikler bulundu, depoya kaydediliyor."
-            git add last_run.txt telegram_durum.txt forwarder_state.json
+            # ÖNEMLİ: manifest.json'ı da depoya ekliyoruz
+            git add last_run.txt telegram_durum.txt .cache/ksu-manager/manifest.json
             git commit -m "ci: Otomasyon durum dosyalarını güncelle"
             git pull --rebase
             git push
