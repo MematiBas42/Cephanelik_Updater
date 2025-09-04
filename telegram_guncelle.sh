@@ -1,11 +1,8 @@
 #!/bin/bash
-
-# Bu betik, mis'in önbelleğini (cache) ve Telegram durumunu karşılaştırır,
-# güncel dosyaları bulur ve ana yayın kanalına yükler.
+# Adli Tıp Loglama Modu
 
 # --- AYARLAR ---
-PUBLISH_CHANNEL_ID="-1002477121598" # <<<< LÜTFEN YAYIN KANALINIZIN ID'SİNİ BURAYA GİRİN
-# BOT_TOKEN_FOR_PUBLISH, GitHub Actions sırlarından okunur.
+PUBLISH_CHANNEL_ID="-1002477121598"
 
 # --- Dosya Yolları ---
 MIS_CACHE_DIR="$HOME/.cache/ksu-manager"
@@ -14,12 +11,10 @@ MIS_MODULES_FILE="$HOME/.config/ksu-manager/modules.json"
 TELEGRAM_DURUM_DOSYASI="./telegram_durum.txt"
 LAST_RUN_FILE="./last_run.txt"
 
-# Gerekli dosya ve programların kontrolü
 if ! command -v jq &> /dev/null; then echo "HATA: 'jq' komutu bulunamadı."; exit 1; fi
 if [ ! -f "$MIS_MODULES_FILE" ]; then echo "HATA: mis modül dosyası bulunamadı: $MIS_MODULES_FILE"; exit 1; fi
 touch "$TELEGRAM_DURUM_DOSYASI"
 
-# --- GÜN İÇİNDE TEKRAR ÇALIŞMAYI ENGELLEME ---
 if [ "$MANUAL_RUN" != "true" ]; then
     TODAY=$(date +%Y-%m-%d)
     if [ -f "$LAST_RUN_FILE" ]; then
@@ -34,7 +29,6 @@ fi
 echo "-------------------------------------"
 echo "Otomasyon Başlatıldı: $(date)"
 
-# --- ANA MANTIK ---
 jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | while read -r modul_adi; do
     echo "---"
     echo "[İŞLEM] Modül kontrol ediliyor: $modul_adi"
@@ -78,16 +72,19 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
 
     if [ ! -z "$eski_mesaj_id" ]; then
         echo "[TELEGRAM] Eski mesaj siliniyor (ID: $eski_mesaj_id)..."
-        # DÜZELTME: PUBLISH_CHANNEL_ID değişkeni artık '-' işaretini içerdiği için, başına tekrar '-' eklenmiyor.
         curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
     fi
 
     echo "[TELEGRAM] Yeni dosya '$guncel_dosya_adi' kanala sessizce yükleniyor..."
-    # DÜZELTME: PUBLISH_CHANNEL_ID değişkeni artık '-' işaretini içerdiği için, başına tekrar '-' eklenmiyor.
-    API_YANITI=$(curl -s -F document=@"$guncel_dosya_yolu" \
+    # GÜNCELLEME: -v (verbose) parametresi ile daha detaylı curl çıktısı alınır.
+    API_YANITI=$(curl --verbose -F document=@"$guncel_dosya_yolu" \
                      -F caption="$caption" \
                      -F parse_mode="HTML" \
                      "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=$PUBLISH_CHANNEL_ID&disable_notification=true")
+
+    echo "[DEBUG] Alınan Ham API Yanıtı:"
+    echo "$API_YANITI"
+    echo "--- Yanıt Sonu ---"
 
     yeni_mesaj_id=$(echo "$API_YANITI" | jq -r '.result.message_id')
     if [ ! -z "$yeni_mesaj_id" ] && [ "$yeni_mesaj_id" != "null" ]; then
@@ -97,7 +94,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         echo "$modul_adi;$yeni_mesaj_id;$guncel_dosya_adi" >> "$TELEGRAM_DURUM_DOSYASI"
         echo "[BAŞARILI] '$modul_adi' güncellendi. Yeni Mesaj ID: $yeni_mesaj_id"
     else
-        echo "[HATA] Telegram'a yüklenemedi. API Yanıtı: $API_YANITI"
+        echo "[HATA] Telegram'a yüklenemedi."
     fi
 done
 

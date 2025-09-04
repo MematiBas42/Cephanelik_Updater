@@ -1,10 +1,10 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v10.8 - Otomasyon Odaklı Sürüm
-# YENİLİKLER (v10.8):
-# - Kanal ID'si, betik içine sabitlenerek GitHub Actions yapılandırması basitleştirildi.
+# KSU Modül Yöneticisi v10.9 - Adli Tıp Loglama Modu
+# YENİLİK: Telegram API çağrılarından gelen ham yanıtları loglamak için
+# get_api_call fonksiyonu detaylandırıldı.
 
 # --- Yapılandırma ve Global Değişkenler ---
-TELEGRAM_ARCHIVE_CHANNEL="-1002542617400" # <<<< LÜTFEN ARŞİV KANALINIZIN ID'SİNİ BURAYA GİRİN
+TELEGRAM_ARCHIVE_CHANNEL="-1002542617400"
 MODULES_FILE=""
 CACHE_DIR="$HOME/.cache/ksu-manager"
 CACHE_MANIFEST="$CACHE_DIR/manifest.json"
@@ -19,15 +19,16 @@ NC='\033[0m'
 info() { echo -e "${GREEN}[BİLGİ]${NC} $1"; }
 warn() { echo -e "${YELLOW}[UYARI]${NC} $1"; }
 error() { echo -e "${RED}[HATA]${NC} $1" >&2; }
+debug_log() { echo -e "${YELLOW}[DEBUG]${NC} $1"; }
 
-# --- Betik Çıkış Kontrolü ---
+# --- ... (cleanup ve init_system fonksiyonları aynı kalır) ... ---
+# ... önceki versiyondaki cleanup ve init_system fonksiyonları buraya gelecek ...
 cleanup() {
     if [ -n "$RESULTS_DIR" ] && [ -d "$RESULTS_DIR" ]; then rm -rf "$RESULTS_DIR"; fi
     if [ -d "$CACHE_DIR/manifest.lock" ]; then rmdir "$CACHE_DIR/manifest.lock"; fi
 }
 trap cleanup EXIT
 
-# --- Çekirdek Fonksiyonlar ---
 init_system() {
     for cmd in curl jq git grep sed; do if ! command -v $cmd &> /dev/null; then echo "HATA: '$cmd' bulunamadı." >&2; exit 1; fi; done
     if [ -f "./modules.json" ]; then
@@ -42,9 +43,10 @@ init_system() {
     mkdir -p "$CACHE_DIR"
     if [ ! -f "$CACHE_MANIFEST" ]; then warn "'$CACHE_MANIFEST' bulunamadı, yeniden oluşturuluyor."; echo '{}' > "$CACHE_MANIFEST"; fi
 }
-
+# --- Çekirdek Fonksiyonlar (Güncellendi) ---
 get_api_call() {
     local url=$1; shift
+    debug_log "API Çağrısı yapılıyor: $url"
     local headers=()
     if [[ "$url" == *"api.github.com"* && -n "$GIT_API_TOKEN" ]]; then
         headers=(-H "Authorization: Bearer $GIT_API_TOKEN")
@@ -58,12 +60,18 @@ get_api_call() {
         echo "CURL_ERROR: Curl komutu başarısız oldu (exit code $curl_exit_code)."
         return 1
     fi
+    
     local http_status
     http_status=$(echo "$response" | tail -n 1 | sed 's/HTTP_STATUS://')
     local content
     content=$(echo "$response" | sed '$d')
+
+    debug_log "Alınan Ham Yanıt (HTTP $http_status):"
+    echo "$content"
+    debug_log "--- Yanıt Sonu ---"
+
     if [[ "$http_status" -lt 200 || "$http_status" -gt 299 ]]; then
-        echo "API_ERROR: HTTP $http_status. Yanıt: $content"
+        echo "API_ERROR: HTTP $http_status."
         return 1
     fi
     echo "$content"
@@ -74,6 +82,12 @@ get_telegram_message_with_file() {
     local api_response
     api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
     if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
+
+    # HATA AYIKLAMA: jq'ya girmeden önce yanıtın boş olup olmadığını kontrol et
+    if [ -z "$api_response" ]; then
+        error "'getUpdates' çağrısından boş yanıt alındı!"
+        return 1
+    fi
 
     echo "$api_response" | jq -r --arg cid_str "$TELEGRAM_ARCHIVE_CHANNEL" --arg kw "$keyword" --arg sc "$source_channel" '
         .result | reverse | .[] |
@@ -86,6 +100,8 @@ get_telegram_message_with_file() {
     ' | head -n 1
 }
 
+# --- ... (get_remote_filename, process_single_download, sync_modules, main fonksiyonları aynı kalır) ... ---
+# ... önceki versiyondaki diğer tüm fonksiyonlar buraya gelecek ...
 get_remote_filename() {
     local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $name)' "$MODULES_FILE")
     local type source filter source_channel;
