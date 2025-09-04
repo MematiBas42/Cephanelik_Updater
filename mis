@@ -1,11 +1,10 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v10.7 - Otomasyon Odaklı Sürüm
-# YENİLİKLER (v10.7):
-# - Yapılandırma tamamen GitHub Actions ortam değişkenlerine (env) geri döndürüldü.
+# KSU Modül Yöneticisi v10.8 - Otomasyon Odaklı Sürüm
+# YENİLİKLER (v10.8):
+# - Kanal ID'si, betik içine sabitlenerek GitHub Actions yapılandırması basitleştirildi.
 
 # --- Yapılandırma ve Global Değişkenler ---
-# TELEGRAM_ARCHIVE_CHANNEL, BOT_TOKEN_FOR_ARCHIVE gibi değişkenler
-# GitHub Actions tarafından 'env' bloğu ile sağlanır.
+TELEGRAM_ARCHIVE_CHANNEL="-1002542617400" # <<<< LÜTFEN ARŞİV KANALINIZIN ID'SİNİ BURAYA GİRİN
 MODULES_FILE=""
 CACHE_DIR="$HOME/.cache/ksu-manager"
 CACHE_MANIFEST="$CACHE_DIR/manifest.json"

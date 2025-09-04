@@ -4,23 +4,20 @@
 # güncel dosyaları bulur ve ana yayın kanalına yükler.
 
 # --- AYARLAR ---
-# GitHub Actions tarafından sağlanan ortam değişkenleri kullanılır,
-# bu yüzden burada manuel ayar yapmaya gerek yoktur.
-# BOT_TOKEN_FOR_PUBLISH, PUBLISH_CHANNEL_ID
+PUBLISH_CHANNEL_ID="-1002477121598" # <<<< LÜTFEN YAYIN KANALINIZIN ID'SİNİ BURAYA GİRİN
+# BOT_TOKEN_FOR_PUBLISH, GitHub Actions sırlarından okunur.
 
 # --- Dosya Yolları ---
 MIS_CACHE_DIR="$HOME/.cache/ksu-manager"
 MIS_CACHE_MANIFEST="$MIS_CACHE_DIR/manifest.json"
 MIS_MODULES_FILE="$HOME/.config/ksu-manager/modules.json"
-
-# Projenin ana dizininde durum takibi yapılır.
 TELEGRAM_DURUM_DOSYASI="./telegram_durum.txt"
 LAST_RUN_FILE="./last_run.txt"
 
 # Gerekli dosya ve programların kontrolü
 if ! command -v jq &> /dev/null; then echo "HATA: 'jq' komutu bulunamadı."; exit 1; fi
 if [ ! -f "$MIS_MODULES_FILE" ]; then echo "HATA: mis modül dosyası bulunamadı: $MIS_MODULES_FILE"; exit 1; fi
-touch "$TELEGRAM_DURUM_DOSYASI" # Dosya yoksa oluştur
+touch "$TELEGRAM_DURUM_DOSYASI"
 
 # --- GÜN İÇİNDE TEKRAR ÇALIŞMAYI ENGELLEME ---
 if [ "$MANUAL_RUN" != "true" ]; then
@@ -81,16 +78,16 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
 
     if [ ! -z "$eski_mesaj_id" ]; then
         echo "[TELEGRAM] Eski mesaj siliniyor (ID: $eski_mesaj_id)..."
-        # API, kanal ID'sinin başında '-' olmadan da çalışabilir, ancak genellikle '-100' ile başlayan ID'ler için '-' kullanımı daha standarttır.
-        # GitHub sırrına ID'yi '100...' şeklinde girmeniz varsayılır.
-        curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=-$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
+        # DÜZELTME: PUBLISH_CHANNEL_ID değişkeni artık '-' işaretini içerdiği için, başına tekrar '-' eklenmiyor.
+        curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
     fi
 
     echo "[TELEGRAM] Yeni dosya '$guncel_dosya_adi' kanala sessizce yükleniyor..."
+    # DÜZELTME: PUBLISH_CHANNEL_ID değişkeni artık '-' işaretini içerdiği için, başına tekrar '-' eklenmiyor.
     API_YANITI=$(curl -s -F document=@"$guncel_dosya_yolu" \
                      -F caption="$caption" \
                      -F parse_mode="HTML" \
-                     "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=-$PUBLISH_CHANNEL_ID&disable_notification=true")
+                     "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/sendDocument?chat_id=$PUBLISH_CHANNEL_ID&disable_notification=true")
 
     yeni_mesaj_id=$(echo "$API_YANITI" | jq -r '.result.message_id')
     if [ ! -z "$yeni_mesaj_id" ] && [ "$yeni_mesaj_id" != "null" ]; then

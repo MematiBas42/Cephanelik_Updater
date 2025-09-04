@@ -9,27 +9,38 @@ from datetime import datetime, timezone, timedelta
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
 
-# --- YAPILANDIRMA ---
-# Tüm yapılandırma, GitHub Actions ortam değişkenlerinden (Secrets) alınır.
+# --- YAPILANDIRMA (HASSAS BİLGİLER) ---
+# Bu bilgiler GitHub Actions ortam değişkenlerinden (Secrets) alınır.
 API_ID = int(os.environ.get('TELEGRAM_API_ID'))
 API_HASH = os.environ.get('TELEGRAM_API_HASH')
 SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 
-# Kaynak kanallar JSON formatında okunur. Örnek: '["kanal1", "kanal2"]'
-SOURCE_CHATS_JSON = os.environ.get('TELEGRAM_SOURCE_CHATS', '[]')
-try:
-    SOURCE_CHATS = json.loads(SOURCE_CHATS_JSON)
-    if not isinstance(SOURCE_CHATS, list):
-        print("[UYARI] TELEGRAM_SOURCE_CHATS geçerli bir liste formatında değil. Boş olarak kabul ediliyor.")
-        SOURCE_CHATS = []
-except json.JSONDecodeError:
-    print(f"[HATA] TELEGRAM_SOURCE_CHATS ortam değişkeni JSON formatında değil: {SOURCE_CHATS_JSON}")
-    SOURCE_CHATS = []
-
-# Hedef arşiv kanalı ID'si
-DESTINATION_CHANNEL = int(os.environ.get('TELEGRAM_ARCHIVE_CHANNEL'))
+# --- YAPILANDIRMA (HASSAS OLMAYAN BİLGİLER) ---
+# Kanal ID'si ve kaynak dosyası gibi bilgiler artık doğrudan koda gömülmüştür.
+DESTINATION_CHANNEL = -1002542617400 # <<<< LÜTFEN ARŞİV KANALINIZIN ID'SİNİ BURAYA GİRİN
+CHATS_FILE = 'chats'
 STATE_FILE = 'forwarder_state.json'
 client = None
+
+def read_source_chats():
+    """Kaynak kanalları 'chats' dosyasından okur."""
+    if not os.path.exists(CHATS_FILE):
+        print(f"[HATA] Kaynak kanalları içeren '{CHATS_FILE}' dosyası bulunamadı.")
+        return []
+    with open(CHATS_FILE, 'r') as f:
+        try:
+            # Önce dosyanın ["kanal1", "kanal2"] formatında bir JSON olup olmadığını kontrol et
+            f.seek(0)
+            chats = json.load(f)
+            if isinstance(chats, list):
+                return chats
+            else:
+                 print(f"[UYARI] '{CHATS_FILE}' dosyası geçerli bir JSON listesi değil.")
+                 return []
+        except json.JSONDecodeError:
+            # JSON değilse, her satırı bir kanal adı olarak okumayı dener
+            f.seek(0)
+            return [line.strip() for line in f if line.strip() and not line.startswith('#')]
 
 def load_state():
     """Daha önce iletilen son mesaj ID'lerini dosyadan yükler."""
@@ -49,8 +60,9 @@ def save_state(state):
 async def main():
     print("Otomatik yönlendirici başlatıldı (GitHub Actions Modu).")
 
+    SOURCE_CHATS = read_source_chats()
     if not SOURCE_CHATS:
-        print("[UYARI] İzlenecek kaynak kanal bulunamadı (TELEGRAM_SOURCE_CHATS boş). Betik sonlandırılıyor.")
+        print(f"[UYARI] İzlenecek kaynak kanal bulunamadı ('{CHATS_FILE}' dosyası boş veya hatalı). Betik sonlandırılıyor.")
         return
 
     print(f"Kaynak kanallar: {', '.join(SOURCE_CHATS)}")
