@@ -154,6 +154,14 @@
       "asset_filter": "",
       "source_channel": "magiskalpha",
       "description": "magiskalpha"
+    },
+    {
+      "name": "Encore",
+      "enabled": true,
+      "type": "github_release",
+      "source": "Rem01Gaming/encore",
+      "asset_filter": "release\\.zip$",
+      "description": "Encore Tweaks"
     }
   ]
 }
