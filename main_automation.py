@@ -25,7 +25,7 @@ SESSION_STRING = os.environ.get('TELEGRAM_SESSION_STRING')
 GIT_API_TOKEN = os.environ.get('GIT_API_TOKEN')
 
 # Proje ayarları
-PUBLISH_CHANNEL_ID = -1002477121598
+PUBLISH_CHANNEL_ID = -1002542617400
 STATE_DIR = "./state"
 CACHE_DIR = os.path.expanduser("~/.cache/ksu-manager")
 MODULES_FILE_SRC = "./modules.json"
