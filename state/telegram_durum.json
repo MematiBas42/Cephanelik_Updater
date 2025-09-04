@@ -1,0 +1,97 @@
+{
+  "GPhotosUnlimited": {
+    "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
+    "message_id": 220,
+    "version_id": "2023-10-07T20:00:59.000Z"
+  },
+  "ReLSPosed": {
+    "file_name": "LSPosed-v1.0.1-7195-zygisk-release.zip",
+    "message_id": 221,
+    "version_id": "LSPosed-v1.0.1-7195-zygisk-release.zip"
+  },
+  "TrickyStore": {
+    "file_name": "Tricky-Store-v1.3.0-180-8acfa57-release.zip",
+    "message_id": 222,
+    "version_id": "2025-06-18T12:19:12Z"
+  },
+  "Zygisk-Assistant": {
+    "file_name": "Zygisk-Assistant-v2.1.4-1013f8a-debug.zip",
+    "message_id": 223,
+    "version_id": "2025-02-23T00:18:35Z"
+  },
+  "ZygiskNext": {
+    "file_name": "Zygisk-Next-1.2.9.1-534-b8e7e21-release.zip",
+    "message_id": 224,
+    "version_id": "2025-07-16T10:21:47Z"
+  },
+  "bindh": {
+    "file_name": "bindhosts_207-0a81a11.zip",
+    "message_id": 225,
+    "version_id": "bindhosts_207-0a81a11.zip"
+  },
+  "hma": {
+    "file_name": "HMA-V3.5.apk",
+    "message_id": 226,
+    "version_id": "2025-06-28T11:21:16Z"
+  },
+  "lsposed": {
+    "file_name": "LSPosed-v1.10.2-7189-zygisk-release.zip",
+    "message_id": 227,
+    "version_id": "LSPosed-v1.10.2-7189-zygisk-release.zip"
+  },
+  "magiskalpha": {
+    "file_name": "app-release.apk",
+    "message_id": 228,
+    "version_id": "693"
+  },
+  "nohello": {
+    "file_name": "Nohello-v0.0.7-53-4d53ecf-debug.zip",
+    "message_id": 229,
+    "version_id": "2025-05-31T03:10:42Z"
+  },
+  "pif": {
+    "file_name": "PlayIntegrityFix_v4.3-inject-s_164.zip",
+    "message_id": 230,
+    "version_id": "PlayIntegrityFix_v4.3-inject-s_164.zip"
+  },
+  "reveny": {
+    "file_name": "native-root-detector-v7.4.0.apk",
+    "message_id": 231,
+    "version_id": "46"
+  },
+  "rezygisk": {
+    "file_name": "ReZygisk-v1.0.0-rc.3-debug.zip",
+    "message_id": 232,
+    "version_id": "2025-07-14T02:25:39Z"
+  },
+  "shamiko": {
+    "file_name": "Shamiko-v1.2.5.1-417-release.zip",
+    "message_id": 233,
+    "version_id": "298"
+  },
+  "susfs": {
+    "file_name": "release-1.5.2%2B_16578fd.zip",
+    "message_id": 234,
+    "version_id": "release-1.5.2%2B_16578fd.zip"
+  },
+  "taddon": {
+    "file_name": "TrickyAddonModule-v4.1-584-canary.zip",
+    "message_id": 235,
+    "version_id": "TrickyAddonModule-v4.1-584-canary.zip"
+  },
+  "trm": {
+    "file_name": "TermuxRootMods-v1.0.20.zip",
+    "message_id": 236,
+    "version_id": "2025-06-06T21:40:14Z"
+  },
+  "viper": {
+    "file_name": "viper4android_module.zip",
+    "message_id": 237,
+    "version_id": "2025-01-07T21:55:35Z"
+  },
+  "yurikey": {
+    "file_name": "YuriKey_v1.8.zip",
+    "message_id": 238,
+    "version_id": "2025-08-20T03:24:00Z"
+  }
+}
