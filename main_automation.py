@@ -78,7 +78,7 @@ class ModuleHandler:
                         'version_id': str(message.id),
                         'source_url': f"https://t.me/{message.chat.username}/{message.id}",
                         'date': message.date.strftime("%d.%m.%Y"),
-                        'telegram_message': message # İndirme için mesaj objesini sakla
+                        'telegram_message': message
                     }
             return None
         except Exception as e:
@@ -96,7 +96,7 @@ class ModuleHandler:
                 'version_id': asset['updated_at'],
                 'source_url': data.get('html_url', '#'),
                 'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y"),
-                'download_url': asset['browser_download_url'] # İndirme için URL sakla
+                'download_url': asset['browser_download_url']
             }
         return None
 
@@ -217,6 +217,12 @@ class TelethonPublisher:
         self.state_manager = state_manager
         self.manifest = state_manager.load_json(MANIFEST_FILE)
         self.telegram_durum = state_manager.load_json(TELEGRAM_DURUM_FILE)
+        try:
+            with open(MODULES_FILE_SRC, 'r', encoding='utf-8') as f:
+                modules_list = json.load(f).get('modules', [])
+            self.modules_map = {m['name']: m for m in modules_list}
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.modules_map = {}
 
     async def publish_updates(self):
         print("\n--- Telegram Yayınlama Aşaması Başlatıldı ---")
@@ -253,8 +259,12 @@ class TelethonPublisher:
                 except Exception as e:
                     print(f"[UYARI] Eski mesaj silinemedi: {e}")
             
+            module_def = self.modules_map.get(name, {})
+            display_name = module_def.get('description') or info['file_name']
+
             caption = (
-                f"📦 <b>{info['file_name']}</b>\n\n"
+                f"📦 <b>{display_name}</b>\n\n"
+                f"📄 <b>Dosya Adı:</b> <code>{info['file_name']}</code>\n"
                 f"📅 <b>Güncelleme Tarihi:</b> {info['date']}\n\n"
                 f"🔗 <b><a href='{info['source_url']}'>Kaynak</a></b>\n"
                 f"⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯\n"
@@ -282,7 +292,7 @@ class TelethonPublisher:
 async def main():
     """Ana otomasyon fonksiyonu."""
     print("==============================================")
-    print(f"   Cephanelik Updater vFINAL.5 Başlatıldı")
+    print(f"   Cephanelik Updater vFINAL.6 Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
     

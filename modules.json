@@ -5,112 +5,128 @@
       "enabled": true,
       "type": "github_release",
       "source": "5ec1cff/TrickyStore",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+	  "description": "TrickyStore"
     },
     {
       "name": "pif",
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "KOWX712/PlayIntegrityFix"
     },
     {
       "name": "ZygiskNext",
       "enabled": true,
       "type": "github_release",
       "source": "Dr-TSNG/ZygiskNext",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "Dr-TSNG/ZygiskNext"
     },
     {
       "name": "taddon",
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "KOWX712/Tricky Addon"
     },
     {
       "name": "viper",
       "enabled": true,
       "type": "github_release",
       "source": "WSTxda/ViPERFX_RE",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "WSTxda/ViPERFX_RE"
     },
     {
       "name": "bindh",
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "bindhosts"
     },
     {
       "name": "susfs",
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "sidex15/susfs4ksu-module"
     },
     {
       "name": "lsposed",
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "JingMatrix/LSPosed"
     },
     {
       "name": "trm",
       "enabled": true,
       "type": "github_release",
       "source": "rompelhd/TermuxRootMods",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "rompelhd/TermuxRootMods"
     },
     {
       "name": "ReLSPosed",
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "ThePedroo/ReLSPosed"
     },
     {
       "name": "GPhotosUnlimited",
       "enabled": true,
       "type": "gitlab_release",
       "source": "cuynu/gphotos-unlimited-zygisk",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "cuynu/gphotos-unlimited-zygisk"
     },
     {
       "name": "hma",
       "enabled": true,
       "type": "github_release",
       "source": "Dr-TSNG/Hide-My-Applist",
-      "asset_filter": ".apk"
+      "asset_filter": "\\.apk",
+      "description": "Dr-TSNG/Hide-My-Applist"
     },
     {
       "name": "rezygisk",
       "enabled": true,
       "type": "github_release",
       "source": "PerformanC/ReZygisk",
-      "asset_filter": ".zip"
+      "asset_filter": "\\release.zip",
+      "description": "PerformanC/ReZygisk"
     },
     {
       "name": "Zygisk-Assistant",
       "enabled": true,
       "type": "github_release",
       "source": "snake-4/Zygisk-Assistant",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\release.zip$",
+      "description": "Zygisk-Assistant"
     },
     {
       "name": "nohello",
       "enabled": true,
       "type": "github_release",
       "source": "MhmRdd/NoHello",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\release.zip",
+      "description": "MhmRdd/NoHello"
     },
     {
       "name": "yurikey",
       "enabled": true,
       "type": "github_release",
       "source": "YurikeyDev/yurikey",
-      "asset_filter": "\\.zip$"
+      "asset_filter": "\\.zip$",
+      "description": "YurikeyDev/yurikey"
     },
     {
       "name": "shamiko",
@@ -118,7 +134,8 @@
       "type": "telegram_forwarder",
       "source": "Shamiko",
       "asset_filter": "",
-      "source_channel": "LSPosed"
+      "source_channel": "LSPosed",
+      "description": "Shamiko"
     },
     {
       "name": "reveny",
@@ -126,7 +143,8 @@
       "type": "telegram_forwarder",
       "source": "native-root-detector",
       "asset_filter": "",
-      "source_channel": "rootdetector"
+      "source_channel": "rootdetector",
+      "description": "Native Root Detector"
     },
     {
       "name": "magiskalpha",
@@ -134,7 +152,8 @@
       "type": "telegram_forwarder",
       "source": "app-release",
       "asset_filter": "",
-      "source_channel": "magiskalpha"
+      "source_channel": "magiskalpha",
+      "description": "magiskalpha"
     }
   ]
 }
