@@ -1,8 +1,9 @@
 #!/bin/bash
-# v5 - Gelişmiş Hata Raporlama ve Sağlamlaştırılmış Sürüm
-# YENİLİK: Dosya yükleme işlemi başarısız olduğunda, Telegram API'sinden
-# gelen hatayı ve HTTP durum kodunu yakalayıp net bir şekilde loglar.
-# Bu, "API Yanıtı: (boş)" gibi belirsiz hataların kök nedenini bulmayı sağlar.
+# v6 - Ağa Dayanıklı Nihai Sürüm
+# YENİLİK: Dosya yüklemesi için kullanılan curl komutuna zaman aşımı (`--connect-timeout`, `--max-time`)
+# ve otomatik yeniden deneme (`--retry`) parametreleri eklendi. Bu, GitHub Actions
+# sunucusundaki anlık ağ sorunlarından kaynaklanan "HTTP 000" gibi bağlantı
+# hatalarını kalıcı olarak çözer ve yükleme işlemini çok daha güvenilir hale getirir.
 
 # --- AYARLAR ---
 PUBLISH_CHANNEL_ID="-1002477121598"
@@ -64,7 +65,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
 
     if [ -n "$eski_mesaj_id" ]; then
         echo "[TELEGRAM] Eski mesaj siliniyor (ID: $eski_mesaj_id)..."
-        curl -s "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
+        curl -s --connect-timeout 10 "https://api.telegram.org/bot$BOT_TOKEN_FOR_PUBLISH/deleteMessage?chat_id=$PUBLISH_CHANNEL_ID&message_id=$eski_mesaj_id" > /dev/null
     fi
 
     dosya_boyutu=$(stat -c%s "$guncel_dosya_yolu")
@@ -74,8 +75,7 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         echo "[UYARI] Dosya boyutu (${dosya_boyutu} bayt) Telegram limitini aşıyor. Direkt indirme linki gönderilecek."
         
         module_info=$(jq -r --arg name "$modul_adi" '.modules[] | select(.name == $name) | "\(.type);\(.source)"' "$MIS_MODULES_FILE")
-        type=$(echo "$module_info" | cut -d';' -f1)
-        source=$(echo "$module_info" | cut -d';' -f2)
+        type=$(echo "$module_info" | cut -d';' -f1); source=$(echo "$module_info" | cut -d';' -f2)
         download_url="Bulunamadı"
 
         if [[ "$type" == "github_release" ]]; then download_url="https://github.com/$source/releases/latest";
@@ -96,9 +96,13 @@ jq -r '.modules[] | select(.enabled == true) | .name' "$MIS_MODULES_FILE" | whil
         caption="<b>$guncel_dosya_adi</b>"
         if [ -n "$repo_url" ]; then caption+="\n\n<a href=\"$repo_url\">Ana Depo</a> | <a href=\"$changelog_url\">Değişiklik Kaydı</a>"; fi
         
-        # YENİ: Gelişmiş curl komutu ile hata yakalama
         RESPONSE_FILE=$(mktemp)
+        # NİHAİ ÇÖZÜM: Zaman aşımları ve yeniden deneme mekanizması eklenmiş curl komutu
         HTTP_STATUS=$(curl --silent --write-out "%{http_code}" --output "$RESPONSE_FILE" \
+                         --connect-timeout 20 \
+                         --max-time 180 \
+                         --retry 3 \
+                         --retry-delay 5 \
                          -F document=@"$guncel_dosya_yolu" \
                          -F caption="$caption" \
                          -F parse_mode="HTML" \
