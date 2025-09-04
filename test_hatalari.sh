@@ -1,9 +1,10 @@
 #!/bin/bash
 # ==============================================================================
-# CEPHANELİK UPDATER - NİHAİ YETKİ VE YAPILANDIRMA TEST BETİĞİ
+# CEPHANELİK UPDATER - v2 GELİŞMİŞ YETKİ VE YAPILANDIRMA TEST BETİĞİ
 # ==============================================================================
-# Bu betik, projenizdeki her bir bileşenin ihtiyaç duyduğu tüm izinleri
-# ve sır (secret) değerlerini tek tek ve ayrıntılı olarak test eder.
+# YENİLİK: Yayıncı botun sadece metin değil, aynı zamanda dosya gönderme
+# (`sendDocument`) yetkisini de test eder. Bu, en sık karşılaşılan hata
+# kaynaklarından birini doğrulamak için kritik öneme sahiptir.
 
 # --- Renkler ve Yardımcı Fonksiyonlar ---
 GREEN='\033[0;32m'
@@ -14,6 +15,8 @@ NC='\033[0m'
 bilgi() { echo -e "\n${YELLOW}===== $1 =====${NC}"; }
 basarili() { echo -e "${GREEN}✓ BAŞARILI:${NC} $1"; }
 hata() { echo -e "${RED}✗ HATA:${NC} $1"; exit 1; }
+cleanup() { rm -f test_dosyasi.txt; }
+trap cleanup EXIT
 
 # --- Başlangıç Kontrolleri ---
 if ! command -v curl &> /dev/null || ! command -v jq &> /dev/null; then
@@ -74,18 +77,31 @@ basarili "Yayıncı Botu, Yayın Kanalı'nı başarıyla gördü. Kanal Adı: $K
 
 bilgi "Adım 2c: Yayıncı Botu'nun mesaj gönderme yetkisi test ediliyor..."
 API_YANITI_2C=$(curl --silent -X POST "https://api.telegram.org/bot${BOT_TOKEN_FOR_PUBLISH}/sendMessage" -d chat_id="${PUBLISH_CHANNEL_ID}" -d text="Bu bir test mesajıdır. Birazdan silinecektir.")
-MESAJ_ID=$(echo "$API_YANITI_2C" | jq -r '.result.message_id')
-if [[ $(echo "$API_YANITI_2C" | jq -r '.ok') != "true" || "$MESAJ_ID" == "null" ]]; then
-    hata "Yayıncı Botu, Yayın Kanalı'na mesaj gönderemedi. API Yanıtı: $(echo $API_YANITI_2C | jq .). Botun 'Mesaj Gönderme' iznini kontrol edin."
+MESAJ_ID_TEXT=$(echo "$API_YANITI_2C" | jq -r '.result.message_id')
+if [[ $(echo "$API_YANITI_2C" | jq -r '.ok') != "true" || "$MESAJ_ID_TEXT" == "null" ]]; then
+    hata "Yayıncı Botu, Yayın Kanalı'na metin mesajı gönderemedi. API Yanıtı: $(echo $API_YANITI_2C | jq .). Botun 'Mesaj Gönderme' iznini kontrol edin."
 fi
-basarili "Yayıncı Botu, Yayın Kanalı'na mesaj gönderebiliyor."
+basarili "Yayıncı Botu, Yayın Kanalı'na metin mesajı gönderebiliyor."
+# Metin mesajını hemen silelim
+curl --silent "https://api.telegram.org/bot${BOT_TOKEN_FOR_PUBLISH}/deleteMessage?chat_id=${PUBLISH_CHANNEL_ID}&message_id=${MESAJ_ID_TEXT}" > /dev/null
 
-bilgi "Adım 2d: Yayıncı Botu'nun mesaj silme yetkisi test ediliyor..."
-API_YANITI_2D=$(curl --silent "https://api.telegram.org/bot${BOT_TOKEN_FOR_PUBLISH}/deleteMessage?chat_id=${PUBLISH_CHANNEL_ID}&message_id=${MESAJ_ID}")
-if [[ $(echo "$API_YANITI_2D" | jq -r '.ok') != "true" ]]; then
-    hata "Yayıncı Botu, Yayın Kanalı'ndan mesaj silemedi. API Yanıtı: $(echo $API_YANITI_2D | jq .). Botun 'Mesajları Silme' iznini kontrol edin."
+
+bilgi "Adım 2d: Yayıncı Botu'nun dosya gönderme yetkisi test ediliyor..."
+echo "Bu bir test dosyasıdır." > test_dosyasi.txt
+API_YANITI_2D=$(curl --silent -F document=@"test_dosyasi.txt" "https://api.telegram.org/bot${BOT_TOKEN_FOR_PUBLISH}/sendDocument?chat_id=${PUBLISH_CHANNEL_ID}")
+MESAJ_ID_DOC=$(echo "$API_YANITI_2D" | jq -r '.result.message_id')
+if [[ $(echo "$API_YANITI_2D" | jq -r '.ok') != "true" || "$MESAJ_ID_DOC" == "null" ]]; then
+    hata "Yayıncı Botu, Yayın Kanalı'na dosya gönderemedi. API Yanıtı: $(echo $API_YANITI_2D | jq .). Botun 'Medya Gönderme' veya benzeri bir izne sahip olduğundan emin olun."
+fi
+basarili "Yayıncı Botu, Yayın Kanalı'na dosya gönderebiliyor."
+
+bilgi "Adım 2e: Yayıncı Botu'nun mesaj silme yetkisi test ediliyor..."
+API_YANITI_2E=$(curl --silent "https://api.telegram.org/bot${BOT_TOKEN_FOR_PUBLISH}/deleteMessage?chat_id=${PUBLISH_CHANNEL_ID}&message_id=${MESAJ_ID_DOC}")
+if [[ $(echo "$API_YANITI_2E" | jq -r '.ok') != "true" ]]; then
+    hata "Yayıncı Botu, Yayın Kanalı'ndan mesaj silemedi. API Yanıtı: $(echo $API_YANITI_2E | jq .). Botun 'Mesajları Silme' iznini kontrol edin."
 fi
 basarili "Yayıncı Botu, Yayın Kanalı'ndan mesaj silebiliyor."
+
 
 basarili "Bölüm 2 tamamlandı. Yayıncı Botu yapılandırması DOĞRU."
 

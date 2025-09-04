@@ -1,7 +1,8 @@
 #!/bin/bash
-# KSU Modül Yöneticisi v12 - Gelişmiş Hata Raporlama Sürümü
-# YENİLİK: API (GitHub, Telegram, GitLab) çağrılarında HTTP durum kodlarına
-# göre (401, 403, 404 vb.) çok daha anlaşılır ve yol gösterici hata mesajları üretir.
+# KSU Modül Yöneticisi v13 - Tekrarlı Deneme ve Sağlamlık Sürümü
+# YENİLİK: Telegram API'sinden dosya ararken, olası gecikmelere karşı
+# 5 saniye aralıklarla 3 kez deneme mekanizması eklendi. API'den gelen
+# bozuk JSON yanıtlarına karşı daha dayanıklı hale getirildi.
 
 # --- Yapılandırma ve Global Değişkenler ---
 TELEGRAM_ARCHIVE_CHANNEL="-1002542617400"
@@ -43,25 +44,16 @@ get_api_call() {
     local url=$1; shift
     local headers=()
     if [[ "$url" == *"api.github.com"* ]]; then
-        if [ -z "$GIT_API_TOKEN" ]; then
-            echo "API_ERROR: GIT_API_TOKEN sırrı ayarlanmamış. GitHub API çağrıları başarısız olacak."
-            return 1
-        fi
+        if [ -z "$GIT_API_TOKEN" ]; then echo "API_ERROR: GIT_API_TOKEN sırrı ayarlanmamış."; return 1; fi
         headers=(-H "Authorization: Bearer $GIT_API_TOKEN")
     fi
     local response
-    response=$(curl --silent --location --connect-timeout 15 --max-time 30 \
-                   -w "\nHTTP_STATUS:%{http_code}" \
-                   "${headers[@]}" "$@" "$url")
+    response=$(curl --silent --location --connect-timeout 15 --max-time 30 -w "\nHTTP_STATUS:%{http_code}" "${headers[@]}" "$@" "$url")
     local curl_exit_code=$?
-    if [ $curl_exit_code -ne 0 ]; then
-        echo "CURL_ERROR: Curl komutu başarısız oldu (exit code $curl_exit_code)."
-        return 1
-    fi
+    if [ $curl_exit_code -ne 0 ]; then echo "CURL_ERROR: Curl komutu başarısız oldu (exit code $curl_exit_code)."; return 1; fi
     local http_status content
     http_status=$(echo "$response" | tail -n 1 | sed 's/HTTP_STATUS://')
     content=$(echo "$response" | sed '$d')
-
     if [[ "$http_status" -lt 200 || "$http_status" -gt 299 ]]; then
         local error_msg="API_ERROR: HTTP $http_status."
         case "$http_status" in
@@ -69,37 +61,61 @@ get_api_call() {
             403) error_msg+=" Erişim engellendi (İzinler yetersiz veya API rate limit'e takıldı)." ;;
             404) error_msg+=" Bulunamadı (URL, depo adı veya kullanıcı adı yanlış olabilir)." ;;
         esac
-        
-        if command -v jq &> /dev/null && jq -e . >/dev/null 2>&1 <<< "$content"; then
-            error_msg+="\nDetay: $(echo "$content" | jq .)"
-        else
-            error_msg+="\nDetay: $content"
-        fi
-        echo -e "$error_msg"
-        return 1
+        echo -e "$error_msg\nDetay: $content"; return 1;
     fi
     echo "$content"
 }
 
 get_telegram_message_with_file() {
     local keyword=$1 source_channel=$2
-    local api_response
-    api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
-    if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
-    if [ -z "$api_response" ]; then
-        error "'getUpdates' çağrısından boş yanıt alındı! Arşiv botunun token'ı veya kanal erişimi ile ilgili bir sorun olabilir."
-        return 1
-    fi
-    echo "$api_response" | jq -r --arg cid_str "$TELEGRAM_ARCHIVE_CHANNEL" --arg kw "$keyword" --arg sc "$source_channel" '
-        .result | reverse | .[] |
-        . as $update | ($update.channel_post // $update.message) |
-        select(.chat.id == ($cid_str | tonumber)) |
-        select(.document) |
-        select(.document.file_name | test($kw; "i")) |
-        select(.caption and (.caption | contains("Kaynak: @" + $sc))) |
-        .document
-    ' | head -n 1
+    local attempts=3
+    
+    for (( i=1; i<=attempts; i++ )); do
+        local api_response
+        api_response=$(get_api_call "https://api.telegram.org/bot$BOT_TOKEN_FOR_ARCHIVE/getUpdates?offset=-100&limit=100")
+        if [ $? -ne 0 ]; then echo "ERROR:TELEGRAM_API - $api_response"; return 1; fi
+
+        # API yanıtının geçerli bir JSON olup olmadığını kontrol et
+        if ! jq -e . >/dev/null 2>&1 <<< "$api_response"; then
+            if (( i < attempts )); then
+                warn "Telegram API'sinden bozuk yanıt alındı, $i. deneme başarısız. 5 saniye sonra tekrar denenecek..."
+                sleep 5
+                continue
+            else
+                echo "ERROR:TELEGRAM_INVALID_JSON - API yanıtı geçerli JSON değil: $api_response"; return 1;
+            fi
+        fi
+
+        local doc
+        doc=$(echo "$api_response" | jq -r --arg cid_str "$TELEGRAM_ARCHIVE_CHANNEL" --arg kw "$keyword" --arg sc "$source_channel" '
+            .result | reverse | .[] |
+            . as $update | ($update.channel_post // $update.message) |
+            select(.chat.id == ($cid_str | tonumber)) |
+            select(.document) |
+            select(.document.file_name | test($kw; "i")) |
+            select(.caption and (.caption | contains("Kaynak: @" + $sc))) |
+            .document
+        ' | head -n 1)
+
+        if [[ -n "$doc" && "$doc" != "null" ]]; then
+            echo "$doc"
+            return 0
+        fi
+
+        if (( i < attempts )); then
+            warn "Arşivde dosya bulunamadı, $i. deneme başarısız. API gecikmesi olabilir, 5 saniye sonra tekrar denenecek..."
+            sleep 5
+        fi
+    done
+    
+    echo "ERROR:FILE_NOT_FOUND_IN_ARCHIVE"
+    return 1
 }
+
+# Diğer tüm fonksiyonlar (get_remote_filename, process_single_download, vb.)
+# get_telegram_message_with_file fonksiyonunu kullandığı için bu yeni
+# "retry" mekanizmasından otomatik olarak faydalanacaktır.
+# Fonksiyonların geri kalanını değiştirmeye gerek yoktur.
 
 get_remote_filename() {
     local module_json; module_json=$(jq --arg name "$1" '.modules[] | select(.name == $name)' "$MODULES_FILE")
@@ -128,10 +144,7 @@ get_remote_filename() {
              if [ -z "$filename" ]; then echo "ERROR:NO_ASSET_FOUND"; else echo "$filename"; fi ;;
         "telegram_forwarder")
             local doc; doc=$(get_telegram_message_with_file "$source" "$source_channel")
-            if [[ $? -ne 0 || -z "$doc" || "$doc" == "null" ]]; then
-                [[ -z "$doc" || "$doc" == "null" ]] && doc="Arşiv kanalında '$source' anahtar kelimesi ve '@$source_channel' kaynağı ile eşleşen dosya bulunamadı."
-                echo "ERROR:TELEGRAM_FILE_NOT_FOUND - Sebep: $doc"; return 1;
-            fi
+            if [[ $? -ne 0 ]]; then echo "ERROR:TELEGRAM_FILE_NOT_FOUND - Sebep: Arşiv kanalında '$source' anahtar kelimesi ve '@$source_channel' kaynağı ile eşleşen dosya, 3 deneme sonunda bulunamadı."; return 1; fi
             echo "$doc" | jq -r '.file_name' ;;
         *) echo "ERROR:UNKNOWN_TYPE - Modül tipi bilinmiyor: '$type'";;
     esac
@@ -143,10 +156,7 @@ process_single_download() {
     if [[ $? -ne 0 || "$remote_file" == "ERROR"* || -z "$remote_file" ]]; then echo "HATA: Uzak dosya adı alınamadı. Sebep: $remote_file"; return 1; fi
     
     local cached_file; cached_file=$(jq -r --arg mod "$module_name" '.[$mod] // ""' "$CACHE_MANIFEST")
-    if [[ "$cached_file" == "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then
-        echo "OK: '$module_name' zaten güncel."
-        return 0
-    fi
+    if [[ "$cached_file" == "$remote_file" && -f "$CACHE_DIR/$cached_file" ]]; then echo "OK: '$module_name' zaten güncel."; return 0; fi
     
     echo "İNDİRME: '$module_name' için yeni sürüm ($remote_file) indiriliyor..."
     local module_json; module_json=$(jq --arg name "$module_name" '.modules[] | select(.name == $name)' "$MODULES_FILE")
@@ -223,3 +233,4 @@ main() {
     esac
 }
 main "$@"
+
