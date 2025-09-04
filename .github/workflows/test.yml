@@ -1,0 +1,25 @@
+name: Nihai Yetki Testi
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-test-script:
+    environment: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Depoyu Klonla
+        uses: actions/checkout@v4
+        with:
+          repository: 'MematiBas42/Cephanelik_Updater'
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Gerekli Paketleri Yükle
+        run: sudo apt-get update && sudo apt-get install -y jq curl
+
+      - name: Yetki Testini Çalıştır
+        run: bash ./test_hatalari.sh
+        env:
+          BOT_TOKEN_FOR_ARCHIVE: ${{ secrets.BOT_TOKEN_FOR_ARCHIVE }}
+          BOT_TOKEN_FOR_PUBLISH: ${{ secrets.BOT_TOKEN_FOR_PUBLISH }}
