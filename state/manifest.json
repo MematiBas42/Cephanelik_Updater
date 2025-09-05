@@ -54,10 +54,10 @@
     "version_id": "LSPosed-v1.10.2-7189-zygisk-release.zip"
   },
   "luna": {
-    "date": "05.09.2025 16:21",
+    "date": "05.09.2025 17:16",
     "file_name": "luna1423.apk",
-    "source_url": "https://t.me/cephanelikchat/20820",
-    "version_id": "20820"
+    "source_url": "https://t.me/cephanelikchat/20828",
+    "version_id": "20828"
   },
   "magiskalpha": {
     "date": "14.08.2025",
@@ -72,10 +72,10 @@
     "version_id": "2025-05-31T03:10:36Z"
   },
   "pif": {
-    "date": "05.09.2025 16:21",
-    "file_name": "PlayIntegrityFix_v4.3-inject-s_165.zip",
+    "date": "05.09.2025 18:24",
+    "file_name": "PlayIntegrityFix_v4.3-inject-s_166.zip",
     "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-    "version_id": "PlayIntegrityFix_v4.3-inject-s_165.zip"
+    "version_id": "PlayIntegrityFix_v4.3-inject-s_166.zip"
   },
   "reveny": {
     "date": "03.09.2025",
