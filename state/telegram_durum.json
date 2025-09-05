@@ -46,8 +46,8 @@
   },
   "luna": {
     "file_name": "luna1423.apk",
-    "message_id": 245,
-    "version_id": "20812"
+    "message_id": 246,
+    "version_id": "20819"
   },
   "magiskalpha": {
     "file_name": "app-release.apk",
@@ -60,9 +60,9 @@
     "version_id": "2025-05-31T03:10:36Z"
   },
   "pif": {
-    "file_name": "PlayIntegrityFix_v4.3-inject-s_164.zip",
-    "message_id": 230,
-    "version_id": "PlayIntegrityFix_v4.3-inject-s_164.zip"
+    "file_name": "PlayIntegrityFix_v4.3-inject-s_165.zip",
+    "message_id": 247,
+    "version_id": "PlayIntegrityFix_v4.3-inject-s_165.zip"
   },
   "reveny": {
     "file_name": "native-root-detector-v7.4.0.apk",
