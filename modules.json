@@ -156,15 +156,6 @@
       "description": "magiskalpha"
     },
     {
-      "name": "luna",
-      "enabled": true,
-      "type": "telegram_forwarder",
-      "source": "luna",
-      "asset_filter": "",
-      "source_channel": "cephanelikchat",
-      "description": "Luna Detector"
-    },
-    {
       "name": "Encore",
       "enabled": true,
       "type": "github_release",
