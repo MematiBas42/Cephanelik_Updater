@@ -164,15 +164,6 @@
       "source_channel": "cephanelikchat",
       "description": "Luna Detector"
     },
-	{
-      "name": "reveny",
-      "enabled": true,
-      "type": "telegram_forwarder",
-      "source": "native-root-detector",
-      "asset_filter": "",
-      "source_channel": "rootdetector",
-      "description": "Native Root Detector"
-    },
     {
       "name": "Encore",
       "enabled": true,
