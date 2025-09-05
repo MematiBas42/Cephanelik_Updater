@@ -264,9 +264,9 @@ class TelethonPublisher:
 
             caption = (
                 f"📦 <b>{display_name}</b>\n\n"
-                f"📄 <b>Dosya Adı:</b> <code>{info['file_name']}</code>\n"
-                f"📅 <b>Güncelleme Tarihi:</b> {info['date']}\n\n"
-                f"🔗 <b><a href='{info['source_url']}'>Kaynak</a></b>\n"
+                f"📄 <b>File Name:</b> <code>{info['file_name']}</code>\n"
+                f"📅 <b>Update Date:</b> {info['date']}\n\n"
+                f"🔗 <b><a href='{info['source_url']}'>Source</a></b>\n"
             )
 
             print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
