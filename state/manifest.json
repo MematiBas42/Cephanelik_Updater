@@ -12,10 +12,10 @@
     "version_id": "2023-10-07T20:00:59.000Z"
   },
   "ReLSPosed": {
-    "date": "04.09.2025",
-    "file_name": "LSPosed-v1.0.1-7195-zygisk-release.zip",
+    "date": "05.09.2025 23:16",
+    "file_name": "LSPosed-v1.0.1-7196-zygisk-release.zip",
     "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-    "version_id": "LSPosed-v1.0.1-7195-zygisk-release.zip"
+    "version_id": "LSPosed-v1.0.1-7196-zygisk-release.zip"
   },
   "TrickyStore": {
     "date": "18.06.2025",
