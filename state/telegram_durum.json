@@ -44,6 +44,11 @@
     "message_id": 227,
     "version_id": "LSPosed-v1.10.2-7189-zygisk-release.zip"
   },
+  "luna": {
+    "file_name": "luna1423.apk",
+    "message_id": 243,
+    "version_id": "20796"
+  },
   "magiskalpha": {
     "file_name": "app-release.apk",
     "message_id": 228,

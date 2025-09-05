@@ -53,6 +53,12 @@
     "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
     "version_id": "LSPosed-v1.10.2-7189-zygisk-release.zip"
   },
+  "luna": {
+    "date": "05.09.2025 13:38",
+    "file_name": "luna1423.apk",
+    "source_url": "https://t.me/cephanelikchat/20796",
+    "version_id": "20796"
+  },
   "magiskalpha": {
     "date": "14.08.2025",
     "file_name": "app-release.apk",
