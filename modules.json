@@ -91,9 +91,10 @@
     {
       "name": "hma",
       "enabled": true,
-      "type": "github_release",
-      "source": "Dr-TSNG/Hide-My-Applist",
-      "asset_filter": "\\.apk",
+      "type": "telegram_forwarder",
+      "source": "HMA",
+      "asset_filter": "",
+	  "source_channel": "aerathfuns", 
       "description": "Dr-TSNG/Hide-My-Applist"
     },
     {
