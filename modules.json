@@ -99,8 +99,8 @@
     {
       "name": "rezygisk",
       "enabled": true,
-      "type": "github_release",
-      "source": "PerformanC/ReZygisk",
+      "type": "github_ci",
+      "source": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
       "asset_filter": "release\\.zip$",
       "description": "PerformanC/ReZygisk"
     },
