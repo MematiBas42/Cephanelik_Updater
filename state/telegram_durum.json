@@ -35,9 +35,9 @@
     "version_id": "bindhosts_207-0a81a11.zip"
   },
   "hma": {
-    "file_name": "HMA-OSS-oss-70.r502.e2a01f4-debug.apk",
-    "message_id": 256,
-    "version_id": "60"
+    "file_name": "HMA-OSS-oss-71.r503.c67c1a6-debug.apk",
+    "message_id": 257,
+    "version_id": "63"
   },
   "lsposed": {
     "file_name": "LSPosed-v1.10.2-7189-zygisk-release.zip",
@@ -65,14 +65,14 @@
     "version_id": "PlayIntegrityFix_v4.3-inject-s_167.zip"
   },
   "reveny": {
-    "file_name": "native-root-detector-v7.4.0.apk",
-    "message_id": 231,
-    "version_id": "46"
+    "file_name": "native-root-detector-v7.5.0.apk",
+    "message_id": 258,
+    "version_id": "47"
   },
   "rezygisk": {
-    "file_name": "ReZygisk-v1.0.0-409-153097f-release.zip",
-    "message_id": 254,
-    "version_id": "ReZygisk-v1.0.0-409-153097f-release.zip"
+    "file_name": "ReZygisk-v1.0.0-410-f6b4074-release.zip",
+    "message_id": 259,
+    "version_id": "ReZygisk-v1.0.0-410-f6b4074-release.zip"
   },
   "shamiko": {
     "file_name": "Shamiko-v1.2.5.1-417-release.zip",

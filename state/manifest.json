@@ -42,10 +42,10 @@
     "version_id": "bindhosts_207-0a81a11.zip"
   },
   "hma": {
-    "date": "06.09.2025 16:11",
-    "file_name": "HMA-OSS-oss-70.r502.e2a01f4-debug.apk",
-    "source_url": "https://t.me/aerathfuns/60",
-    "version_id": "60"
+    "date": "07.09.2025 20:48",
+    "file_name": "HMA-OSS-oss-71.r503.c67c1a6-debug.apk",
+    "source_url": "https://t.me/aerathfuns/63",
+    "version_id": "63"
   },
   "lsposed": {
     "date": "04.09.2025",
@@ -78,16 +78,16 @@
     "version_id": "PlayIntegrityFix_v4.3-inject-s_167.zip"
   },
   "reveny": {
-    "date": "03.09.2025",
-    "file_name": "native-root-detector-v7.4.0.apk",
-    "source_url": "https://t.me/rootdetector/46",
-    "version_id": "46"
+    "date": "07.09.2025 21:01",
+    "file_name": "native-root-detector-v7.5.0.apk",
+    "source_url": "https://t.me/rootdetector/47",
+    "version_id": "47"
   },
   "rezygisk": {
-    "date": "07.09.2025 17:42",
-    "file_name": "ReZygisk-v1.0.0-409-153097f-release.zip",
+    "date": "07.09.2025 21:15",
+    "file_name": "ReZygisk-v1.0.0-410-f6b4074-release.zip",
     "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-    "version_id": "ReZygisk-v1.0.0-409-153097f-release.zip"
+    "version_id": "ReZygisk-v1.0.0-410-f6b4074-release.zip"
   },
   "shamiko": {
     "date": "04.09.2025",
