@@ -92,7 +92,7 @@
       "name": "hma",
       "enabled": true,
       "type": "telegram_forwarder",
-      "source": "HMA",
+      "source": "HMA*release\\.apk",
       "asset_filter": "",
 	  "source_channel": "aerathfuns", 
       "description": "Aerath/Hide-My-Applist"
