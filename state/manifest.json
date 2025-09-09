@@ -96,10 +96,10 @@
     "version_id": "298"
   },
   "susfs": {
-    "date": "04.09.2025",
-    "file_name": "release-1.5.2%2B_16578fd.zip",
-    "source_url": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+",
-    "version_id": "release-1.5.2%2B_16578fd.zip"
+    "date": "09.09.2025 17:45",
+    "file_name": "release-1.5.2%2B_3d255a3.zip",
+    "source_url": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
+    "version_id": "release-1.5.2%2B_3d255a3.zip"
   },
   "taddon": {
     "date": "04.09.2025",
