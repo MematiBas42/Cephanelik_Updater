@@ -52,7 +52,7 @@
       "name": "susfs",
       "enabled": true,
       "type": "github_ci",
-      "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+",
+      "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
       "asset_filter": "\\.zip$",
       "description": "sidex15/susfs4ksu-module"
     },
