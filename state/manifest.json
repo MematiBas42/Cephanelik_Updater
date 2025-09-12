@@ -102,10 +102,10 @@
     "version_id": "release-1.5.2%2B_3d255a3.zip"
   },
   "taddon": {
-    "date": "04.09.2025",
-    "file_name": "TrickyAddonModule-v4.1-584-canary.zip",
+    "date": "12.09.2025 17:15",
+    "file_name": "TrickyAddonModule-v4.1-589-canary.zip",
     "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-    "version_id": "TrickyAddonModule-v4.1-584-canary.zip"
+    "version_id": "TrickyAddonModule-v4.1-589-canary.zip"
   },
   "trm": {
     "date": "06.09.2025 00:11",
