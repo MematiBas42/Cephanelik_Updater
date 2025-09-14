@@ -42,9 +42,13 @@
   "lsposed": {
     "file_name": "LSPosed-v1.10.2-7190-zygisk-release.zip",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     "message_id": 268,
 =======
     "message_id": 269,
+>>>>>>> Stashed changes
+=======
+    "message_id": 271,
 >>>>>>> Stashed changes
     "version_id": "LSPosed-v1.10.2-7190-zygisk-release.zip"
   },
@@ -70,7 +74,11 @@
   },
   "reveny": {
     "file_name": "native-root-detector-v7.6.1.apk",
+<<<<<<< Updated upstream
     "message_id": 270,
+=======
+    "message_id": 272,
+>>>>>>> Stashed changes
     "version_id": "49"
   },
   "rezygisk": {
