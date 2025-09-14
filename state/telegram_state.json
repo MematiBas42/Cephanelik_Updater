@@ -1,0 +1,107 @@
+{
+  "Encore": {
+    "file_name": "encore-4.6-1080-2fa4940-release.zip",
+    "message_id": 242,
+    "version_id": "2025-07-13T10:53:35Z"
+  },
+  "GPhotosUnlimited": {
+    "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
+    "message_id": 220,
+    "version_id": "2023-10-07T20:00:59.000Z"
+  },
+  "ReLSPosed": {
+    "file_name": "LSPosed-v1.0.1-7198-zygisk-release.zip",
+    "message_id": 261,
+    "version_id": "LSPosed-v1.0.1-7198-zygisk-release.zip"
+  },
+  "TrickyStore": {
+    "file_name": "Tricky-Store-v1.3.0-180-8acfa57-release.zip",
+    "message_id": 222,
+    "version_id": "2025-06-18T12:19:12Z"
+  },
+  "Zygisk-Assistant": {
+    "file_name": "Zygisk-Assistant-v2.1.4-1013f8a-release.zip",
+    "message_id": 239,
+    "version_id": "2025-02-23T00:18:35Z"
+  },
+  "ZygiskNext": {
+    "file_name": "Zygisk-Next-1.2.9.1-534-b8e7e21-release.zip",
+    "message_id": 224,
+    "version_id": "2025-07-16T10:21:47Z"
+  },
+  "bindh": {
+    "file_name": "bindhosts_207-0a81a11.zip",
+    "message_id": 225,
+    "version_id": "bindhosts_207-0a81a11.zip"
+  },
+  "hma": {
+    "file_name": "HMA-OSS-oss-71.r503.c67c1a6-debug.apk",
+    "message_id": 257,
+    "version_id": "63"
+  },
+  "lsposed": {
+    "file_name": "LSPosed-v1.10.2-7190-zygisk-release.zip",
+    "message_id": 268,
+    "version_id": "LSPosed-v1.10.2-7190-zygisk-release.zip"
+  },
+  "luna": {
+    "file_name": "luna1423.apk",
+    "message_id": 249,
+    "version_id": "20828"
+  },
+  "magiskalpha": {
+    "file_name": "app-release.apk",
+    "message_id": 228,
+    "version_id": "693"
+  },
+  "nohello": {
+    "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
+    "message_id": 240,
+    "version_id": "2025-05-31T03:10:36Z"
+  },
+  "pif": {
+    "file_name": "PlayIntegrityFix_v4.3-inject-s_169.zip",
+    "message_id": 265,
+    "version_id": "PlayIntegrityFix_v4.3-inject-s_169.zip"
+  },
+  "reveny": {
+    "file_name": "native-root-detector-v7.6.0.apk",
+    "message_id": 264,
+    "version_id": "48"
+  },
+  "rezygisk": {
+    "file_name": "ReZygisk-v1.0.0-410-f6b4074-release.zip",
+    "message_id": 259,
+    "version_id": "ReZygisk-v1.0.0-410-f6b4074-release.zip"
+  },
+  "shamiko": {
+    "file_name": "Shamiko-v1.2.5.1-417-release.zip",
+    "message_id": 233,
+    "version_id": "298"
+  },
+  "susfs": {
+    "file_name": "release-1.5.2%2B_3d255a3.zip",
+    "message_id": 262,
+    "version_id": "release-1.5.2%2B_3d255a3.zip"
+  },
+  "taddon": {
+    "file_name": "TrickyAddonModule-v4.1-589-canary.zip",
+    "message_id": 266,
+    "version_id": "TrickyAddonModule-v4.1-589-canary.zip"
+  },
+  "trm": {
+    "file_name": "TermuxRootMods-v1.0.21.zip",
+    "message_id": 252,
+    "version_id": "2025-09-06T00:11:14Z"
+  },
+  "viper": {
+    "file_name": "viper4android_module.zip",
+    "message_id": 237,
+    "version_id": "2025-01-07T21:55:35Z"
+  },
+  "yurikey": {
+    "file_name": "YuriKey_v1.90.signed.zip",
+    "message_id": 267,
+    "version_id": "2025-09-12T17:55:10Z"
+  }
+}
