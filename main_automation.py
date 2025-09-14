@@ -22,7 +22,6 @@ CACHE_DIR = os.path.expanduser("~/.cache/ksu-manager")
 MODULES_FILE_SRC = "./modules.json"
 MANIFEST_FILE = os.path.join(STATE_DIR, "manifest.json")
 TELEGRAM_STATE_FILE = os.path.join(STATE_DIR, "telegram_state.json")
-LAST_RUN_FILE = os.path.join(STATE_DIR, "last_run.txt")
 
 # Projenin durumunu (manifest, telegram durumu vb.) JSON olarak yöneten sınıf.
 class StateManager:
@@ -314,9 +313,6 @@ async def main():
 
         publisher = TelethonPublisher(client, state_manager)
         await publisher.publish_updates()
-
-    with open(LAST_RUN_FILE, "w") as f:
-        f.write(datetime.now().strftime("%Y-%m-%d"))
 
     print("\n[INFO] Tüm işlemler başarıyla tamamlandı.")
 
