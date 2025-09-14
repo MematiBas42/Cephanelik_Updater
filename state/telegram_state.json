@@ -41,7 +41,11 @@
   },
   "lsposed": {
     "file_name": "LSPosed-v1.10.2-7190-zygisk-release.zip",
+<<<<<<< Updated upstream
     "message_id": 268,
+=======
+    "message_id": 269,
+>>>>>>> Stashed changes
     "version_id": "LSPosed-v1.10.2-7190-zygisk-release.zip"
   },
   "luna": {
@@ -65,9 +69,9 @@
     "version_id": "PlayIntegrityFix_v4.3-inject-s_169.zip"
   },
   "reveny": {
-    "file_name": "native-root-detector-v7.6.0.apk",
-    "message_id": 264,
-    "version_id": "48"
+    "file_name": "native-root-detector-v7.6.1.apk",
+    "message_id": 270,
+    "version_id": "49"
   },
   "rezygisk": {
     "file_name": "ReZygisk-v1.0.0-410-f6b4074-release.zip",

@@ -48,7 +48,11 @@
     "version_id": "63"
   },
   "lsposed": {
+<<<<<<< Updated upstream
     "date": "14.09.2025 16:19",
+=======
+    "date": "14.09.2025 17:13",
+>>>>>>> Stashed changes
     "file_name": "LSPosed-v1.10.2-7190-zygisk-release.zip",
     "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
     "version_id": "LSPosed-v1.10.2-7190-zygisk-release.zip"
@@ -78,10 +82,10 @@
     "version_id": "PlayIntegrityFix_v4.3-inject-s_169.zip"
   },
   "reveny": {
-    "date": "11.09.2025 21:08",
-    "file_name": "native-root-detector-v7.6.0.apk",
-    "source_url": "https://t.me/rootdetector/48",
-    "version_id": "48"
+    "date": "14.09.2025 17:13",
+    "file_name": "native-root-detector-v7.6.1.apk",
+    "source_url": "https://t.me/rootdetector/49",
+    "version_id": "49"
   },
   "rezygisk": {
     "date": "07.09.2025 21:15",
