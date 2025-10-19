@@ -151,10 +151,10 @@
       "version_id": "2025-09-06T00:11:14Z"
     },
     "viper": {
-      "date": "07.01.2025 21:55",
+      "date": "19.10.2025 18:28",
       "file_name": "viper4android_module.zip",
-      "source_url": "https://github.com/WSTxda/ViPERFX_RE/releases/tag/v0.6.3",
-      "version_id": "2025-01-07T21:55:35Z"
+      "source_url": "https://github.com/WSTxda/ViPERFX_RE/releases/tag/v8.0",
+      "version_id": "2025-10-19T18:28:28Z"
     },
     "yurikey": {
       "date": "30.09.2025 20:23",
@@ -291,8 +291,8 @@
     },
     "viper": {
       "file_name": "viper4android_module.zip",
-      "message_id": 442,
-      "version_id": "2025-01-07T21:55:35Z"
+      "message_id": 503,
+      "version_id": "2025-10-19T18:28:28Z"
     },
     "yurikey": {
       "file_name": "YuriKey_v2.10.signed.zip",
