@@ -161,8 +161,8 @@
       "name": "sukisu",
       "enabled": true,
       "type": "github_ci",
-      "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main/manager.zip",
-      "asset_filter": "\\.zip$",
+      "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main",
+      "asset_filter": "manager\\.zip$",
       "description": "SukiSU-Ultra Manager Ci"
     },
     {
