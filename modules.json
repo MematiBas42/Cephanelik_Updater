@@ -162,7 +162,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main/manager.zip",
-      "asset_filter": "release\\.zip$",
+      "asset_filter": "\\.zip$",
       "description": "SukiSU-Ultra Manager Ci"
     },
     {
