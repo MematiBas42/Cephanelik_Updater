@@ -108,6 +108,12 @@
       "source_url": "https://github.com/LSPosed/LSPosed.github.io/releases/tag/shamiko-414",
       "version_id": "2025-06-18T11:37:08Z"
     },
+    "sukisu": {
+      "date": "22.10.2025 13:23",
+      "file_name": "android13-5.10-lkm.zip",
+      "source_url": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main",
+      "version_id": "android13-5.10-lkm.zip"
+    },
     "susfs": {
       "date": "15.09.2025 09:19",
       "file_name": "release-1.5.2%2B_3d255a3.zip",
@@ -253,6 +259,11 @@
       "file_name": "Shamiko-v1.2.5-414-release.zip",
       "message_id": 445,
       "version_id": "2025-06-18T11:37:08Z"
+    },
+    "sukisu": {
+      "file_name": "android13-5.10-lkm.zip",
+      "message_id": 513,
+      "version_id": "android13-5.10-lkm.zip"
     },
     "susfs": {
       "file_name": "release-1.5.2%2B_3d255a3.zip",
