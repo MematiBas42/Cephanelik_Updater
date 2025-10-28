@@ -49,10 +49,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "26.10.2025 21:13",
-      "file_name": "HMA-OSS-oss-123-debug.zip",
+      "date": "28.10.2025 10:18",
+      "file_name": "HMA-OSS-oss-127-debug.zip",
       "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-oss-123-debug.zip"
+      "version_id": "HMA-OSS-oss-127-debug.zip"
     },
     "lsposed": {
       "date": "26.10.2025 21:13",
@@ -139,10 +139,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "26.10.2025 14:12",
-      "file_name": "TrickyAddonModule-v4.2-622-canary.zip",
+      "date": "28.10.2025 10:18",
+      "file_name": "TrickyAddonModule-v4.2-624-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v4.2-622-canary.zip"
+      "version_id": "TrickyAddonModule-v4.2-624-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -211,9 +211,9 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-oss-123-debug.zip",
-      "message_id": 520,
-      "version_id": "HMA-OSS-oss-123-debug.zip"
+      "file_name": "HMA-OSS-oss-127-debug.zip",
+      "message_id": 525,
+      "version_id": "HMA-OSS-oss-127-debug.zip"
     },
     "lsposed": {
       "file_name": "LSPosed-v1.10.2-7190-zygisk-debug.zip",
@@ -286,9 +286,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v4.2-622-canary.zip",
-      "message_id": 518,
-      "version_id": "TrickyAddonModule-v4.2-622-canary.zip"
+      "file_name": "TrickyAddonModule-v4.2-624-canary.zip",
+      "message_id": 526,
+      "version_id": "TrickyAddonModule-v4.2-624-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
