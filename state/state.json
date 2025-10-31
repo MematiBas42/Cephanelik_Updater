@@ -79,10 +79,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "30.10.2025 19:13",
-      "file_name": "PlayIntegrityFix_v4.3-inject-s_194.zip",
+      "date": "31.10.2025 11:13",
+      "file_name": "PlayIntegrityFix_v4.3-inject-s_195.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.3-inject-s_194.zip"
+      "version_id": "PlayIntegrityFix_v4.3-inject-s_195.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -236,9 +236,9 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.3-inject-s_194.zip",
-      "message_id": 534,
-      "version_id": "PlayIntegrityFix_v4.3-inject-s_194.zip"
+      "file_name": "PlayIntegrityFix_v4.3-inject-s_195.zip",
+      "message_id": 539,
+      "version_id": "PlayIntegrityFix_v4.3-inject-s_195.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
