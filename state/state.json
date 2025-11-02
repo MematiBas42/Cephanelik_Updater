@@ -139,10 +139,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "01.11.2025 07:13",
-      "file_name": "TrickyAddonModule-v4.2-630-canary.zip",
+      "date": "02.11.2025 14:13",
+      "file_name": "TrickyAddonModule-v4.2-634-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v4.2-630-canary.zip"
+      "version_id": "TrickyAddonModule-v4.2-634-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -286,9 +286,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v4.2-630-canary.zip",
-      "message_id": 544,
-      "version_id": "TrickyAddonModule-v4.2-630-canary.zip"
+      "file_name": "TrickyAddonModule-v4.2-634-canary.zip",
+      "message_id": 548,
+      "version_id": "TrickyAddonModule-v4.2-634-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
