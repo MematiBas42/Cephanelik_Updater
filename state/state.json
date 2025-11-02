@@ -19,10 +19,10 @@
       "version_id": "LSPosed-v1.0.1-7204-zygisk-debug.zip"
     },
     "TrickyStore": {
-      "date": "20.10.2025 14:27",
-      "file_name": "Tricky-Store-v1.4.0-235-e15da3d-release.zip",
-      "source_url": "https://github.com/5ec1cff/TrickyStore/releases/tag/1.4.0",
-      "version_id": "2025-10-20T14:27:21Z"
+      "date": "02.11.2025 09:56",
+      "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
+      "source_url": "https://github.com/5ec1cff/TrickyStore/releases/tag/1.4.1",
+      "version_id": "2025-11-02T09:56:34Z"
     },
     "Zygisk-Assistant": {
       "date": "23.02.2025 00:18",
@@ -186,9 +186,9 @@
       "version_id": "LSPosed-v1.0.1-7204-zygisk-debug.zip"
     },
     "TrickyStore": {
-      "file_name": "Tricky-Store-v1.4.0-235-e15da3d-release.zip",
-      "message_id": 505,
-      "version_id": "2025-10-20T14:27:21Z"
+      "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
+      "message_id": 547,
+      "version_id": "2025-11-02T09:56:34Z"
     },
     "Zygisk-Assistant": {
       "file_name": "Zygisk-Assistant-v2.1.4-1013f8a-release.zip",
