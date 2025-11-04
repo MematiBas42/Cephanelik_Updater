@@ -79,10 +79,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "02.11.2025 18:19",
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_203.zip",
+      "date": "04.11.2025 08:22",
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_205.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_203.zip"
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_205.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -139,10 +139,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "02.11.2025 15:13",
-      "file_name": "TrickyAddonModule-v4.3-635-canary.zip",
+      "date": "04.11.2025 08:22",
+      "file_name": "TrickyAddonModule-v4.3-636-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v4.3-635-canary.zip"
+      "version_id": "TrickyAddonModule-v4.3-636-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -236,9 +236,9 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_203.zip",
-      "message_id": 551,
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_203.zip"
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_205.zip",
+      "message_id": 552,
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_205.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -286,9 +286,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v4.3-635-canary.zip",
-      "message_id": 550,
-      "version_id": "TrickyAddonModule-v4.3-635-canary.zip"
+      "file_name": "TrickyAddonModule-v4.3-636-canary.zip",
+      "message_id": 553,
+      "version_id": "TrickyAddonModule-v4.3-636-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
