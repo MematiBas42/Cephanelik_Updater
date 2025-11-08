@@ -55,10 +55,10 @@
       "version_id": "HMA-OSS-oss-127-debug.zip"
     },
     "lsposed": {
-      "date": "08.11.2025 11:11",
-      "file_name": "LSPosed-v1.10.2-7193-zygisk-debug.zip",
+      "date": "08.11.2025 15:13",
+      "file_name": "LSPosed-v1.10.2-7194-zygisk-debug.zip",
       "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "LSPosed-v1.10.2-7193-zygisk-debug.zip"
+      "version_id": "LSPosed-v1.10.2-7194-zygisk-debug.zip"
     },
     "magiskalpha": {
       "date": "02.10.2025 12:54",
@@ -216,9 +216,9 @@
       "version_id": "HMA-OSS-oss-127-debug.zip"
     },
     "lsposed": {
-      "file_name": "LSPosed-v1.10.2-7193-zygisk-debug.zip",
-      "message_id": 558,
-      "version_id": "LSPosed-v1.10.2-7193-zygisk-debug.zip"
+      "file_name": "LSPosed-v1.10.2-7194-zygisk-debug.zip",
+      "message_id": 559,
+      "version_id": "LSPosed-v1.10.2-7194-zygisk-debug.zip"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
