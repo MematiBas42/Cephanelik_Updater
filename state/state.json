@@ -13,10 +13,10 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "ReLSPosed": {
-      "date": "21.11.2025 17:13",
-      "file_name": "LSPosed-v1.0.1-7206-zygisk-debug.zip",
+      "date": "22.11.2025 17:12",
+      "file_name": "ReLSPosed-v1.0.1-7207-zygisk-debug.zip",
       "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "version_id": "LSPosed-v1.0.1-7206-zygisk-debug.zip"
+      "version_id": "ReLSPosed-v1.0.1-7207-zygisk-debug.zip"
     },
     "TrickyStore": {
       "date": "02.11.2025 09:56",
@@ -181,9 +181,9 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "ReLSPosed": {
-      "file_name": "LSPosed-v1.0.1-7206-zygisk-debug.zip",
-      "message_id": 577,
-      "version_id": "LSPosed-v1.0.1-7206-zygisk-debug.zip"
+      "file_name": "ReLSPosed-v1.0.1-7207-zygisk-debug.zip",
+      "message_id": 582,
+      "version_id": "ReLSPosed-v1.0.1-7207-zygisk-debug.zip"
     },
     "TrickyStore": {
       "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
