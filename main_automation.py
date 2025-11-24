@@ -9,6 +9,7 @@ from urllib.parse import quote_plus
 from datetime import datetime
 from telethon import TelegramClient
 from telethon.sessions import StringSession
+from telethon.tl.types import KeyboardButtonUrl
 
 # --- Hassas Bilgiler ve Proje Ayarları ---
 API_ID = os.environ.get('TELEGRAM_API_ID')
@@ -120,17 +121,32 @@ class ModuleHandler:
     async def _get_github_ci_remote_info(self, module):
         content = await self._api_call(module['source'], is_json=False)
         if not content: return None
-        match = re.search(r'https://nightly\.link/[^"]*\.zip', content)
-        if match:
-            url = match.group(0)
-            filename = os.path.basename(url)
-            return {
-                'file_name': filename, 'version_id': filename,
-                'source_url': module['source'],
-                'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
-                'download_url': url
-            }
-        return None
+
+        all_zip_urls = re.findall(r'https://nightly\.link/[^"]*\.zip', content)
+        if not all_zip_urls:
+            return None
+
+        url_to_download = None
+        asset_filter = module.get('asset_filter')
+
+        if asset_filter:
+            for url in all_zip_urls:
+                if re.search(asset_filter, os.path.basename(url)):
+                    url_to_download = url
+                    break
+        else:
+            url_to_download = all_zip_urls[0]
+
+        if not url_to_download:
+            return None
+
+        filename = os.path.basename(url_to_download)
+        return {
+            'file_name': filename, 'version_id': filename,
+            'source_url': module['source'],
+            'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
+            'download_url': url_to_download
+        }
 
     async def _get_gitlab_release_remote_info(self, module):
         url = f"https://gitlab.com/api/v4/projects/{quote_plus(module['source'])}/releases"
@@ -291,9 +307,21 @@ class TelethonPublisher:
                 f"🔗 <b><a href='{info['source_url']}'>Kaynak</a></b>"
             )
 
+            buttons = None
+            repo_url = None
+            module_source = module_def.get('source')
+            if module_source:
+                if module_def.get('type') in ['github_release', 'github_ci']:
+                    repo_url = f"https://github.com/{module_source.split('/workflows/')[0]}"
+                elif module_def.get('type') == 'gitlab_release':
+                    repo_url = f"https://gitlab.com/{module_source}"
+            
+            if repo_url:
+                buttons = [KeyboardButtonUrl('⭐ Star Repo', url=repo_url)]
+
             print(f"[TELEGRAM] '{filename}' yükleniyor...")
             message = await self.tg_client.send_file(
-                PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True
+                PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True, buttons=buttons
             )
             print(f"[SUCCESS] '{name}' güncellendi. Mesaj ID: {message.id}")
             return name, {'message_id': message.id, 'file_name': filename, 'version_id': info['version_id']}
