@@ -97,10 +97,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "24.11.2025 17:15",
-      "file_name": "ReZygisk-v1.0.0-435-f0b8df8-debug.zip",
+      "date": "24.11.2025 18:24",
+      "file_name": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-435-f0b8df8-debug.zip"
+      "version_id": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -139,10 +139,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "24.11.2025 16:18",
-      "file_name": "TrickyAddonModule-v4.3-643-canary.zip",
+      "date": "24.11.2025 18:24",
+      "file_name": "TrickyAddonModule-v4.3-641-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v4.3-643-canary.zip"
+      "version_id": "TrickyAddonModule-v4.3-641-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -251,9 +251,9 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-435-f0b8df8-debug.zip",
-      "message_id": 594,
-      "version_id": "ReZygisk-v1.0.0-435-f0b8df8-debug.zip"
+      "file_name": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip",
+      "message_id": 595,
+      "version_id": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
@@ -286,9 +286,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v4.3-643-canary.zip",
-      "message_id": 592,
-      "version_id": "TrickyAddonModule-v4.3-643-canary.zip"
+      "file_name": "TrickyAddonModule-v4.3-641-canary.zip",
+      "message_id": 596,
+      "version_id": "TrickyAddonModule-v4.3-641-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
