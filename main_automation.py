@@ -96,7 +96,8 @@ class ModuleHandler:
         if not isinstance(data, dict) or 'assets' not in data:
             print(f"[INFO] '{module['source']}' için GitHub'da dosya bulunamadı.")
             return None
-        asset = next((a for a in data['assets'] if re.search(module['asset_filter'], a['name'])), None)
+        asset_filter = module.get('asset_filter')
+        asset = next((a for a in data['assets'] if re.search(asset_filter, a['name'])), None) if asset_filter else data['assets'][0]
         if asset:
             return {
                 'file_name': asset['name'],
@@ -112,18 +113,21 @@ class ModuleHandler:
         if not content or not isinstance(content, str):
             print(f"[INFO] '{module['source']}' için GitHub CI'da dosya bulunamadı.")
             return None
-        all_zip_urls = re.findall(r'https://nightly\.link/[^"\\]*\.zip', content)
+        all_zip_urls = re.findall(r'https://nightly\.link/[^"].*\.zip', content)
         if not all_zip_urls:
             print(f"[INFO] '{module['source']}' sayfasında .zip linki bulunamadı.")
             return None
-        asset_filter = module.get('asset_filter')
+        
         url = None
+        asset_filter = module.get('asset_filter')
         if asset_filter:
             url = next((u for u in all_zip_urls if re.search(asset_filter, os.path.basename(u))), None)
+        else:
+            url = all_zip_urls[0]
 
         if not url:
-            print(f"[WARNING] '{module['name']}' için filtrelere uygun dosya bulunamadı ('{asset_filter}'). İlk bulunan link kullanılacak.")
-            url = all_zip_urls[0]
+            print(f"[INFO] '{module['name']}' için filtrelere uygun dosya bulunamadı ('{asset_filter}').")
+            return None
         
         filename = os.path.basename(url)
         return {
@@ -141,7 +145,8 @@ class ModuleHandler:
             print(f"[INFO] '{module['source']}' için GitLab'da dosya bulunamadı.")
             return None
         release = data[0]
-        link = next((l for l in release.get('assets', {}).get('links', []) if re.search(module['asset_filter'], l['name'])), None)
+        asset_filter = module.get('asset_filter')
+        link = next((l for l in release.get('assets', {}).get('links', []) if re.search(asset_filter, l['name'])), None) if asset_filter else release.get('assets', {}).get('links', [])[0]
         if link:
             return {
                 'file_name': link['name'],
@@ -180,7 +185,7 @@ class ModuleHandler:
 
         remote_info = await getter_func(client, module)
         if not remote_info:
-            print(f"[INFO] '{name}' için kaynakta dosya bulunamadı.")
+            # Error messages are now printed inside the getter funcs
             return None
 
         remote_version_id = remote_info['version_id']
@@ -228,7 +233,7 @@ class ModuleHandler:
             module_name = enabled_modules[i]['name']
             if isinstance(result, Exception):
                 print(f"[CRITICAL MISTAKE] '{module_name}' işlenirken bir istisna oluştu:")
-                traceback.print_exc()
+                print(traceback.format_exc())
             elif result:
                 name, remote_info = result
                 manifest_was_updated = True
@@ -336,7 +341,7 @@ class TelethonPublisher:
                     repo_url = f"https://gitlab.com/{module_source}"
             
             if repo_url:
-                buttons.append(KeyboardButtonUrl('⭐ Star Repo', url=repo_url))
+                buttons.append([KeyboardButtonUrl('⭐ Star Repo', url=repo_url)])
 
             print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
             message = await self.client.send_file(
@@ -350,13 +355,13 @@ class TelethonPublisher:
             }
         except Exception as e:
             print(f"[CRITICAL MISTAKE] '{name}' yayınlanırken bir istisna oluştu:")
-            traceback.print_exc()
+            print(traceback.format_exc())
             return name, None
 
 
 async def main():
     print("==============================================")
-    print(f"   Cephanelik Updater v8.2 (Async-Fixed) Başlatıldı")
+    print(f"   Cephanelik Updater v8.3 (Final-Fix) Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
 
