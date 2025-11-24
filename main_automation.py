@@ -226,12 +226,10 @@ class ModuleHandler:
             print(f"[WARNING] Unsupported module type: {type_}. Skipping.")
             return None
 
-        if not asyncio.iscoroutinefunction(getter_func):
-            print(f"[ERROR] {getter_func} is not a coroutine function")
-            return None
-
         print(f"\n[PROCESS] Checking remote version for: {name} (Type: {type_})")
-        remote_info = await getter_func(client, module)
+        remote_info_coro = getter_func(client, module)
+        print(f"type of remote_info_coro is {type(remote_info_coro)}")
+        remote_info = await remote_info_coro
         if not remote_info:
             return None
 
