@@ -113,9 +113,22 @@ class ModuleHandler:
         if not content or not isinstance(content, str):
             print(f"[INFO] '{module['source']}' için GitHub CI'da dosya bulunamadı.")
             return None
-        match = re.search(r'https://nightly\.link/[^"]*\.zip', content)
-        if match:
-            url = match.group(0)
+        
+        # Find all zip links in the content
+        all_zip_urls = re.findall(r'https://nightly\.link/[^"]*\.zip', content)
+        if not all_zip_urls:
+            print(f"[INFO] '{module['source']}' sayfasında .zip linki bulunamadı.")
+            return None
+
+        # Use the module's asset_filter to find the correct one
+        asset_filter = module.get('asset_filter')
+        if not asset_filter:
+            print(f"[WARNING] '{module['name']}' için asset_filter tanımlanmamış. İlk bulunan link kullanılacak.")
+            url = all_zip_urls[0]
+        else:
+            url = next((url for url in all_zip_urls if re.search(asset_filter, url)), None)
+
+        if url:
             filename = os.path.basename(url)
             return {
                 'file_name': filename,
@@ -124,6 +137,8 @@ class ModuleHandler:
                 'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
                 'download_url': url
             }
+        
+        print(f"[INFO] '{module['name']}' için filtrelere uygun dosya bulunamadı ('{asset_filter}').")
         return None
 
     def _get_gitlab_release_remote_info(self, module):

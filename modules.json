@@ -64,7 +64,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "release.*\\.zip$",
       "description": "JingMatrix/LSPosed"
     },
     {
@@ -80,7 +80,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "release.*\\.zip$",
       "description": "ThePedroo/ReLSPosed"
     },
     {
