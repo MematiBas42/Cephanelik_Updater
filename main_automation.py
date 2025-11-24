@@ -308,22 +308,25 @@ class TelethonPublisher:
             )
 
             buttons = None
-            repo_url = None
-            module_source = module_def.get('source')
             module_type = module_def.get('type')
 
-            if module_source:
-                if module_type == 'github_release':
-                    repo_url = f"https://github.com/{module_source}"
-                elif module_type == 'github_ci':
-                    match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
-                    if match:
-                        repo_url = f"https://github.com/{match.group(1)}"
-                elif module_type == 'gitlab_release':
-                    repo_url = f"https://gitlab.com/{module_source}"
-            
-            if repo_url:
-                buttons = [KeyboardButtonUrl('⭐ Star Repo', url=repo_url)]
+            if module_type == 'telegram_forwarder':
+                buttons = [KeyboardButtonUrl('Kaynak Mesaja Git', url=info['source_url'])]
+            else:
+                repo_url = None
+                module_source = module_def.get('source')
+                if module_source:
+                    if module_type == 'github_release':
+                        repo_url = f"https://github.com/{module_source}"
+                    elif module_type == 'github_ci':
+                        match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
+                        if match:
+                            repo_url = f"https://github.com/{match.group(1)}"
+                    elif module_type == 'gitlab_release':
+                        repo_url = f"https://gitlab.com/{module_source}"
+                
+                if repo_url:
+                    buttons = [KeyboardButtonUrl('⭐ Star Repo', url=repo_url)]
 
             print(f"[TELEGRAM] '{filename}' yükleniyor...")
             message = await self.tg_client.send_file(
