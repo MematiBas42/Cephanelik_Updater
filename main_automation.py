@@ -117,18 +117,22 @@ class ModuleHandler:
             print(f"[INFO] '{module['source']}' sayfasında .zip linki bulunamadı.")
             return None
         asset_filter = module.get('asset_filter')
-        url = next((url for url in all_zip_urls if re.search(asset_filter, url)), all_zip_urls[0]) if asset_filter else all_zip_urls[0]
-        if url:
-            filename = os.path.basename(url)
-            return {
-                'file_name': filename,
-                'version_id': filename,
-                'source_url': module['source'],
-                'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
-                'download_url': url
-            }
-        print(f"[INFO] '{module['name']}' için filtrelere uygun dosya bulunamadı ('{asset_filter}').")
-        return None
+        url = None
+        if asset_filter:
+            url = next((u for u in all_zip_urls if re.search(asset_filter, os.path.basename(u))), None)
+
+        if not url:
+            print(f"[WARNING] '{module['name']}' için filtrelere uygun dosya bulunamadı ('{asset_filter}'). İlk bulunan link kullanılacak.")
+            url = all_zip_urls[0]
+        
+        filename = os.path.basename(url)
+        return {
+            'file_name': filename,
+            'version_id': filename,
+            'source_url': module['source'],
+            'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
+            'download_url': url
+        }
 
     async def _get_gitlab_release_remote_info(self, client, module):
         url = f"https://gitlab.com/api/v4/projects/{quote_plus(module['source'])}/releases"
@@ -223,7 +227,7 @@ class ModuleHandler:
         for i, result in enumerate(results):
             module_name = enabled_modules[i]['name']
             if isinstance(result, Exception):
-                print(f"[CRITICAL MISTAKE] '{module_name}' işlenirken bir istisna oluştu: {result}")
+                print(f"[CRITICAL MISTAKE] '{module_name}' işlenirken bir istisna oluştu:")
                 traceback.print_exc()
             elif result:
                 name, remote_info = result
@@ -275,60 +279,84 @@ class TelethonPublisher:
             publish_tasks.append(self._publish_single_update(name, info, state, modules_map))
 
         if publish_tasks:
-            results = await asyncio.gather(*publish_tasks, return_exceptions=True)
-            for i, result in enumerate(results):
-                # We need to find the name again as gather does not preserve it
-                name = [t.cr_frame.f_locals['name'] for t in publish_tasks][i] 
-                if isinstance(result, Exception):
-                    print(f"[CRITICAL MISTAKE] '{name}' yayınlanırken bir istisna oluştu: {result}")
-                    traceback.print_exc()
-                elif result:
-                    state["telegram_state"][name] = result
+            results = await asyncio.gather(*publish_tasks)
+            for result in results:
+                if result:
+                    name, data = result
+                    if data:
+                        state["telegram_state"][name] = data
         
         self.state_manager.save_state(state)
         print("--- Telegram Yayınlama Aşaması Tamamlandı ---")
 
     async def _publish_single_update(self, name, info, state, modules_map):
-        current_filename = info['file_name']
-        print(f"[UPDATE] '{name}' için yeni sürüm yayınlanacak: {current_filename}")
+        try:
+            current_filename = info['file_name']
+            print(f"[UPDATE] '{name}' için yeni sürüm yayınlanacak: {current_filename}")
 
-        filepath = os.path.join(CACHE_DIR, current_filename)
-        if not os.path.exists(filepath):
-            print(f"[ERROR] Dosya diskte bulunamadı: {filepath}. Atlanıyor.")
-            return None
+            filepath = os.path.join(CACHE_DIR, current_filename)
+            if not os.path.exists(filepath):
+                print(f"[ERROR] Dosya diskte bulunamadı: {filepath}. Atlanıyor.")
+                return None
 
-        posted_info = state["telegram_state"].get(name)
-        if posted_info and 'message_id' in posted_info:
-            print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {posted_info['message_id']})...")
-            try:
-                await self.client.delete_messages(PUBLISH_CHANNEL_ID, posted_info['message_id'])
-            except Exception as e:
-                print(f"[WARNING] Eski mesaj silinemedi: {e}")
+            posted_info = state["telegram_state"].get(name)
+            if posted_info and 'message_id' in posted_info:
+                print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {posted_info['message_id']})...")
+                try:
+                    await self.client.delete_messages(PUBLISH_CHANNEL_ID, posted_info['message_id'])
+                except Exception as e:
+                    print(f"[WARNING] Eski mesaj silinemedi: {e}")
 
-        module_def = modules_map.get(name, {})
-        display_name = module_def.get('description') or info['file_name']
-        caption = (
-            f"📦 <b>{display_name}</b>\n\n"
-            f"📄 <b>File Name:</b> <code>{info['file_name']}</code>\n"
-            f"📅 <b>Update Date:</b> {info['date']}\n\n"
-            f"🔗 <b><a href='{info['source_url']}'>Source</a></b>\n"
-        )
+            module_def = modules_map.get(name, {})
+            display_name = module_def.get('description') or info['file_name']
+            caption = (
+                f"📦 <b>{display_name}</b>\n\n"
+                f"📄 <b>File Name:</b> <code>{info['file_name']}</code>\n"
+                f"📅 <b>Update Date:</b> {info['date']}\n\n"
+                f"🔗 <b><a href='{info['source_url']}'>Source</a></b>\n"
+            )
+            
+            buttons = []
+            repo_url = None
+            module_type = module_def.get('type')
+            module_source = module_def.get('source')
 
-        print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
-        message = await self.client.send_file(
-            PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True)
-        
-        print(f"[SUCCESSFUL] '{name}' güncellendi. Yeni Mesaj ID: {message.id}")
-        return {
-            'message_id': message.id,
-            'file_name': current_filename,
-            'version_id': info.get('version_id')
-        }
+            if module_source:
+                if module_type in ['github_release', 'github_ci']:
+                    repo_owner_and_name = None
+                    if module_type == 'github_release':
+                        repo_owner_and_name = module_source
+                    elif module_type == 'github_ci':
+                        match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
+                        if match:
+                            repo_owner_and_name = match.group(1)
+                    if repo_owner_and_name:
+                        repo_url = f"https://github.com/{repo_owner_and_name}"
+                elif module_type == 'gitlab_release':
+                    repo_url = f"https://gitlab.com/{module_source}"
+            
+            if repo_url:
+                buttons.append(KeyboardButtonUrl('⭐ Star Repo', url=repo_url))
+
+            print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
+            message = await self.client.send_file(
+                PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True, buttons=buttons or None)
+            
+            print(f"[SUCCESSFUL] '{name}' güncellendi. Yeni Mesaj ID: {message.id}")
+            return name, {
+                'message_id': message.id,
+                'file_name': current_filename,
+                'version_id': info.get('version_id')
+            }
+        except Exception as e:
+            print(f"[CRITICAL MISTAKE] '{name}' yayınlanırken bir istisna oluştu:")
+            traceback.print_exc()
+            return name, None
 
 
 async def main():
     print("==============================================")
-    print(f"   Cephanelik Updater v8.0 (Async) Başlatıldı")
+    print(f"   Cephanelik Updater v8.2 (Async-Fixed) Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
 
@@ -337,14 +365,11 @@ async def main():
 
     state_manager = StateManager(STATE_DIR)
     
-    # State is loaded once and passed to handlers
-    initial_state = state_manager.load_state()
-
     async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
+        os.makedirs(CACHE_DIR, exist_ok=True)
         handler = ModuleHandler(client, state_manager)
         await handler.process_modules()
 
-        # Re-load state before publishing as it might have been changed by the handler
         publisher = TelethonPublisher(client, state_manager)
         await publisher.publish_updates()
 
