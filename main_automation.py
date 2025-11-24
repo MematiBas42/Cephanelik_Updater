@@ -227,9 +227,8 @@ class ModuleHandler:
             return None
 
         print(f"\n[PROCESS] Checking remote version for: {name} (Type: {type_})")
-        remote_info_coro = getter_func(client, module)
-        print(f"type of remote_info_coro is {type(remote_info_coro)}")
-        remote_info = await remote_info_coro
+        print(f"getter_func is {getter_func}")
+        remote_info = await getter_func(client, module)
         if not remote_info:
             return None
 
