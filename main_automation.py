@@ -310,10 +310,16 @@ class TelethonPublisher:
             buttons = None
             repo_url = None
             module_source = module_def.get('source')
+            module_type = module_def.get('type')
+
             if module_source:
-                if module_def.get('type') in ['github_release', 'github_ci']:
-                    repo_url = f"https://github.com/{module_source.split('/workflows/')[0]}"
-                elif module_def.get('type') == 'gitlab_release':
+                if module_type == 'github_release':
+                    repo_url = f"https://github.com/{module_source}"
+                elif module_type == 'github_ci':
+                    match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
+                    if match:
+                        repo_url = f"https://github.com/{match.group(1)}"
+                elif module_type == 'gitlab_release':
                     repo_url = f"https://gitlab.com/{module_source}"
             
             if repo_url:
