@@ -160,7 +160,7 @@ class ModuleHandler:
         }
 
     async def _get_gitlab_release_remote_info(self, client, module):
-        url = f"https.com/api/v4/projects/{quote_plus(module['source'])}/releases"
+        url = f"https://gitlab.com/api/v4/projects/{quote_plus(module['source'])}/releases"
         data = await self._get_api_call(client, url)
         if not data:
             print(f"[ERROR] Failed to fetch release data for {module['source']}")
@@ -280,8 +280,7 @@ class ModuleHandler:
         for i, result in enumerate(results):
             module_name = enabled_modules[i]['name']
             if isinstance(result, Exception):
-                print(f"[CRITICAL] An exception occurred while processing '{module_name}':")
-                print(traceback.format_exc())
+                print(f"[CRITICAL] An exception occurred while processing '{module_name}': {result}")
             elif result:
                 name, remote_info = result
                 manifest_was_updated = True
