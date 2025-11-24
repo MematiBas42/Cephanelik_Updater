@@ -227,12 +227,7 @@ class ModuleHandler:
             return None
 
         print(f"\n[PROCESS] Checking remote version for: {name} (Type: {type_})")
-        try:
-            remote_info = await getter_func(client, module)
-        except TypeError as e:
-            print(f"[CRITICAL] TypeError in _process_single_module for {name}: {e}")
-            print(f"getter_func was: {getter_func}")
-            return None
+        remote_info = await getter_func(client, module)
         if not remote_info:
             return None
 
@@ -278,22 +273,20 @@ class ModuleHandler:
         enabled_modules = sorted([m for m in modules if m.get('enabled')], key=lambda x: x['name'])
         
         async with httpx.AsyncClient() as client:
-            tasks = [self._process_single_module(client, module, state) for module in enabled_modules]
-            results = await asyncio.gather(*tasks, return_exceptions=True)
+            for module in enabled_modules:
+                result = await self._process_single_module(client, module, state)
+                if isinstance(result, Exception):
+                    print(f"[CRITICAL] An exception occurred while processing '{module['name']}': {result}")
+                elif result:
+                    name, remote_info = result
+                    manifest_was_updated = True
+                    old_file_in_manifest = new_manifest.get(name, {}).get('file_name')
+                    if old_file_in_manifest and old_file_in_manifest != remote_info.get('file_name') and os.path.exists(os.path.join(CACHE_DIR, old_file_in_manifest)):
+                        os.remove(os.path.join(CACHE_DIR, old_file_in_manifest))
+                    new_manifest[name] = remote_info
+                    print(f"[SUCCESS] '{name}' was downloaded and manifest updated.")
+                await asyncio.sleep(5)
 
-        new_manifest = state.get("manifest", {})
-        for i, result in enumerate(results):
-            module_name = enabled_modules[i]['name']
-            if isinstance(result, Exception):
-                print(f"[CRITICAL] An exception occurred while processing '{module_name}': {result}")
-            elif result:
-                name, remote_info = result
-                manifest_was_updated = True
-                old_file_in_manifest = new_manifest.get(name, {}).get('file_name')
-                if old_file_in_manifest and old_file_in_manifest != remote_info.get('file_name') and os.path.exists(os.path.join(CACHE_DIR, old_file_in_manifest)):
-                    os.remove(os.path.join(CACHE_DIR, old_file_in_manifest))
-                new_manifest[name] = remote_info
-                print(f"[SUCCESS] '{name}' was downloaded and manifest updated.")
         
         if manifest_was_updated:
             state["manifest"] = new_manifest
