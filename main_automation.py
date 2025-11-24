@@ -149,16 +149,31 @@ class ModuleHandler:
 
     async def _download_file(self, url, path):
         print(f"   -> İndiriliyor: {url}")
-        try:
-            async with self.http_client.stream('GET', url, timeout=180) as r:
-                r.raise_for_status()
-                with open(path, 'wb') as f:
-                    async for chunk in r.aiter_bytes():
-                        f.write(chunk)
-            return True
-        except httpx.RequestError as e:
-            print(f"[ERROR] Dosya indirilemedi: {url} - {e}")
-            return False
+        for attempt in range(3):
+            try:
+                async with self.http_client.stream('GET', url, timeout=180, follow_redirects=True) as r:
+                    r.raise_for_status()
+                    with open(path, 'wb') as f:
+                        async for chunk in r.aiter_bytes():
+                            f.write(chunk)
+                return True
+            except httpx.HTTPStatusError as e:
+                if 500 <= e.response.status_code < 600 and attempt < 2:
+                    print(f"[WARNING] İndirme sırasında sunucu hatası (5xx): {e.response.status_code}. {5 * (attempt + 1)} saniye içinde yeniden deneniyor... ({url})")
+                    await asyncio.sleep(5 * (attempt + 1))
+                    continue
+                else:
+                    print(f"[ERROR] İndirme sırasında HTTP Hatası: {e.response.status_code} - {url}")
+                    return False
+            except httpx.RequestError as e:
+                if attempt < 2:
+                    print(f"[WARNING] İndirme sırasında istek hatası: {e}. {5 * (attempt + 1)} saniye içinde yeniden deneniyor... ({url})")
+                    await asyncio.sleep(5 * (attempt + 1))
+                    continue
+                else:
+                    print(f"[ERROR] İndirme sırasında İstek Hatası: {url} - {e}")
+                    return False
+        return False
 
     async def _process_single_module(self, module, state):
         name, type_ = module['name'], module['type']
