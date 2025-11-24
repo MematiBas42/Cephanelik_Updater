@@ -227,8 +227,12 @@ class ModuleHandler:
             return None
 
         print(f"\n[PROCESS] Checking remote version for: {name} (Type: {type_})")
-        print(f"getter_func is {getter_func}")
-        remote_info = await getter_func(client, module)
+        try:
+            remote_info = await getter_func(client, module)
+        except TypeError as e:
+            print(f"[CRITICAL] TypeError in _process_single_module for {name}: {e}")
+            print(f"getter_func was: {getter_func}")
+            return None
         if not remote_info:
             return None
 
