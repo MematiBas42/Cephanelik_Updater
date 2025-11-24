@@ -13,10 +13,10 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "ReLSPosed": {
-      "date": "24.11.2025 19:02",
-      "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
+      "date": "24.11.2025 20:50",
+      "file_name": "ReLSPosed-v1.0.1-7208-zygisk-debug.zip",
       "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "version_id": "ReLSPosed-v1.0.1-7208-zygisk-release.zip"
+      "version_id": "ReLSPosed-v1.0.1-7208-zygisk-debug.zip"
     },
     "TrickyStore": {
       "date": "02.11.2025 09:56",
@@ -55,10 +55,10 @@
       "version_id": "HMA-OSS-oss-130-debug.zip"
     },
     "lsposed": {
-      "date": "24.11.2025 19:03",
-      "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
+      "date": "24.11.2025 20:50",
+      "file_name": "LSPosed-v1.10.2-7199-zygisk-debug.zip",
       "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "LSPosed-v1.10.2-7199-zygisk-release.zip"
+      "version_id": "LSPosed-v1.10.2-7199-zygisk-debug.zip"
     },
     "magiskalpha": {
       "date": "02.10.2025 12:54",
@@ -97,10 +97,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "24.11.2025 19:03",
-      "file_name": "ReZygisk-v1.0.0-435-4bd85ae-release.zip",
+      "date": "24.11.2025 20:50",
+      "file_name": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-435-4bd85ae-release.zip"
+      "version_id": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -109,10 +109,10 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "date": "22.10.2025 13:31",
-      "file_name": "manager.zip",
-      "source_url": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main/manager",
-      "version_id": "manager.zip"
+      "date": "24.11.2025 20:50",
+      "file_name": "Manager.zip",
+      "source_url": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
+      "version_id": "Manager.zip"
     },
     "susfs": {
       "date": "15.09.2025 09:19",
@@ -181,9 +181,9 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "ReLSPosed": {
-      "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
-      "message_id": 597,
-      "version_id": "ReLSPosed-v1.0.1-7208-zygisk-release.zip"
+      "file_name": "ReLSPosed-v1.0.1-7208-zygisk-debug.zip",
+      "message_id": 603,
+      "version_id": "ReLSPosed-v1.0.1-7208-zygisk-debug.zip"
     },
     "TrickyStore": {
       "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
@@ -216,9 +216,9 @@
       "version_id": "HMA-OSS-oss-130-debug.zip"
     },
     "lsposed": {
-      "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
-      "message_id": 598,
-      "version_id": "LSPosed-v1.10.2-7199-zygisk-release.zip"
+      "file_name": "LSPosed-v1.10.2-7199-zygisk-debug.zip",
+      "message_id": 602,
+      "version_id": "LSPosed-v1.10.2-7199-zygisk-debug.zip"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -251,9 +251,9 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-435-4bd85ae-release.zip",
-      "message_id": 599,
-      "version_id": "ReZygisk-v1.0.0-435-4bd85ae-release.zip"
+      "file_name": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip",
+      "message_id": 600,
+      "version_id": "ReZygisk-v1.0.0-435-4bd85ae-debug.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
@@ -261,9 +261,9 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "file_name": "manager.zip",
-      "message_id": 514,
-      "version_id": "manager.zip"
+      "file_name": "Manager.zip",
+      "message_id": 601,
+      "version_id": "Manager.zip"
     },
     "susfs": {
       "file_name": "release-1.5.2%2B_3d255a3.zip",
