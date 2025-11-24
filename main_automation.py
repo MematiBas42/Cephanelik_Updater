@@ -90,6 +90,9 @@ class ModuleHandler:
     async def _get_github_release_remote_info(self, client, module):
         url = f"https://api.github.com/repos/{module['source']}/releases/latest"
         data = await self._get_api_call(client, url)
+        if not data:
+            print(f"[ERROR] Failed to fetch release data for {module['source']}")
+            return None
         if not isinstance(data, dict):
             print(f"[INFO] No valid release data found for {module['source']}")
             return None
@@ -125,6 +128,9 @@ class ModuleHandler:
     async def _get_github_ci_remote_info(self, client, module):
         content = await self._get_api_call(client, module['source'], is_json=False)
         if not content:
+            print(f"[ERROR] Failed to fetch CI content for {module['source']}")
+            return None
+        if not content:
             print(f"[INFO] No CI content found for {module['source']}")
             return None
         
@@ -154,8 +160,11 @@ class ModuleHandler:
         }
 
     async def _get_gitlab_release_remote_info(self, client, module):
-        url = f"https://gitlab.com/api/v4/projects/{quote_plus(module['source'])}/releases"
+        url = f"https.com/api/v4/projects/{quote_plus(module['source'])}/releases"
         data = await self._get_api_call(client, url)
+        if not data:
+            print(f"[ERROR] Failed to fetch release data for {module['source']}")
+            return None
         if not isinstance(data, list) or not data:
             print(f"[INFO] No valid release data found for {module['source']}")
             return None
