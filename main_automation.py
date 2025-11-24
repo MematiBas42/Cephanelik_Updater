@@ -120,7 +120,7 @@ class ModuleHandler:
     async def _get_github_ci_remote_info(self, module):
         content = await self._api_call(module['source'], is_json=False)
         if not content: return None
-        match = re.search(r'https://nightly\.link/[^ vital ]*\.zip', content)
+        match = re.search(r'https://nightly\.link/[^"]*\.zip', content)
         if match:
             url = match.group(0)
             filename = os.path.basename(url)
