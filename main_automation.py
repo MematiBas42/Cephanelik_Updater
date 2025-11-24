@@ -1,13 +1,15 @@
 import os
 import json
 import asyncio
-import requests
+import httpx
 import re
 import shutil
+import traceback
 from urllib.parse import quote_plus
 from datetime import datetime
-from telethon.sync import TelegramClient
+from telethon import TelegramClient
 from telethon.sessions import StringSession
+from telethon.tl.types import KeyboardButtonUrl
 
 # Hassas bilgiler GitHub Actions sırlarından (Secrets) alınır.
 API_ID = os.environ.get('TELEGRAM_API_ID')
@@ -58,21 +60,18 @@ class ModuleHandler:
     def __init__(self, client, state_manager):
         self.client = client
         self.state_manager = state_manager
-        state = self.state_manager.load_state()
-        self.manifest = state["manifest"]
-        os.makedirs(CACHE_DIR, exist_ok=True)
 
-    def _get_api_call(self, url, is_json=True):
+    async def _get_api_call(self, client, url, is_json=True):
         headers = {"Authorization": f"Bearer {GIT_API_TOKEN}"} if "api.github.com" in url else {}
         try:
-            response = requests.get(url, headers=headers, timeout=30)
+            response = await client.get(url, headers=headers, timeout=30, follow_redirects=True)
             response.raise_for_status()
-            return response.json() if is_json else response.text
-        except requests.exceptions.RequestException as e:
+            return await response.json() if is_json else response.text
+        except httpx.RequestError as e:
             print(f"[ERROR] API çağrısı başarısız: {url} - {e}")
             return None
 
-    async def _get_telegram_remote_info(self, module):
+    async def _get_telegram_remote_info(self, client, module):
         channel = module['source_channel']
         keyword = module['source']
         try:
@@ -91,9 +90,9 @@ class ModuleHandler:
             print(f"[ERROR] Telegram kanalı @{channel} işlenirken hata: {e}")
             return None
 
-    def _get_github_release_remote_info(self, module):
+    async def _get_github_release_remote_info(self, client, module):
         url = f"https://api.github.com/repos/{module['source']}/releases/latest"
-        data = self._get_api_call(url)
+        data = await self._get_api_call(client, url)
         if not isinstance(data, dict) or 'assets' not in data:
             print(f"[INFO] '{module['source']}' için GitHub'da dosya bulunamadı.")
             return None
@@ -108,26 +107,17 @@ class ModuleHandler:
             }
         return None
 
-    def _get_github_ci_remote_info(self, module):
-        content = self._get_api_call(module['source'], is_json=False)
+    async def _get_github_ci_remote_info(self, client, module):
+        content = await self._get_api_call(client, module['source'], is_json=False)
         if not content or not isinstance(content, str):
             print(f"[INFO] '{module['source']}' için GitHub CI'da dosya bulunamadı.")
             return None
-        
-        # Find all zip links in the content
-        all_zip_urls = re.findall(r'https://nightly\.link/[^"]*\.zip', content)
+        all_zip_urls = re.findall(r'https://nightly\.link/[^"\\]*\.zip', content)
         if not all_zip_urls:
             print(f"[INFO] '{module['source']}' sayfasında .zip linki bulunamadı.")
             return None
-
-        # Use the module's asset_filter to find the correct one
         asset_filter = module.get('asset_filter')
-        if not asset_filter:
-            print(f"[WARNING] '{module['name']}' için asset_filter tanımlanmamış. İlk bulunan link kullanılacak.")
-            url = all_zip_urls[0]
-        else:
-            url = next((url for url in all_zip_urls if re.search(asset_filter, url)), None)
-
+        url = next((url for url in all_zip_urls if re.search(asset_filter, url)), all_zip_urls[0]) if asset_filter else all_zip_urls[0]
         if url:
             filename = os.path.basename(url)
             return {
@@ -137,13 +127,12 @@ class ModuleHandler:
                 'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
                 'download_url': url
             }
-        
         print(f"[INFO] '{module['name']}' için filtrelere uygun dosya bulunamadı ('{asset_filter}').")
         return None
 
-    def _get_gitlab_release_remote_info(self, module):
+    async def _get_gitlab_release_remote_info(self, client, module):
         url = f"https://gitlab.com/api/v4/projects/{quote_plus(module['source'])}/releases"
-        data = self._get_api_call(url)
+        data = await self._get_api_call(client, url)
         if not isinstance(data, list) or not data:
             print(f"[INFO] '{module['source']}' için GitLab'da dosya bulunamadı.")
             return None
@@ -159,17 +148,59 @@ class ModuleHandler:
             }
         return None
 
-    def _download_file_sync(self, url, path):
+    async def _download_file_async(self, client, url, path):
         print(f"   -> İndiriliyor: {url}")
         try:
-            with requests.get(url, stream=True, timeout=180) as r:
+            async with client.stream('GET', url, timeout=180, follow_redirects=True) as r:
                 r.raise_for_status()
                 with open(path, 'wb') as f:
-                    shutil.copyfileobj(r.raw, f)
+                    async for chunk in r.aiter_bytes():
+                        f.write(chunk)
             return True
-        except requests.exceptions.RequestException as e:
+        except httpx.RequestError as e:
             print(f"[ERROR] Dosya indirilemedi: {url} - {e}")
             return False
+
+    async def _process_single_module(self, client, module, state):
+        name, type_ = module['name'], module['type']
+        print(f"\n[PROCESS] Uzak sürüm kontrol ediliyor: {name} (Tip: {type_})")
+        getter_func = {
+            'telegram_forwarder': self._get_telegram_remote_info,
+            'github_release': self._get_github_release_remote_info,
+            'github_ci': self._get_github_ci_remote_info,
+            'gitlab_release': self._get_gitlab_release_remote_info,
+        }.get(type_)
+        if not getter_func:
+            print(f"[WARNING] Desteklenmeyen modül tipi: {type_}. Atlanıyor.")
+            return None
+
+        remote_info = await getter_func(client, module)
+        if not remote_info:
+            print(f"[INFO] '{name}' için kaynakta dosya bulunamadı.")
+            return None
+
+        remote_version_id = remote_info['version_id']
+        posted_version_id = state["manifest"].get(name, {}).get('version_id')
+
+        if remote_version_id == posted_version_id:
+            print(f"[INFO] '{name}' zaten güncel (Sürüm ID: {posted_version_id}). İndirme atlanıyor.")
+            return None
+
+        print(f"[DOWNLOAD] '{name}' için yeni sürüm indirilecek (Bulut ID: {remote_version_id}, Kanal ID: {posted_version_id or 'YOK'})")
+        path = os.path.join(CACHE_DIR, remote_info['file_name'])
+        success = False
+        if 'telegram_message' in remote_info:
+            message_to_download = remote_info.pop('telegram_message')
+            downloaded_path = await self.client.download_media(message_to_download, path)
+            success = downloaded_path is not None
+        elif 'download_url' in remote_info:
+            success = await self._download_file_async(client, remote_info.get('download_url'), path)
+
+        if success:
+            return name, remote_info
+        
+        print(f"[ERROR] '{name}' indirilemediği için bu döngüde atlanacak.")
+        return None
 
     async def process_modules(self):
         print("\n--- Modül Kontrol ve İndirme Aşaması Başlatıldı ---")
@@ -182,146 +213,122 @@ class ModuleHandler:
 
         state = self.state_manager.load_state()
         manifest_was_updated = False
+        
+        enabled_modules = sorted([m for m in modules if m.get('enabled')], key=lambda x: x['name'])
+        
+        async with httpx.AsyncClient() as client:
+            tasks = [self._process_single_module(client, module, state) for module in enabled_modules]
+            results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        for module in sorted([m for m in modules if m.get('enabled')], key=lambda x: x['name']):
-            name, type_ = module['name'], module['type']
-            print(f"\n[PROCESS] Uzak sürüm kontrol ediliyor: {name} (Tip: {type_})")
-            getter_func = {
-                'telegram_forwarder': self._get_telegram_remote_info,
-                'github_release': self._get_github_release_remote_info,
-                'github_ci': self._get_github_ci_remote_info,
-                'gitlab_release': self._get_gitlab_release_remote_info,
-            }.get(type_)
-
-            if not getter_func:
-                print(f"[WARNING] Desteklenmeyen modül tipi: {type_}. Atlanıyor.")
-                continue
-
-            remote_info = await getter_func(module) if asyncio.iscoroutinefunction(getter_func) else getter_func(module)
-
-            if not remote_info:
-                print(f"[INFO] '{name}' için kaynakta dosya bulunamadı.")
-                continue
-
-            remote_version_id = remote_info['version_id']
-            posted_version_id = state["manifest"].get(name, {}).get('version_id')
-
-            if remote_version_id == posted_version_id:
-                print(f"[INFO] '{name}' zaten güncel (Sürüm ID: {posted_version_id}). İndirme atlanıyor.")
-                continue
-
-            print(f"[DOWNLOAD] '{name}' için yeni sürüm indirilecek (Bulut ID: {remote_version_id}, Kanal ID: {posted_version_id or 'YOK'})")
-
-            path = os.path.join(CACHE_DIR, remote_info['file_name'])
-            success = False
-
-            if 'telegram_message' in remote_info:
-                message_to_download = remote_info.pop('telegram_message')
-                downloaded_path = await self.client.download_media(message_to_download, path)
-                success = downloaded_path is not None
-            elif 'download_url' in remote_info:
-                success = self._download_file_sync(remote_info.pop('download_url'), path)
-
-            if success:
+        for i, result in enumerate(results):
+            module_name = enabled_modules[i]['name']
+            if isinstance(result, Exception):
+                print(f"[CRITICAL MISTAKE] '{module_name}' işlenirken bir istisna oluştu: {result}")
+                traceback.print_exc()
+            elif result:
+                name, remote_info = result
                 manifest_was_updated = True
                 old_file_in_manifest = state["manifest"].get(name, {}).get('file_name')
                 if old_file_in_manifest and old_file_in_manifest != remote_info['file_name'] and os.path.exists(os.path.join(CACHE_DIR, old_file_in_manifest)):
                     os.remove(os.path.join(CACHE_DIR, old_file_in_manifest))
-
                 state["manifest"][name] = remote_info
                 print(f"[SUCCESSFUL] '{name}' indirildi ve manifest güncellendi.")
-
-            else:
-                print(f"[ERROR] '{name}' indirilemediği için bu döngüde atlanacak.")
 
         if manifest_was_updated:
             self.state_manager.save_state(state)
         else:
             print("\n[INFO] Hiçbir modül indirilmedi, manifest dosyası değişmedi.")
-
         print("--- Modül Kontrol ve İndirme Aşaması Tamamlandı ---")
+
 
 class TelethonPublisher:
     def __init__(self, client, state_manager):
         self.client = client
         self.state_manager = state_manager
+
+    async def publish_updates(self):
+        print("\n--- Telegram Yayınlama Aşaması Başlatıldı ---")
         state = self.state_manager.load_state()
-        self.manifest = state["manifest"]
-        self.telegram_state = state["telegram_state"]
+        manifest = state["manifest"]
+        telegram_state = state["telegram_state"]
+
+        if not manifest:
+            print("[INFO] Manifest boş. Yayınlanacak bir şey yok.")
+            return
 
         try:
             with open(MODULES_FILE_SRC, 'r', encoding='utf-8') as f:
                 modules_list = json.load(f).get('modules', [])
-            self.modules_map = {m['name']: m for m in modules_list}
+            modules_map = {m['name']: m for m in modules_list}
         except (FileNotFoundError, json.JSONDecodeError) as e:
             print(f"[ERROR] '{MODULES_FILE_SRC}' dosyası okunurken hata: {e}")
-            self.modules_map = {}
+            modules_map = {}
 
-    async def publish_updates(self):
-        print("\n--- Telegram Yayınlama Aşaması Başlatıldı ---")
-        if not self.manifest:
-            print("[INFO] Manifest boş. Yayınlanacak bir şey yok.")
-            return
-
-        state = self.state_manager.load_state()
-
-        for name, info in sorted(self.manifest.items()):
-            print(f"\n[PROCESS] Yayın durumu kontrol ediliyor: {name}")
+        publish_tasks = []
+        for name, info in sorted(manifest.items()):
             current_version_id = info.get('version_id')
-            if not current_version_id:
-                print(f"[WARNING] Manifest'te '{name}' için version_id bulunamadı. Atlanıyor.")
+            if not current_version_id or current_version_id == telegram_state.get(name, {}).get('version_id'):
+                if current_version_id: print(f"[INFO] '{name}' Telegram'da zaten güncel.")
+                else: print(f"[WARNING] Manifest'te '{name}' için version_id bulunamadı. Atlanıyor.")
                 continue
+            
+            publish_tasks.append(self._publish_single_update(name, info, state, modules_map))
 
-            posted_version_id = state["telegram_state"].get(name, {}).get('version_id')
-
-            if current_version_id == posted_version_id:
-                print(f"[INFO] '{name}' Telegram'da zaten güncel.")
-                continue
-
-            current_filename = info['file_name']
-            print(f"[UPDATE] '{name}' için yeni sürüm yayınlanacak: {current_filename}")
-
-            filepath = os.path.join(CACHE_DIR, current_filename)
-            if not os.path.exists(filepath):
-                print(f"[ERROR] Dosya diskte bulunamadı: {filepath}. Atlanıyor.")
-                continue
-
-            posted_info = state["telegram_state"].get(name)
-            if posted_info and 'message_id' in posted_info:
-                print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {posted_info['message_id']})...")
-                try:
-                    await self.client.delete_messages(PUBLISH_CHANNEL_ID, posted_info['message_id'])
-                except Exception as e:
-                    print(f"[WARNING] Eski mesaj silinemedi: {e}")
-
-            module_def = self.modules_map.get(name, {})
-            display_name = module_def.get('description') or info['file_name']
-            caption = (
-                f"📦 <b>{display_name}</b>\n\n"
-                f"📄 <b>File Name:</b> <code>{info['file_name']}</code>\n"
-                f"📅 <b>Update Date:</b> {info['date']}\n\n"
-                f"🔗 <b><a href='{info['source_url']}'>Source</a></b>\n"
-            )
-
-            print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
-            try:
-                message = await self.client.send_file(
-                    PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True)
-                state["telegram_state"][name] = {
-                    'message_id': message.id,
-                    'file_name': current_filename,
-                    'version_id': current_version_id
-                }
-                print(f"[SUCCESSFUL] '{name}' güncellendi. Yeni Mesaj ID: {message.id}")
-            except Exception as e:
-                print(f"[CRITICAL MISTAKE] Dosya yüklenemedi: {name} - {e}")
-
+        if publish_tasks:
+            results = await asyncio.gather(*publish_tasks, return_exceptions=True)
+            for i, result in enumerate(results):
+                # We need to find the name again as gather does not preserve it
+                name = [t.cr_frame.f_locals['name'] for t in publish_tasks][i] 
+                if isinstance(result, Exception):
+                    print(f"[CRITICAL MISTAKE] '{name}' yayınlanırken bir istisna oluştu: {result}")
+                    traceback.print_exc()
+                elif result:
+                    state["telegram_state"][name] = result
+        
         self.state_manager.save_state(state)
         print("--- Telegram Yayınlama Aşaması Tamamlandı ---")
 
+    async def _publish_single_update(self, name, info, state, modules_map):
+        current_filename = info['file_name']
+        print(f"[UPDATE] '{name}' için yeni sürüm yayınlanacak: {current_filename}")
+
+        filepath = os.path.join(CACHE_DIR, current_filename)
+        if not os.path.exists(filepath):
+            print(f"[ERROR] Dosya diskte bulunamadı: {filepath}. Atlanıyor.")
+            return None
+
+        posted_info = state["telegram_state"].get(name)
+        if posted_info and 'message_id' in posted_info:
+            print(f"[TELEGRAM] Eski mesaj siliniyor (ID: {posted_info['message_id']})...")
+            try:
+                await self.client.delete_messages(PUBLISH_CHANNEL_ID, posted_info['message_id'])
+            except Exception as e:
+                print(f"[WARNING] Eski mesaj silinemedi: {e}")
+
+        module_def = modules_map.get(name, {})
+        display_name = module_def.get('description') or info['file_name']
+        caption = (
+            f"📦 <b>{display_name}</b>\n\n"
+            f"📄 <b>File Name:</b> <code>{info['file_name']}</code>\n"
+            f"📅 <b>Update Date:</b> {info['date']}\n\n"
+            f"🔗 <b><a href='{info['source_url']}'>Source</a></b>\n"
+        )
+
+        print(f"[TELEGRAM] Yeni dosya '{current_filename}' yükleniyor...")
+        message = await self.client.send_file(
+            PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True)
+        
+        print(f"[SUCCESSFUL] '{name}' güncellendi. Yeni Mesaj ID: {message.id}")
+        return {
+            'message_id': message.id,
+            'file_name': current_filename,
+            'version_id': info.get('version_id')
+        }
+
+
 async def main():
     print("==============================================")
-    print(f"   Cephanelik Updater v7.0 Başlatıldı")
+    print(f"   Cephanelik Updater v8.0 (Async) Başlatıldı")
     print(f"   {datetime.now()}")
     print("==============================================")
 
@@ -329,9 +336,15 @@ async def main():
         raise ValueError("[ERROR] Gerekli tüm ortam değişkenleri (Secrets) ayarlanmalıdır.")
 
     state_manager = StateManager(STATE_DIR)
+    
+    # State is loaded once and passed to handlers
+    initial_state = state_manager.load_state()
+
     async with TelegramClient(StringSession(SESSION_STRING), int(API_ID), API_HASH) as client:
         handler = ModuleHandler(client, state_manager)
         await handler.process_modules()
+
+        # Re-load state before publishing as it might have been changed by the handler
         publisher = TelethonPublisher(client, state_manager)
         await publisher.publish_updates()
 

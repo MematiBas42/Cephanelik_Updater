@@ -1,9 +1,9 @@
 # ==============================================================================
-# CEPHANELİK UPDATER - v7.0 - TEK İŞLEYİCİLİ NİHAİ WORKFLOW
+# CEPHANELİK UPDATER - v8.0 (Async) - TEK İŞLEYİCİLİ NİHAİ WORKFLOW
 # ==============================================================================
 # AÇIKLAMA: Bu versiyon, projenin tüm mantığını tek bir Python betiğinde
-# (`main_automation.py`) çalıştırır. Maksimum sadelik, okunabilirlik ve
-# sağlamlık sunar.
+# (`main_automation.py`) çalıştırır. Asenkron yapısı ve CI önbellekleme
+# mekanizması ile maksimum hız ve verimlilik hedeflenmiştir.
 
 name: CPUpdater Otomasyon
 on:
@@ -27,9 +27,19 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      
+      - name: Python Bağımlılıkları için Cache Kurulumu
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Gerekli Kütüphaneleri Yükle
-        run: pip install telethon requests
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Modülleri İndir ve Telegram'da Yayınla
         run: python main_automation.py
