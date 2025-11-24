@@ -65,6 +65,9 @@ class ModuleHandler:
         except httpx.RequestError as e:
             print(f"[ERROR] API call failed for {url}: {e}")
             return None
+        except json.JSONDecodeError as e:
+            print(f"[ERROR] Failed to decode JSON from {url}: {e}")
+            return None
 
     async def _get_telegram_remote_info(self, client, module):
         channel = module['source_channel']
@@ -99,18 +102,22 @@ class ModuleHandler:
         asset = None
         asset_filter = module.get('asset_filter')
         if asset_filter:
-            asset = next((a for a in assets if re.search(asset_filter, a['name'])), None)
+            asset = next((a for a in assets if 'name' in a and re.search(asset_filter, a['name'])), None)
         elif assets:
             asset = assets[0]
         
         if asset:
-            return {
-                'file_name': asset['name'],
-                'version_id': asset['updated_at'],
-                'source_url': data.get('html_url', '#'),
-                'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M"),
-                'download_url': asset['browser_download_url']
-            }
+            try:
+                return {
+                    'file_name': asset['name'],
+                    'version_id': asset['updated_at'],
+                    'source_url': data.get('html_url', '#'),
+                    'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M"),
+                    'download_url': asset['browser_download_url']
+                }
+            except KeyError as e:
+                print(f"[ERROR] Asset for {module['name']} has a missing key: {e}")
+                return None
         
         print(f"[INFO] No asset matched the filter '{asset_filter}' for {module['name']}")
         return None
@@ -167,13 +174,17 @@ class ModuleHandler:
             link = links[0]
 
         if link:
-            return {
-                'file_name': link['name'],
-                'version_id': release['released_at'],
-                'source_url': release.get('_links', {}).get('self', '#'),
-                'date': datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z").strftime("%d.%m.%Y %H:%M"),
-                'download_url': link['url']
-            }
+            try:
+                return {
+                    'file_name': link['name'],
+                    'version_id': release['released_at'],
+                    'source_url': release.get('_links', {}).get('self', '#'),
+                    'date': datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z").strftime("%d.%m.%Y %H:%M"),
+                    'download_url': link['url']
+                }
+            except KeyError as e:
+                print(f"[ERROR] Asset link for {module['name']} has a missing key: {e}")
+                return None
 
         print(f"[INFO] No asset matched the filter '{asset_filter}' for {module['name']}")
         return None
@@ -192,7 +203,9 @@ class ModuleHandler:
             return False
 
     async def _process_single_module(self, client, module, state):
-        name, type_ = module['name'], module['type']
+        name = module['name']
+        type_ = module['type']
+
         getter_func = {
             'telegram_forwarder': self._get_telegram_remote_info,
             'github_release': self._get_github_release_remote_info,
@@ -204,16 +217,20 @@ class ModuleHandler:
             print(f"[WARNING] Unsupported module type: {type_}. Skipping.")
             return None
 
-        print(f"[DIAGNOSTIC] About to await getter: {getter_func.__name__}, is coroutine function: {asyncio.iscoroutinefunction(getter_func)}")
+        print(f"\n[PROCESS] Checking remote version for: {name} (Type: {type_})")
         remote_info = await getter_func(client, module)
         if not remote_info:
             return None
 
-        remote_version_id = remote_info['version_id']
-        posted_version_id = state["manifest"].get(name, {}).get('version_id')
+        remote_version_id = remote_info.get('version_id')
+        if not remote_version_id:
+            print(f"[ERROR] Could not determine remote version for '{name}'.")
+            return None
+            
+        posted_version_id = state.get("manifest", {}).get(name, {}).get('version_id')
 
         if remote_version_id == posted_version_id:
-            print(f"[INFO] '{name}' is already up-to-date (Version ID: {posted_version_id}). Skipping download.")
+            print(f"[INFO] '{name}' is already up-to-date (Version ID: {posted_version_id}).")
             return None
 
         print(f"[UPDATE] New version found for '{name}'. Preparing to download.")
@@ -250,6 +267,7 @@ class ModuleHandler:
             tasks = [self._process_single_module(client, module, state) for module in enabled_modules]
             results = await asyncio.gather(*tasks, return_exceptions=True)
 
+        new_manifest = state.get("manifest", {})
         for i, result in enumerate(results):
             module_name = enabled_modules[i]['name']
             if isinstance(result, Exception):
@@ -258,13 +276,14 @@ class ModuleHandler:
             elif result:
                 name, remote_info = result
                 manifest_was_updated = True
-                old_file_in_manifest = state["manifest"].get(name, {}).get('file_name')
-                if old_file_in_manifest and old_file_in_manifest != remote_info['file_name'] and os.path.exists(os.path.join(CACHE_DIR, old_file_in_manifest)):
+                old_file_in_manifest = new_manifest.get(name, {}).get('file_name')
+                if old_file_in_manifest and old_file_in_manifest != remote_info.get('file_name') and os.path.exists(os.path.join(CACHE_DIR, old_file_in_manifest)):
                     os.remove(os.path.join(CACHE_DIR, old_file_in_manifest))
-                state["manifest"][name] = remote_info
+                new_manifest[name] = remote_info
                 print(f"[SUCCESS] '{name}' was downloaded and manifest updated.")
-
+        
         if manifest_was_updated:
+            state["manifest"] = new_manifest
             self.state_manager.save_state(state)
             print("\n[INFO] Manifest was updated.")
         else:
@@ -280,8 +299,8 @@ class TelethonPublisher:
     async def publish_updates(self):
         print("\n--- Starting Telegram Publishing Phase ---")
         state = self.state_manager.load_state()
-        manifest = state["manifest"]
-        telegram_state = state["telegram_state"]
+        manifest = state.get("manifest", {})
+        telegram_state = state.get("telegram_state", {})
 
         if not manifest:
             print("[INFO] Manifest is empty. Nothing to publish.")
@@ -317,15 +336,18 @@ class TelethonPublisher:
 
     async def _publish_single_update(self, name, info, state, modules_map):
         try:
-            current_filename = info['file_name']
-            print(f"[PUBLISH] Publishing new version for '{name}': {current_filename}")
+            current_filename = info.get('file_name')
+            if not current_filename:
+                print(f"[ERROR] No filename found for '{name}'. Skipping publish.")
+                return None
 
+            print(f"[PUBLISH] Publishing new version for '{name}': {current_filename}")
             filepath = os.path.join(CACHE_DIR, current_filename)
             if not os.path.exists(filepath):
                 print(f"[ERROR] File not found on disk: {filepath}. Skipping.")
                 return None
 
-            posted_info = state["telegram_state"].get(name)
+            posted_info = state.get("telegram_state", {}).get(name)
             if posted_info and 'message_id' in posted_info:
                 print(f"[TELEGRAM] Deleting old message (ID: {posted_info['message_id']})...")
                 try:
@@ -334,12 +356,12 @@ class TelethonPublisher:
                     print(f"[WARNING] Could not delete old message: {e}")
 
             module_def = modules_map.get(name, {})
-            display_name = module_def.get('description') or info['file_name']
+            display_name = module_def.get('description') or info.get('file_name')
             caption = (
                 f"📦 <b>{display_name}</b>\n\n"
-                f"📄 <b>File Name:</b> <code>{info['file_name']}</code>\n"
-                f"📅 <b>Update Date:</b> {info['date']}\n\n"
-                f"🔗 <b><a href='{info['source_url']}'>Source</a></b>\n"
+                f"📄 <b>File Name:</b> <code>{info.get('file_name')}</code>\n"
+                f"📅 <b>Update Date:</b> {info.get('date')}\n\n"
+                f"🔗 <b><a href='{info.get('source_url')}'>Source</a></b>\n"
             )
             
             buttons = []
@@ -382,7 +404,7 @@ class TelethonPublisher:
 
 async def main():
     print("==============================================")
-    print(f"   Cephanelik Updater v8.4 (Robust) Started")
+    print(f"   Cephanelik Updater v8.5 (Defensive) Started")
     print(f"   {datetime.now()}")
     print("==============================================")
 
