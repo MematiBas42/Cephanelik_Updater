@@ -64,16 +64,25 @@ class ModuleHandler:
         if "api.github.com" in url:
             headers["Authorization"] = f"Bearer {GIT_API_TOKEN}"
         
-        try:
-            response = await self.http_client.get(url, headers=headers, timeout=45, follow_redirects=True)
-            response.raise_for_status()
-            return response.json() if is_json else response.text
-        except httpx.HTTPStatusError as e:
-            print(f"[ERROR] HTTP Hatası: {e.response.status_code} - {url}")
-        except httpx.RequestError as e:
-            print(f"[ERROR] İstek Hatası: {url} - {e}")
-        except json.JSONDecodeError as e:
-            print(f"[ERROR] JSON Çözümleme Hatası: {url} - {e}")
+        for attempt in range(3):
+            try:
+                response = await self.http_client.get(url, headers=headers, timeout=45, follow_redirects=True)
+                response.raise_for_status()
+                return response.json() if is_json else response.text
+            except httpx.HTTPStatusError as e:
+                if 500 <= e.response.status_code < 600 and attempt < 2:
+                    print(f"[WARNING] Sunucu hatası (5xx): {e.response.status_code}. {5 * (attempt + 1)} saniye içinde yeniden deneniyor... ({url})")
+                    await asyncio.sleep(5 * (attempt + 1))
+                    continue
+                else:
+                    print(f"[ERROR] HTTP Hatası: {e.response.status_code} - {url}")
+                    return None
+            except httpx.RequestError as e:
+                print(f"[ERROR] İstek Hatası: {url} - {e}")
+                break 
+            except json.JSONDecodeError as e:
+                print(f"[ERROR] JSON Çözümleme Hatası: {url} - {e}")
+                break
         return None
 
     async def _get_telegram_remote_info(self, module):
