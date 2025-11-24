@@ -5,7 +5,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "5ec1cff/TrickyStore",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
 	  "description": "TrickyStore"
     },
     {
@@ -13,7 +13,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
       "description": "KOWX712/PlayIntegrityFix (inject_s) (nightly) [Modules]"
     },
 
@@ -22,7 +22,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "Dr-TSNG/ZygiskNext",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
       "description": "Dr-TSNG/ZygiskNext"
     },
     {
@@ -30,7 +30,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
       "description": "KOWX712/Tricky-Addon (nightly) [Modules]"
     },
 
@@ -39,7 +39,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "WSTxda/ViPERFX_RE",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
       "description": "WSTxda/ViPERFX_RE"
     },
     {
@@ -47,7 +47,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
       "description": "bindhosts"
     },
     {
@@ -55,7 +55,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
-      "asset_filter": "\\.zip$",
+      "asset_filter": "(?i)\\.zip$",
       "description": "sidex15/susfs4ksu-module (nightly) [Modules]"
     },
 
@@ -64,7 +64,7 @@
       "enabled": true,
       "type": "github_ci",
       "source": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "asset_filter": "release.*\\.zip$",
+      "asset_filter": "(?i)release.*\\.zip$",
       "description": "JingMatrix/LSPosed"
     },
     {
@@ -161,8 +161,8 @@
       "name": "sukisu",
       "enabled": true,
       "type": "github_ci",
-      "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager/main/manager",
-      "asset_filter": "manager\\.zip$",
+      "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
+      "asset_filter": "(?i)manager.*\\.zip$",
       "description": "SukiSU-Ultra Manager Ci"
     },
     {
