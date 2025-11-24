@@ -204,6 +204,7 @@ class ModuleHandler:
             print(f"[WARNING] Unsupported module type: {type_}. Skipping.")
             return None
 
+        print(f"[DIAGNOSTIC] About to await getter: {getter_func.__name__}, is coroutine function: {asyncio.iscoroutinefunction(getter_func)}")
         remote_info = await getter_func(client, module)
         if not remote_info:
             return None
