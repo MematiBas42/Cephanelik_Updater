@@ -12,6 +12,12 @@
       "source_url": "https://gitlab.com/cuynu/gphotos-unlimited-zygisk/-/releases/1.1-stable",
       "version_id": "2023-10-07T20:00:59.000Z"
     },
+    "JingMatrix/TEESimulator": {
+      "date": "02.11.2025 17:53",
+      "file_name": "TEESimulator-v1.0-74-release.zip",
+      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v1.0",
+      "version_id": "2025-11-02T17:53:16Z"
+    },
     "ReLSPosed": {
       "date": "24.11.2025 21:02",
       "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
@@ -179,6 +185,11 @@
       "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
       "message_id": 426,
       "version_id": "2023-10-07T20:00:59.000Z"
+    },
+    "JingMatrix/TEESimulator": {
+      "file_name": "TEESimulator-v1.0-74-release.zip",
+      "message_id": 607,
+      "version_id": "2025-11-02T17:53:16Z"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
