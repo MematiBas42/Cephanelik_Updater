@@ -141,14 +141,6 @@
       "description": "Native Root Detector"
     },
     {
-      "name": "shamiko",
-      "enabled": true,
-      "type": "github_release",
-      "source": "LSPosed/LSPosed.github.io",
-      "asset_filter": "\\.zip$",
-      "description": "Shamiko"
-    },
-    {
       "name": "magiskalpha",
       "enabled": true,
       "type": "telegram_forwarder",
@@ -165,6 +157,14 @@
       "asset_filter": "(?i)manager.*\\.zip$",
       "description": "SukiSU-Ultra Manager Ci"
     },
+    {
+      "name": "JingMatrix/TEESimulator",
+      "enabled": true,
+      "type": "github_release",
+      "source": "JingMatrix/TEESimulator",
+      "asset_filter": "-release.*\\.zip$",
+      "description": "JingMatrix/TEESimulator (Stable Release) [Modules]"
+    }, 
     {
       "name": "Encore",
       "enabled": true,
