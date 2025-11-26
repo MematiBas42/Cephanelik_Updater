@@ -13,16 +13,22 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "date": "02.11.2025 17:53",
-      "file_name": "TEESimulator-v1.0-74-release.zip",
-      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v1.0",
-      "version_id": "2025-11-02T17:53:16Z"
+      "date": "26.11.2025 17:39",
+      "file_name": "TEESimulator-v2.0-14-Debug.zip",
+      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v2.0",
+      "version_id": "2025-11-26T17:39:34Z"
     },
     "ReLSPosed": {
       "date": "24.11.2025 21:02",
       "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
       "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
       "version_id": "ReLSPosed-v1.0.1-7208-zygisk-release.zip"
+    },
+    "TreatWheel": {
+      "date": "06.11.2025 02:26",
+      "file_name": "TreatWheel.zip",
+      "source_url": "https://t.me/zygote64_32/22",
+      "version_id": "22"
     },
     "TrickyStore": {
       "date": "02.11.2025 09:56",
@@ -187,14 +193,19 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "file_name": "TEESimulator-v1.0-74-release.zip",
-      "message_id": 607,
-      "version_id": "2025-11-02T17:53:16Z"
+      "file_name": "TEESimulator-v2.0-14-Debug.zip",
+      "message_id": 611,
+      "version_id": "2025-11-26T17:39:34Z"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
       "message_id": 606,
       "version_id": "ReLSPosed-v1.0.1-7208-zygisk-release.zip"
+    },
+    "TreatWheel": {
+      "file_name": "TreatWheel.zip",
+      "message_id": 610,
+      "version_id": "22"
     },
     "TrickyStore": {
       "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
