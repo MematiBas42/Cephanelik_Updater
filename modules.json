@@ -162,7 +162,7 @@
       "enabled": true,
       "type": "github_release",
       "source": "JingMatrix/TEESimulator",
-      "asset_filter": "Release\\.zip$",
+	  "asset_filter": "[Rr]elease.*\\.zip$",
       "description": "JingMatrix/TEESimulator (Stable Release) [Modules]"
     }, 
     {
