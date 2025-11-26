@@ -166,6 +166,15 @@
       "description": "JingMatrix/TEESimulator (Stable Release) [Modules]"
     }, 
     {
+      "name": "TreatWheel",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "TreatWheel",
+      "asset_filter": "",
+      "source_channel": "zygote64_32",
+      "description": "TreatWheel"
+    }, 
+    {
       "name": "Encore",
       "enabled": true,
       "type": "github_release",
