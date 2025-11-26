@@ -7,9 +7,8 @@ import shutil
 import traceback
 from urllib.parse import quote_plus
 from datetime import datetime
-from telethon import TelegramClient
+from telethon import TelegramClient, Button
 from telethon.sessions import StringSession
-from telethon.tl.types import KeyboardButtonUrl
 
 # --- Hassas Bilgiler ve Proje Ayarları ---
 API_ID = os.environ.get('TELEGRAM_API_ID')
@@ -311,12 +310,16 @@ class TelethonPublisher:
             module_type = module_def.get('type')
 
             if module_type == 'telegram_forwarder':
-                buttons = [KeyboardButtonUrl('Kaynak Mesaja Git', url=info['source_url'])]
+                # DÜZELTME 1: Button.url kullanımı
+                buttons = [Button.url('Kaynak Mesaja Git', url=info['source_url'])]
             else:
                 repo_url = None
                 module_source = module_def.get('source')
+                
+                # URL oluşturma mantığı doğru, buraya dokunmuyoruz
                 if module_source:
                     if module_type == 'github_release':
+                        # DİKKAT: JSON'da source sadece "User/Repo" olmalı, başında https olmamalı.
                         repo_url = f"https://github.com/{module_source}"
                     elif module_type == 'github_ci':
                         match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
@@ -326,9 +329,11 @@ class TelethonPublisher:
                         repo_url = f"https://gitlab.com/{module_source}"
                 
                 if repo_url:
-                    buttons = [KeyboardButtonUrl('⭐ Star Repo', url=repo_url)]
+                    # DÜZELTME 2: Button.url kullanımı
+                    buttons = [Button.url('⭐ Star Repo', url=repo_url)]
 
             print(f"[TELEGRAM] '{filename}' yükleniyor...")
+            # Telethon Button.url kullandığında otomatik olarak doğru formatı ayarlar
             message = await self.tg_client.send_file(
                 PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True, buttons=buttons
             )
