@@ -13,10 +13,10 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "date": "26.11.2025 17:39",
-      "file_name": "TEESimulator-v2.0-14-Release.zip",
-      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v2.0",
-      "version_id": "2025-11-26T17:39:34Z"
+      "date": "28.11.2025 19:05",
+      "file_name": "TEESimulator-v2.1-20-release.zip",
+      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v2.1",
+      "version_id": "2025-11-28T19:05:40Z"
     },
     "ReLSPosed": {
       "date": "24.11.2025 21:02",
@@ -193,9 +193,9 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "file_name": "TEESimulator-v2.0-14-Release.zip",
-      "message_id": 612,
-      "version_id": "2025-11-26T17:39:34Z"
+      "file_name": "TEESimulator-v2.1-20-release.zip",
+      "message_id": 614,
+      "version_id": "2025-11-28T19:05:40Z"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.1-7208-zygisk-release.zip",
