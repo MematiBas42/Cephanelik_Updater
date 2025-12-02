@@ -6,7 +6,7 @@
       "type": "github_release",
       "source": "backslashxx/mountify",
       "asset_filter": "(?i)\\.zip$",
-	  "description": "Mountify"
+	  "description": "backslashxx/mountify stable release"
     },
     {
       "name": "TrickyStore",
@@ -14,7 +14,7 @@
       "type": "github_release",
       "source": "5ec1cff/TrickyStore",
       "asset_filter": "(?i)\\.zip$",
-	  "description": "TrickyStore"
+	  "description": "TrickyStore stable release"
     },
     {
       "name": "pif_ci",
@@ -31,7 +31,7 @@
       "type": "github_release",
       "source": "Dr-TSNG/ZygiskNext",
       "asset_filter": "(?i)\\.zip$",
-      "description": "Dr-TSNG/ZygiskNext"
+      "description": "Dr-TSNG/ZygiskNext stable release"
     },
     {
       "name": "taddon_ci",
@@ -48,7 +48,7 @@
       "type": "github_release",
       "source": "WSTxda/ViPERFX_RE",
       "asset_filter": "(?i)\\.zip$",
-      "description": "WSTxda/ViPERFX_RE"
+      "description": "WSTxda/ViPERFX_RE stable release"
     },
     {
       "name": "bindh",
@@ -56,7 +56,7 @@
       "type": "github_ci",
       "source": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
       "asset_filter": "(?i)\\.zip$",
-      "description": "bindhosts"
+      "description": "bindhosts (nightly)"
     },
     {
       "name": "susfs_ci",
@@ -73,7 +73,7 @@
       "type": "github_ci",
       "source": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
       "asset_filter": "(?i)release.*\\.zip$",
-      "description": "JingMatrix/LSPosed"
+      "description": "JingMatrix/LSPosed (nightly)"
     },
     {
       "name": "trm",
@@ -81,7 +81,7 @@
       "type": "github_release",
       "source": "rompelhd/TermuxRootMods",
       "asset_filter": "\\.zip$",
-      "description": "rompelhd/TermuxRootMods"
+      "description": "rompelhd/TermuxRootMods stable release"
     },
     {
       "name": "ReLSPosed",
@@ -89,7 +89,7 @@
       "type": "github_ci",
       "source": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
       "asset_filter": "release.*\\.zip$",
-      "description": "ThePedroo/ReLSPosed"
+      "description": "ThePedroo/ReLSPosed (nightly)"
     },
     {
       "name": "GPhotosUnlimited",
@@ -97,7 +97,7 @@
       "type": "gitlab_release",
       "source": "cuynu/gphotos-unlimited-zygisk",
       "asset_filter": "\\.zip$",
-      "description": "cuynu/gphotos-unlimited-zygisk"
+      "description": "cuynu/gphotos-unlimited-zygisk stable release"
     },
     {
       "name": "hma_ci",
@@ -114,7 +114,7 @@
       "type": "github_ci",
       "source": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
       "asset_filter": "-release.*\\.zip$",
-      "description": "PerformanC/ReZygisk"
+      "description": "PerformanC/ReZygisk (nightly)"
     },
     {
       "name": "Zygisk-Assistant",
@@ -122,7 +122,7 @@
       "type": "github_release",
       "source": "snake-4/Zygisk-Assistant",
       "asset_filter": "release*\\.zip$",
-      "description": "Zygisk-Assistant"
+      "description": "Zygisk-Assistant stable release"
     },
     {
       "name": "nohello",
@@ -130,7 +130,7 @@
       "type": "github_release",
       "source": "MhmRdd/NoHello",
       "asset_filter": "release\\.zip$",
-      "description": "MhmRdd/NoHello"
+      "description": "MhmRdd/NoHello stable release"
     },
     {
       "name": "yurikey",
@@ -138,7 +138,7 @@
       "type": "github_release",
       "source": "YurikeyDev/yurikey",
       "asset_filter": "\\.zip$",
-      "description": "YurikeyDev/yurikey"
+      "description": "YurikeyDev/yurikey stable release"
     },
     {
       "name": "reveny",
@@ -180,7 +180,7 @@
       "source": "TreatWheel",
       "asset_filter": "",
       "source_channel": "zygote64_32",
-      "description": "TreatWheel"
+      "description": "TreatWheel stable release"
     }, 
     {
       "name": "Encore",
@@ -188,7 +188,7 @@
       "type": "github_release",
       "source": "Rem01Gaming/encore",
       "asset_filter": "release\\.zip$",
-      "description": "Encore Tweaks"
+      "description": "Encore Tweaks stable release"
     }
   ]
 }
