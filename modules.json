@@ -1,5 +1,13 @@
 {
   "modules": [
+	 {
+      "name": "Mountify",
+      "enabled": true,
+      "type": "github_release",
+      "source": "backslashxx/mountify",
+      "asset_filter": "(?i)\\.zip$",
+	  "description": "Mountify"
+    },
     {
       "name": "TrickyStore",
       "enabled": true,
