@@ -13,10 +13,10 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "date": "28.11.2025 19:05",
-      "file_name": "TEESimulator-v2.1-20-release.zip",
-      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v2.1",
-      "version_id": "2025-11-28T19:05:40Z"
+      "date": "06.12.2025 16:06",
+      "file_name": "TEESimulator-v3.0-38-Release.zip",
+      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v3.0",
+      "version_id": "2025-12-06T16:06:29Z"
     },
     "Mountify": {
       "date": "04.12.2025 04:45",
@@ -157,10 +157,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "29.11.2025 16:18",
-      "file_name": "TrickyAddonModule-v4.3-644-canary.zip",
+      "date": "06.12.2025 16:18",
+      "file_name": "TrickyAddonModule-v4.3-645-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v4.3-644-canary.zip"
+      "version_id": "TrickyAddonModule-v4.3-645-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -199,9 +199,9 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "file_name": "TEESimulator-v2.1-20-release.zip",
-      "message_id": 614,
-      "version_id": "2025-11-28T19:05:40Z"
+      "file_name": "TEESimulator-v3.0-38-Release.zip",
+      "message_id": 628,
+      "version_id": "2025-12-06T16:06:29Z"
     },
     "Mountify": {
       "file_name": "mountify.zip",
@@ -319,9 +319,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v4.3-644-canary.zip",
-      "message_id": 617,
-      "version_id": "TrickyAddonModule-v4.3-644-canary.zip"
+      "file_name": "TrickyAddonModule-v4.3-645-canary.zip",
+      "message_id": 629,
+      "version_id": "TrickyAddonModule-v4.3-645-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
