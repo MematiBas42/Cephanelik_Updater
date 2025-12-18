@@ -132,14 +132,7 @@
       "asset_filter": "release\\.zip$",
       "description": "MhmRdd/NoHello stable release"
     },
-    {
-      "name": "yurikey",
-      "enabled": true,
-      "type": "github_release",
-      "source": "YurikeyDev/yurikey",
-      "asset_filter": "\\.zip$",
-      "description": "YurikeyDev/yurikey stable release"
-    },
+
     {
       "name": "reveny",
       "enabled": true,
