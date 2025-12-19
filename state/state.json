@@ -85,10 +85,10 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "date": "19.12.2025 14:05",
-      "file_name": "Meta-Hybrid-v1.7.7.zip",
-      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v1.7.7",
-      "version_id": "2025-12-19T14:05:09Z"
+      "date": "19.12.2025 19:50",
+      "file_name": "Meta-Hybrid-v1.7.8.zip",
+      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v1.7.8",
+      "version_id": "2025-12-19T19:50:32Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -265,9 +265,9 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v1.7.7.zip",
-      "message_id": 646,
-      "version_id": "2025-12-19T14:05:09Z"
+      "file_name": "Meta-Hybrid-v1.7.8.zip",
+      "message_id": 648,
+      "version_id": "2025-12-19T19:50:32Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
