@@ -264,16 +264,7 @@
       "message_id": 621,
       "version_id": "709"
     },
-    "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v1.7.7.zip",
-      "message_id": 644,
-      "version_id": "2025-12-19T14:05:09Z"
-    },
-    "meta-hybrid_mount": {
-      "file_name": "Meta-Hybrid-v1.7.7.zip",
-      "message_id": 645,
-      "version_id": "2025-12-19T14:05:09Z"
-    },
+
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
       "message_id": 434,
