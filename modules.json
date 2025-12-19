@@ -1,7 +1,7 @@
 {
   "modules": [
 	 {
-      "name": "meta-hybrid_mount",
+      "name": "meta-hybrid-mount",
       "enabled": true,
       "type": "github_release",
       "source": "YuzakiKokuban/meta-hybrid_mount",
