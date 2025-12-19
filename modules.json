@@ -4,6 +4,14 @@
       "name": "Mountify",
       "enabled": true,
       "type": "github_release",
+      "source": "YuzakiKokuban/meta-hybrid_mount",
+      "asset_filter": "(?i)\\.zip$",
+	  "description": "YuzakiKokuban/meta-hybrid_mount stable release"
+     }, 
+	 {
+      "name": "Mountify",
+      "enabled": true,
+      "type": "github_release",
       "source": "backslashxx/mountify",
       "asset_filter": "(?i)\\.zip$",
 	  "description": "backslashxx/mountify stable release"
