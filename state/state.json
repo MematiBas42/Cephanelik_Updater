@@ -85,10 +85,10 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "date": "25.12.2025 13:25",
-      "file_name": "Meta-Hybrid-v1.9.0.zip",
-      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v1.9.0",
-      "version_id": "2025-12-25T13:25:34Z"
+      "date": "27.12.2025 07:20",
+      "file_name": "Meta-Hybrid-v1.9.21.zip",
+      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v1.9.21",
+      "version_id": "2025-12-27T07:20:27Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -103,10 +103,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "13.12.2025 08:20",
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_217.zip",
+      "date": "27.12.2025 08:21",
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_227.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_217.zip"
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_227.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -265,9 +265,9 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v1.9.0.zip",
-      "message_id": 662,
-      "version_id": "2025-12-25T13:25:34Z"
+      "file_name": "Meta-Hybrid-v1.9.21.zip",
+      "message_id": 664,
+      "version_id": "2025-12-27T07:20:27Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
@@ -280,9 +280,9 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_217.zip",
-      "message_id": 635,
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_217.zip"
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_227.zip",
+      "message_id": 663,
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_227.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
