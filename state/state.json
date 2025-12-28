@@ -85,10 +85,10 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "date": "28.12.2025 06:26",
-      "file_name": "Meta-Hybrid-v1.9.51.zip",
-      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v1.9.51",
-      "version_id": "2025-12-28T06:26:38Z"
+      "date": "28.12.2025 08:08",
+      "file_name": "Meta-Hybrid-v1.9.52.zip",
+      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v1.9.52",
+      "version_id": "2025-12-28T08:08:06Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -103,10 +103,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "27.12.2025 09:16",
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_228.zip",
+      "date": "28.12.2025 08:21",
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_229.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_228.zip"
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_229.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -265,9 +265,9 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v1.9.51.zip",
-      "message_id": 671,
-      "version_id": "2025-12-28T06:26:38Z"
+      "file_name": "Meta-Hybrid-v1.9.52.zip",
+      "message_id": 673,
+      "version_id": "2025-12-28T08:08:06Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
@@ -280,9 +280,9 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_228.zip",
-      "message_id": 665,
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_228.zip"
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_229.zip",
+      "message_id": 672,
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_229.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
