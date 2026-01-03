@@ -85,10 +85,10 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "date": "03.01.2026 12:02",
-      "file_name": "Meta-Hybrid-v2.0.1.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v2.0.1",
-      "version_id": "2026-01-03T12:02:39Z"
+      "date": "03.01.2026 12:32",
+      "file_name": "Meta-Hybrid-v2.0.11.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v2.0.11",
+      "version_id": "2026-01-03T12:32:34Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -265,9 +265,9 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v2.0.1.zip",
-      "message_id": 682,
-      "version_id": "2026-01-03T12:02:39Z"
+      "file_name": "Meta-Hybrid-v2.0.11.zip",
+      "message_id": 683,
+      "version_id": "2026-01-03T12:32:34Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
