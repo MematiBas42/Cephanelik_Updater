@@ -67,10 +67,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "31.12.2025 09:20",
-      "file_name": "HMA-OSS-oss-137-release.zip",
+      "date": "05.01.2026 21:16",
+      "file_name": "HMA-OSS-oss-139-release.zip",
       "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-oss-137-release.zip"
+      "version_id": "HMA-OSS-oss-139-release.zip"
     },
     "lsposed": {
       "date": "24.11.2025 21:02",
@@ -250,9 +250,9 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-oss-137-release.zip",
-      "message_id": 678,
-      "version_id": "HMA-OSS-oss-137-release.zip"
+      "file_name": "HMA-OSS-oss-139-release.zip",
+      "message_id": 685,
+      "version_id": "HMA-OSS-oss-139-release.zip"
     },
     "lsposed": {
       "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
