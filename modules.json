@@ -159,6 +159,15 @@
       "description": "magiskalpha"
     },
 	{
+      "name": "nagramx",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "NagramX",
+      "asset_filter": "",
+      "source_channel": "NagramX",
+      "description": "NagramX Ci"
+    }, 
+	{
       "name": "sukisu",
       "enabled": true,
       "type": "github_ci",
