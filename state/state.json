@@ -121,10 +121,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "16.01.2026 08:13",
-      "file_name": "ReZygisk-v1.0.0-446-1c07641-release.zip",
+      "date": "17.01.2026 03:19",
+      "file_name": "ReZygisk-v1.0.0-448-64dbaa2-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-446-1c07641-release.zip"
+      "version_id": "ReZygisk-v1.0.0-448-64dbaa2-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
