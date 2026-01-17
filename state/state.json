@@ -90,6 +90,12 @@
       "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v2.1.2",
       "version_id": "2026-01-17T15:58:02Z"
     },
+    "nagramx": {
+      "date": "17.01.2026 16:53",
+      "file_name": "NagramX-v12.3.1-475932f(1235)-arm64-v8a.apk",
+      "source_url": "https://t.me/NagramX/365",
+      "version_id": "365"
+    },
     "nohello": {
       "date": "31.05.2025 03:10",
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
@@ -268,6 +274,11 @@
       "file_name": "Meta-Hybrid-v2.1.2.zip",
       "message_id": 697,
       "version_id": "2026-01-17T15:58:02Z"
+    },
+    "nagramx": {
+      "file_name": "NagramX-v12.3.1-475932f(1235)-arm64-v8a.apk",
+      "message_id": 699,
+      "version_id": "365"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
