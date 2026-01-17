@@ -19,10 +19,10 @@
       "version_id": "2025-12-06T16:06:29Z"
     },
     "Mountify": {
-      "date": "25.12.2025 04:46",
+      "date": "14.01.2026 04:48",
       "file_name": "mountify.zip",
-      "source_url": "https://github.com/backslashxx/mountify/releases/tag/187",
-      "version_id": "2025-12-25T04:46:25Z"
+      "source_url": "https://github.com/backslashxx/mountify/releases/tag/190",
+      "version_id": "2026-01-14T04:48:41Z"
     },
     "ReLSPosed": {
       "date": "11.12.2025 19:17",
@@ -55,10 +55,10 @@
       "version_id": "2025-12-28T18:28:47Z"
     },
     "bindh": {
-      "date": "20.12.2025 03:12",
-      "file_name": "bindhosts_210-f69b4ab.zip",
+      "date": "17.01.2026 21:34",
+      "file_name": "bindhosts_210-e24ad3d.zip",
       "source_url": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "version_id": "bindhosts_210-f69b4ab.zip"
+      "version_id": "bindhosts_210-e24ad3d.zip"
     },
     "hma": {
       "date": "26.09.2025 19:11",
@@ -67,16 +67,16 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "31.12.2025 09:20",
-      "file_name": "HMA-OSS-oss-137-release.zip",
+      "date": "17.01.2026 21:34",
+      "file_name": "HMA-OSS-oss-147-release.zip",
       "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-oss-137-release.zip"
+      "version_id": "HMA-OSS-oss-147-release.zip"
     },
     "lsposed": {
-      "date": "24.11.2025 21:02",
-      "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
+      "date": "17.01.2026 21:34",
+      "file_name": "LSPosed-v1.10.2-7201-zygisk-release.zip",
       "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "LSPosed-v1.10.2-7199-zygisk-release.zip"
+      "version_id": "LSPosed-v1.10.2-7201-zygisk-release.zip"
     },
     "magiskalpha": {
       "date": "02.12.2025 05:38",
@@ -85,10 +85,10 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "date": "31.12.2025 14:27",
-      "file_name": "Meta-Hybrid-v2.0.0.zip",
-      "source_url": "https://github.com/YuzakiKokuban/meta-hybrid_mount/releases/tag/v2.0.0",
-      "version_id": "2025-12-31T14:27:27Z"
+      "date": "17.01.2026 15:58",
+      "file_name": "Meta-Hybrid-v2.1.2.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v2.1.2",
+      "version_id": "2026-01-17T15:58:02Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -103,10 +103,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "28.12.2025 08:21",
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_229.zip",
+      "date": "17.01.2026 21:34",
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_231.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_229.zip"
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_231.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -121,10 +121,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "20.12.2025 12:30",
-      "file_name": "ReZygisk-v1.0.0-440-76bbabb-release.zip",
+      "date": "17.01.2026 21:34",
+      "file_name": "ReZygisk-v1.0.0-448-64dbaa2-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-440-76bbabb-release.zip"
+      "version_id": "ReZygisk-v1.0.0-448-64dbaa2-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -211,8 +211,8 @@
     },
     "Mountify": {
       "file_name": "mountify.zip",
-      "message_id": 661,
-      "version_id": "2025-12-25T04:46:25Z"
+      "message_id": 695,
+      "version_id": "2026-01-14T04:48:41Z"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.1-7210-zygisk-release.zip",
@@ -240,9 +240,9 @@
       "version_id": "2025-12-28T18:28:47Z"
     },
     "bindh": {
-      "file_name": "bindhosts_210-f69b4ab.zip",
-      "message_id": 649,
-      "version_id": "bindhosts_210-f69b4ab.zip"
+      "file_name": "bindhosts_210-e24ad3d.zip",
+      "message_id": 692,
+      "version_id": "bindhosts_210-e24ad3d.zip"
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
@@ -250,14 +250,14 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-oss-137-release.zip",
-      "message_id": 678,
-      "version_id": "HMA-OSS-oss-137-release.zip"
+      "file_name": "HMA-OSS-oss-147-release.zip",
+      "message_id": 696,
+      "version_id": "HMA-OSS-oss-147-release.zip"
     },
     "lsposed": {
-      "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
-      "message_id": 605,
-      "version_id": "LSPosed-v1.10.2-7199-zygisk-release.zip"
+      "file_name": "LSPosed-v1.10.2-7201-zygisk-release.zip",
+      "message_id": 698,
+      "version_id": "LSPosed-v1.10.2-7201-zygisk-release.zip"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -265,9 +265,9 @@
       "version_id": "709"
     },
     "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v2.0.0.zip",
-      "message_id": 680,
-      "version_id": "2025-12-31T14:27:27Z"
+      "file_name": "Meta-Hybrid-v2.1.2.zip",
+      "message_id": 697,
+      "version_id": "2026-01-17T15:58:02Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
@@ -280,9 +280,9 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_229.zip",
-      "message_id": 672,
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_229.zip"
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_231.zip",
+      "message_id": 694,
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_231.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -295,9 +295,9 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-440-76bbabb-release.zip",
-      "message_id": 651,
-      "version_id": "ReZygisk-v1.0.0-440-76bbabb-release.zip"
+      "file_name": "ReZygisk-v1.0.0-448-64dbaa2-release.zip",
+      "message_id": 693,
+      "version_id": "ReZygisk-v1.0.0-448-64dbaa2-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
