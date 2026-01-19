@@ -1,0 +1,195 @@
+{
+  "modules": [
+	 {
+      "name": "meta-hybrid-mount",
+      "enabled": true,
+      "type": "github_release",
+      "source": "YuzakiKokuban/meta-hybrid_mount",
+      "asset_filter": "(?i)\\.zip$",
+	  "description": "YuzakiKokuban/meta-hybrid_mount stable release"
+     }, 
+	 {
+      "name": "Mountify",
+      "enabled": true,
+      "type": "github_release",
+      "source": "backslashxx/mountify",
+      "asset_filter": "(?i)\\.zip$",
+	  "description": "backslashxx/mountify stable release"
+    },
+    {
+      "name": "TrickyStore",
+      "enabled": true,
+      "type": "github_release",
+      "source": "5ec1cff/TrickyStore",
+      "asset_filter": "(?i)\\.zip$",
+	  "description": "TrickyStore stable release"
+    },
+    {
+      "name": "pif_ci",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "KOWX712/PlayIntegrityFix (inject_s) (nightly) [Modules]"
+    },
+
+    {
+      "name": "ZygiskNext",
+      "enabled": true,
+      "type": "github_release",
+      "source": "Dr-TSNG/ZygiskNext",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "Dr-TSNG/ZygiskNext stable release"
+    },
+    {
+      "name": "taddon_ci",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "KOWX712/Tricky-Addon (nightly) [Modules]"
+    },
+
+    {
+      "name": "viper",
+      "enabled": true,
+      "type": "github_release",
+      "source": "WSTxda/ViPERFX_RE",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "WSTxda/ViPERFX_RE stable release"
+    },
+    {
+      "name": "bindh",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "bindhosts (nightly)"
+    },
+    {
+      "name": "susfs_ci",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "sidex15/susfs4ksu-module (nightly) [Modules]"
+    },
+
+    {
+      "name": "lsposed",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
+      "asset_filter": "(?i)release.*\\.zip$",
+      "description": "JingMatrix/LSPosed (nightly)"
+    },
+    {
+      "name": "trm",
+      "enabled": true,
+      "type": "github_release",
+      "source": "rompelhd/TermuxRootMods",
+      "asset_filter": "\\.zip$",
+      "description": "rompelhd/TermuxRootMods stable release"
+    },
+    {
+      "name": "ReLSPosed",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
+      "asset_filter": "release.*\\.zip$",
+      "description": "ThePedroo/ReLSPosed (nightly)"
+    },
+    {
+      "name": "GPhotosUnlimited",
+      "enabled": true,
+      "type": "gitlab_release",
+      "source": "cuynu/gphotos-unlimited-zygisk",
+      "asset_filter": "\\.zip$",
+      "description": "cuynu/gphotos-unlimited-zygisk stable release"
+    },
+    {
+      "name": "hma_ci",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
+      "asset_filter": "[Rr]elease.*\\.zip$",
+      "description": "frknkrc44/HMA-OSS (nightly) [Unzip for Apk]"
+    },
+  
+    {
+      "name": "rezygisk",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
+      "asset_filter": "-release.*\\.zip$",
+      "description": "PerformanC/ReZygisk (nightly)"
+    },
+    {
+      "name": "Zygisk-Assistant",
+      "enabled": true,
+      "type": "github_release",
+      "source": "snake-4/Zygisk-Assistant",
+      "asset_filter": "release*\\.zip$",
+      "description": "Zygisk-Assistant stable release"
+    },
+    {
+      "name": "nohello",
+      "enabled": true,
+      "type": "github_release",
+      "source": "MhmRdd/NoHello",
+      "asset_filter": "release\\.zip$",
+      "description": "MhmRdd/NoHello stable release"
+    },
+
+    {
+      "name": "reveny",
+      "enabled": true,
+      "type": "github_release",
+      "source": "reveny/Android-Native-Root-Detector",
+      "asset_filter": "\\.apk$",
+      "description": "Native Root Detector"
+    },
+    {
+      "name": "magiskalpha",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "app-release",
+      "asset_filter": "",
+      "source_channel": "magiskalpha",
+      "description": "magiskalpha"
+    },
+	{
+      "name": "sukisu",
+      "enabled": true,
+      "type": "github_ci",
+      "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
+      "asset_filter": "(?i)manager.*\\.zip$",
+      "description": "SukiSU-Ultra Manager Ci"
+    },
+    {
+      "name": "JingMatrix/TEESimulator",
+      "enabled": true,
+      "type": "github_release",
+      "source": "JingMatrix/TEESimulator",
+	  "asset_filter": "[Rr]elease.*\\.zip$",
+      "description": "JingMatrix/TEESimulator (Stable Release) [Modules]"
+    }, 
+    {
+      "name": "TreatWheel",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "TreatWheel",
+      "asset_filter": "",
+      "source_channel": "zygote64_32",
+      "description": "TreatWheel stable release"
+    }, 
+    {
+      "name": "Encore",
+      "enabled": true,
+      "type": "github_release",
+      "source": "Rem01Gaming/encore",
+      "asset_filter": "release\\.zip$",
+      "description": "Encore Tweaks stable release"
+    }
+  ]
+}

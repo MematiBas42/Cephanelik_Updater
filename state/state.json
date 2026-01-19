@@ -1,0 +1,358 @@
+{
+  "manifest": {
+    "Encore": {
+      "date": "13.07.2025 10:53",
+      "file_name": "encore-4.6-1080-2fa4940-release.zip",
+      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/4.6",
+      "version_id": "2025-07-13T10:53:35Z"
+    },
+    "GPhotosUnlimited": {
+      "date": "07.10.2023 20:00",
+      "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
+      "source_url": "https://gitlab.com/cuynu/gphotos-unlimited-zygisk/-/releases/1.1-stable",
+      "version_id": "2023-10-07T20:00:59.000Z"
+    },
+    "JingMatrix/TEESimulator": {
+      "date": "06.12.2025 16:06",
+      "file_name": "TEESimulator-v3.0-38-Release.zip",
+      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v3.0",
+      "version_id": "2025-12-06T16:06:29Z"
+    },
+    "Mountify": {
+      "date": "25.12.2025 04:46",
+      "file_name": "mountify.zip",
+      "source_url": "https://github.com/backslashxx/mountify/releases/tag/187",
+      "version_id": "2025-12-25T04:46:25Z"
+    },
+    "ReLSPosed": {
+      "date": "11.12.2025 19:17",
+      "file_name": "ReLSPosed-v1.0.1-7210-zygisk-release.zip",
+      "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
+      "version_id": "ReLSPosed-v1.0.1-7210-zygisk-release.zip"
+    },
+    "TreatWheel": {
+      "date": "17.12.2025 16:40",
+      "file_name": "TreatWheel-0.0.7.zip",
+      "source_url": "https://t.me/zygote64_32/25",
+      "version_id": "25"
+    },
+    "TrickyStore": {
+      "date": "02.11.2025 09:56",
+      "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
+      "source_url": "https://github.com/5ec1cff/TrickyStore/releases/tag/1.4.1",
+      "version_id": "2025-11-02T09:56:34Z"
+    },
+    "Zygisk-Assistant": {
+      "date": "23.02.2025 00:18",
+      "file_name": "Zygisk-Assistant-v2.1.4-1013f8a-release.zip",
+      "source_url": "https://github.com/snake-4/Zygisk-Assistant/releases/tag/v2.1.4",
+      "version_id": "2025-02-23T00:18:35Z"
+    },
+    "ZygiskNext": {
+      "date": "28.12.2025 18:28",
+      "file_name": "Zygisk-Next-1.3.2-688-2c60cdd-release.zip",
+      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.3.2",
+      "version_id": "2025-12-28T18:28:47Z"
+    },
+    "bindh": {
+      "date": "20.12.2025 03:12",
+      "file_name": "bindhosts_210-f69b4ab.zip",
+      "source_url": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
+      "version_id": "bindhosts_210-f69b4ab.zip"
+    },
+    "hma": {
+      "date": "26.09.2025 19:11",
+      "file_name": "HMA-OSS-oss-109-release.zip",
+      "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
+      "version_id": "HMA-OSS-oss-109-release.zip"
+    },
+    "hma_ci": {
+      "date": "06.01.2026 15:18",
+      "file_name": "HMA-OSS-oss-141-release.zip",
+      "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
+      "version_id": "HMA-OSS-oss-141-release.zip"
+    },
+    "lsposed": {
+      "date": "24.11.2025 21:02",
+      "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
+      "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
+      "version_id": "LSPosed-v1.10.2-7199-zygisk-release.zip"
+    },
+    "magiskalpha": {
+      "date": "02.12.2025 05:38",
+      "file_name": "app-release.apk",
+      "source_url": "https://t.me/magiskalpha/709",
+      "version_id": "709"
+    },
+    "meta-hybrid-mount": {
+      "date": "08.01.2026 11:36",
+      "file_name": "Meta-Hybrid-v2.0.23.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v2.0.23",
+      "version_id": "2026-01-08T11:36:19Z"
+    },
+    "nohello": {
+      "date": "31.05.2025 03:10",
+      "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
+      "source_url": "https://github.com/MhmRdd/NoHello/releases/tag/0.0.7",
+      "version_id": "2025-05-31T03:10:36Z"
+    },
+    "pif": {
+      "date": "18.09.2025 17:13",
+      "file_name": "PlayIntegrityFix_v4.3-inject-s_173.zip",
+      "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
+      "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
+    },
+    "pif_ci": {
+      "date": "05.01.2026 12:38",
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_230.zip",
+      "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_230.zip"
+    },
+    "pif_release": {
+      "date": "03.09.2025 09:56",
+      "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/releases/tag/v4.3-inject-s",
+      "version_id": "2025-09-03T09:56:54Z"
+    },
+    "reveny": {
+      "date": "14.09.2025 17:13",
+      "file_name": "native-root-detector-v7.6.1.apk",
+      "source_url": "https://github.com/reveny/Android-Native-Root-Detector/releases/tag/v7.6.1",
+      "version_id": "2025-09-14T17:13:56Z"
+    },
+    "rezygisk": {
+      "date": "07.01.2026 22:16",
+      "file_name": "ReZygisk-v1.0.0-443-32e1d2e-release.zip",
+      "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
+      "version_id": "ReZygisk-v1.0.0-443-32e1d2e-release.zip"
+    },
+    "shamiko": {
+      "date": "18.06.2025 11:37",
+      "file_name": "Shamiko-v1.2.5-414-release.zip",
+      "source_url": "https://github.com/LSPosed/LSPosed.github.io/releases/tag/shamiko-414",
+      "version_id": "2025-06-18T11:37:08Z"
+    },
+    "sukisu": {
+      "date": "24.11.2025 20:50",
+      "file_name": "Manager.zip",
+      "source_url": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
+      "version_id": "Manager.zip"
+    },
+    "susfs": {
+      "date": "15.09.2025 09:19",
+      "file_name": "release-1.5.2%2B_3d255a3.zip",
+      "source_url": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
+      "version_id": "release-1.5.2%2B_3d255a3.zip"
+    },
+    "susfs_ci": {
+      "date": "26.09.2025 22:13",
+      "file_name": "release-1.5.2%2B_3d255a3.zip",
+      "source_url": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
+      "version_id": "release-1.5.2%2B_3d255a3.zip"
+    },
+    "susfs_release": {
+      "date": "19.10.2025 08:34",
+      "file_name": "ksu_module_susfs_1.5.2+.zip",
+      "source_url": "https://github.com/sidex15/susfs4ksu-module/releases/tag/v1.5.2%2B_R23",
+      "version_id": "2025-10-19T08:34:10Z"
+    },
+    "taddon": {
+      "date": "25.09.2025 17:13",
+      "file_name": "TrickyAddonModule-v4.1-595-canary.zip",
+      "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
+      "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
+    },
+    "taddon_ci": {
+      "date": "01.01.2026 18:24",
+      "file_name": "TrickyAddonModule-v4.3-652-canary.zip",
+      "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
+      "version_id": "TrickyAddonModule-v4.3-652-canary.zip"
+    },
+    "taddon_release": {
+      "date": "21.10.2025 14:30",
+      "file_name": "TrickyAddonModule-v4.2.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/releases/tag/v4.2",
+      "version_id": "2025-10-21T14:30:07Z"
+    },
+    "trm": {
+      "date": "06.09.2025 00:11",
+      "file_name": "TermuxRootMods-v1.0.21.zip",
+      "source_url": "https://github.com/rompelhd/TermuxRootMods/releases/tag/v.1.0.21",
+      "version_id": "2025-09-06T00:11:14Z"
+    },
+    "viper": {
+      "date": "19.10.2025 18:28",
+      "file_name": "viper4android_module.zip",
+      "source_url": "https://github.com/WSTxda/ViPERFX_RE/releases/tag/v8.0",
+      "version_id": "2025-10-19T18:28:28Z"
+    },
+    "yurikey": {
+      "date": "18.12.2025 11:47",
+      "file_name": "YuriKey_v2.20.signed.zip",
+      "source_url": "https://github.com/YurikeyDev/yurikey/releases/tag/v2.20",
+      "version_id": "2025-12-18T11:47:07Z"
+    }
+  },
+  "telegram_state": {
+    "Encore": {
+      "file_name": "encore-4.6-1080-2fa4940-release.zip",
+      "message_id": 425,
+      "version_id": "2025-07-13T10:53:35Z"
+    },
+    "GPhotosUnlimited": {
+      "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
+      "message_id": 426,
+      "version_id": "2023-10-07T20:00:59.000Z"
+    },
+    "JingMatrix/TEESimulator": {
+      "file_name": "TEESimulator-v3.0-38-Release.zip",
+      "message_id": 628,
+      "version_id": "2025-12-06T16:06:29Z"
+    },
+    "Mountify": {
+      "file_name": "mountify.zip",
+      "message_id": 661,
+      "version_id": "2025-12-25T04:46:25Z"
+    },
+    "ReLSPosed": {
+      "file_name": "ReLSPosed-v1.0.1-7210-zygisk-release.zip",
+      "message_id": 633,
+      "version_id": "ReLSPosed-v1.0.1-7210-zygisk-release.zip"
+    },
+    "TreatWheel": {
+      "file_name": "TreatWheel-0.0.7.zip",
+      "message_id": 637,
+      "version_id": "25"
+    },
+    "TrickyStore": {
+      "file_name": "Tricky-Store-v1.4.1-245-72b2e84-release.zip",
+      "message_id": 547,
+      "version_id": "2025-11-02T09:56:34Z"
+    },
+    "Zygisk-Assistant": {
+      "file_name": "Zygisk-Assistant-v2.1.4-1013f8a-release.zip",
+      "message_id": 429,
+      "version_id": "2025-02-23T00:18:35Z"
+    },
+    "ZygiskNext": {
+      "file_name": "Zygisk-Next-1.3.2-688-2c60cdd-release.zip",
+      "message_id": 676,
+      "version_id": "2025-12-28T18:28:47Z"
+    },
+    "bindh": {
+      "file_name": "bindhosts_210-f69b4ab.zip",
+      "message_id": 649,
+      "version_id": "bindhosts_210-f69b4ab.zip"
+    },
+    "hma": {
+      "file_name": "HMA-OSS-oss-109-release.zip",
+      "message_id": 466,
+      "version_id": "HMA-OSS-oss-109-release.zip"
+    },
+    "hma_ci": {
+      "file_name": "HMA-OSS-oss-141-release.zip",
+      "message_id": 686,
+      "version_id": "HMA-OSS-oss-141-release.zip"
+    },
+    "lsposed": {
+      "file_name": "LSPosed-v1.10.2-7199-zygisk-release.zip",
+      "message_id": 605,
+      "version_id": "LSPosed-v1.10.2-7199-zygisk-release.zip"
+    },
+    "magiskalpha": {
+      "file_name": "app-release.apk",
+      "message_id": 621,
+      "version_id": "709"
+    },
+    "meta-hybrid-mount": {
+      "file_name": "Meta-Hybrid-v2.0.23.zip",
+      "message_id": 691,
+      "version_id": "2026-01-08T11:36:19Z"
+    },
+    "nohello": {
+      "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
+      "message_id": 434,
+      "version_id": "2025-05-31T03:10:36Z"
+    },
+    "pif": {
+      "file_name": "PlayIntegrityFix_v4.3-inject-s_173.zip",
+      "message_id": 456,
+      "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
+    },
+    "pif_ci": {
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_230.zip",
+      "message_id": 684,
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_230.zip"
+    },
+    "pif_release": {
+      "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
+      "message_id": 469,
+      "version_id": "2025-09-03T09:56:54Z"
+    },
+    "reveny": {
+      "file_name": "native-root-detector-v7.6.1.apk",
+      "message_id": 446,
+      "version_id": "2025-09-14T17:13:56Z"
+    },
+    "rezygisk": {
+      "file_name": "ReZygisk-v1.0.0-443-32e1d2e-release.zip",
+      "message_id": 690,
+      "version_id": "ReZygisk-v1.0.0-443-32e1d2e-release.zip"
+    },
+    "shamiko": {
+      "file_name": "Shamiko-v1.2.5-414-release.zip",
+      "message_id": 445,
+      "version_id": "2025-06-18T11:37:08Z"
+    },
+    "sukisu": {
+      "file_name": "Manager.zip",
+      "message_id": 601,
+      "version_id": "Manager.zip"
+    },
+    "susfs": {
+      "file_name": "release-1.5.2%2B_3d255a3.zip",
+      "message_id": 439,
+      "version_id": "release-1.5.2%2B_3d255a3.zip"
+    },
+    "susfs_ci": {
+      "file_name": "release-1.5.2%2B_3d255a3.zip",
+      "message_id": 470,
+      "version_id": "release-1.5.2%2B_3d255a3.zip"
+    },
+    "susfs_release": {
+      "file_name": "ksu_module_susfs_1.5.2+.zip",
+      "message_id": 502,
+      "version_id": "2025-10-19T08:34:10Z"
+    },
+    "taddon": {
+      "file_name": "TrickyAddonModule-v4.1-595-canary.zip",
+      "message_id": 464,
+      "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
+    },
+    "taddon_ci": {
+      "file_name": "TrickyAddonModule-v4.3-652-canary.zip",
+      "message_id": 681,
+      "version_id": "TrickyAddonModule-v4.3-652-canary.zip"
+    },
+    "taddon_release": {
+      "file_name": "TrickyAddonModule-v4.2.zip",
+      "message_id": 509,
+      "version_id": "2025-10-21T14:30:07Z"
+    },
+    "trm": {
+      "file_name": "TermuxRootMods-v1.0.21.zip",
+      "message_id": 441,
+      "version_id": "2025-09-06T00:11:14Z"
+    },
+    "viper": {
+      "file_name": "viper4android_module.zip",
+      "message_id": 503,
+      "version_id": "2025-10-19T18:28:28Z"
+    },
+    "yurikey": {
+      "file_name": "YuriKey_v2.20.signed.zip",
+      "message_id": 641,
+      "version_id": "2025-12-18T11:47:07Z"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+# ==============================================================================
+# CEPHANELİK UPDATER - v8.0 (Async) - TEK İŞLEYİCİLİ NİHAİ WORKFLOW
+# ==============================================================================
+# AÇIKLAMA: Bu versiyon, projenin tüm mantığını tek bir Python betiğinde
+# (`main_automation.py`) çalıştırır. Asenkron yapısı ve CI önbellekleme
+# mekanizması ile maksimum hız ve verimlilik hedeflenmiştir.
+
+name: CPUpdater Otomasyon
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  update-and-publish:
+    environment: production
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python Ortamını Kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Python Bağımlılıkları için Cache Kurulumu
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Gerekli Kütüphaneleri Yükle
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Modülleri İndir ve Telegram'da Yayınla
+        run: python main_automation.py
+        env:
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          TELEGRAM_SESSION_STRING: ${{ secrets.TELEGRAM_SESSION_STRING }}
+          GIT_API_TOKEN: ${{ secrets.GIT_API_TOKEN }}
+
+      - name: Durum Dosyalarını Depoya Kaydet
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+          if [[ -n $(git status --porcelain state) ]]; then
+            echo "[INFO] State.json değişiklikler bulundu, depoya kaydediliyor."
+            git add state/
+            git commit -m "[CI]: State.json güncellendi"
+            git pull --rebase
+            git push
+          else
+            echo "[INFO] Yeni değişiklik bulunamadı."
+          fi
