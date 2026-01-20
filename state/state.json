@@ -25,10 +25,10 @@
       "version_id": "2026-01-14T04:48:41Z"
     },
     "ReLSPosed": {
-      "date": "11.12.2025 19:17",
-      "file_name": "ReLSPosed-v1.0.1-7210-zygisk-release.zip",
+      "date": "20.01.2026 04:40",
+      "file_name": "ReLSPosed-v1.0.1-7211-zygisk-release.zip",
       "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "version_id": "ReLSPosed-v1.0.1-7210-zygisk-release.zip"
+      "version_id": "ReLSPosed-v1.0.1-7211-zygisk-release.zip"
     },
     "TreatWheel": {
       "date": "17.12.2025 16:40",
@@ -215,9 +215,9 @@
       "version_id": "2026-01-14T04:48:41Z"
     },
     "ReLSPosed": {
-      "file_name": "ReLSPosed-v1.0.1-7210-zygisk-release.zip",
-      "message_id": 633,
-      "version_id": "ReLSPosed-v1.0.1-7210-zygisk-release.zip"
+      "file_name": "ReLSPosed-v1.0.1-7211-zygisk-release.zip",
+      "message_id": 713,
+      "version_id": "ReLSPosed-v1.0.1-7211-zygisk-release.zip"
     },
     "TreatWheel": {
       "file_name": "TreatWheel-0.0.7.zip",
