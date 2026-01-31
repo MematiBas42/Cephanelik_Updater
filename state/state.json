@@ -73,10 +73,10 @@
       "version_id": "HMA-OSS-oss-151-release.zip"
     },
     "lsposed": {
-      "date": "31.01.2026 15:19",
-      "file_name": "LSPosed-v1.10.2-7208-zygisk-release.zip",
+      "date": "31.01.2026 23:18",
+      "file_name": "LSPosed-v1.10.2-7209-zygisk-release.zip",
       "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "LSPosed-v1.10.2-7208-zygisk-release.zip"
+      "version_id": "LSPosed-v1.10.2-7209-zygisk-release.zip"
     },
     "magiskalpha": {
       "date": "02.12.2025 05:38",
@@ -255,9 +255,9 @@
       "version_id": "HMA-OSS-oss-151-release.zip"
     },
     "lsposed": {
-      "file_name": "LSPosed-v1.10.2-7208-zygisk-release.zip",
-      "message_id": 728,
-      "version_id": "LSPosed-v1.10.2-7208-zygisk-release.zip"
+      "file_name": "LSPosed-v1.10.2-7209-zygisk-release.zip",
+      "message_id": 730,
+      "version_id": "LSPosed-v1.10.2-7209-zygisk-release.zip"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
