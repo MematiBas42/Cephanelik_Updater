@@ -79,10 +79,10 @@
       "version_id": "LSPosed-v1.10.2-7209-zygisk-release.zip"
     },
     "magiskalpha": {
-      "date": "02.12.2025 05:38",
+      "date": "02.10.2025 12:54",
       "file_name": "app-release.apk",
-      "source_url": "https://t.me/magiskalpha/709",
-      "version_id": "709"
+      "source_url": "https://t.me/magiskalpha/708",
+      "version_id": "708"
     },
     "meta-hybrid-mount": {
       "date": "01.02.2026 07:46",
@@ -121,10 +121,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "19.01.2026 18:26",
-      "file_name": "ReZygisk-v1.0.0-452-7102fcd-release.zip",
+      "date": "02.02.2026 01:50",
+      "file_name": "ReZygisk-v1.0.0-453-5679ae8-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-452-7102fcd-release.zip"
+      "version_id": "ReZygisk-v1.0.0-453-5679ae8-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -261,8 +261,8 @@
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
-      "message_id": 621,
-      "version_id": "709"
+      "message_id": 733,
+      "version_id": "708"
     },
     "meta-hybrid-mount": {
       "file_name": "Meta-Hybrid-v2.5.0.zip",
@@ -295,9 +295,9 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-452-7102fcd-release.zip",
-      "message_id": 706,
-      "version_id": "ReZygisk-v1.0.0-452-7102fcd-release.zip"
+      "file_name": "ReZygisk-v1.0.0-453-5679ae8-release.zip",
+      "message_id": 732,
+      "version_id": "ReZygisk-v1.0.0-453-5679ae8-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
