@@ -67,10 +67,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "28.01.2026 10:23",
-      "file_name": "HMA-OSS-oss-151-release.zip",
+      "date": "05.02.2026 17:43",
+      "file_name": "HMA-OSS-oss-154-release.zip",
       "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-oss-151-release.zip"
+      "version_id": "HMA-OSS-oss-154-release.zip"
     },
     "lsposed": {
       "date": "31.01.2026 23:18",
@@ -85,10 +85,10 @@
       "version_id": "708"
     },
     "meta-hybrid-mount": {
-      "date": "04.02.2026 15:44",
-      "file_name": "Meta-Hybrid-v2.6.0.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v2.6.0",
-      "version_id": "2026-02-04T15:44:33Z"
+      "date": "05.02.2026 16:45",
+      "file_name": "Meta-Hybrid-v3.0.1.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v3.0.1",
+      "version_id": "2026-02-05T16:45:34Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -250,9 +250,9 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-oss-151-release.zip",
-      "message_id": 725,
-      "version_id": "HMA-OSS-oss-151-release.zip"
+      "file_name": "HMA-OSS-oss-154-release.zip",
+      "message_id": 737,
+      "version_id": "HMA-OSS-oss-154-release.zip"
     },
     "lsposed": {
       "file_name": "LSPosed-v1.10.2-7209-zygisk-release.zip",
@@ -265,9 +265,9 @@
       "version_id": "708"
     },
     "meta-hybrid-mount": {
-      "file_name": "Meta-Hybrid-v2.6.0.zip",
-      "message_id": 736,
-      "version_id": "2026-02-04T15:44:33Z"
+      "file_name": "Meta-Hybrid-v3.0.1.zip",
+      "message_id": 738,
+      "version_id": "2026-02-05T16:45:34Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
