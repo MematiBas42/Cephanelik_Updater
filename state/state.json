@@ -55,10 +55,10 @@
       "version_id": "2025-12-28T18:28:47Z"
     },
     "bindh": {
-      "date": "28.01.2026 05:24",
-      "file_name": "bindhosts_211-869d55d.zip",
+      "date": "05.02.2026 20:28",
+      "file_name": "bindhosts_211-9562e67.zip",
       "source_url": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "version_id": "bindhosts_211-869d55d.zip"
+      "version_id": "bindhosts_211-9562e67.zip"
     },
     "hma": {
       "date": "26.09.2025 19:11",
@@ -103,10 +103,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "28.01.2026 08:26",
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_232.zip",
+      "date": "05.02.2026 20:28",
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_234.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_232.zip"
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_234.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -163,10 +163,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "01.01.2026 18:24",
-      "file_name": "TrickyAddonModule-v4.3-652-canary.zip",
+      "date": "05.02.2026 20:28",
+      "file_name": "TrickyAddonModule-v4.3-655-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v4.3-652-canary.zip"
+      "version_id": "TrickyAddonModule-v4.3-655-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -240,9 +240,9 @@
       "version_id": "2025-12-28T18:28:47Z"
     },
     "bindh": {
-      "file_name": "bindhosts_211-869d55d.zip",
-      "message_id": 723,
-      "version_id": "bindhosts_211-869d55d.zip"
+      "file_name": "bindhosts_211-9562e67.zip",
+      "message_id": 739,
+      "version_id": "bindhosts_211-9562e67.zip"
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
@@ -280,9 +280,9 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.4-inject-s_232.zip",
-      "message_id": 724,
-      "version_id": "PlayIntegrityFix_v4.4-inject-s_232.zip"
+      "file_name": "PlayIntegrityFix_v4.4-inject-s_234.zip",
+      "message_id": 740,
+      "version_id": "PlayIntegrityFix_v4.4-inject-s_234.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -330,9 +330,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v4.3-652-canary.zip",
-      "message_id": 681,
-      "version_id": "TrickyAddonModule-v4.3-652-canary.zip"
+      "file_name": "TrickyAddonModule-v4.3-655-canary.zip",
+      "message_id": 741,
+      "version_id": "TrickyAddonModule-v4.3-655-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
