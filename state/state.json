@@ -25,10 +25,10 @@
       "version_id": "2026-01-21T05:18:40Z"
     },
     "ReLSPosed": {
-      "date": "08.02.2026 22:21",
-      "file_name": "ReLSPosed-v1.0.2-7213-zygisk-release.zip",
+      "date": "09.02.2026 07:53",
+      "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
       "source_url": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "version_id": "ReLSPosed-v1.0.2-7213-zygisk-release.zip"
+      "version_id": "ReLSPosed-v1.0.2-7215-zygisk-release.zip"
     },
     "TreatWheel": {
       "date": "02.02.2026 03:31",
@@ -121,10 +121,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "02.02.2026 01:50",
-      "file_name": "ReZygisk-v1.0.0-453-5679ae8-release.zip",
+      "date": "09.02.2026 07:53",
+      "file_name": "ReZygisk-v1.0.0-454-b5f0aa5-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-453-5679ae8-release.zip"
+      "version_id": "ReZygisk-v1.0.0-454-b5f0aa5-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -215,9 +215,9 @@
       "version_id": "2026-01-21T05:18:40Z"
     },
     "ReLSPosed": {
-      "file_name": "ReLSPosed-v1.0.2-7213-zygisk-release.zip",
-      "message_id": 743,
-      "version_id": "ReLSPosed-v1.0.2-7213-zygisk-release.zip"
+      "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
+      "message_id": 745,
+      "version_id": "ReLSPosed-v1.0.2-7215-zygisk-release.zip"
     },
     "TreatWheel": {
       "file_name": "TreatWheel-0.0.8.zip",
@@ -295,9 +295,9 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-453-5679ae8-release.zip",
-      "message_id": 732,
-      "version_id": "ReZygisk-v1.0.0-453-5679ae8-release.zip"
+      "file_name": "ReZygisk-v1.0.0-454-b5f0aa5-release.zip",
+      "message_id": 744,
+      "version_id": "ReZygisk-v1.0.0-454-b5f0aa5-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
