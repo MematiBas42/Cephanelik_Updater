@@ -1,10 +1,10 @@
 {
   "manifest": {
     "Encore": {
-      "date": "13.07.2025 10:53",
-      "file_name": "encore-4.6-1080-2fa4940-release.zip",
-      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/4.6",
-      "version_id": "2025-07-13T10:53:35Z"
+      "date": "16.02.2026 07:46",
+      "file_name": "encore-5.0-1294-667f35e-release.zip",
+      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/5.0",
+      "version_id": "2026-02-16T07:46:38Z"
     },
     "GPhotosUnlimited": {
       "date": "07.10.2023 20:00",
@@ -195,9 +195,9 @@
   },
   "telegram_state": {
     "Encore": {
-      "file_name": "encore-4.6-1080-2fa4940-release.zip",
-      "message_id": 425,
-      "version_id": "2025-07-13T10:53:35Z"
+      "file_name": "encore-5.0-1294-667f35e-release.zip",
+      "message_id": 753,
+      "version_id": "2026-02-16T07:46:38Z"
     },
     "GPhotosUnlimited": {
       "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
