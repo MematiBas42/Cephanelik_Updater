@@ -79,10 +79,10 @@
       "version_id": "LSPosed-v1.11.0-7212-zygisk-release.zip"
     },
     "magiskalpha": {
-      "date": "02.10.2025 12:54",
+      "date": "24.02.2026 07:39",
       "file_name": "app-release.apk",
-      "source_url": "https://t.me/magiskalpha/708",
-      "version_id": "708"
+      "source_url": "https://t.me/magiskalpha/713",
+      "version_id": "713"
     },
     "meta-hybrid-mount": {
       "date": "23.02.2026 11:46",
@@ -261,8 +261,8 @@
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
-      "message_id": 733,
-      "version_id": "708"
+      "message_id": 762,
+      "version_id": "713"
     },
     "meta-hybrid-mount": {
       "file_name": "Hybrid-Mount-3.1.2-1243.zip",
