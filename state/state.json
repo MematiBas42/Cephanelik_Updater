@@ -49,10 +49,10 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "date": "28.12.2025 18:28",
-      "file_name": "Zygisk-Next-1.3.2-688-2c60cdd-release.zip",
-      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.3.2",
-      "version_id": "2025-12-28T18:28:47Z"
+      "date": "22.03.2026 00:36",
+      "file_name": "Zygisk-Next-1.3.3-731-1193e46-release.zip",
+      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.3.3",
+      "version_id": "2026-03-22T00:36:40Z"
     },
     "bindh": {
       "date": "19.03.2026 05:55",
@@ -73,10 +73,10 @@
       "version_id": "HMA-OSS-oss-158-release.zip"
     },
     "lsposed": {
-      "date": "14.03.2026 23:22",
-      "file_name": "Vector-v1.11.0-3019-Release.zip",
+      "date": "22.03.2026 01:53",
+      "file_name": "Vector-v1.11.0-3020-Release.zip",
       "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "Vector-v1.11.0-3019-Release.zip"
+      "version_id": "Vector-v1.11.0-3020-Release.zip"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -235,9 +235,9 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "file_name": "Zygisk-Next-1.3.2-688-2c60cdd-release.zip",
-      "message_id": 676,
-      "version_id": "2025-12-28T18:28:47Z"
+      "file_name": "Zygisk-Next-1.3.3-731-1193e46-release.zip",
+      "message_id": 792,
+      "version_id": "2026-03-22T00:36:40Z"
     },
     "bindh": {
       "file_name": "bindhosts_211-e45cda5.zip",
@@ -255,9 +255,9 @@
       "version_id": "HMA-OSS-oss-158-release.zip"
     },
     "lsposed": {
-      "file_name": "Vector-v1.11.0-3019-Release.zip",
-      "message_id": 779,
-      "version_id": "Vector-v1.11.0-3019-Release.zip"
+      "file_name": "Vector-v1.11.0-3020-Release.zip",
+      "message_id": 793,
+      "version_id": "Vector-v1.11.0-3020-Release.zip"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
