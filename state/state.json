@@ -73,10 +73,10 @@
       "version_id": "HMA-OSS-oss-158-release.zip"
     },
     "lsposed": {
-      "date": "22.03.2026 19:21",
-      "file_name": "Vector-v1.11.0-3021-Release.zip",
+      "date": "24.03.2026 05:56",
+      "file_name": "Vector-v2.0-3022-Release.zip",
       "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "Vector-v1.11.0-3021-Release.zip"
+      "version_id": "Vector-v2.0-3022-Release.zip"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -255,9 +255,9 @@
       "version_id": "HMA-OSS-oss-158-release.zip"
     },
     "lsposed": {
-      "file_name": "Vector-v1.11.0-3021-Release.zip",
-      "message_id": 799,
-      "version_id": "Vector-v1.11.0-3021-Release.zip"
+      "file_name": "Vector-v2.0-3022-Release.zip",
+      "message_id": 805,
+      "version_id": "Vector-v2.0-3022-Release.zip"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
