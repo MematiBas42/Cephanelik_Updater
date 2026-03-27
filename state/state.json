@@ -1,10 +1,10 @@
 {
   "manifest": {
     "Encore": {
-      "date": "16.02.2026 07:46",
-      "file_name": "encore-5.0-1294-667f35e-release.zip",
-      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/5.0",
-      "version_id": "2026-02-16T07:46:38Z"
+      "date": "27.03.2026 01:43",
+      "file_name": "encore-5.1-1431-f347713-release.zip",
+      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/5.1",
+      "version_id": "2026-03-27T01:43:47Z"
     },
     "GPhotosUnlimited": {
       "date": "07.10.2023 20:00",
@@ -121,10 +121,10 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "date": "25.03.2026 17:54",
-      "file_name": "ReZygisk-v1.0.0-469-cc3e853-release.zip",
+      "date": "27.03.2026 01:58",
+      "file_name": "ReZygisk-v1.0.0-470-7e85354-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-469-cc3e853-release.zip"
+      "version_id": "ReZygisk-v1.0.0-470-7e85354-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -195,9 +195,9 @@
   },
   "telegram_state": {
     "Encore": {
-      "file_name": "encore-5.0-1294-667f35e-release.zip",
-      "message_id": 753,
-      "version_id": "2026-02-16T07:46:38Z"
+      "file_name": "encore-5.1-1431-f347713-release.zip",
+      "message_id": 816,
+      "version_id": "2026-03-27T01:43:47Z"
     },
     "GPhotosUnlimited": {
       "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
@@ -295,9 +295,9 @@
       "version_id": "2025-09-14T17:13:56Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-469-cc3e853-release.zip",
-      "message_id": 811,
-      "version_id": "ReZygisk-v1.0.0-469-cc3e853-release.zip"
+      "file_name": "ReZygisk-v1.0.0-470-7e85354-release.zip",
+      "message_id": 815,
+      "version_id": "ReZygisk-v1.0.0-470-7e85354-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
