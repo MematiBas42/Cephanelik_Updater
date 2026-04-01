@@ -55,10 +55,10 @@
       "version_id": "2026-03-22T00:36:40Z"
     },
     "bindh": {
-      "date": "28.03.2026 11:24",
-      "file_name": "bindhosts_211-59ffd65.zip",
+      "date": "01.04.2026 05:20",
+      "file_name": "bindhosts_212-f7cfac6.zip",
       "source_url": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "version_id": "bindhosts_211-59ffd65.zip"
+      "version_id": "bindhosts_212-f7cfac6.zip"
     },
     "hma": {
       "date": "26.09.2025 19:11",
@@ -240,9 +240,9 @@
       "version_id": "2026-03-22T00:36:40Z"
     },
     "bindh": {
-      "file_name": "bindhosts_211-59ffd65.zip",
-      "message_id": 821,
-      "version_id": "bindhosts_211-59ffd65.zip"
+      "file_name": "bindhosts_212-f7cfac6.zip",
+      "message_id": 828,
+      "version_id": "bindhosts_212-f7cfac6.zip"
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
