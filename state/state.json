@@ -85,10 +85,10 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "date": "02.04.2026 16:27",
-      "file_name": "Hybrid-Mount-3.4.1-1418.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v3.4.1",
-      "version_id": "2026-04-02T16:27:38Z"
+      "date": "03.04.2026 09:17",
+      "file_name": "Hybrid-Mount-3.4.2-1425.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v3.4.2",
+      "version_id": "2026-04-03T09:17:37Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -133,10 +133,10 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "date": "24.11.2025 20:50",
-      "file_name": "Manager.zip",
+      "date": "03.04.2026 10:38",
+      "file_name": "manager.zip",
       "source_url": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
-      "version_id": "Manager.zip"
+      "version_id": "manager.zip"
     },
     "susfs": {
       "date": "15.09.2025 09:19",
@@ -265,9 +265,9 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "file_name": "Hybrid-Mount-3.4.1-1418.zip",
-      "message_id": 832,
-      "version_id": "2026-04-02T16:27:38Z"
+      "file_name": "Hybrid-Mount-3.4.2-1425.zip",
+      "message_id": 836,
+      "version_id": "2026-04-03T09:17:37Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
@@ -305,9 +305,9 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "file_name": "Manager.zip",
-      "message_id": 601,
-      "version_id": "Manager.zip"
+      "file_name": "manager.zip",
+      "message_id": 837,
+      "version_id": "manager.zip"
     },
     "susfs": {
       "file_name": "release-1.5.2%2B_3d255a3.zip",
