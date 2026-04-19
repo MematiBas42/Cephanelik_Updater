@@ -85,10 +85,10 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "date": "16.04.2026 16:23",
-      "file_name": "Hybrid-Mount-3.4.7-1495.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v3.4.7",
-      "version_id": "2026-04-16T16:23:12Z"
+      "date": "19.04.2026 14:55",
+      "file_name": "Hybrid-Mount-3.5.0-1528.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v3.5.0",
+      "version_id": "2026-04-19T14:55:54Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -265,9 +265,9 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "file_name": "Hybrid-Mount-3.4.7-1495.zip",
-      "message_id": 866,
-      "version_id": "2026-04-16T16:23:12Z"
+      "file_name": "Hybrid-Mount-3.5.0-1528.zip",
+      "message_id": 871,
+      "version_id": "2026-04-19T14:55:54Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
