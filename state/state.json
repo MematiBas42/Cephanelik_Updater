@@ -67,10 +67,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "18.02.2026 17:52",
-      "file_name": "HMA-OSS-oss-158-release.zip",
+      "date": "20.04.2026 10:04",
+      "file_name": "HMA-OSS-oss-161-release.zip",
       "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-oss-158-release.zip"
+      "version_id": "HMA-OSS-oss-161-release.zip"
     },
     "lsposed": {
       "date": "27.03.2026 12:56",
@@ -250,9 +250,9 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-oss-158-release.zip",
-      "message_id": 756,
-      "version_id": "HMA-OSS-oss-158-release.zip"
+      "file_name": "HMA-OSS-oss-161-release.zip",
+      "message_id": 873,
+      "version_id": "HMA-OSS-oss-161-release.zip"
     },
     "lsposed": {
       "file_name": "Vector-v2.0-3026-Release.zip",
