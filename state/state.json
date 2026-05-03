@@ -121,10 +121,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "02.05.2026 18:52",
-      "file_name": "ReZygisk-v1.0.0-509-6f343de-release.zip",
+      "date": "03.05.2026 02:31",
+      "file_name": "ReZygisk-v1.0.0-510-08d46e5-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-509-6f343de-release.zip"
+      "version_id": "ReZygisk-v1.0.0-510-08d46e5-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -295,9 +295,9 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-509-6f343de-release.zip",
-      "message_id": 887,
-      "version_id": "ReZygisk-v1.0.0-509-6f343de-release.zip"
+      "file_name": "ReZygisk-v1.0.0-510-08d46e5-release.zip",
+      "message_id": 888,
+      "version_id": "ReZygisk-v1.0.0-510-08d46e5-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
