@@ -121,10 +121,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "03.05.2026 02:31",
-      "file_name": "ReZygisk-v1.0.0-510-08d46e5-release.zip",
+      "date": "03.05.2026 05:54",
+      "file_name": "ReZygisk-v1.0.0-513-faccedf-release.zip",
       "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-510-08d46e5-release.zip"
+      "version_id": "ReZygisk-v1.0.0-513-faccedf-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -163,10 +163,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "28.04.2026 05:54",
-      "file_name": "TrickyAddonModule-v5.0-beta.1-688-canary.zip",
+      "date": "03.05.2026 05:54",
+      "file_name": "TrickyAddonModule-v5.0-beta.1-689-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v5.0-beta.1-688-canary.zip"
+      "version_id": "TrickyAddonModule-v5.0-beta.1-689-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -295,9 +295,9 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-510-08d46e5-release.zip",
-      "message_id": 888,
-      "version_id": "ReZygisk-v1.0.0-510-08d46e5-release.zip"
+      "file_name": "ReZygisk-v1.0.0-513-faccedf-release.zip",
+      "message_id": 889,
+      "version_id": "ReZygisk-v1.0.0-513-faccedf-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
@@ -330,9 +330,9 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v5.0-beta.1-688-canary.zip",
-      "message_id": 884,
-      "version_id": "TrickyAddonModule-v5.0-beta.1-688-canary.zip"
+      "file_name": "TrickyAddonModule-v5.0-beta.1-689-canary.zip",
+      "message_id": 890,
+      "version_id": "TrickyAddonModule-v5.0-beta.1-689-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
