@@ -19,10 +19,10 @@
       "version_id": "2026-03-07T11:40:30Z"
     },
     "Mountify": {
-      "date": "04.05.2026 03:02",
+      "date": "05.05.2026 01:24",
       "file_name": "mountify.zip",
-      "source_url": "https://github.com/backslashxx/mountify/releases/tag/200",
-      "version_id": "2026-05-04T03:02:30Z"
+      "source_url": "https://github.com/backslashxx/mountify/releases/tag/201",
+      "version_id": "2026-05-05T01:24:42Z"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -55,10 +55,10 @@
       "version_id": "2026-04-08T08:09:54Z"
     },
     "bindh": {
-      "date": "04.05.2026 09:13",
-      "file_name": "bindhosts_213-f596959.zip",
+      "date": "05.05.2026 02:25",
+      "file_name": "bindhosts_213-8115748.zip",
       "source_url": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "version_id": "bindhosts_213-f596959.zip"
+      "version_id": "bindhosts_213-8115748.zip"
     },
     "hma": {
       "date": "26.09.2025 19:11",
@@ -211,8 +211,8 @@
     },
     "Mountify": {
       "file_name": "mountify.zip",
-      "message_id": 895,
-      "version_id": "2026-05-04T03:02:30Z"
+      "message_id": 899,
+      "version_id": "2026-05-05T01:24:42Z"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
@@ -240,9 +240,9 @@
       "version_id": "2026-04-08T08:09:54Z"
     },
     "bindh": {
-      "file_name": "bindhosts_213-f596959.zip",
-      "message_id": 897,
-      "version_id": "bindhosts_213-f596959.zip"
+      "file_name": "bindhosts_213-8115748.zip",
+      "message_id": 898,
+      "version_id": "bindhosts_213-8115748.zip"
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
