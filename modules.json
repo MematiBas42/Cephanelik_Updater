@@ -147,6 +147,7 @@
       "type": "github_release",
       "source": "reveny/Android-Native-Root-Detector",
       "asset_filter": "\\.apk$",
+      "is_apk": true,
       "description": "Native Root Detector"
     },
     {
@@ -156,6 +157,7 @@
       "source": "app-release",
       "asset_filter": "",
       "source_channel": "magiskalpha",
+      "is_apk": true,
       "description": "magiskalpha"
     },
 	{

@@ -11,6 +11,10 @@ on:
     - cron: '0 * * * *'
   workflow_dispatch:
 
+concurrency:
+  group: cephanelik-updater
+  cancel-in-progress: false
+
 jobs:
   update-and-publish:
     environment: production
@@ -53,13 +57,26 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git pull --rebase --autostash
 
           if [[ -n $(git status --porcelain state) ]]; then
             echo "[INFO] State.json değişiklikler bulundu, depoya kaydediliyor."
             git add state/
             git commit -m "[CI]: State.json güncellendi"
-            git pull --rebase
-            git push
+
+            for attempt in 1 2 3; do
+              if git push; then
+                break
+              fi
+
+              if [[ "$attempt" == "3" ]]; then
+                echo "[ERROR] State push 3 denemeden sonra başarısız oldu."
+                exit 1
+              fi
+
+              echo "[WARNING] State push başarısız oldu, rebase sonrası yeniden denenecek. Deneme: $attempt"
+              git pull --rebase --autostash
+            done
           else
             echo "[INFO] Yeni değişiklik bulunamadı."
           fi

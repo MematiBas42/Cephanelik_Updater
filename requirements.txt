@@ -1,2 +1,2 @@
-telethon
-httpx
+telethon>=1.36,<2
+httpx>=0.27,<1
