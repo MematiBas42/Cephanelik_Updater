@@ -181,7 +181,8 @@ class ModuleHandler:
         headers = {}
         if "api.github.com" in url:
             headers["Accept"] = "application/vnd.github+json"
-            headers["Authorization"] = f"Bearer {GIT_API_TOKEN}"
+            if GIT_API_TOKEN:
+                headers["Authorization"] = f"Bearer {GIT_API_TOKEN}"
         return headers
 
     def _format_github_date(self, value):

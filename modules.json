@@ -78,18 +78,18 @@
     {
       "name": "bindh",
       "enabled": true,
-      "type": "github_ci",
-      "source": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "asset_filter": "(?i)\\.zip$",
-      "description": "bindhosts (nightly)"
+      "type": "github_release",
+      "source": "bindhosts/bindhosts",
+      "asset_filter": "(?i)^bindhosts\\.zip$",
+      "description": "bindhosts stable release"
     },
     {
       "name": "susfs_ci",
       "enabled": true,
-      "type": "github_ci",
-      "source": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
-      "asset_filter": "(?i)\\.zip$",
-      "description": "sidex15/susfs4ksu-module (nightly) [Modules]"
+      "type": "github_release",
+      "source": "sidex15/susfs4ksu-module",
+      "asset_filter": "(?i)^ksu_module_susfs_.*\\.zip$",
+      "description": "sidex15/susfs4ksu-module stable release [Modules]"
     },
 
     {
