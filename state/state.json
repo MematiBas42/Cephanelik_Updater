@@ -186,6 +186,19 @@
       "source_url": "https://github.com/WSTxda/ViPERFX_RE/releases/tag/v8.0",
       "version_id": "2025-10-19T18:28:28Z"
     },
+    "viper4android_app_llsl": {
+      "date": "06.06.2026 14:32",
+      "file_name": "ViPER4Android-1.5.4.apk",
+      "link_only": true,
+      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/1.5.4",
+      "version_id": "2026-06-06T14:32:58Z"
+    },
+    "viperfx_re_llsl": {
+      "date": "18.05.2026 14:06",
+      "file_name": "ViPER4Android-RE-AIDL-v1.3.1.zip",
+      "source_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/tag/v1.3.1",
+      "version_id": "2026-05-18T14:06:17Z"
+    },
     "yurikey": {
       "date": "18.12.2025 11:47",
       "file_name": "YuriKey_v2.20.signed.zip",
@@ -354,6 +367,20 @@
       "file_name": "viper4android_module.zip",
       "message_id": 503,
       "version_id": "2025-10-19T18:28:28Z"
+    },
+    "viper4android_app_llsl": {
+      "discussion_message_id": null,
+      "file_name": "ViPER4Android-1.5.4.apk",
+      "link_only": true,
+      "message_id": 921,
+      "version_id": "2026-06-06T14:32:58Z"
+    },
+    "viperfx_re_llsl": {
+      "discussion_message_id": null,
+      "file_name": "ViPER4Android-RE-AIDL-v1.3.1.zip",
+      "link_only": null,
+      "message_id": 922,
+      "version_id": "2026-05-18T14:06:17Z"
     },
     "yurikey": {
       "file_name": "YuriKey_v2.20.signed.zip",
