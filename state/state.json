@@ -55,10 +55,10 @@
       "version_id": "2026-04-08T08:09:54Z"
     },
     "bindh": {
-      "date": "07.05.2026 13:55",
-      "file_name": "bindhosts_213-5b4fafb.zip",
-      "source_url": "https://nightly.link/bindhosts/bindhosts/workflows/release.yml/master",
-      "version_id": "bindhosts_213-5b4fafb.zip"
+      "date": "08.05.2026 02:22",
+      "file_name": "bindhosts.zip",
+      "source_url": "https://github.com/bindhosts/bindhosts/releases/tag/v2.1.3",
+      "version_id": "2026-05-08T02:22:26Z"
     },
     "hma": {
       "date": "26.09.2025 19:11",
@@ -145,10 +145,10 @@
       "version_id": "release-1.5.2%2B_3d255a3.zip"
     },
     "susfs_ci": {
-      "date": "26.09.2025 22:13",
-      "file_name": "release-1.5.2%2B_3d255a3.zip",
-      "source_url": "https://nightly.link/sidex15/susfs4ksu-module/workflows/build.yml/v1.5.2+_R21",
-      "version_id": "release-1.5.2%2B_3d255a3.zip"
+      "date": "27.03.2026 14:23",
+      "file_name": "ksu_module_susfs_1.5.2+.zip",
+      "source_url": "https://github.com/sidex15/susfs4ksu-module/releases/tag/v1.5.2%2B_R27",
+      "version_id": "2026-03-27T14:23:40Z"
     },
     "susfs_release": {
       "date": "19.10.2025 08:34",
@@ -253,9 +253,13 @@
       "version_id": "2026-04-08T08:09:54Z"
     },
     "bindh": {
-      "file_name": "bindhosts_213-5b4fafb.zip",
+      "discussion_message_id": 43881,
+      "discussion_version_id": "2026-05-08T02:22:26Z",
+      "file_name": "bindhosts.zip",
+      "link_only": null,
+      "link_preview_disabled": null,
       "message_id": 902,
-      "version_id": "bindhosts_213-5b4fafb.zip"
+      "version_id": "2026-05-08T02:22:26Z"
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
@@ -334,9 +338,13 @@
       "version_id": "release-1.5.2%2B_3d255a3.zip"
     },
     "susfs_ci": {
-      "file_name": "release-1.5.2%2B_3d255a3.zip",
+      "discussion_message_id": 43882,
+      "discussion_version_id": "2026-03-27T14:23:40Z",
+      "file_name": "ksu_module_susfs_1.5.2+.zip",
+      "link_only": null,
+      "link_preview_disabled": null,
       "message_id": 470,
-      "version_id": "release-1.5.2%2B_3d255a3.zip"
+      "version_id": "2026-03-27T14:23:40Z"
     },
     "susfs_release": {
       "file_name": "ksu_module_susfs_1.5.2+.zip",
@@ -372,6 +380,7 @@
       "discussion_message_id": null,
       "file_name": "ViPER4Android-1.5.4.apk",
       "link_only": true,
+      "link_preview_disabled": true,
       "message_id": 921,
       "version_id": "2026-06-06T14:32:58Z"
     },
