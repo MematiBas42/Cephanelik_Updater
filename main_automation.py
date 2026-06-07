@@ -48,6 +48,10 @@ def telegram_url_button(label, url):
         return None
     return Button.url(label, url=url)
 
+def telegram_button_rows(*buttons):
+    row = [button for button in buttons if button]
+    return [row] if row else None
+
 def source_caption_line(source_url):
     if is_telegram_button_url(source_url):
         return f"🔗 <b><a href='{escape(source_url, quote=True)}'>Kaynak</a></b>"
@@ -501,20 +505,16 @@ class TelethonPublisher:
             f"📄 <code>{escape(filename)}</code>\n"
             f"📅 {escape(info['date'])}"
         )
+        if channel_url:
+            text += f"\n\n↗️ <b><a href='{escape(channel_url, quote=True)}'>Kanal gönderisini aç</a></b>"
 
-        buttons = []
         channel_button = telegram_url_button('Kanal Gönderisi', channel_url)
-        if channel_button:
-            buttons.append(channel_button)
         source_button = telegram_url_button('Kaynak', source_url)
-        if source_button:
-            buttons.append(source_button)
-        if not buttons:
-            buttons = None
+        buttons = telegram_button_rows(channel_button, source_button)
 
         try:
             message = await self.tg_client.send_message(
-                DISCUSSION_GROUP_ID, text, parse_mode='html', buttons=buttons
+                DISCUSSION_GROUP_ID, text, parse_mode='html', buttons=buttons, link_preview=False
             )
             print(f"[DISCUSSION] '{name}' için bağlı gruba bildirim gönderildi. Mesaj ID: {message.id}")
             return message.id
@@ -555,63 +555,101 @@ class TelethonPublisher:
 
         return changed
 
+    def _build_channel_caption(self, name, info, module_def):
+        display_name = module_def.get('description', name)
+        return (
+            f"📦 <b>{escape(display_name)}</b>\n\n"
+            f"📄 <b>Dosya Adı:</b> <code>{escape(info['file_name'])}</code>\n"
+            f"📅 <b>Güncelleme:</b> {escape(info['date'])}\n\n"
+            f"{source_caption_line(info['source_url'])}"
+        )
+
+    def _build_channel_buttons(self, module_def, source_url, link_only):
+        module_type = module_def.get('type')
+
+        if link_only:
+            return telegram_button_rows(telegram_url_button('Kaynağa Git', source_url))
+
+        if module_type == 'telegram_forwarder':
+            return telegram_button_rows(telegram_url_button('Kaynak Mesaja Git', source_url))
+
+        repo_url = None
+        module_source = module_def.get('source')
+        if module_source:
+            if module_type == 'github_release':
+                repo_url = f"https://github.com/{module_source}"
+            elif module_type == 'github_ci':
+                match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
+                if match:
+                    repo_url = f"https://github.com/{match.group(1)}"
+            elif module_type == 'gitlab_release':
+                repo_url = f"https://gitlab.com/{module_source}"
+
+        return telegram_button_rows(Button.url('⭐ Star Repo', url=repo_url)) if repo_url else None
+
+    async def compact_existing_link_only_previews(self, state, modules_map, skip_names=None):
+        if skip_names is None:
+            skip_names = set()
+
+        changed = False
+        tg_state = state.setdefault("telegram_state", {})
+
+        for name, entry in sorted(tg_state.items()):
+            if name in skip_names:
+                continue
+            if not entry.get('link_only') or entry.get('link_preview_disabled'):
+                continue
+
+            info = state.get("manifest", {}).get(name)
+            message_id = entry.get('message_id')
+            module_def = modules_map.get(name, {})
+            if not info or not message_id:
+                continue
+
+            filename = info.get('file_name', '')
+            if not should_publish_link_only(module_def, filename):
+                continue
+
+            caption = self._build_channel_caption(name, info, module_def)
+            buttons = self._build_channel_buttons(module_def, info.get('source_url'), True)
+
+            try:
+                await self.tg_client.edit_message(
+                    PUBLISH_CHANNEL_ID, message_id, caption,
+                    parse_mode='html', buttons=buttons, link_preview=False
+                )
+                entry['link_preview_disabled'] = True
+                changed = True
+                print(f"[TELEGRAM] '{name}' link-only mesaj önizlemesi kompakt hale getirildi.")
+            except Exception as e:
+                print(f"[WARNING] '{name}' link-only mesaj önizlemesi düzenlenemedi: {e}")
+
+        return changed
+
     async def _publish_single_update(self, name, info, modules_map, old_tg_entry):
         try:
             filename = info['file_name']
             module_def = modules_map.get(name, {})
-            display_name = module_def.get('description', name)
             source_url = info['source_url']
             link_only = should_publish_link_only(module_def, filename) or info.get('link_only')
             old_message_id = old_tg_entry.get('message_id')
             old_was_link_only = old_tg_entry.get('link_only')
-            caption = (
-                f"📦 <b>{escape(display_name)}</b>\n\n"
-                f"📄 <b>Dosya Adı:</b> <code>{escape(filename)}</code>\n"
-                f"📅 <b>Güncelleme:</b> {escape(info['date'])}\n\n"
-                f"{source_caption_line(source_url)}"
-            )
-
-            buttons = None
-            module_type = module_def.get('type')
-
-            if link_only:
-                source_button = telegram_url_button('Kaynağa Git', source_url)
-                buttons = [source_button] if source_button else None
-            elif module_type == 'telegram_forwarder':
-                # DÜZELTME 1: Button.url kullanımı
-                source_button = telegram_url_button('Kaynak Mesaja Git', source_url)
-                buttons = [source_button] if source_button else None
-            else:
-                repo_url = None
-                module_source = module_def.get('source')
-                
-                # URL oluşturma mantığı doğru, buraya dokunmuyoruz
-                if module_source:
-                    if module_type == 'github_release':
-                        # DİKKAT: JSON'da source sadece "User/Repo" olmalı, başında https olmamalı.
-                        repo_url = f"https://github.com/{module_source}"
-                    elif module_type == 'github_ci':
-                        match = re.search(r"nightly\.link/([^/]+/[^/]+)", module_source)
-                        if match:
-                            repo_url = f"https://github.com/{match.group(1)}"
-                    elif module_type == 'gitlab_release':
-                        repo_url = f"https://gitlab.com/{module_source}"
-                
-                if repo_url:
-                    # DÜZELTME 2: Button.url kullanımı
-                    buttons = [Button.url('⭐ Star Repo', url=repo_url)]
+            caption = self._build_channel_caption(name, info, module_def)
+            buttons = self._build_channel_buttons(module_def, source_url, link_only)
 
             if link_only:
                 if old_message_id and old_was_link_only:
                     print(f"[TELEGRAM] '{filename}' için mevcut link mesajı düzenleniyor...")
                     message = await self.tg_client.edit_message(
-                        PUBLISH_CHANNEL_ID, old_message_id, caption, parse_mode='html', buttons=buttons
+                        PUBLISH_CHANNEL_ID, old_message_id, caption,
+                        parse_mode='html', buttons=buttons, link_preview=False
                     )
                     edited = True
                 else:
                     print(f"[TELEGRAM] '{filename}' için sadece kaynak linki yayınlanıyor...")
                     message = await self.tg_client.send_message(
-                        PUBLISH_CHANNEL_ID, caption, parse_mode='html', silent=True, buttons=buttons
+                        PUBLISH_CHANNEL_ID, caption, parse_mode='html',
+                        silent=True, buttons=buttons, link_preview=False
                     )
                     edited = False
             else:
@@ -653,7 +691,8 @@ class TelethonPublisher:
                 'version_id': info['version_id'],
                 'link_only': link_only,
                 'edited': edited,
-                'discussion_message_id': discussion_message_id
+                'discussion_message_id': discussion_message_id,
+                'link_preview_disabled': link_only
             }
         except Exception as e:
             print(f"[CRITICAL] '{name}' yayınlanırken istisna: {e}")
@@ -671,9 +710,12 @@ class TelethonPublisher:
         retried_discussions = await self.retry_pending_discussions(
             state, modules_map, skip_names=set(pending_updates)
         )
+        compacted_previews = await self.compact_existing_link_only_previews(
+            state, modules_map, skip_names=set(pending_updates)
+        )
 
         if not pending_updates:
-            if retried_discussions:
+            if retried_discussions or compacted_previews:
                 self.state_manager.save_state(state)
             print("[INFO] Yayınlanacak bir şey yok.")
             return
