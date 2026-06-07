@@ -59,6 +59,23 @@
       "description": "WSTxda/ViPERFX_RE stable release"
     },
     {
+      "name": "viper4android_app_llsl",
+      "enabled": true,
+      "type": "github_release",
+      "source": "likelikeslike/ViPER4Android",
+      "asset_filter": "(?i)\\.apk$",
+      "is_apk": true,
+      "description": "likelikeslike/ViPER4Android app stable release"
+    },
+    {
+      "name": "viperfx_re_llsl",
+      "enabled": true,
+      "type": "github_release",
+      "source": "likelikeslike/ViPERFX_RE",
+      "asset_filter": "(?i)\\.zip$",
+      "description": "likelikeslike/ViPERFX_RE driver module stable release"
+    },
+    {
       "name": "bindh",
       "enabled": true,
       "type": "github_ci",
