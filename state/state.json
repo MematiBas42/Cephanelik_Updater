@@ -67,16 +67,16 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "20.04.2026 10:04",
+      "date": "20.04.2026 09:27",
       "file_name": "HMA-OSS-oss-161-release.zip",
-      "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-oss-161-release.zip"
+      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/24658713992",
+      "version_id": "24658713992:6528257718:2026-04-20T09:27:13Z"
     },
     "lsposed": {
-      "date": "27.03.2026 12:56",
-      "file_name": "Vector-v2.0-3026-Release.zip",
-      "source_url": "https://nightly.link/JingMatrix/LSPosed/workflows/core.yml/master",
-      "version_id": "Vector-v2.0-3026-Release.zip"
+      "date": "29.04.2026 14:00",
+      "file_name": "Vector-v2.0-3043-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/25112885824",
+      "version_id": "25112885824:6709011969:2026-04-29T14:00:47Z"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -103,10 +103,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "06.04.2026 19:49",
+      "date": "06.04.2026 19:17",
       "file_name": "PlayIntegrityFix_v4.5-inject-s_242.zip",
-      "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.5-inject-s_242.zip"
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/24046779365",
+      "version_id": "24046779365:6292591500:2026-04-06T19:17:49Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -121,10 +121,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "31.05.2026 05:14",
+      "date": "31.05.2026 00:51",
       "file_name": "ReZygisk-v1.0.0-520-093dfaf-release.zip",
-      "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
-      "version_id": "ReZygisk-v1.0.0-520-093dfaf-release.zip"
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/26699323751",
+      "version_id": "26699323751:7312585813:2026-05-31T00:51:41Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -133,10 +133,10 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "date": "03.04.2026 10:38",
+      "date": "07.06.2026 10:54",
       "file_name": "manager.zip",
-      "source_url": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
-      "version_id": "manager.zip"
+      "source_url": "https://github.com/SukiSU-Ultra/SukiSU-Ultra/actions/runs/27090323269",
+      "version_id": "27090323269:7463426790:2026-06-07T10:54:02Z"
     },
     "susfs": {
       "date": "15.09.2025 09:19",
@@ -163,10 +163,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "07.06.2026 13:42",
+      "date": "07.06.2026 12:02",
       "file_name": "TrickyAddonModule-v5.0-beta.3-713-canary.zip",
-      "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v5.0-beta.3-713-canary.zip"
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/27091989404",
+      "version_id": "27091989404:7463917292:2026-06-07T12:02:52Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -255,9 +255,12 @@
       "version_id": "HMA-OSS-oss-161-release.zip"
     },
     "lsposed": {
-      "file_name": "Vector-v2.0-3026-Release.zip",
+      "discussion_message_id": 43838,
+      "discussion_version_id": "25112885824:6709011969:2026-04-29T14:00:47Z",
+      "file_name": "Vector-v2.0-3043-Release.zip",
+      "link_only": null,
       "message_id": 817,
-      "version_id": "Vector-v2.0-3026-Release.zip"
+      "version_id": "25112885824:6709011969:2026-04-29T14:00:47Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -305,9 +308,12 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
+      "discussion_message_id": 43839,
+      "discussion_version_id": "27090323269:7463426790:2026-06-07T10:54:02Z",
       "file_name": "manager.zip",
+      "link_only": null,
       "message_id": 837,
-      "version_id": "manager.zip"
+      "version_id": "27090323269:7463426790:2026-06-07T10:54:02Z"
     },
     "susfs": {
       "file_name": "release-1.5.2%2B_3d255a3.zip",
