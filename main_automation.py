@@ -7,7 +7,7 @@ import traceback
 from html import escape
 from urllib.parse import quote, quote_plus
 from datetime import datetime, timedelta
-from telethon import TelegramClient, Button
+from telethon import TelegramClient, Button, functions, types
 from telethon.sessions import StringSession
 
 # --- Hassas Bilgiler ve Proje Ayarları ---
@@ -490,6 +490,37 @@ class TelethonPublisher:
         pending['channel_message_id'] = channel_message_id
         return pending
 
+    async def _send_discussion_message_as_channel(self, text, buttons):
+        peer = await self.tg_client.get_input_entity(DISCUSSION_GROUP_ID)
+        send_as = await self.tg_client.get_input_entity(PUBLISH_CHANNEL_ID)
+        message, entities = await self.tg_client._parse_message_text(text, 'html')
+        request = functions.messages.SendMessageRequest(
+            peer=peer,
+            message=message,
+            entities=entities,
+            no_webpage=True,
+            reply_markup=self.tg_client.build_reply_markup(buttons),
+            send_as=send_as
+        )
+        result = await self.tg_client(request)
+
+        if isinstance(result, types.UpdateShortSentMessage):
+            return result.id
+
+        sent_message = self.tg_client._get_response_message(request, result, peer)
+        if not sent_message:
+            raise RuntimeError("Telegram gönderilen grup bildirim mesaj ID'sini döndürmedi.")
+        return sent_message.id
+
+    async def _pin_discussion_notification(self, name, message_id):
+        try:
+            await self.tg_client.pin_message(DISCUSSION_GROUP_ID, message_id, notify=False)
+            print(f"[DISCUSSION] '{name}' bildirimi tartışma grubunda sessizce pinlendi.")
+            return True
+        except Exception as e:
+            print(f"[WARNING] '{name}' grup bildirimi pinlenemedi: {e}")
+            return False
+
     async def _send_discussion_notification(self, name, info, modules_map, channel_message_id):
         module_def = modules_map.get(name, {})
         display_name = module_def.get('description', name)
@@ -513,13 +544,22 @@ class TelethonPublisher:
         buttons = telegram_button_rows(channel_button, source_button)
 
         try:
-            message = await self.tg_client.send_message(
-                DISCUSSION_GROUP_ID, text, parse_mode='html', buttons=buttons, link_preview=False
-            )
-            print(f"[DISCUSSION] '{name}' için bağlı gruba bildirim gönderildi. Mesaj ID: {message.id}")
-            return message.id
+            try:
+                message_id = await self._send_discussion_message_as_channel(text, buttons)
+            except Exception as button_error:
+                if not buttons:
+                    raise
+                print(f"[WARNING] '{name}' grup bildirimi butonlarla gönderilemedi, butonsuz yeniden deneniyor: {button_error}")
+                message_id = await self._send_discussion_message_as_channel(text, None)
+            print(f"[DISCUSSION] '{name}' için bağlı gruba kanal kimliğiyle bildirim gönderildi. Mesaj ID: {message_id}")
+            pinned = await self._pin_discussion_notification(name, message_id)
+            return {
+                'message_id': message_id,
+                'sent_as_channel': True,
+                'pinned': pinned
+            }
         except Exception as e:
-            print(f"[WARNING] '{name}' bağlı grup bildirimi gönderilemedi: {e}")
+            print(f"[WARNING] '{name}' bağlı grup bildirimi kanal kimliğiyle gönderilemedi: {e}")
             return None
 
     async def retry_pending_discussions(self, state, modules_map, skip_names=None):
@@ -543,14 +583,52 @@ class TelethonPublisher:
                 continue
 
             print(f"[DISCUSSION] '{name}' için bekleyen grup bildirimi yeniden deneniyor...")
-            discussion_message_id = await self._send_discussion_notification(
+            discussion = await self._send_discussion_notification(
                 name, pending, modules_map, channel_message_id
             )
 
-            if discussion_message_id:
+            if discussion:
+                discussion_message_id = discussion['message_id']
                 entry['discussion_message_id'] = discussion_message_id
                 entry['discussion_version_id'] = pending.get('version_id')
+                entry['discussion_sent_as_channel'] = discussion.get('sent_as_channel')
                 entry.pop('pending_discussion', None)
+                if discussion.get('pinned'):
+                    entry['discussion_pinned_version_id'] = pending.get('version_id')
+                    entry.pop('pending_discussion_pin', None)
+                else:
+                    entry['pending_discussion_pin'] = {
+                        'message_id': discussion_message_id,
+                        'version_id': pending.get('version_id')
+                    }
+                changed = True
+
+        return changed
+
+    async def retry_pending_discussion_pins(self, state, skip_names=None):
+        if skip_names is None:
+            skip_names = set()
+
+        changed = False
+        tg_state = state.setdefault("telegram_state", {})
+
+        for name, entry in sorted(tg_state.items()):
+            if name in skip_names:
+                continue
+
+            pending_pin = entry.get('pending_discussion_pin')
+            if not pending_pin:
+                continue
+
+            message_id = pending_pin.get('message_id')
+            if not message_id:
+                print(f"[WARNING] '{name}' pending pin için grup mesaj ID bulunamadı.")
+                continue
+
+            print(f"[DISCUSSION] '{name}' için bekleyen grup pinleme yeniden deneniyor...")
+            if await self._pin_discussion_notification(name, message_id):
+                entry['discussion_pinned_version_id'] = pending_pin.get('version_id')
+                entry.pop('pending_discussion_pin', None)
                 changed = True
 
         return changed
@@ -679,9 +757,9 @@ class TelethonPublisher:
                     )
 
             print(f"[SUCCESS] '{name}' güncellendi. Mesaj ID: {message.id}")
-            discussion_message_id = None
+            discussion = None
             if edited:
-                discussion_message_id = await self._send_discussion_notification(
+                discussion = await self._send_discussion_notification(
                     name, info, modules_map, message.id
                 )
 
@@ -691,7 +769,7 @@ class TelethonPublisher:
                 'version_id': info['version_id'],
                 'link_only': link_only,
                 'edited': edited,
-                'discussion_message_id': discussion_message_id,
+                'discussion': discussion,
                 'link_preview_disabled': link_only
             }
         except Exception as e:
@@ -710,12 +788,15 @@ class TelethonPublisher:
         retried_discussions = await self.retry_pending_discussions(
             state, modules_map, skip_names=set(pending_updates)
         )
+        retried_discussion_pins = await self.retry_pending_discussion_pins(
+            state, skip_names=set(pending_updates)
+        )
         compacted_previews = await self.compact_existing_link_only_previews(
             state, modules_map, skip_names=set(pending_updates)
         )
 
         if not pending_updates:
-            if retried_discussions or compacted_previews:
+            if retried_discussions or retried_discussion_pins or compacted_previews:
                 self.state_manager.save_state(state)
             print("[INFO] Yayınlanacak bir şey yok.")
             return
@@ -736,12 +817,23 @@ class TelethonPublisher:
             old_file = old_state.get('file_name')
             link_only = data.get('link_only')
             edited = data.pop('edited', False)
-            discussion_message_id = data.get('discussion_message_id')
+            discussion = data.pop('discussion', None)
 
             if edited:
-                if discussion_message_id:
+                if discussion:
+                    discussion_message_id = discussion['message_id']
+                    data['discussion_message_id'] = discussion_message_id
                     data['discussion_version_id'] = info['version_id']
+                    data['discussion_sent_as_channel'] = discussion.get('sent_as_channel')
                     data.pop('pending_discussion', None)
+                    if discussion.get('pinned'):
+                        data['discussion_pinned_version_id'] = info['version_id']
+                        data.pop('pending_discussion_pin', None)
+                    else:
+                        data['pending_discussion_pin'] = {
+                            'message_id': discussion_message_id,
+                            'version_id': info['version_id']
+                        }
                 else:
                     data['pending_discussion'] = self._build_pending_discussion(info, data['message_id'])
 
