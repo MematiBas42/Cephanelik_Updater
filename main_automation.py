@@ -129,6 +129,10 @@ def validate_modules(modules):
         if asset_filter:
             re.compile(asset_filter)
 
+        asset_group_filter = module.get('asset_group_filter')
+        if asset_group_filter:
+            re.compile(asset_group_filter)
+
 # --- Yardımcı Sınıflar ---
 class StateManager:
     def __init__(self, state_dir):
@@ -240,15 +244,47 @@ class ModuleHandler:
         data = await self._api_call(url)
         if not isinstance(data, dict) or 'assets' not in data or not data['assets']:
             return None
-        asset = next((a for a in data['assets'] if re.search(module['asset_filter'], a['name'])), data['assets'][0])
+
+        grouped_assets = []
+        asset_group_filter = module.get('asset_group_filter')
+        if asset_group_filter:
+            grouped_assets = [a for a in data['assets'] if re.search(asset_group_filter, a['name'])]
+
+        assets_to_search = grouped_assets or data['assets']
+        asset = next((a for a in assets_to_search if re.search(module['asset_filter'], a['name'])), assets_to_search[0])
         if asset:
-            return {
+            version_id = asset['updated_at']
+            date_source = asset['updated_at']
+            asset_group = None
+
+            if grouped_assets:
+                sorted_group = sorted(grouped_assets, key=lambda item: item['name'])
+                version_id = "|".join(f"{item['name']}:{item['updated_at']}" for item in sorted_group)
+                date_source = max(item['updated_at'] for item in grouped_assets)
+                asset_group = [
+                    {
+                        'name': item['name'],
+                        'download_url': item['browser_download_url']
+                    }
+                    for item in grouped_assets
+                ]
+
+            remote_info = {
                 'file_name': asset['name'],
-                'version_id': asset['updated_at'],
+                'version_id': version_id,
                 'source_url': data.get('html_url', '#'),
-                'date': datetime.strptime(asset['updated_at'], "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M"),
+                'date': datetime.strptime(date_source, "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M"),
                 'download_url': asset['browser_download_url']
             }
+
+            if asset_group:
+                remote_info['asset_group'] = asset_group
+            if module.get('asset_note'):
+                remote_info['asset_note'] = module['asset_note']
+            if module.get('readme_url'):
+                remote_info['readme_url'] = module['readme_url']
+
+            return remote_info
         return None
 
     async def _get_nightly_link_remote_info(self, module):
@@ -635,12 +671,38 @@ class TelethonPublisher:
 
     def _build_channel_caption(self, name, info, module_def):
         display_name = module_def.get('description', name)
-        return (
+        caption = (
             f"📦 <b>{escape(display_name)}</b>\n\n"
             f"📄 <b>Dosya Adı:</b> <code>{escape(info['file_name'])}</code>\n"
             f"📅 <b>Güncelleme:</b> {escape(info['date'])}\n\n"
             f"{source_caption_line(info['source_url'])}"
         )
+
+        asset_group = info.get('asset_group') or []
+        if asset_group:
+            asset_lines = ["📚 <b>Release ZIP seçenekleri:</b>"]
+            for asset in asset_group:
+                asset_name = asset.get('name', 'asset')
+                asset_url = asset.get('download_url')
+                if is_telegram_button_url(asset_url):
+                    asset_lines.append(
+                        f"• <a href='{escape(asset_url, quote=True)}'>{escape(asset_name)}</a>"
+                    )
+                else:
+                    asset_lines.append(f"• <code>{escape(asset_name)}</code>")
+
+            asset_note = info.get('asset_note') or module_def.get('asset_note')
+            if asset_note:
+                asset_lines.append("")
+                asset_lines.append(f"ℹ️ {escape(asset_note)}")
+
+            readme_url = info.get('readme_url') or module_def.get('readme_url')
+            if is_telegram_button_url(readme_url):
+                asset_lines.append(f"📖 <a href='{escape(readme_url, quote=True)}'>README</a>")
+
+            caption += "\n\n" + "\n".join(asset_lines)
+
+        return caption
 
     def _build_channel_buttons(self, module_def, source_url, link_only):
         module_type = module_def.get('type')

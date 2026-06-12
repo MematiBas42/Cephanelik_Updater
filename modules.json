@@ -72,8 +72,11 @@
       "enabled": true,
       "type": "github_release",
       "source": "likelikeslike/ViPERFX_RE",
-      "asset_filter": "(?i)\\.zip$",
-      "description": "likelikeslike/ViPERFX_RE driver module stable release"
+      "asset_filter": "(?i)^ViPER4Android-RE-AIDL-v.*\\.zip$",
+      "asset_group_filter": "(?i)^ViPER4Android-RE(?:-AIDL)?-v.*\\.zip$",
+      "asset_note": "Check README to decide which ZIP is suitable for your setup.",
+      "readme_url": "https://github.com/likelikeslike/ViPERFX_RE#readme",
+      "description": "likelikeslike/ViPERFX_RE driver modules stable release"
     },
     {
       "name": "bindh",
