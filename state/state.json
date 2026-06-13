@@ -194,10 +194,22 @@
       "version_id": "2026-06-06T14:32:58Z"
     },
     "viperfx_re_llsl": {
+      "asset_group": [
+        {
+          "download_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/download/v1.3.1/ViPER4Android-RE-AIDL-v1.3.1.zip",
+          "name": "ViPER4Android-RE-AIDL-v1.3.1.zip"
+        },
+        {
+          "download_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/download/v1.3.1/ViPER4Android-RE-v1.3.1.zip",
+          "name": "ViPER4Android-RE-v1.3.1.zip"
+        }
+      ],
+      "asset_note": "Check README to decide which ZIP is suitable for your setup.",
       "date": "18.05.2026 14:06",
       "file_name": "ViPER4Android-RE-AIDL-v1.3.1.zip",
+      "readme_url": "https://github.com/likelikeslike/ViPERFX_RE#readme",
       "source_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/tag/v1.3.1",
-      "version_id": "2026-05-18T14:06:17Z"
+      "version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z"
     },
     "yurikey": {
       "date": "18.12.2025 11:47",
@@ -391,11 +403,15 @@
       "version_id": "2026-06-06T14:32:58Z"
     },
     "viperfx_re_llsl": {
-      "discussion_message_id": null,
+      "discussion_message_id": 44269,
+      "discussion_pinned_version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z",
+      "discussion_sent_as_channel": true,
+      "discussion_version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z",
       "file_name": "ViPER4Android-RE-AIDL-v1.3.1.zip",
       "link_only": null,
+      "link_preview_disabled": null,
       "message_id": 922,
-      "version_id": "2026-05-18T14:06:17Z"
+      "version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z"
     },
     "yurikey": {
       "file_name": "YuriKey_v2.20.signed.zip",
