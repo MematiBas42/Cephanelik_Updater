@@ -79,6 +79,23 @@
       "description": "likelikeslike/ViPERFX_RE driver modules stable release"
     },
     {
+      "name": "acca_app",
+      "enabled": true,
+      "type": "github_release",
+      "source": "seyedehsanhadi/AccA",
+      "asset_filter": "(?i)^app-release\\.apk$",
+      "is_apk": true,
+      "description": "AccA companion app stable release"
+    },
+    {
+      "name": "acc_module",
+      "enabled": true,
+      "type": "github_release",
+      "source": "seyedehsanhadi/acc",
+      "asset_filter": "(?i)^acc_.*\\.zip$",
+      "description": "ACC charging controller module stable release"
+    },
+    {
       "name": "bindh",
       "enabled": true,
       "type": "github_release",
