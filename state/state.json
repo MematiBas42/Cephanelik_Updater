@@ -49,10 +49,10 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "date": "18.06.2026 12:50",
-      "file_name": "Zygisk-Next-1.4.0-768-37ee2d5-release.zip",
-      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.4.0",
-      "version_id": "2026-06-18T12:50:15Z"
+      "date": "21.06.2026 14:45",
+      "file_name": "Zygisk-Next-1.4.1-780-9d7024c-release.zip",
+      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.4.1",
+      "version_id": "2026-06-21T14:45:19Z"
     },
     "acc_module": {
       "date": "06.06.2026 11:50",
@@ -273,15 +273,15 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "discussion_message_id": 44782,
-      "discussion_pinned_version_id": "2026-06-18T12:50:15Z",
+      "discussion_message_id": 44984,
+      "discussion_pinned_version_id": "2026-06-21T14:45:19Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-06-18T12:50:15Z",
-      "file_name": "Zygisk-Next-1.4.0-768-37ee2d5-release.zip",
+      "discussion_version_id": "2026-06-21T14:45:19Z",
+      "file_name": "Zygisk-Next-1.4.1-780-9d7024c-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 850,
-      "version_id": "2026-06-18T12:50:15Z"
+      "version_id": "2026-06-21T14:45:19Z"
     },
     "acc_module": {
       "file_name": "acc_v2025.5.18-stable.6.3.3_202505217.zip",
