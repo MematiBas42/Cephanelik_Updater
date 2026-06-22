@@ -176,10 +176,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "15.06.2026 04:54",
-      "file_name": "TrickyAddonModule-v5.0-beta.3-718-canary.zip",
-      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/27524873230",
-      "version_id": "27524873230:7629374980:2026-06-15T04:54:31Z"
+      "date": "22.06.2026 06:50",
+      "file_name": "TrickyAddonModule-v5.0-beta.3-721-canary.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/27934893762",
+      "version_id": "27934893762:7785076675:2026-06-22T06:50:55Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -413,15 +413,15 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "discussion_message_id": 44338,
-      "discussion_pinned_version_id": "27524873230:7629374980:2026-06-15T04:54:31Z",
+      "discussion_message_id": 45008,
+      "discussion_pinned_version_id": "27934893762:7785076675:2026-06-22T06:50:55Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "27524873230:7629374980:2026-06-15T04:54:31Z",
-      "file_name": "TrickyAddonModule-v5.0-beta.3-718-canary.zip",
+      "discussion_version_id": "27934893762:7785076675:2026-06-22T06:50:55Z",
+      "file_name": "TrickyAddonModule-v5.0-beta.3-721-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "27524873230:7629374980:2026-06-15T04:54:31Z"
+      "version_id": "27934893762:7785076675:2026-06-22T06:50:55Z"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
