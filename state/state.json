@@ -49,10 +49,10 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "date": "21.06.2026 14:45",
-      "file_name": "Zygisk-Next-1.4.1-780-9d7024c-release.zip",
-      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.4.1",
-      "version_id": "2026-06-21T14:45:19Z"
+      "date": "22.06.2026 13:18",
+      "file_name": "Zygisk-Next-1.4.2-789-119aaa0-release.zip",
+      "source_url": "https://github.com/Dr-TSNG/ZygiskNext/releases/tag/v1.4.2",
+      "version_id": "2026-06-22T13:18:58Z"
     },
     "acc_module": {
       "date": "06.06.2026 11:50",
@@ -116,10 +116,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "21.06.2026 09:15",
-      "file_name": "PlayIntegrityFix_v4.6-inject-s_246.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/27899730949",
-      "version_id": "27899730949:7773835013:2026-06-21T09:15:23Z"
+      "date": "22.06.2026 14:03",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/27958391183",
+      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -273,15 +273,15 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "discussion_message_id": 44984,
-      "discussion_pinned_version_id": "2026-06-21T14:45:19Z",
+      "discussion_message_id": 45010,
+      "discussion_pinned_version_id": "2026-06-22T13:18:58Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-06-21T14:45:19Z",
-      "file_name": "Zygisk-Next-1.4.1-780-9d7024c-release.zip",
+      "discussion_version_id": "2026-06-22T13:18:58Z",
+      "file_name": "Zygisk-Next-1.4.2-789-119aaa0-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 850,
-      "version_id": "2026-06-21T14:45:19Z"
+      "version_id": "2026-06-22T13:18:58Z"
     },
     "acc_module": {
       "file_name": "acc_v2025.5.18-stable.6.3.3_202505217.zip",
@@ -347,15 +347,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 44966,
-      "discussion_pinned_version_id": "27899730949:7773835013:2026-06-21T09:15:23Z",
+      "discussion_message_id": 45012,
+      "discussion_pinned_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "27899730949:7773835013:2026-06-21T09:15:23Z",
-      "file_name": "PlayIntegrityFix_v4.6-inject-s_246.zip",
+      "discussion_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "27899730949:7773835013:2026-06-21T09:15:23Z"
+      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
