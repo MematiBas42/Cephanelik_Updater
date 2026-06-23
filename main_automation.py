@@ -520,6 +520,7 @@ class TelethonPublisher:
     def __init__(self, tg_client, state_manager):
         self.tg_client = tg_client
         self.state_manager = state_manager
+        self.discussion_send_as_touched = False
 
     def _build_pending_discussion(self, info, channel_message_id):
         pending = state_info_from_remote_info(info)
@@ -538,6 +539,7 @@ class TelethonPublisher:
             reply_markup=self.tg_client.build_reply_markup(buttons),
             send_as=send_as
         )
+        self.discussion_send_as_touched = True
         result = await self.tg_client(request)
 
         if isinstance(result, types.UpdateShortSentMessage):
@@ -547,6 +549,19 @@ class TelethonPublisher:
         if not sent_message:
             raise RuntimeError("Telegram gönderilen grup bildirim mesaj ID'sini döndürmedi.")
         return sent_message.id
+
+    async def _restore_discussion_send_as_self(self):
+        try:
+            await self.tg_client(functions.messages.SaveDefaultSendAsRequest(
+                peer=await self.tg_client.get_input_entity(DISCUSSION_GROUP_ID),
+                send_as=types.InputPeerSelf()
+            ))
+            print("[DISCUSSION] Varsayılan tartışma grubu gönderici kimliği kişisel hesaba alındı.")
+            self.discussion_send_as_touched = False
+            return True
+        except Exception as e:
+            print(f"[WARNING] Varsayılan tartışma grubu gönderici kimliği geri alınamadı: {e}")
+            return False
 
     async def _pin_discussion_notification(self, name, message_id):
         try:
@@ -840,6 +855,14 @@ class TelethonPublisher:
             return name, None
 
     async def publish_updates(self, pending_updates):
+        self.discussion_send_as_touched = False
+        try:
+            return await self._publish_updates_impl(pending_updates)
+        finally:
+            if self.discussion_send_as_touched:
+                await self._restore_discussion_send_as_self()
+
+    async def _publish_updates_impl(self, pending_updates):
         print("\n--- Telegram Yayınlama Aşaması ---")
         state = self.state_manager.load_state()
         state.setdefault("manifest", {})
