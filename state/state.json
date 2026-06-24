@@ -116,10 +116,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "22.06.2026 14:03",
-      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/27958391183",
-      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
+      "date": "24.06.2026 04:05",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_248.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/28074311400",
+      "version_id": "28074311400:7839842538:2026-06-24T04:05:46Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -176,10 +176,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "23.06.2026 17:05",
-      "file_name": "TrickyAddonModule-v5.0-beta.3-723-canary.zip",
-      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/28043039563",
-      "version_id": "28043039563:7827868746:2026-06-23T17:05:46Z"
+      "date": "24.06.2026 04:15",
+      "file_name": "TrickyAddonModule-v5.0-beta.3-725-canary.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/28074738751",
+      "version_id": "28074738751:7839962645:2026-06-24T04:15:50Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -353,15 +353,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 45012,
-      "discussion_pinned_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
+      "discussion_message_id": 45146,
+      "discussion_pinned_version_id": "28074311400:7839842538:2026-06-24T04:05:46Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
-      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "discussion_version_id": "28074311400:7839842538:2026-06-24T04:05:46Z",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_248.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
+      "version_id": "28074311400:7839842538:2026-06-24T04:05:46Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -425,15 +425,15 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "discussion_message_id": 45144,
-      "discussion_pinned_version_id": "28043039563:7827868746:2026-06-23T17:05:46Z",
+      "discussion_message_id": 45148,
+      "discussion_pinned_version_id": "28074738751:7839962645:2026-06-24T04:15:50Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28043039563:7827868746:2026-06-23T17:05:46Z",
-      "file_name": "TrickyAddonModule-v5.0-beta.3-723-canary.zip",
+      "discussion_version_id": "28074738751:7839962645:2026-06-24T04:15:50Z",
+      "file_name": "TrickyAddonModule-v5.0-beta.3-725-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "28043039563:7827868746:2026-06-23T17:05:46Z"
+      "version_id": "28074738751:7839962645:2026-06-24T04:15:50Z"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
