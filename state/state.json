@@ -61,11 +61,11 @@
       "version_id": "2026-06-30T11:21:47Z"
     },
     "acca_app": {
-      "date": "30.06.2026 11:25",
-      "file_name": "app-release.apk",
+      "date": "30.06.2026 12:10",
+      "file_name": "AccA-2.0.0.apk",
       "link_only": true,
       "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.0",
-      "version_id": "2026-06-30T11:25:18Z"
+      "version_id": "2026-06-30T12:10:57Z"
     },
     "bindh": {
       "date": "25.06.2026 03:14",
@@ -301,15 +301,15 @@
       "version_id": "2026-06-30T11:21:47Z"
     },
     "acca_app": {
-      "discussion_message_id": 45259,
-      "discussion_pinned_version_id": "2026-06-30T11:25:18Z",
+      "discussion_message_id": 45262,
+      "discussion_pinned_version_id": "2026-06-30T12:10:57Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-06-30T11:25:18Z",
-      "file_name": "app-release.apk",
+      "discussion_version_id": "2026-06-30T12:10:57Z",
+      "file_name": "AccA-2.0.0.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 924,
-      "version_id": "2026-06-30T11:25:18Z"
+      "version_id": "2026-06-30T12:10:57Z"
     },
     "bindh": {
       "discussion_message_id": 45167,
