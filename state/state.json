@@ -200,11 +200,11 @@
       "version_id": "2025-10-19T18:28:28Z"
     },
     "viper4android_app_llsl": {
-      "date": "06.06.2026 14:32",
-      "file_name": "ViPER4Android-1.5.4.apk",
+      "date": "05.07.2026 13:27",
+      "file_name": "ViPER4Android-1.5.5.apk",
       "link_only": true,
-      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/1.5.4",
-      "version_id": "2026-06-06T14:32:58Z"
+      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/1.5.5",
+      "version_id": "2026-07-05T13:27:56Z"
     },
     "viperfx_re_llsl": {
       "asset_group": [
@@ -477,12 +477,15 @@
       "version_id": "2025-10-19T18:28:28Z"
     },
     "viper4android_app_llsl": {
-      "discussion_message_id": null,
-      "file_name": "ViPER4Android-1.5.4.apk",
+      "discussion_message_id": 45360,
+      "discussion_pinned_version_id": "2026-07-05T13:27:56Z",
+      "discussion_sent_as_channel": true,
+      "discussion_version_id": "2026-07-05T13:27:56Z",
+      "file_name": "ViPER4Android-1.5.5.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 921,
-      "version_id": "2026-06-06T14:32:58Z"
+      "version_id": "2026-07-05T13:27:56Z"
     },
     "viperfx_re_llsl": {
       "discussion_message_id": 44269,
