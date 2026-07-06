@@ -146,10 +146,10 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "date": "28.06.2026 05:12",
+      "date": "06.07.2026 11:44",
       "file_name": "manager.zip",
-      "source_url": "https://github.com/SukiSU-Ultra/SukiSU-Ultra/actions/runs/28312123184",
-      "version_id": "28312123184:7931305072:2026-06-28T05:12:47Z"
+      "source_url": "https://github.com/SukiSU-Ultra/SukiSU-Ultra/actions/runs/28788818357",
+      "version_id": "28788818357:8107926253:2026-07-06T11:44:45Z"
     },
     "susfs": {
       "date": "15.09.2025 09:19",
@@ -416,15 +416,15 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "discussion_message_id": 45240,
-      "discussion_pinned_version_id": "28312123184:7931305072:2026-06-28T05:12:47Z",
+      "discussion_message_id": 45362,
+      "discussion_pinned_version_id": "28788818357:8107926253:2026-07-06T11:44:45Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28312123184:7931305072:2026-06-28T05:12:47Z",
+      "discussion_version_id": "28788818357:8107926253:2026-07-06T11:44:45Z",
       "file_name": "manager.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 837,
-      "version_id": "28312123184:7931305072:2026-06-28T05:12:47Z"
+      "version_id": "28788818357:8107926253:2026-07-06T11:44:45Z"
     },
     "susfs": {
       "file_name": "release-1.5.2%2B_3d255a3.zip",
