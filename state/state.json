@@ -67,6 +67,12 @@
       "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.0",
       "version_id": "2026-06-30T16:20:32Z"
     },
+    "bcr": {
+      "date": "03.07.2026 16:41",
+      "file_name": "BCR-3.4-release.zip",
+      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.4",
+      "version_id": "2026-07-03T16:41:21Z"
+    },
     "bindh": {
       "date": "25.06.2026 03:14",
       "file_name": "bindhosts.zip",
@@ -316,6 +322,13 @@
       "link_preview_disabled": true,
       "message_id": 924,
       "version_id": "2026-06-30T16:20:32Z"
+    },
+    "bcr": {
+      "file_name": "BCR-3.4-release.zip",
+      "link_only": null,
+      "link_preview_disabled": null,
+      "message_id": 925,
+      "version_id": "2026-07-03T16:41:21Z"
     },
     "bindh": {
       "discussion_message_id": 45167,
