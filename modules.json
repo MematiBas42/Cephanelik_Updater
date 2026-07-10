@@ -96,6 +96,14 @@
       "description": "ACC charging controller module stable release"
     },
     {
+      "name": "bcr",
+      "enabled": true,
+      "type": "github_release",
+      "source": "chenxiaolong/BCR",
+      "asset_filter": "(?i)^BCR-.*-release\\.zip$",
+      "description": "BCR call recorder Magisk module stable release"
+    },
+    {
       "name": "bindh",
       "enabled": true,
       "type": "github_release",
