@@ -1,10 +1,10 @@
 {
   "manifest": {
     "Encore": {
-      "date": "04.07.2026 14:54",
-      "file_name": "encore-5.2-1523-15eb446-main.zip",
-      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/5.2",
-      "version_id": "2026-07-04T14:54:48Z"
+      "date": "10.07.2026 03:41",
+      "file_name": "encore-5.2.1-1533-361ab0e-main.zip",
+      "source_url": "https://github.com/Rem01Gaming/encore/releases/tag/5.2.1",
+      "version_id": "2026-07-10T03:41:28Z"
     },
     "GPhotosUnlimited": {
       "date": "07.10.2023 20:00",
@@ -233,15 +233,15 @@
   },
   "telegram_state": {
     "Encore": {
-      "discussion_message_id": 45357,
-      "discussion_pinned_version_id": "2026-07-04T14:54:48Z",
+      "discussion_message_id": 45401,
+      "discussion_pinned_version_id": "2026-07-10T03:41:28Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-07-04T14:54:48Z",
-      "file_name": "encore-5.2-1523-15eb446-main.zip",
+      "discussion_version_id": "2026-07-10T03:41:28Z",
+      "file_name": "encore-5.2.1-1533-361ab0e-main.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 857,
-      "version_id": "2026-07-04T14:54:48Z"
+      "version_id": "2026-07-10T03:41:28Z"
     },
     "GPhotosUnlimited": {
       "file_name": "gphoto-unlimited-zygisk-v1.1-stable.zip",
