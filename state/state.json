@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "11.07.2026 09:57",
-      "file_name": "PlayIntegrityFix_v4.7-inject-s_250.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/29148465754",
-      "version_id": "29148465754:8247479944:2026-07-11T09:57:03Z"
+      "date": "12.07.2026 09:42",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_252.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/29187857417",
+      "version_id": "29187857417:8258588043:2026-07-12T09:42:44Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -392,15 +392,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 45431,
-      "discussion_pinned_version_id": "29148465754:8247479944:2026-07-11T09:57:03Z",
+      "discussion_message_id": 45434,
+      "discussion_pinned_version_id": "29187857417:8258588043:2026-07-12T09:42:44Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "29148465754:8247479944:2026-07-11T09:57:03Z",
-      "file_name": "PlayIntegrityFix_v4.7-inject-s_250.zip",
+      "discussion_version_id": "29187857417:8258588043:2026-07-12T09:42:44Z",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_252.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "29148465754:8247479944:2026-07-11T09:57:03Z"
+      "version_id": "29187857417:8258588043:2026-07-12T09:42:44Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
