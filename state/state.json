@@ -206,29 +206,29 @@
       "version_id": "2025-10-19T18:28:28Z"
     },
     "viper4android_app_llsl": {
-      "date": "05.07.2026 13:27",
-      "file_name": "ViPER4Android-1.5.5.apk",
+      "date": "18.07.2026 13:52",
+      "file_name": "ViPER4Android-2.0.0.apk",
       "link_only": true,
-      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/1.5.5",
-      "version_id": "2026-07-05T13:27:56Z"
+      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/2.0.0",
+      "version_id": "2026-07-18T13:52:02Z"
     },
     "viperfx_re_llsl": {
       "asset_group": [
         {
-          "download_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/download/v1.3.1/ViPER4Android-RE-AIDL-v1.3.1.zip",
-          "name": "ViPER4Android-RE-AIDL-v1.3.1.zip"
+          "download_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/download/v2.0.0/ViPER4Android-RE-AIDL-v2.0.0.zip",
+          "name": "ViPER4Android-RE-AIDL-v2.0.0.zip"
         },
         {
-          "download_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/download/v1.3.1/ViPER4Android-RE-v1.3.1.zip",
-          "name": "ViPER4Android-RE-v1.3.1.zip"
+          "download_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/download/v2.0.0/ViPER4Android-RE-v2.0.0.zip",
+          "name": "ViPER4Android-RE-v2.0.0.zip"
         }
       ],
       "asset_note": "Check README to decide which ZIP is suitable for your setup.",
-      "date": "18.05.2026 14:06",
-      "file_name": "ViPER4Android-RE-AIDL-v1.3.1.zip",
+      "date": "18.07.2026 13:49",
+      "file_name": "ViPER4Android-RE-AIDL-v2.0.0.zip",
       "readme_url": "https://github.com/likelikeslike/ViPERFX_RE#readme",
-      "source_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/tag/v1.3.1",
-      "version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z"
+      "source_url": "https://github.com/likelikeslike/ViPERFX_RE/releases/tag/v2.0.0",
+      "version_id": "ViPER4Android-RE-AIDL-v2.0.0.zip:2026-07-18T13:49:07Z|ViPER4Android-RE-v2.0.0.zip:2026-07-18T13:49:46Z"
     },
     "yurikey": {
       "date": "18.12.2025 11:47",
@@ -497,26 +497,26 @@
       "version_id": "2025-10-19T18:28:28Z"
     },
     "viper4android_app_llsl": {
-      "discussion_message_id": 45360,
-      "discussion_pinned_version_id": "2026-07-05T13:27:56Z",
+      "discussion_message_id": 45480,
+      "discussion_pinned_version_id": "2026-07-18T13:52:02Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-07-05T13:27:56Z",
-      "file_name": "ViPER4Android-1.5.5.apk",
+      "discussion_version_id": "2026-07-18T13:52:02Z",
+      "file_name": "ViPER4Android-2.0.0.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 921,
-      "version_id": "2026-07-05T13:27:56Z"
+      "version_id": "2026-07-18T13:52:02Z"
     },
     "viperfx_re_llsl": {
-      "discussion_message_id": 44269,
-      "discussion_pinned_version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z",
+      "discussion_message_id": 45482,
+      "discussion_pinned_version_id": "ViPER4Android-RE-AIDL-v2.0.0.zip:2026-07-18T13:49:07Z|ViPER4Android-RE-v2.0.0.zip:2026-07-18T13:49:46Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z",
-      "file_name": "ViPER4Android-RE-AIDL-v1.3.1.zip",
+      "discussion_version_id": "ViPER4Android-RE-AIDL-v2.0.0.zip:2026-07-18T13:49:07Z|ViPER4Android-RE-v2.0.0.zip:2026-07-18T13:49:46Z",
+      "file_name": "ViPER4Android-RE-AIDL-v2.0.0.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 922,
-      "version_id": "ViPER4Android-RE-AIDL-v1.3.1.zip:2026-05-18T14:06:17Z|ViPER4Android-RE-v1.3.1.zip:2026-05-18T14:06:51Z"
+      "version_id": "ViPER4Android-RE-AIDL-v2.0.0.zip:2026-07-18T13:49:07Z|ViPER4Android-RE-v2.0.0.zip:2026-07-18T13:49:46Z"
     },
     "yurikey": {
       "file_name": "YuriKey_v2.20.signed.zip",
