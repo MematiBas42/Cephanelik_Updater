@@ -68,10 +68,10 @@
       "version_id": "2026-06-30T16:20:32Z"
     },
     "bcr": {
-      "date": "03.07.2026 16:41",
-      "file_name": "BCR-3.4-release.zip",
-      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.4",
-      "version_id": "2026-07-03T16:41:21Z"
+      "date": "18.07.2026 01:19",
+      "file_name": "BCR-3.5-release.zip",
+      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.5",
+      "version_id": "2026-07-18T01:19:38Z"
     },
     "bindh": {
       "date": "25.06.2026 03:14",
@@ -324,11 +324,15 @@
       "version_id": "2026-06-30T16:20:32Z"
     },
     "bcr": {
-      "file_name": "BCR-3.4-release.zip",
+      "discussion_message_id": 45478,
+      "discussion_pinned_version_id": "2026-07-18T01:19:38Z",
+      "discussion_sent_as_channel": true,
+      "discussion_version_id": "2026-07-18T01:19:38Z",
+      "file_name": "BCR-3.5-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 925,
-      "version_id": "2026-07-03T16:41:21Z"
+      "version_id": "2026-07-18T01:19:38Z"
     },
     "bindh": {
       "discussion_message_id": 45167,
