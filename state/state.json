@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "12.07.2026 09:42",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_252.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/29187857417",
-      "version_id": "29187857417:8258588043:2026-07-12T09:42:44Z"
+      "date": "20.07.2026 14:50",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_254.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/29752202583",
+      "version_id": "29752202583:8465128217:2026-07-20T14:50:10Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -206,11 +206,11 @@
       "version_id": "2025-10-19T18:28:28Z"
     },
     "viper4android_app_llsl": {
-      "date": "18.07.2026 13:52",
-      "file_name": "ViPER4Android-2.0.0.apk",
+      "date": "20.07.2026 12:18",
+      "file_name": "ViPER4Android-2.0.1.apk",
       "link_only": true,
-      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/2.0.0",
-      "version_id": "2026-07-18T13:52:02Z"
+      "source_url": "https://github.com/likelikeslike/ViPER4Android/releases/tag/2.0.1",
+      "version_id": "2026-07-20T12:18:00Z"
     },
     "viperfx_re_llsl": {
       "asset_group": [
@@ -399,15 +399,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 45434,
-      "discussion_pinned_version_id": "29187857417:8258588043:2026-07-12T09:42:44Z",
+      "discussion_message_id": 45579,
+      "discussion_pinned_version_id": "29752202583:8465128217:2026-07-20T14:50:10Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "29187857417:8258588043:2026-07-12T09:42:44Z",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_252.zip",
+      "discussion_version_id": "29752202583:8465128217:2026-07-20T14:50:10Z",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_254.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "29187857417:8258588043:2026-07-12T09:42:44Z"
+      "version_id": "29752202583:8465128217:2026-07-20T14:50:10Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -497,15 +497,15 @@
       "version_id": "2025-10-19T18:28:28Z"
     },
     "viper4android_app_llsl": {
-      "discussion_message_id": 45480,
-      "discussion_pinned_version_id": "2026-07-18T13:52:02Z",
+      "discussion_message_id": 45581,
+      "discussion_pinned_version_id": "2026-07-20T12:18:00Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-07-18T13:52:02Z",
-      "file_name": "ViPER4Android-2.0.0.apk",
+      "discussion_version_id": "2026-07-20T12:18:00Z",
+      "file_name": "ViPER4Android-2.0.1.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 921,
-      "version_id": "2026-07-18T13:52:02Z"
+      "version_id": "2026-07-20T12:18:00Z"
     },
     "viperfx_re_llsl": {
       "discussion_message_id": 45482,
