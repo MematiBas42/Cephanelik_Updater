@@ -140,10 +140,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "18.07.2026 18:18",
-      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/29655584141",
-      "version_id": "29655584141:8432759543:2026-07-18T18:18:17Z"
+      "date": "24.07.2026 21:02",
+      "file_name": "ReZygisk-v1.0.0-524-baae3eb-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/30126282048",
+      "version_id": "30126282048:8609350702:2026-07-24T21:02:31Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -420,15 +420,15 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "discussion_message_id": 45484,
-      "discussion_pinned_version_id": "29655584141:8432759543:2026-07-18T18:18:17Z",
+      "discussion_message_id": 45782,
+      "discussion_pinned_version_id": "30126282048:8609350702:2026-07-24T21:02:31Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "29655584141:8432759543:2026-07-18T18:18:17Z",
-      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
+      "discussion_version_id": "30126282048:8609350702:2026-07-24T21:02:31Z",
+      "file_name": "ReZygisk-v1.0.0-524-baae3eb-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "29655584141:8432759543:2026-07-18T18:18:17Z"
+      "version_id": "30126282048:8609350702:2026-07-24T21:02:31Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
