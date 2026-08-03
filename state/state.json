@@ -92,10 +92,10 @@
       "version_id": "29079420675:8222174395:2026-07-10T08:23:31Z"
     },
     "lsposed": {
-      "date": "02.08.2026 05:09",
-      "file_name": "Vector-v2.0-3072-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/30733247507",
-      "version_id": "30733247507:8828764516:2026-08-02T05:09:50Z"
+      "date": "03.08.2026 06:05",
+      "file_name": "Vector-v2.1-3074-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/30788445221",
+      "version_id": "30788445221:8846322830:2026-08-03T06:05:22Z"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -140,10 +140,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "01.08.2026 20:25",
-      "file_name": "ReZygisk-v1.0.0-533-8cb7b0b-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/30716917266",
-      "version_id": "30716917266:8823615499:2026-08-01T20:25:17Z"
+      "date": "03.08.2026 04:07",
+      "file_name": "ReZygisk-v1.0.0-534-d47cf0e-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/30783522411",
+      "version_id": "30783522411:8844460818:2026-08-03T04:07:54Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -362,15 +362,15 @@
       "version_id": "29079420675:8222174395:2026-07-10T08:23:31Z"
     },
     "lsposed": {
-      "discussion_message_id": 46317,
-      "discussion_pinned_version_id": "30733247507:8828764516:2026-08-02T05:09:50Z",
+      "discussion_message_id": 46352,
+      "discussion_pinned_version_id": "30788445221:8846322830:2026-08-03T06:05:22Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "30733247507:8828764516:2026-08-02T05:09:50Z",
-      "file_name": "Vector-v2.0-3072-Release.zip",
+      "discussion_version_id": "30788445221:8846322830:2026-08-03T06:05:22Z",
+      "file_name": "Vector-v2.1-3074-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "30733247507:8828764516:2026-08-02T05:09:50Z"
+      "version_id": "30788445221:8846322830:2026-08-03T06:05:22Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -420,15 +420,15 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "discussion_message_id": 46315,
-      "discussion_pinned_version_id": "30716917266:8823615499:2026-08-01T20:25:17Z",
+      "discussion_message_id": 46354,
+      "discussion_pinned_version_id": "30783522411:8844460818:2026-08-03T04:07:54Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "30716917266:8823615499:2026-08-01T20:25:17Z",
-      "file_name": "ReZygisk-v1.0.0-533-8cb7b0b-release.zip",
+      "discussion_version_id": "30783522411:8844460818:2026-08-03T04:07:54Z",
+      "file_name": "ReZygisk-v1.0.0-534-d47cf0e-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "30716917266:8823615499:2026-08-01T20:25:17Z"
+      "version_id": "30783522411:8844460818:2026-08-03T04:07:54Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
