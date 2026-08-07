@@ -92,10 +92,10 @@
       "version_id": "29079420675:8222174395:2026-07-10T08:23:31Z"
     },
     "lsposed": {
-      "date": "07.08.2026 04:31",
-      "file_name": "Vector-v2.2-3084-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/31147124972",
-      "version_id": "31147124972:8982087558:2026-08-07T04:31:47Z"
+      "date": "07.08.2026 16:21",
+      "file_name": "Vector-v2.2-3085-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/31196246517",
+      "version_id": "31196246517:9001259579:2026-08-07T16:21:04Z"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -362,15 +362,15 @@
       "version_id": "29079420675:8222174395:2026-07-10T08:23:31Z"
     },
     "lsposed": {
-      "discussion_message_id": 46458,
-      "discussion_pinned_version_id": "31147124972:8982087558:2026-08-07T04:31:47Z",
+      "discussion_message_id": 46581,
+      "discussion_pinned_version_id": "31196246517:9001259579:2026-08-07T16:21:04Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "31147124972:8982087558:2026-08-07T04:31:47Z",
-      "file_name": "Vector-v2.2-3084-Release.zip",
+      "discussion_version_id": "31196246517:9001259579:2026-08-07T16:21:04Z",
+      "file_name": "Vector-v2.2-3085-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "31147124972:8982087558:2026-08-07T04:31:47Z"
+      "version_id": "31196246517:9001259579:2026-08-07T16:21:04Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
