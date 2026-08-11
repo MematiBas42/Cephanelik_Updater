@@ -13,10 +13,10 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "date": "07.03.2026 11:40",
-      "file_name": "TEESimulator-v3.2-67-Release.zip",
-      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v3.2",
-      "version_id": "2026-03-07T11:40:30Z"
+      "date": "11.08.2026 09:02",
+      "file_name": "TEESimulator-v4.0-34-Release.zip",
+      "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v4.0",
+      "version_id": "2026-08-11T09:02:25Z"
     },
     "Mountify": {
       "date": "25.06.2026 15:03",
@@ -255,9 +255,15 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "JingMatrix/TEESimulator": {
-      "file_name": "TEESimulator-v3.2-67-Release.zip",
+      "discussion_message_id": 46972,
+      "discussion_pinned_version_id": "2026-08-11T09:02:25Z",
+      "discussion_sent_as_channel": true,
+      "discussion_version_id": "2026-08-11T09:02:25Z",
+      "file_name": "TEESimulator-v4.0-34-Release.zip",
+      "link_only": null,
+      "link_preview_disabled": null,
       "message_id": 773,
-      "version_id": "2026-03-07T11:40:30Z"
+      "version_id": "2026-08-11T09:02:25Z"
     },
     "Mountify": {
       "discussion_message_id": 45198,
