@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "09.08.2026 09:25",
+      "date": "15.08.2026 14:16",
       "file_name": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/31305805686",
-      "version_id": "31305805686:9035918791:2026-08-09T09:25:48Z"
+      "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
+      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -140,10 +140,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "04.08.2026 10:29",
-      "file_name": "ReZygisk-v1.0.0-537-e42886f-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/30900834670",
-      "version_id": "30900834670:8888999635:2026-08-04T10:29:49Z"
+      "date": "18.07.2026 18:18",
+      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/29655584141",
+      "version_id": "29655584141:8432759543:2026-07-18T18:18:17Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -182,10 +182,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "15.08.2026 03:59",
-      "file_name": "TrickyAddonModule-v5.0-beta.4-733-canary.zip",
-      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/31863219938",
-      "version_id": "31863219938:9241219045:2026-08-15T03:59:06Z"
+      "date": "23.06.2026 17:05",
+      "file_name": "TrickyAddonModule-v5.0-beta.3-723-canary.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/28043039563",
+      "version_id": "28043039563:7827868746:2026-06-23T17:05:46Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -405,15 +405,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 47146,
-      "discussion_pinned_version_id": "31305805686:9035918791:2026-08-09T09:25:48Z",
+      "discussion_message_id": 47152,
+      "discussion_pinned_version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "31305805686:9035918791:2026-08-09T09:25:48Z",
+      "discussion_version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
       "file_name": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "31305805686:9035918791:2026-08-09T09:25:48Z"
+      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -426,15 +426,15 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "discussion_message_id": 46377,
-      "discussion_pinned_version_id": "30900834670:8888999635:2026-08-04T10:29:49Z",
+      "discussion_message_id": 47154,
+      "discussion_pinned_version_id": "29655584141:8432759543:2026-07-18T18:18:17Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "30900834670:8888999635:2026-08-04T10:29:49Z",
-      "file_name": "ReZygisk-v1.0.0-537-e42886f-release.zip",
+      "discussion_version_id": "29655584141:8432759543:2026-07-18T18:18:17Z",
+      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "30900834670:8888999635:2026-08-04T10:29:49Z"
+      "version_id": "29655584141:8432759543:2026-07-18T18:18:17Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
@@ -479,15 +479,15 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "discussion_message_id": 47144,
-      "discussion_pinned_version_id": "31863219938:9241219045:2026-08-15T03:59:06Z",
+      "discussion_message_id": 47156,
+      "discussion_pinned_version_id": "28043039563:7827868746:2026-06-23T17:05:46Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "31863219938:9241219045:2026-08-15T03:59:06Z",
-      "file_name": "TrickyAddonModule-v5.0-beta.4-733-canary.zip",
+      "discussion_version_id": "28043039563:7827868746:2026-06-23T17:05:46Z",
+      "file_name": "TrickyAddonModule-v5.0-beta.3-723-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "31863219938:9241219045:2026-08-15T03:59:06Z"
+      "version_id": "28043039563:7827868746:2026-06-23T17:05:46Z"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
