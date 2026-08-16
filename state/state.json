@@ -104,10 +104,10 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "date": "16.08.2026 09:10",
-      "file_name": "Hybrid-Mount-5.0.0-1894.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v5.0.0",
-      "version_id": "2026-08-16T09:10:33Z"
+      "date": "27.06.2026 17:05",
+      "file_name": "Hybrid-Mount-4.2.0-1815.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v4.2.0",
+      "version_id": "2026-06-27T17:05:16Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -384,15 +384,15 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "discussion_message_id": 47176,
-      "discussion_pinned_version_id": "2026-08-16T09:10:33Z",
+      "discussion_message_id": 47180,
+      "discussion_pinned_version_id": "2026-06-27T17:05:16Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-08-16T09:10:33Z",
-      "file_name": "Hybrid-Mount-5.0.0-1894.zip",
+      "discussion_version_id": "2026-06-27T17:05:16Z",
+      "file_name": "Hybrid-Mount-4.2.0-1815.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 910,
-      "version_id": "2026-08-16T09:10:33Z"
+      "version_id": "2026-06-27T17:05:16Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
