@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "09.08.2026 09:25",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/31305805686",
-      "version_id": "31305805686:9035918791:2026-08-09T09:25:48Z"
+      "date": "17.08.2026 10:26",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
+      "version_id": "PlayIntegrityFix_v4.6-inject-s_247.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -405,15 +405,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 47211,
-      "discussion_pinned_version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
+      "discussion_message_id": 47230,
+      "discussion_pinned_version_id": "PlayIntegrityFix_v4.6-inject-s_247.zip",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
+      "discussion_version_id": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip"
+      "version_id": "PlayIntegrityFix_v4.6-inject-s_247.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
