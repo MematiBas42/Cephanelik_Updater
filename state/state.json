@@ -86,10 +86,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "28.06.2026 13:51",
-      "file_name": "HMA-OSS-oss-162-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/28324276512",
-      "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
+      "date": "09.08.2026 11:46",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
+      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/31310797502",
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
       "date": "18.08.2026 18:59",
@@ -357,15 +357,15 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "discussion_message_id": 47759,
-      "discussion_pinned_version_id": "28324276512:7935257198:2026-06-28T13:51:57Z",
+      "discussion_message_id": 47763,
+      "discussion_pinned_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28324276512:7935257198:2026-06-28T13:51:57Z",
-      "file_name": "HMA-OSS-oss-162-release.zip",
+      "discussion_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
       "discussion_message_id": 47757,
