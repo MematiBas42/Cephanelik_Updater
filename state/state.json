@@ -92,10 +92,10 @@
       "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
     },
     "lsposed": {
-      "date": "01.08.2026 18:44",
-      "file_name": "Vector-v2.0-3070-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/30712770934",
-      "version_id": "30712770934:8822530799:2026-08-01T18:44:42Z"
+      "date": "18.08.2026 18:59",
+      "file_name": "Vector-v2.2-3098-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/32173076123",
+      "version_id": "32173076123:9338349978:2026-08-18T18:59:35Z"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "19.08.2026 09:27",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
+      "date": "19.08.2026 10:22",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
       "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip"
+      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_259.zip"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -140,10 +140,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "18.07.2026 18:18",
-      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/29655584141",
-      "version_id": "29655584141:8432759543:2026-07-18T18:18:17Z"
+      "date": "04.08.2026 10:29",
+      "file_name": "ReZygisk-v1.0.0-537-e42886f-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/30900834670",
+      "version_id": "30900834670:8888999635:2026-08-04T10:29:49Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -152,10 +152,10 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "date": "28.06.2026 05:12",
-      "file_name": "manager.zip",
-      "source_url": "https://github.com/SukiSU-Ultra/SukiSU-Ultra/actions/runs/28312123184",
-      "version_id": "28312123184:7931305072:2026-06-28T05:12:47Z"
+      "date": "15.08.2026 14:52",
+      "file_name": "Manager.zip",
+      "source_url": "https://github.com/SukiSU-Ultra/SukiSU-Ultra/actions/runs/31890547561",
+      "version_id": "31890547561:9248558920:2026-08-15T14:52:03Z"
     },
     "susfs": {
       "date": "15.09.2025 09:19",
@@ -368,15 +368,15 @@
       "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
     },
     "lsposed": {
-      "discussion_message_id": 47806,
-      "discussion_pinned_version_id": "30712770934:8822530799:2026-08-01T18:44:42Z",
+      "discussion_message_id": 47830,
+      "discussion_pinned_version_id": "32173076123:9338349978:2026-08-18T18:59:35Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "30712770934:8822530799:2026-08-01T18:44:42Z",
-      "file_name": "Vector-v2.0-3070-Release.zip",
+      "discussion_version_id": "32173076123:9338349978:2026-08-18T18:59:35Z",
+      "file_name": "Vector-v2.2-3098-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "30712770934:8822530799:2026-08-01T18:44:42Z"
+      "version_id": "32173076123:9338349978:2026-08-18T18:59:35Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -405,15 +405,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 47808,
-      "discussion_pinned_version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
+      "discussion_message_id": 47832,
+      "discussion_pinned_version_id": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_256.zip",
+      "discussion_version_id": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_256.zip"
+      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_259.zip"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -426,15 +426,15 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "discussion_message_id": 47804,
-      "discussion_pinned_version_id": "29655584141:8432759543:2026-07-18T18:18:17Z",
+      "discussion_message_id": 47834,
+      "discussion_pinned_version_id": "30900834670:8888999635:2026-08-04T10:29:49Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "29655584141:8432759543:2026-07-18T18:18:17Z",
-      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
+      "discussion_version_id": "30900834670:8888999635:2026-08-04T10:29:49Z",
+      "file_name": "ReZygisk-v1.0.0-537-e42886f-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "29655584141:8432759543:2026-07-18T18:18:17Z"
+      "version_id": "30900834670:8888999635:2026-08-04T10:29:49Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
@@ -442,15 +442,15 @@
       "version_id": "2025-06-18T11:37:08Z"
     },
     "sukisu": {
-      "discussion_message_id": 47810,
-      "discussion_pinned_version_id": "28312123184:7931305072:2026-06-28T05:12:47Z",
+      "discussion_message_id": 47836,
+      "discussion_pinned_version_id": "31890547561:9248558920:2026-08-15T14:52:03Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28312123184:7931305072:2026-06-28T05:12:47Z",
-      "file_name": "manager.zip",
+      "discussion_version_id": "31890547561:9248558920:2026-08-15T14:52:03Z",
+      "file_name": "Manager.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 837,
-      "version_id": "28312123184:7931305072:2026-06-28T05:12:47Z"
+      "version_id": "31890547561:9248558920:2026-08-15T14:52:03Z"
     },
     "susfs": {
       "file_name": "release-1.5.2%2B_3d255a3.zip",
