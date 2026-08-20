@@ -92,10 +92,10 @@
       "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
     },
     "lsposed": {
-      "date": "20.08.2026 09:53",
-      "file_name": "Vector-v2.2-3098-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/32355438383",
-      "version_id": "32355438383:9401718072:2026-08-20T09:53:27Z"
+      "date": "01.08.2026 18:44",
+      "file_name": "Vector-v2.0-3070-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/30712770934",
+      "version_id": "30712770934:8822530799:2026-08-01T18:44:42Z"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "22.06.2026 14:03",
-      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/27958391183",
-      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
+      "date": "18.08.2026 15:15",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/32153068026",
+      "version_id": "32153068026:9330621261:2026-08-18T15:15:13Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -368,15 +368,15 @@
       "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
     },
     "lsposed": {
-      "discussion_message_id": 48003,
-      "discussion_pinned_version_id": "32355438383:9401718072:2026-08-20T09:53:27Z",
+      "discussion_message_id": 48061,
+      "discussion_pinned_version_id": "30712770934:8822530799:2026-08-01T18:44:42Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "32355438383:9401718072:2026-08-20T09:53:27Z",
-      "file_name": "Vector-v2.2-3098-Release.zip",
+      "discussion_version_id": "30712770934:8822530799:2026-08-01T18:44:42Z",
+      "file_name": "Vector-v2.0-3070-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "32355438383:9401718072:2026-08-20T09:53:27Z"
+      "version_id": "30712770934:8822530799:2026-08-01T18:44:42Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -405,15 +405,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 48021,
-      "discussion_pinned_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
+      "discussion_message_id": 48063,
+      "discussion_pinned_version_id": "32153068026:9330621261:2026-08-18T15:15:13Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
-      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "discussion_version_id": "32153068026:9330621261:2026-08-18T15:15:13Z",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
+      "version_id": "32153068026:9330621261:2026-08-18T15:15:13Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
