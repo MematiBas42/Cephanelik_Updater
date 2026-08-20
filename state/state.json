@@ -86,10 +86,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "10.07.2026 08:23",
-      "file_name": "HMA-OSS-ZYGISK-oss-164-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/29079420675",
-      "version_id": "29079420675:8222174395:2026-07-10T08:23:31Z"
+      "date": "09.08.2026 11:46",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
+      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/31310797502",
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
       "date": "18.08.2026 18:59",
@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "18.08.2026 15:15",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/32153068026",
-      "version_id": "32153068026:9330621261:2026-08-18T15:15:13Z"
+      "date": "22.06.2026 14:03",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/27958391183",
+      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -182,10 +182,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "24.06.2026 04:15",
-      "file_name": "TrickyAddonModule-v5.0-beta.3-725-canary.zip",
-      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/28074738751",
-      "version_id": "28074738751:7839962645:2026-06-24T04:15:50Z"
+      "date": "18.08.2026 14:55",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-735-canary.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/32151231217",
+      "version_id": "32151231217:9329819860:2026-08-18T14:55:11Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -357,15 +357,15 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "discussion_message_id": 47986,
-      "discussion_pinned_version_id": "29079420675:8222174395:2026-07-10T08:23:31Z",
+      "discussion_message_id": 47993,
+      "discussion_pinned_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "29079420675:8222174395:2026-07-10T08:23:31Z",
-      "file_name": "HMA-OSS-ZYGISK-oss-164-release.zip",
+      "discussion_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "29079420675:8222174395:2026-07-10T08:23:31Z"
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
       "discussion_message_id": 47894,
@@ -405,15 +405,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 47896,
-      "discussion_pinned_version_id": "32153068026:9330621261:2026-08-18T15:15:13Z",
+      "discussion_message_id": 47995,
+      "discussion_pinned_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "32153068026:9330621261:2026-08-18T15:15:13Z",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
+      "discussion_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "32153068026:9330621261:2026-08-18T15:15:13Z"
+      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -479,15 +479,15 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "discussion_message_id": 47988,
-      "discussion_pinned_version_id": "28074738751:7839962645:2026-06-24T04:15:50Z",
+      "discussion_message_id": 47997,
+      "discussion_pinned_version_id": "32151231217:9329819860:2026-08-18T14:55:11Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28074738751:7839962645:2026-06-24T04:15:50Z",
-      "file_name": "TrickyAddonModule-v5.0-beta.3-725-canary.zip",
+      "discussion_version_id": "32151231217:9329819860:2026-08-18T14:55:11Z",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-735-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "28074738751:7839962645:2026-06-24T04:15:50Z"
+      "version_id": "32151231217:9329819860:2026-08-18T14:55:11Z"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
