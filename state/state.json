@@ -86,16 +86,16 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "28.06.2026 13:51",
-      "file_name": "HMA-OSS-oss-162-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/28324276512",
-      "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
+      "date": "09.08.2026 11:46",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
+      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/31310797502",
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
-      "date": "01.08.2026 18:44",
-      "file_name": "Vector-v2.0-3070-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/30712770934",
-      "version_id": "30712770934:8822530799:2026-08-01T18:44:42Z"
+      "date": "21.08.2026 03:26",
+      "file_name": "Vector-v2.2-3104-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/32442767120",
+      "version_id": "32442767120:9433215604:2026-08-21T03:26:50Z"
     },
     "magiskalpha": {
       "date": "24.02.2026 07:39",
@@ -357,26 +357,26 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "discussion_message_id": 48193,
-      "discussion_pinned_version_id": "28324276512:7935257198:2026-06-28T13:51:57Z",
+      "discussion_message_id": 48197,
+      "discussion_pinned_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28324276512:7935257198:2026-06-28T13:51:57Z",
-      "file_name": "HMA-OSS-oss-162-release.zip",
+      "discussion_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
-      "discussion_message_id": 48195,
-      "discussion_pinned_version_id": "30712770934:8822530799:2026-08-01T18:44:42Z",
+      "discussion_message_id": 48199,
+      "discussion_pinned_version_id": "32442767120:9433215604:2026-08-21T03:26:50Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "30712770934:8822530799:2026-08-01T18:44:42Z",
-      "file_name": "Vector-v2.0-3070-Release.zip",
+      "discussion_version_id": "32442767120:9433215604:2026-08-21T03:26:50Z",
+      "file_name": "Vector-v2.2-3104-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "30712770934:8822530799:2026-08-01T18:44:42Z"
+      "version_id": "32442767120:9433215604:2026-08-21T03:26:50Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
