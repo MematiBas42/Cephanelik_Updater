@@ -74,10 +74,10 @@
       "version_id": "2026-08-20T17:53:11Z"
     },
     "bindh": {
-      "date": "25.06.2026 03:14",
+      "date": "24.08.2026 02:15",
       "file_name": "bindhosts.zip",
-      "source_url": "https://github.com/bindhosts/bindhosts/releases/tag/v2.1.4",
-      "version_id": "2026-06-25T03:14:02Z"
+      "source_url": "https://github.com/bindhosts/bindhosts/releases/tag/v2.1.5",
+      "version_id": "2026-08-24T02:15:13Z"
     },
     "hma": {
       "date": "26.09.2025 19:11",
@@ -341,15 +341,15 @@
       "version_id": "2026-08-20T17:53:11Z"
     },
     "bindh": {
-      "discussion_message_id": 45167,
-      "discussion_pinned_version_id": "2026-06-25T03:14:02Z",
+      "discussion_message_id": 48335,
+      "discussion_pinned_version_id": "2026-08-24T02:15:13Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-06-25T03:14:02Z",
+      "discussion_version_id": "2026-08-24T02:15:13Z",
       "file_name": "bindhosts.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 902,
-      "version_id": "2026-06-25T03:14:02Z"
+      "version_id": "2026-08-24T02:15:13Z"
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
