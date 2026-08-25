@@ -86,10 +86,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "28.06.2026 13:51",
-      "file_name": "HMA-OSS-oss-162-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/28324276512",
-      "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
+      "date": "09.08.2026 11:46",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
+      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/31310797502",
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
       "date": "22.08.2026 12:30",
@@ -122,10 +122,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "18.08.2026 15:15",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
-      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/32153068026",
-      "version_id": "32153068026:9330621261:2026-08-18T15:15:13Z"
+      "date": "22.06.2026 14:03",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/27958391183",
+      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -357,15 +357,15 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "discussion_message_id": 48410,
-      "discussion_pinned_version_id": "28324276512:7935257198:2026-06-28T13:51:57Z",
+      "discussion_message_id": 48416,
+      "discussion_pinned_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "28324276512:7935257198:2026-06-28T13:51:57Z",
-      "file_name": "HMA-OSS-oss-162-release.zip",
+      "discussion_version_id": "31310797502:9037530765:2026-08-09T11:46:00Z",
+      "file_name": "HMA-OSS-ZYGISK-oss-166-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "28324276512:7935257198:2026-06-28T13:51:57Z"
+      "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
       "discussion_message_id": 48400,
@@ -405,15 +405,15 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "discussion_message_id": 48408,
-      "discussion_pinned_version_id": "32153068026:9330621261:2026-08-18T15:15:13Z",
+      "discussion_message_id": 48418,
+      "discussion_pinned_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
       "discussion_sent_as_channel": true,
-      "discussion_version_id": "32153068026:9330621261:2026-08-18T15:15:13Z",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_259.zip",
+      "discussion_version_id": "27958391183:7794612675:2026-06-22T14:03:40Z",
+      "file_name": "PlayIntegrityFix_v4.6-inject-s_247.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "32153068026:9330621261:2026-08-18T15:15:13Z"
+      "version_id": "27958391183:7794612675:2026-06-22T14:03:40Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
