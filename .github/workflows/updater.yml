@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: cephanelik-updater
+  group: cephanelik-updater-v2
   cancel-in-progress: false
 
 jobs:
