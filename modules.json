@@ -1,20 +1,20 @@
 {
   "modules": [
-	 {
+    {
       "name": "meta-hybrid-mount",
       "enabled": true,
       "type": "github_release",
       "source": "YuzakiKokuban/meta-hybrid_mount",
       "asset_filter": "(?i)\\.zip$",
-	  "description": "YuzakiKokuban/meta-hybrid_mount stable release"
-     }, 
-	 {
+      "description": "YuzakiKokuban/meta-hybrid_mount stable release"
+    },
+    {
       "name": "Mountify",
       "enabled": true,
       "type": "github_release",
       "source": "backslashxx/mountify",
       "asset_filter": "(?i)\\.zip$",
-	  "description": "backslashxx/mountify stable release"
+      "description": "backslashxx/mountify stable release"
     },
     {
       "name": "TrickyStore",
@@ -22,7 +22,7 @@
       "type": "github_release",
       "source": "5ec1cff/TrickyStore",
       "asset_filter": "(?i)\\.zip$",
-	  "description": "TrickyStore stable release"
+      "description": "TrickyStore stable release"
     },
     {
       "name": "pif_ci",
@@ -32,7 +32,6 @@
       "asset_filter": "(?i)\\.zip$",
       "description": "KOWX712/PlayIntegrityFix (inject_s) (nightly) [Modules]"
     },
-
     {
       "name": "ZygiskNext",
       "enabled": true,
@@ -49,7 +48,6 @@
       "asset_filter": "(?i)\\.zip$",
       "description": "KOWX712/Tricky-Addon (nightly) [Modules]"
     },
-
     {
       "name": "viper",
       "enabled": true,
@@ -119,7 +117,6 @@
       "asset_filter": "(?i)^ksu_module_susfs_.*\\.zip$",
       "description": "sidex15/susfs4ksu-module stable release [Modules]"
     },
-
     {
       "name": "lsposed",
       "enabled": true,
@@ -160,7 +157,6 @@
       "asset_filter": "[Rr]elease.*\\.zip$",
       "description": "frknkrc44/HMA-OSS (nightly) [Unzip for Apk]"
     },
-  
     {
       "name": "rezygisk",
       "enabled": true,
@@ -185,7 +181,6 @@
       "asset_filter": "release\\.zip$",
       "description": "MhmRdd/NoHello stable release"
     },
-
     {
       "name": "reveny",
       "enabled": true,
@@ -205,22 +200,14 @@
       "is_apk": true,
       "description": "magiskalpha"
     },
-	{
-      "name": "sukisu",
-      "enabled": true,
-      "type": "github_ci",
-      "source": "https://nightly.link/SukiSU-Ultra/SukiSU-Ultra/workflows/build-manager.yml/main",
-      "asset_filter": "(?i)manager.*\\.zip$",
-      "description": "SukiSU-Ultra Manager Ci"
-    },
     {
       "name": "JingMatrix/TEESimulator",
       "enabled": true,
       "type": "github_release",
       "source": "JingMatrix/TEESimulator",
-	  "asset_filter": "[Rr]elease.*\\.zip$",
+      "asset_filter": "[Rr]elease.*\\.zip$",
       "description": "JingMatrix/TEESimulator (Stable Release) [Modules]"
-    }, 
+    },
     {
       "name": "TreatWheel",
       "enabled": true,
@@ -229,7 +216,7 @@
       "asset_filter": "",
       "source_channel": "zygote64_32",
       "description": "TreatWheel stable release"
-    }, 
+    },
     {
       "name": "Encore",
       "enabled": true,
@@ -237,6 +224,15 @@
       "source": "Rem01Gaming/encore",
       "asset_filter": "release\\.zip$",
       "description": "Encore Tweaks stable release"
+    },
+    {
+      "name": "GhostLock",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "GhostLock",
+      "source_channel": "YuKongAsCIChannel",
+      "is_apk": true,
+      "description": "GhostLock (YuKongA)"
     }
   ]
 }
