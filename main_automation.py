@@ -557,10 +557,14 @@ class TelethonPublisher:
         self.state_manager = state_manager
         self.discussion_send_as_touched = False
 
-    def _build_pending_discussion(self, info, channel_message_id):
-        pending = state_info_from_remote_info(info)
-        pending['channel_message_id'] = channel_message_id
-        return pending
+    def _get_module_emoji(self, module_type):
+        if module_type in ['github_release', 'gitlab_release']:
+            return "🟢"
+        elif module_type == 'github_ci':
+            return "🟠"
+        elif module_type == 'telegram_forwarder':
+            return "🔵"
+        return "⚪"
 
     async def _send_discussion_message_as_channel(self, text, buttons):
         peer = await self.tg_client.get_input_entity(DISCUSSION_GROUP_ID)
@@ -571,7 +575,7 @@ class TelethonPublisher:
             message=message,
             entities=entities,
             no_webpage=True,
-            reply_markup=self.tg_client.build_reply_markup(buttons),
+            reply_markup=self.tg_client.build_reply_markup(buttons) if buttons else None,
             send_as=send_as
         )
         self.discussion_send_as_touched = True
@@ -598,126 +602,14 @@ class TelethonPublisher:
             print(f"[WARNING] Varsayılan tartışma grubu gönderici kimliği geri alınamadı: {e}")
             return False
 
-    async def _pin_discussion_notification(self, name, message_id):
+    async def _pin_message_silently(self, chat_id, message_id, description):
         try:
-            await self.tg_client.pin_message(DISCUSSION_GROUP_ID, message_id, notify=False)
-            print(f"[DISCUSSION] '{name}' bildirimi tartışma grubunda sessizce pinlendi.")
+            await self.tg_client.pin_message(chat_id, message_id, notify=False)
+            print(f"[DISCUSSION] {description} sessizce pinlendi.")
             return True
         except Exception as e:
-            print(f"[WARNING] '{name}' grup bildirimi pinlenemedi: {e}")
+            print(f"[WARNING] {description} pinlenemedi: {e}")
             return False
-
-    async def _send_discussion_notification(self, name, info, modules_map, channel_message_id):
-        module_def = modules_map.get(name, {})
-        display_name = module_def.get('description', name)
-        filename = info['file_name']
-        channel_url = telegram_message_url(PUBLISH_CHANNEL_ID, channel_message_id)
-        source_url = info['source_url']
-        link_only = should_publish_link_only(module_def, filename) or info.get('link_only')
-        update_type = "Kaynak linki güncellendi" if link_only else "Dosya güncellendi"
-
-        text = (
-            f"🔔 <b>{escape(display_name)}</b>\n"
-            f"{escape(update_type)}\n\n"
-            f"📄 <code>{escape(filename)}</code>\n"
-            f"📅 {escape(info['date'])}"
-        )
-        if channel_url:
-            text += f"\n\n↗️ <b><a href='{escape(channel_url, quote=True)}'>Kanal gönderisini aç</a></b>"
-
-        channel_button = telegram_url_button('Kanal Gönderisi', channel_url)
-        source_button = telegram_url_button('Kaynak', source_url)
-        buttons = telegram_button_rows(channel_button, source_button)
-
-        try:
-            try:
-                message_id = await self._send_discussion_message_as_channel(text, buttons)
-            except Exception as button_error:
-                if not buttons:
-                    raise
-                print(f"[WARNING] '{name}' grup bildirimi butonlarla gönderilemedi, butonsuz yeniden deneniyor: {button_error}")
-                message_id = await self._send_discussion_message_as_channel(text, None)
-            print(f"[DISCUSSION] '{name}' için bağlı gruba kanal kimliğiyle bildirim gönderildi. Mesaj ID: {message_id}")
-            pinned = await self._pin_discussion_notification(name, message_id)
-            return {
-                'message_id': message_id,
-                'sent_as_channel': True,
-                'pinned': pinned
-            }
-        except Exception as e:
-            print(f"[WARNING] '{name}' bağlı grup bildirimi kanal kimliğiyle gönderilemedi: {e}")
-            return None
-
-    async def retry_pending_discussions(self, state, modules_map, skip_names=None):
-        if skip_names is None:
-            skip_names = set()
-
-        changed = False
-        tg_state = state.setdefault("telegram_state", {})
-
-        for name, entry in sorted(tg_state.items()):
-            if name in skip_names:
-                continue
-
-            pending = entry.get('pending_discussion')
-            if not pending:
-                continue
-
-            channel_message_id = pending.get('channel_message_id') or entry.get('message_id')
-            if not channel_message_id:
-                print(f"[WARNING] '{name}' pending grup bildirimi için kanal mesaj ID bulunamadı.")
-                continue
-
-            print(f"[DISCUSSION] '{name}' için bekleyen grup bildirimi yeniden deneniyor...")
-            discussion = await self._send_discussion_notification(
-                name, pending, modules_map, channel_message_id
-            )
-
-            if discussion:
-                discussion_message_id = discussion['message_id']
-                entry['discussion_message_id'] = discussion_message_id
-                entry['discussion_version_id'] = pending.get('version_id')
-                entry['discussion_sent_as_channel'] = discussion.get('sent_as_channel')
-                entry.pop('pending_discussion', None)
-                if discussion.get('pinned'):
-                    entry['discussion_pinned_version_id'] = pending.get('version_id')
-                    entry.pop('pending_discussion_pin', None)
-                else:
-                    entry['pending_discussion_pin'] = {
-                        'message_id': discussion_message_id,
-                        'version_id': pending.get('version_id')
-                    }
-                changed = True
-
-        return changed
-
-    async def retry_pending_discussion_pins(self, state, skip_names=None):
-        if skip_names is None:
-            skip_names = set()
-
-        changed = False
-        tg_state = state.setdefault("telegram_state", {})
-
-        for name, entry in sorted(tg_state.items()):
-            if name in skip_names:
-                continue
-
-            pending_pin = entry.get('pending_discussion_pin')
-            if not pending_pin:
-                continue
-
-            message_id = pending_pin.get('message_id')
-            if not message_id:
-                print(f"[WARNING] '{name}' pending pin için grup mesaj ID bulunamadı.")
-                continue
-
-            print(f"[DISCUSSION] '{name}' için bekleyen grup pinleme yeniden deneniyor...")
-            if await self._pin_discussion_notification(name, message_id):
-                entry['discussion_pinned_version_id'] = pending_pin.get('version_id')
-                entry.pop('pending_discussion_pin', None)
-                changed = True
-
-        return changed
 
     def _build_channel_caption(self, name, info, module_def):
         display_name = module_def.get('description', name)
@@ -777,6 +669,45 @@ class TelethonPublisher:
 
         return telegram_button_rows(Button.url('⭐ Star Repo', url=repo_url)) if repo_url else None
 
+    async def compact_existing_link_only_previews(self, state, modules_map, skip_names=None):
+        if skip_names is None:
+            skip_names = set()
+
+        changed = False
+        tg_state = state.setdefault("telegram_state", {})
+
+        for name, entry in sorted(tg_state.items()):
+            if name in skip_names:
+                continue
+            if not entry.get('link_only') or entry.get('link_preview_disabled'):
+                continue
+
+            info = state.get("manifest", {}).get(name)
+            message_id = entry.get('message_id')
+            module_def = modules_map.get(name, {})
+            if not info or not message_id:
+                continue
+
+            filename = info.get('file_name', '')
+            if not should_publish_link_only(module_def, filename):
+                continue
+
+            caption = self._build_channel_caption(name, info, module_def)
+            buttons = self._build_channel_buttons(module_def, info.get('source_url'), True)
+
+            try:
+                await self.tg_client.edit_message(
+                    PUBLISH_CHANNEL_ID, message_id, caption,
+                    parse_mode='html', buttons=buttons, link_preview=False
+                )
+                entry['link_preview_disabled'] = True
+                changed = True
+                print(f"[TELEGRAM] '{name}' link-only mesaj önizlemesi kompakt hale getirildi.")
+            except Exception as e:
+                print(f"[WARNING] '{name}' link-only mesaj önizlemesi düzenlenemedi: {e}")
+
+        return changed
+
     def _build_dashboard_text(self, state, modules_map):
         manifest = state.get("manifest", {})
         tg_state = state.get("telegram_state", {})
@@ -799,7 +730,8 @@ class TelethonPublisher:
                 'file_name': info.get('file_name', ''),
                 'date_str': info.get('date', ''),
                 'date_dt': date_dt or datetime.min,
-                'message_id': message_id
+                'message_id': message_id,
+                'type': mod_def.get('type')
             })
             
         active_items.sort(key=lambda x: x['date_dt'], reverse=True)
@@ -811,10 +743,8 @@ class TelethonPublisher:
             "========================="
         ]
         
-        emojis = ["🟢", "🟡", "🔵", "🟣", "🟠", "🔴"]
-        
-        for idx, item in enumerate(active_items):
-            emoji = emojis[idx % len(emojis)]
+        for item in active_items:
+            emoji = self._get_module_emoji(item['type'])
             msg_url = telegram_message_url(PUBLISH_CHANNEL_ID, item['message_id'])
             
             lines.append("")
@@ -857,44 +787,31 @@ class TelethonPublisher:
         except Exception as e:
             print(f"[ERROR] Pano güncellenemedi: {e}")
 
-    async def compact_existing_link_only_previews(self, state, modules_map, skip_names=None):
-        if skip_names is None:
-            skip_names = set()
-
-        changed = False
-        tg_state = state.setdefault("telegram_state", {})
-
-        for name, entry in sorted(tg_state.items()):
-            if name in skip_names:
-                continue
-            if not entry.get('link_only') or entry.get('link_preview_disabled'):
-                continue
-
-            info = state.get("manifest", {}).get(name)
-            message_id = entry.get('message_id')
-            module_def = modules_map.get(name, {})
-            if not info or not message_id:
-                continue
-
-            filename = info.get('file_name', '')
-            if not should_publish_link_only(module_def, filename):
-                continue
-
-            caption = self._build_channel_caption(name, info, module_def)
-            buttons = self._build_channel_buttons(module_def, info.get('source_url'), True)
-
-            try:
-                await self.tg_client.edit_message(
-                    PUBLISH_CHANNEL_ID, message_id, caption,
-                    parse_mode='html', buttons=buttons, link_preview=False
-                )
-                entry['link_preview_disabled'] = True
-                changed = True
-                print(f"[TELEGRAM] '{name}' link-only mesaj önizlemesi kompakt hale getirildi.")
-            except Exception as e:
-                print(f"[WARNING] '{name}' link-only mesaj önizlemesi düzenlenemedi: {e}")
-
-        return changed
+    async def _send_and_pin_digest(self, digest_items, modules_map):
+        lines = [
+            "🔔 <b>YENİ GÜNCELLEMELER VAR!</b>",
+            "Aşağıdaki modüller az önce güncellendi:\n"
+        ]
+        
+        for item in digest_items:
+            mod_def = modules_map.get(item['name'], {})
+            display_name = mod_def.get('description', item['name'])
+            emoji = self._get_module_emoji(mod_def.get('type'))
+            msg_url = telegram_message_url(PUBLISH_CHANNEL_ID, item['message_id'])
+            
+            lines.append(f"{emoji} <b>{escape(display_name)}</b>")
+            lines.append(f" ├ 📄 <code>{escape(item['file_name'])}</code>")
+            if msg_url:
+                lines.append(f" └ 🔗 <a href='{msg_url}'>Kanal Gönderisine Git</a>\n")
+            else:
+                lines.append(f" └ 🔗 Gönderi bulunamadı\n")
+                
+        text = "\n".join(lines)
+        try:
+            message_id = await self._send_discussion_message_as_channel(text, None)
+            await self._pin_message_silently(DISCUSSION_GROUP_ID, message_id, "Güncelleme özeti (Digest)")
+        except Exception as e:
+            print(f"[WARNING] Güncelleme özeti gruba gönderilemedi: {e}")
 
     async def _publish_single_update(self, name, info, modules_map, old_tg_entry):
         try:
@@ -926,7 +843,7 @@ class TelethonPublisher:
                 filepath = os.path.join(CACHE_DIR, filename)
                 if not os.path.exists(filepath):
                     print(f"[ERROR] Dosya bulunamadı: {filepath}")
-                    return None
+                    raise Exception(f"Dosya bulunamadı: {filepath}")
 
                 edited = False
                 if old_message_id and not old_was_link_only:
@@ -943,17 +860,11 @@ class TelethonPublisher:
 
                 if not edited:
                     print(f"[TELEGRAM] '{filename}' yükleniyor...")
-                    # Telethon Button.url kullandığında otomatik olarak doğru formatı ayarlar
                     message = await self.tg_client.send_file(
                         PUBLISH_CHANNEL_ID, filepath, caption=caption, parse_mode='html', silent=True, buttons=buttons
                     )
 
             print(f"[SUCCESS] '{name}' güncellendi. Mesaj ID: {message.id}")
-            discussion = None
-            if edited:
-                discussion = await self._send_discussion_notification(
-                    name, info, modules_map, message.id
-                )
 
             return name, {
                 'message_id': message.id,
@@ -961,7 +872,6 @@ class TelethonPublisher:
                 'version_id': info['version_id'],
                 'link_only': link_only,
                 'edited': edited,
-                'discussion': discussion,
                 'link_preview_disabled': link_only
             }
         except Exception as e:
@@ -985,12 +895,7 @@ class TelethonPublisher:
         tg_state = state["telegram_state"]
         modules = self.state_manager._load_json(MODULES_FILE_SRC, strict=True).get('modules', [])
         modules_map = {m['name']: m for m in modules}
-        retried_discussions = await self.retry_pending_discussions(
-            state, modules_map, skip_names=set(pending_updates)
-        )
-        retried_discussion_pins = await self.retry_pending_discussion_pins(
-            state, skip_names=set(pending_updates)
-        )
+        
         compacted_previews = await self.compact_existing_link_only_previews(
             state, modules_map, skip_names=set(pending_updates)
         )
@@ -1000,12 +905,14 @@ class TelethonPublisher:
             if not dashboard_exists:
                 await self._update_dashboard(state, modules_map)
                 self.state_manager.save_state(state)
-            elif retried_discussions or retried_discussion_pins or compacted_previews:
+            elif compacted_previews:
                 self.state_manager.save_state(state)
             print("[INFO] Yayınlanacak bir şey yok.")
             return
 
         any_module_updated = False
+        digest_items = []
+        
         for name, info in sorted(pending_updates.items()):
             res = await self._publish_single_update(name, info, modules_map, tg_state.get(name, {}))
             if not res:
@@ -1022,25 +929,6 @@ class TelethonPublisher:
             old_file = old_state.get('file_name')
             link_only = data.get('link_only')
             edited = data.pop('edited', False)
-            discussion = data.pop('discussion', None)
-
-            if edited:
-                if discussion:
-                    discussion_message_id = discussion['message_id']
-                    data['discussion_message_id'] = discussion_message_id
-                    data['discussion_version_id'] = info['version_id']
-                    data['discussion_sent_as_channel'] = discussion.get('sent_as_channel')
-                    data.pop('pending_discussion', None)
-                    if discussion.get('pinned'):
-                        data['discussion_pinned_version_id'] = info['version_id']
-                        data.pop('pending_discussion_pin', None)
-                    else:
-                        data['pending_discussion_pin'] = {
-                            'message_id': discussion_message_id,
-                            'version_id': info['version_id']
-                        }
-                else:
-                    data['pending_discussion'] = self._build_pending_discussion(info, data['message_id'])
 
             if old_message_id and not edited and (not link_only or old_was_link_only):
                 try:
@@ -1052,18 +940,28 @@ class TelethonPublisher:
                 try:
                     os.remove(os.path.join(CACHE_DIR, old_file))
                 except OSError:
-                    pass # Dosya yoksa sorun değil
+                    pass
 
             state["manifest"][name] = info
             state["telegram_state"][name] = data
             any_module_updated = True
+            
+            digest_items.append({
+                'name': name,
+                'file_name': info['file_name'],
+                'message_id': data['message_id']
+            })
         
+        if digest_items:
+            await self._send_and_pin_digest(digest_items, modules_map)
+            
         dashboard_exists = bool(tg_state.get("dashboard", {}).get("last_message_id"))
         if any_module_updated or not dashboard_exists:
             await self._update_dashboard(state, modules_map)
 
         self.state_manager.save_state(state)
         print("--- Telegram Yayınlama Aşaması Tamamlandı ---")
+
 
 
 async def main():
