@@ -772,6 +772,86 @@ class TelethonPublisher:
 
         return telegram_button_rows(Button.url('⭐ Star Repo', url=repo_url)) if repo_url else None
 
+    def _build_dashboard_text(self, state, modules_map):
+        manifest = state.get("manifest", {})
+        tg_state = state.get("telegram_state", {})
+        
+        active_items = []
+        for name, info in manifest.items():
+            mod_def = modules_map.get(name)
+            if not mod_def or not mod_def.get('enabled'):
+                continue
+            
+            tg_info = tg_state.get(name, {})
+            message_id = tg_info.get('message_id')
+            if not message_id:
+                continue
+                
+            date_dt = parse_stored_date(info.get('date'))
+            active_items.append({
+                'name': name,
+                'display_name': mod_def.get('description', name),
+                'file_name': info.get('file_name', ''),
+                'date_str': info.get('date', ''),
+                'date_dt': date_dt or datetime.min,
+                'message_id': message_id
+            })
+            
+        active_items.sort(key=lambda x: x['date_dt'], reverse=True)
+        
+        lines = [
+            "<b>🚀 CEPHANELİK AKTİF MODÜLLER</b>",
+            f"<i>Son Güncelleme: {datetime.now().strftime('%d.%m.%Y %H:%M')}</i>",
+            "",
+            "========================="
+        ]
+        
+        emojis = ["🟢", "🟡", "🔵", "🟣", "🟠", "🔴"]
+        
+        for idx, item in enumerate(active_items):
+            emoji = emojis[idx % len(emojis)]
+            msg_url = telegram_message_url(PUBLISH_CHANNEL_ID, item['message_id'])
+            
+            lines.append("")
+            lines.append(f"{emoji} <b>{escape(item['display_name'])}</b>")
+            
+            file_name = item['file_name']
+            if len(file_name) > 40:
+                file_name = file_name[:37] + "..."
+                
+            lines.append(f" ├ 🏷 <code>{escape(file_name)}</code>")
+            lines.append(f" ├ 📅 {escape(item['date_str'])}")
+            if msg_url:
+                lines.append(f" └ 🔗 <a href='{msg_url}'>Mesaja Git</a>")
+            else:
+                lines.append(f" └ 🔗 Mesaj bulunamadı")
+                
+        return "\n".join(lines)
+
+    async def _update_dashboard(self, state, modules_map):
+        tg_state = state.setdefault("telegram_state", {})
+        dashboard_state = tg_state.setdefault("dashboard", {})
+        last_message_id = dashboard_state.get("last_message_id")
+        
+        if last_message_id:
+            try:
+                print(f"[TELEGRAM] Eski pano (dashboard) mesajı siliniyor (ID: {last_message_id})...")
+                await self.tg_client.delete_messages(PUBLISH_CHANNEL_ID, [last_message_id])
+            except Exception as e:
+                print(f"[WARNING] Eski pano mesajı silinemedi (önemli değil): {e}")
+                
+        text = self._build_dashboard_text(state, modules_map)
+        
+        try:
+            print("[TELEGRAM] Yeni pano (dashboard) mesajı gönderiliyor...")
+            message = await self.tg_client.send_message(
+                PUBLISH_CHANNEL_ID, text, parse_mode='html', link_preview=False
+            )
+            dashboard_state["last_message_id"] = message.id
+            print(f"[SUCCESS] Pano güncellendi. Mesaj ID: {message.id}")
+        except Exception as e:
+            print(f"[ERROR] Pano güncellenemedi: {e}")
+
     async def compact_existing_link_only_previews(self, state, modules_map, skip_names=None):
         if skip_names is None:
             skip_names = set()
@@ -911,11 +991,16 @@ class TelethonPublisher:
         )
 
         if not pending_updates:
-            if retried_discussions or retried_discussion_pins or compacted_previews:
+            dashboard_exists = bool(tg_state.get("dashboard", {}).get("last_message_id"))
+            if not dashboard_exists:
+                await self._update_dashboard(state, modules_map)
+                self.state_manager.save_state(state)
+            elif retried_discussions or retried_discussion_pins or compacted_previews:
                 self.state_manager.save_state(state)
             print("[INFO] Yayınlanacak bir şey yok.")
             return
 
+        any_module_updated = False
         for name, info in sorted(pending_updates.items()):
             res = await self._publish_single_update(name, info, modules_map, tg_state.get(name, {}))
             if not res:
@@ -966,7 +1051,12 @@ class TelethonPublisher:
 
             state["manifest"][name] = info
             state["telegram_state"][name] = data
+            any_module_updated = True
         
+        dashboard_exists = bool(tg_state.get("dashboard", {}).get("last_message_id"))
+        if any_module_updated or not dashboard_exists:
+            await self._update_dashboard(state, modules_map)
+
         self.state_manager.save_state(state)
         print("--- Telegram Yayınlama Aşaması Tamamlandı ---")
 
