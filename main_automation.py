@@ -340,12 +340,16 @@ class ModuleHandler:
         owner, repo, workflow_file, branch = match.groups()
         runs_url = (
             f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/"
-            f"{quote(workflow_file, safe='')}/runs?branch={quote(branch, safe='')}"
-            "&status=success&per_page=10"
+            f"{quote(workflow_file, safe='')}/runs?status=success&per_page=50"
         )
         runs_data = await self._api_call(runs_url)
         runs = runs_data.get('workflow_runs', []) if isinstance(runs_data, dict) else []
         
+        # Manuel branch filtresi (GitHub API branch arama indexi bazen takılı kaldığı için)
+        runs = [r for r in runs if r.get('head_branch') == branch]
+        
+        # GitHub API'nin bazen sıralamayı yanlış (eskiden yeniye) döndürme ihtimaline karşı
+        # her zaman oluşturulma tarihine göre (en yeni en üstte olacak şekilde) garanti olarak sıralıyoruz.
         runs.sort(key=lambda r: r.get('created_at') or r.get('updated_at') or '', reverse=True)
         
         if module.get('name') in ('lsposed', 'rezygisk', 'taddon_ci'):
