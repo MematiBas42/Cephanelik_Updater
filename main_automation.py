@@ -773,14 +773,14 @@ class TelethonPublisher:
                 
         return "\n".join(lines)
 
-    async def _update_dashboard(self, state, modules_map):
+    async def _update_dashboard(self, state, modules_map, force_recreate=False):
         tg_state = state.setdefault("telegram_state", {})
         dashboard_state = tg_state.setdefault("dashboard", {})
         last_message_id = dashboard_state.get("last_message_id")
         
         text = self._build_dashboard_text(state, modules_map)
         
-        if last_message_id:
+        if last_message_id and not force_recreate:
             try:
                 print(f"[TELEGRAM] Mevcut pano (dashboard) mesajı düzenleniyor (ID: {last_message_id})...")
                 await self.tg_client.edit_message(
@@ -790,6 +790,13 @@ class TelethonPublisher:
                 return
             except Exception as e:
                 print(f"[WARNING] Mevcut pano mesajı düzenlenemedi (silinmiş olabilir), yeni mesaj atılacak: {e}")
+                
+        if last_message_id and force_recreate:
+            try:
+                print(f"[TELEGRAM] Kanal yapısını korumak için eski pano siliniyor (ID: {last_message_id})...")
+                await self.tg_client.delete_messages(PUBLISH_CHANNEL_ID, [last_message_id])
+            except Exception as e:
+                print(f"[WARNING] Eski pano mesajı silinemedi: {e}")
                 
         try:
             print("[TELEGRAM] Yeni pano (dashboard) mesajı gönderiliyor...")
@@ -917,7 +924,7 @@ class TelethonPublisher:
         if not pending_updates:
             dashboard_exists = bool(tg_state.get("dashboard", {}).get("last_message_id"))
             if not dashboard_exists:
-                await self._update_dashboard(state, modules_map)
+                await self._update_dashboard(state, modules_map, force_recreate=any_new_message_sent)
                 self.state_manager.save_state(state)
             elif compacted_previews:
                 self.state_manager.save_state(state)
@@ -925,6 +932,7 @@ class TelethonPublisher:
             return
 
         any_module_updated = False
+        any_new_message_sent = False
         digest_items = []
         
         for name, info in sorted(pending_updates.items()):
@@ -943,6 +951,9 @@ class TelethonPublisher:
             old_file = old_state.get('file_name')
             link_only = data.get('link_only')
             edited = data.pop('edited', False)
+            
+            if not edited:
+                any_new_message_sent = True
 
             if old_message_id and not edited and (not link_only or old_was_link_only):
                 try:
@@ -971,7 +982,7 @@ class TelethonPublisher:
             
         dashboard_exists = bool(tg_state.get("dashboard", {}).get("last_message_id"))
         if any_module_updated or not dashboard_exists:
-            await self._update_dashboard(state, modules_map)
+            await self._update_dashboard(state, modules_map, force_recreate=any_new_message_sent)
 
         self.state_manager.save_state(state)
         print("--- Telegram Yayınlama Aşaması Tamamlandı ---")
