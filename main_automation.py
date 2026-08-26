@@ -194,7 +194,7 @@ class ModuleHandler:
         return headers
 
     def _format_github_date(self, value):
-        return datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M")
+        return (datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
 
     async def _api_call(self, url, is_json=True):
         headers = self._auth_headers_for_url(url)
@@ -246,7 +246,7 @@ class ModuleHandler:
                         'file_name': file_name,
                         'version_id': str(message.id),
                         'source_url': source_url,
-                        'date': message.date.strftime("%d.%m.%Y %H:%M"),
+                        'date': (message.date + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"),
                         'telegram_message': message
                     }
             return None
@@ -288,7 +288,7 @@ class ModuleHandler:
                 'file_name': asset['name'],
                 'version_id': version_id,
                 'source_url': data.get('html_url', '#'),
-                'date': datetime.strptime(date_source, "%Y-%m-%dT%H:%M:%SZ").strftime("%d.%m.%Y %H:%M"),
+                'date': (datetime.strptime(date_source, "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"),
                 'download_url': asset['browser_download_url']
             }
 
@@ -328,7 +328,7 @@ class ModuleHandler:
         return {
             'file_name': filename, 'version_id': filename,
             'source_url': module['source'],
-            'date': datetime.now().strftime("%d.%m.%Y %H:%M"),
+            'date': (datetime.utcnow() + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"),
             'download_url': url_to_download
         }
 
@@ -394,7 +394,7 @@ class ModuleHandler:
             return {
                 'file_name': link['name'], 'version_id': release['released_at'],
                 'source_url': release.get('_links', {}).get('self', '#'),
-                'date': datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z").strftime("%d.%m.%Y %H:%M"),
+                'date': (datetime.strptime(release['released_at'], "%Y-%m-%dT%H:%M:%S.%f%z") + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M"),
                 'download_url': link['url']
             }
         return None
@@ -738,7 +738,7 @@ class TelethonPublisher:
         
         lines = [
             "<b>🚀 CEPHANELİK AKTİF MODÜLLER</b>",
-            f"<i>Son Güncelleme: {datetime.now().strftime('%d.%m.%Y %H:%M')}</i>",
+            f"<i>Son Güncelleme: {(datetime.utcnow() + timedelta(hours=3)).strftime('%d.%m.%Y %H:%M')}</i>",
             "",
             "========================="
         ]
@@ -967,7 +967,7 @@ class TelethonPublisher:
 async def main():
     print("=" * 40)
     print(f"   Cephanelik Updater v9.0 (Concurrent) Başlatıldı")
-    print(f"   {datetime.now()}")
+    print(f"   {(datetime.utcnow() + timedelta(hours=3)).strftime('%d.%m.%Y %H:%M:%S')} (GMT+3)")
     print("=" * 40)
 
     if not all([API_ID, API_HASH, SESSION_STRING, GIT_API_TOKEN]):
