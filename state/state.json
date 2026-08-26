@@ -12,6 +12,13 @@
       "source_url": "https://gitlab.com/cuynu/gphotos-unlimited-zygisk/-/releases/1.1-stable",
       "version_id": "2023-10-07T20:00:59.000Z"
     },
+    "GhostLock": {
+      "date": "25.08.2026 10:02",
+      "file_name": "GhostLock-release-58.apk",
+      "link_only": true,
+      "source_url": "https://t.me/YuKongAsCIChannel/6130",
+      "version_id": "6130"
+    },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
       "file_name": "TEESimulator-v4.0-34-Release.zip",
@@ -23,6 +30,12 @@
       "file_name": "mountify.zip",
       "source_url": "https://github.com/backslashxx/mountify/releases/tag/204",
       "version_id": "2026-08-25T05:14:15Z"
+    },
+    "NyaZygisk": {
+      "date": "26.08.2026 17:26",
+      "file_name": "NyaZygisk-v2.4-322-3a3f7d0-release.zip",
+      "source_url": "https://t.me/NyaZygisk/52",
+      "version_id": "52"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -254,6 +267,13 @@
       "message_id": 426,
       "version_id": "2023-10-07T20:00:59.000Z"
     },
+    "GhostLock": {
+      "file_name": "GhostLock-release-58.apk",
+      "link_only": true,
+      "link_preview_disabled": true,
+      "message_id": 929,
+      "version_id": "6130"
+    },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
       "discussion_pinned_version_id": "2026-08-11T09:02:25Z",
@@ -275,6 +295,13 @@
       "link_preview_disabled": null,
       "message_id": 899,
       "version_id": "2026-08-25T05:14:15Z"
+    },
+    "NyaZygisk": {
+      "file_name": "NyaZygisk-v2.4-322-3a3f7d0-release.zip",
+      "link_only": null,
+      "link_preview_disabled": null,
+      "message_id": 930,
+      "version_id": "52"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
