@@ -352,10 +352,10 @@ class ModuleHandler:
         # her zaman oluşturulma tarihine göre (en yeni en üstte olacak şekilde) garanti olarak sıralıyoruz.
         runs.sort(key=lambda r: r.get('created_at') or r.get('updated_at') or '', reverse=True)
         
-        if module.get('name') in ('lsposed', 'rezygisk', 'taddon_ci'):
-            print(f"[DEBUG] {module.get('name')} - runs_url: {runs_url}")
-            print(f"[DEBUG] {module.get('name')} - ilk 3 run ID: {[r.get('id') for r in runs[:3]]}")
-            print(f"[DEBUG] {module.get('name')} - ilk 3 run dates: {[r.get('created_at') for r in runs[:3]]}")
+        if module.get('name') in ('lsposed', 'rezygisk'):
+            print(f"[DEBUG] {name} - runs_url: {runs_url}")
+            print(f"[DEBUG] {name} - ilk 3 run ID: {[r.get('id') for r in runs[:3]]}")
+            print(f"[DEBUG] {name} - ilk 3 run dates: {[r.get('created_at') for r in runs[:3]]}")
         
         asset_filter = module.get('asset_filter')
 
@@ -363,13 +363,13 @@ class ModuleHandler:
             artifacts_data = await self._api_call(run.get('artifacts_url', ''))
             artifacts = artifacts_data.get('artifacts', []) if isinstance(artifacts_data, dict) else []
 
-            if module.get('name') in ('lsposed', 'rezygisk', 'taddon_ci'):
-                print(f"[DEBUG] {module.get('name')} - Run {run.get('id')} artifacts count: {len(artifacts)}")
+            if module.get('name') in ('lsposed', 'rezygisk'):
+                print(f"[DEBUG] {name} - Run {run.get('id')} artifacts count: {len(artifacts)}")
 
             for artifact in artifacts:
                 if artifact.get('expired'):
-                    if module.get('name') in ('lsposed', 'rezygisk', 'taddon_ci'):
-                        print(f"[DEBUG] {module.get('name')} - Artifact expired: {artifact.get('name')}")
+                    if module.get('name') in ('lsposed', 'rezygisk'):
+                        print(f"[DEBUG] {name} - Artifact expired: {artifact.get('name')}")
                     continue
 
                 artifact_name = artifact.get('name', '')
@@ -378,15 +378,15 @@ class ModuleHandler:
                 if asset_filter and not (
                     re.search(asset_filter, artifact_name) or re.search(asset_filter, file_name)
                 ):
-                    if module.get('name') in ('lsposed', 'rezygisk', 'taddon_ci'):
-                        print(f"[DEBUG] {module.get('name')} - Filter mismatch: {artifact_name}")
+                    if module.get('name') in ('lsposed', 'rezygisk'):
+                        print(f"[DEBUG] {name} - Filter mismatch: {artifact_name}")
                     continue
 
                 updated_at = artifact.get('updated_at') or artifact.get('created_at') or run.get('updated_at')
                 download_url = artifact.get('archive_download_url')
                 
-                if module.get('name') in ('lsposed', 'rezygisk', 'taddon_ci'):
-                    print(f"[DEBUG] {module.get('name')} - MATCHED! {artifact_name} (updated_at: {updated_at})")
+                if module.get('name') in ('lsposed', 'rezygisk'):
+                    print(f"[DEBUG] {name} - MATCHED! {artifact_name} (updated_at: {updated_at})")
                     
                 if not updated_at or not download_url:
                     continue
