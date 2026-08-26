@@ -768,22 +768,26 @@ class TelethonPublisher:
         dashboard_state = tg_state.setdefault("dashboard", {})
         last_message_id = dashboard_state.get("last_message_id")
         
-        if last_message_id:
-            try:
-                print(f"[TELEGRAM] Eski pano (dashboard) mesajı siliniyor (ID: {last_message_id})...")
-                await self.tg_client.delete_messages(PUBLISH_CHANNEL_ID, [last_message_id])
-            except Exception as e:
-                print(f"[WARNING] Eski pano mesajı silinemedi (önemli değil): {e}")
-                
         text = self._build_dashboard_text(state, modules_map)
         
+        if last_message_id:
+            try:
+                print(f"[TELEGRAM] Mevcut pano (dashboard) mesajı düzenleniyor (ID: {last_message_id})...")
+                await self.tg_client.edit_message(
+                    PUBLISH_CHANNEL_ID, last_message_id, text, parse_mode='html', link_preview=False
+                )
+                print(f"[SUCCESS] Pano başarıyla düzenlendi.")
+                return
+            except Exception as e:
+                print(f"[WARNING] Mevcut pano mesajı düzenlenemedi (silinmiş olabilir), yeni mesaj atılacak: {e}")
+                
         try:
             print("[TELEGRAM] Yeni pano (dashboard) mesajı gönderiliyor...")
             message = await self.tg_client.send_message(
                 PUBLISH_CHANNEL_ID, text, parse_mode='html', link_preview=False
             )
             dashboard_state["last_message_id"] = message.id
-            print(f"[SUCCESS] Pano güncellendi. Mesaj ID: {message.id}")
+            print(f"[SUCCESS] Pano güncellendi/oluşturuldu. Mesaj ID: {message.id}")
         except Exception as e:
             print(f"[ERROR] Pano güncellenemedi: {e}")
 
