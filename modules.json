@@ -233,6 +233,14 @@
       "source_channel": "YuKongAsCIChannel",
       "is_apk": true,
       "description": "GhostLock (YuKongA)"
+    },
+    {
+      "name": "NyaZygisk",
+      "enabled": true,
+      "type": "telegram_forwarder",
+      "source": "NyaZygisk",
+      "source_channel": "NyaZygisk",
+      "description": "NyaZygisk (JingMatrix)"
     }
   ]
 }
