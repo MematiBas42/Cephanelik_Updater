@@ -17,14 +17,6 @@
       "description": "backslashxx/mountify stable release"
     },
     {
-      "name": "TrickyStore",
-      "enabled": true,
-      "type": "github_release",
-      "source": "5ec1cff/TrickyStore",
-      "asset_filter": "(?i)\\.zip$",
-      "description": "TrickyStore stable release"
-    },
-    {
       "name": "pif_ci",
       "enabled": true,
       "type": "github_ci",
@@ -47,14 +39,6 @@
       "source": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
       "asset_filter": "(?i)\\.zip$",
       "description": "KOWX712/Tricky-Addon (nightly) [Modules]"
-    },
-    {
-      "name": "viper",
-      "enabled": true,
-      "type": "github_release",
-      "source": "WSTxda/ViPERFX_RE",
-      "asset_filter": "(?i)\\.zip$",
-      "description": "WSTxda/ViPERFX_RE stable release"
     },
     {
       "name": "viper4android_app_llsl",
@@ -126,22 +110,6 @@
       "description": "JingMatrix/LSPosed (nightly)"
     },
     {
-      "name": "trm",
-      "enabled": true,
-      "type": "github_release",
-      "source": "rompelhd/TermuxRootMods",
-      "asset_filter": "\\.zip$",
-      "description": "rompelhd/TermuxRootMods stable release"
-    },
-    {
-      "name": "ReLSPosed",
-      "enabled": true,
-      "type": "github_ci",
-      "source": "https://nightly.link/ThePedroo/ReLSPosed/workflows/core.yml/master",
-      "asset_filter": "release.*\\.zip$",
-      "description": "ThePedroo/ReLSPosed (nightly)"
-    },
-    {
       "name": "GPhotosUnlimited",
       "enabled": true,
       "type": "gitlab_release",
@@ -164,22 +132,6 @@
       "source": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
       "asset_filter": "-release.*\\.zip$",
       "description": "PerformanC/ReZygisk (nightly)"
-    },
-    {
-      "name": "Zygisk-Assistant",
-      "enabled": true,
-      "type": "github_release",
-      "source": "snake-4/Zygisk-Assistant",
-      "asset_filter": "release*\\.zip$",
-      "description": "Zygisk-Assistant stable release"
-    },
-    {
-      "name": "nohello",
-      "enabled": true,
-      "type": "github_release",
-      "source": "MhmRdd/NoHello",
-      "asset_filter": "release\\.zip$",
-      "description": "MhmRdd/NoHello stable release"
     },
     {
       "name": "reveny",
