@@ -345,6 +345,11 @@ class ModuleHandler:
         )
         runs_data = await self._api_call(runs_url)
         runs = runs_data.get('workflow_runs', []) if isinstance(runs_data, dict) else []
+        
+        # GitHub API'nin bazen sıralamayı yanlış (eskiden yeniye) döndürme ihtimaline karşı
+        # her zaman oluşturulma tarihine göre (en yeni en üstte olacak şekilde) garanti olarak sıralıyoruz.
+        runs.sort(key=lambda r: r.get('created_at') or r.get('updated_at') or '', reverse=True)
+        
         asset_filter = module.get('asset_filter')
 
         for run in runs:
