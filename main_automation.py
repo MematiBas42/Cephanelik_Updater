@@ -205,20 +205,35 @@ class ModuleHandler:
                 response.raise_for_status()
                 return response.json() if is_json else response.text
             except httpx.HTTPStatusError as e:
-                if 500 <= e.response.status_code < 600 and attempt < 2:
-                    print(f"[WARNING] Sunucu hatası (5xx): {e.response.status_code}. {5 * (attempt + 1)} saniye içinde yeniden deneniyor... ({url})")
+                status = e.response.status_code
+                if status == 403 and "api.github.com" in url:
+                    reset_time_str = e.response.headers.get("X-RateLimit-Reset")
+                    if reset_time_str:
+                        import time
+                        wait_seconds = int(reset_time_str) - int(time.time())
+                        if 0 < wait_seconds <= 300: # 5 dakikaya kadar bekle
+                            print(f"[WARNING] Rate limit aşıldı. {wait_seconds} saniye bekleniyor...")
+                            await asyncio.sleep(wait_seconds + 1)
+                            continue
+                        else:
+                            raise Exception(f"GitHub API Rate Limit aşıldı! Limit sıfırlanma süresi çok uzun ({wait_seconds} sn).")
+                
+                if 500 <= status < 600 and attempt < 2:
+                    print(f"[WARNING] Sunucu hatası (5xx): {status}. {5 * (attempt + 1)} saniye içinde yeniden deneniyor... ({url})")
                     await asyncio.sleep(5 * (attempt + 1))
                     continue
                 else:
-                    print(f"[ERROR] HTTP Hatası: {e.response.status_code} - {url}")
-                    return None
+                    raise Exception(f"HTTP Hatası: {status} - {url}")
             except httpx.RequestError as e:
                 print(f"[ERROR] İstek Hatası: {url} - {e}")
-                break 
+                if attempt < 2:
+                    await asyncio.sleep(5 * (attempt + 1))
+                    continue
+                raise Exception(f"İstek Hatası: {url} - {e}")
             except json.JSONDecodeError as e:
-                print(f"[ERROR] JSON Çözümleme Hatası: {url} - {e}")
-                break
-        return None
+                raise Exception(f"JSON Çözümleme Hatası: {url} - {e}")
+        
+        raise Exception(f"Maksimum yeniden deneme (retry) limitine ulaşıldı: {url}")
 
     async def _get_telegram_remote_info(self, module):
         try:
@@ -445,6 +460,12 @@ class ModuleHandler:
             print(f"[INFO] '{name}' zaten güncel (ID: {posted_version_id}).")
             return None
 
+        remote_date_dt = parse_stored_date(remote_info.get('date'))
+        posted_date_dt = parse_stored_date(posted_info.get('date'))
+        if remote_date_dt and posted_date_dt:
+            if remote_date_dt < posted_date_dt:
+                raise Exception(f"Sürüm düşürme (downgrade) tespit edildi! Yeni tarih ({remote_info.get('date')}) eski tarihten ({posted_info.get('date')}) daha eski. İşlem iptal edildi.")
+
         if type_ == 'github_ci' and should_migrate_ci_without_publish(posted_info, remote_info):
             print(f"[MIGRATION] '{name}' CI sürüm kimliği dosya adından artifact ID formatına taşındı; Telegram'a yeniden yayınlanmayacak.")
             return 'migrate', name, state_info_from_remote_info(remote_info)
@@ -494,8 +515,17 @@ class ModuleHandler:
 
         for res, mod in zip(results, (m for m in modules if m.get('enabled'))):
             if isinstance(res, Exception):
-                print(f"[CRITICAL] '{mod['name']}' işlenirken istisna oluştu: {res}")
+                error_msg = f"'{mod['name']}' işlenirken istisna oluştu:\n{res}"
+                print(f"[CRITICAL] {error_msg}")
                 traceback.print_exc()
+                try:
+                    await self.tg_client.send_message(
+                        DISCUSSION_GROUP_ID,
+                        f"⚠️ #SistemUyarısı\n\n{error_msg}",
+                        silent=True
+                    )
+                except Exception as tg_e:
+                    print(f"[WARNING] Sistem uyarısı Telegram'a gönderilemedi: {tg_e}")
             elif res:
                 action, name, remote_info = res
                 if action == 'migrate':
