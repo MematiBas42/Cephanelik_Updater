@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "25.08.2026 10:02",
-      "file_name": "GhostLock-release-58.apk",
+      "date": "27.08.2026 15:18",
+      "file_name": "GhostLock-release-59.apk",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6130",
-      "version_id": "6130"
+      "source_url": "https://t.me/YuKongAsCIChannel/6150",
+      "version_id": "6150"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -268,11 +268,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-58.apk",
+      "file_name": "GhostLock-release-59.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6130"
+      "version_id": "6150"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -379,7 +379,7 @@
       "version_id": "2026-08-24T02:15:13Z"
     },
     "dashboard": {
-      "last_message_id": 928
+      "last_message_id": 931
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
