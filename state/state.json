@@ -75,17 +75,17 @@
       "version_id": "2026-08-26T00:54:25Z"
     },
     "acc_module": {
-      "date": "30.06.2026 17:46",
-      "file_name": "acc_flashable_uninstaller.zip",
-      "source_url": "https://github.com/seyedehsanhadi/acc/releases/tag/v2025.5.18-stable.6.5",
-      "version_id": "2026-06-30T17:46:52Z"
+      "date": "17.08.2026 12:22",
+      "file_name": "acc_v2025.5.18-6.5.1-rc23_202505331.zip",
+      "source_url": "https://github.com/seyedehsanhadi/acc/releases/tag/v2025.5.18-6.5.1-rc23",
+      "version_id": "2026-08-17T09:22:54Z"
     },
     "acca_app": {
-      "date": "30.06.2026 16:20",
-      "file_name": "AccA-2.0.0.apk",
+      "date": "17.08.2026 12:27",
+      "file_name": "AccA-2.0.1-rc22.apk",
       "link_only": true,
-      "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.0",
-      "version_id": "2026-06-30T16:20:32Z"
+      "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.1-rc22",
+      "version_id": "2026-08-17T09:27:08Z"
     },
     "bcr": {
       "date": "20.08.2026 17:53",
@@ -349,26 +349,18 @@
       "version_id": "2026-08-26T00:54:25Z"
     },
     "acc_module": {
-      "discussion_message_id": 45268,
-      "discussion_pinned_version_id": "2026-06-30T17:46:52Z",
-      "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-06-30T17:46:52Z",
-      "file_name": "acc_flashable_uninstaller.zip",
+      "file_name": "acc_v2025.5.18-6.5.1-rc23_202505331.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 923,
-      "version_id": "2026-06-30T17:46:52Z"
+      "version_id": "2026-08-17T09:22:54Z"
     },
     "acca_app": {
-      "discussion_message_id": 45266,
-      "discussion_pinned_version_id": "2026-06-30T16:20:32Z",
-      "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-06-30T16:20:32Z",
-      "file_name": "AccA-2.0.0.apk",
+      "file_name": "AccA-2.0.1-rc22.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 924,
-      "version_id": "2026-06-30T16:20:32Z"
+      "version_id": "2026-08-17T09:27:08Z"
     },
     "bcr": {
       "discussion_message_id": 48108,
