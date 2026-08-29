@@ -25,6 +25,13 @@
       "source_url": "https://github.com/JingMatrix/TEESimulator/releases/tag/v4.0",
       "version_id": "2026-08-11T09:02:25Z"
     },
+    "Luna": {
+      "date": "11.05.2026 19:10",
+      "file_name": "luna1435.apk",
+      "link_only": true,
+      "source_url": "https://www.54nb.com/luna/luna.html",
+      "version_id": "luna1435.apk"
+    },
     "Mountify": {
       "date": "25.08.2026 05:14",
       "file_name": "mountify.zip",
@@ -285,6 +292,13 @@
       "message_id": 773,
       "version_id": "2026-08-11T09:02:25Z"
     },
+    "Luna": {
+      "file_name": "luna1435.apk",
+      "link_only": true,
+      "link_preview_disabled": true,
+      "message_id": 932,
+      "version_id": "luna1435.apk"
+    },
     "Mountify": {
       "discussion_message_id": 48390,
       "discussion_pinned_version_id": "2026-08-25T05:14:15Z",
@@ -379,7 +393,7 @@
       "version_id": "2026-08-24T02:15:13Z"
     },
     "dashboard": {
-      "last_message_id": 931
+      "last_message_id": 933
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
