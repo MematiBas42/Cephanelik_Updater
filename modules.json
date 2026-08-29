@@ -193,6 +193,15 @@
       "source": "NyaZygisk",
       "source_channel": "NyaZygisk",
       "description": "NyaZygisk (JingMatrix)"
+    },
+    {
+      "name": "Luna",
+      "enabled": true,
+      "type": "html_scraper",
+      "source": "https://www.54nb.com/luna/luna.html",
+      "asset_filter": "(?i)luna.*\\.apk$",
+      "is_apk": true,
+      "description": "Luna Detector"
     }
   ]
 }

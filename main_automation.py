@@ -98,7 +98,7 @@ def validate_modules(modules):
     if not isinstance(modules, list):
         raise ValueError("'modules' alanı liste olmalıdır.")
 
-    supported_types = {'telegram_forwarder', 'github_release', 'github_ci', 'gitlab_release'}
+    supported_types = {'telegram_forwarder', 'github_release', 'github_ci', 'gitlab_release', 'html_scraper'}
     seen_names = set()
 
     for index, module in enumerate(modules):
@@ -253,6 +253,48 @@ class ModuleHandler:
         except Exception as e:
             print(f"[ERROR] Telegram kanalı işlenemedi @{module['source_channel']}: {e}")
             return None
+
+    async def _get_html_scraper_remote_info(self, module):
+        url = module['source']
+        html = await self._api_call(url, is_json=False)
+        if not html:
+            return None
+
+        links = re.findall(r'href=[\'"]?([^\'" >]+)', html)
+        url_to_download = None
+        asset_filter = module.get('asset_filter', '')
+        for link in links:
+            if re.search(asset_filter, link):
+                url_to_download = link
+                break
+
+        if not url_to_download:
+            return None
+
+        from urllib.parse import urljoin
+        url_to_download = urljoin(url, url_to_download)
+        filename = os.path.basename(url_to_download)
+        
+        date_str = (datetime.utcnow() + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
+        try:
+            head_resp = await self.http_client.head(url_to_download, follow_redirects=True, timeout=15)
+            if 'Last-Modified' in head_resp.headers:
+                from email.utils import parsedate_to_datetime
+                lm_dt = parsedate_to_datetime(head_resp.headers['Last-Modified'])
+                if lm_dt.tzinfo is not None:
+                    # Timezone aware to naive UTC
+                    lm_dt = (lm_dt - lm_dt.utcoffset()).replace(tzinfo=None)
+                date_str = (lm_dt + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
+        except Exception:
+            pass
+
+        return {
+            'file_name': filename,
+            'version_id': filename,
+            'source_url': url,
+            'date': date_str,
+            'download_url': url_to_download
+        }
 
     async def _get_github_release_remote_info(self, module):
         url = f"https://api.github.com/repos/{module['source']}/releases/latest"
@@ -456,6 +498,7 @@ class ModuleHandler:
             'github_release': self._get_github_release_remote_info,
             'github_ci': self._get_github_ci_remote_info,
             'gitlab_release': self._get_gitlab_release_remote_info,
+            'html_scraper': self._get_html_scraper_remote_info,
         }
         getter_func = getters.get(type_)
         if not getter_func:
@@ -574,6 +617,8 @@ class TelethonPublisher:
             return "🟠"
         elif module_type == 'telegram_forwarder':
             return "🔵"
+        elif module_type == 'html_scraper':
+            return "🌐"
         return "⚪"
 
     async def _send_discussion_message_as_channel(self, text, buttons):
