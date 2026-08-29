@@ -73,6 +73,8 @@ def parse_stored_date(value):
     if not isinstance(value, str):
         return None
 
+    value = value.replace('~', '').strip()
+
     for date_format in ("%d.%m.%Y %H:%M", "%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S.%fZ"):
         try:
             return datetime.strptime(value, date_format)
@@ -275,18 +277,26 @@ class ModuleHandler:
         url_to_download = urljoin(url, url_to_download)
         filename = os.path.basename(url_to_download)
         
+        use_discovery_date = module.get('use_discovery_date', False)
         date_str = (datetime.utcnow() + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
-        try:
-            head_resp = await self.http_client.head(url_to_download, follow_redirects=True, timeout=15)
-            if 'Last-Modified' in head_resp.headers:
-                from email.utils import parsedate_to_datetime
-                lm_dt = parsedate_to_datetime(head_resp.headers['Last-Modified'])
-                if lm_dt.tzinfo is not None:
-                    # Timezone aware to naive UTC
-                    lm_dt = (lm_dt - lm_dt.utcoffset()).replace(tzinfo=None)
-                date_str = (lm_dt + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
-        except Exception:
-            pass
+        is_approximate = True
+        
+        if not use_discovery_date:
+            try:
+                head_resp = await self.http_client.head(url_to_download, follow_redirects=True, timeout=15)
+                if 'Last-Modified' in head_resp.headers:
+                    from email.utils import parsedate_to_datetime
+                    lm_dt = parsedate_to_datetime(head_resp.headers['Last-Modified'])
+                    if lm_dt.tzinfo is not None:
+                        # Timezone aware to naive UTC
+                        lm_dt = (lm_dt - lm_dt.utcoffset()).replace(tzinfo=None)
+                    date_str = (lm_dt + timedelta(hours=3)).strftime("%d.%m.%Y %H:%M")
+                    is_approximate = False
+            except Exception:
+                pass
+                
+        if is_approximate:
+            date_str = f"~ {date_str}"
 
         return {
             'file_name': filename,

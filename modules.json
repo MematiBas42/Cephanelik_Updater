@@ -201,7 +201,8 @@
       "source": "https://www.54nb.com/luna/luna.html",
       "asset_filter": "(?i)luna.*\\.apk$",
       "is_apk": true,
-      "description": "Luna Detector"
+      "description": "Luna Detector",
+      "use_discovery_date": true
     }
   ]
 }
