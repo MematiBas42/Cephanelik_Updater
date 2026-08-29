@@ -65,17 +65,19 @@
       "enabled": true,
       "type": "github_release",
       "source": "seyedehsanhadi/AccA",
-      "asset_filter": "(?i)^app-release\\.apk$",
+      "asset_filter": "(?i).*\\.apk$",
       "is_apk": true,
-      "description": "AccA companion app stable release"
+      "description": "AccA companion app (Prerelease)",
+      "allow_prerelease": true
     },
     {
       "name": "acc_module",
       "enabled": true,
       "type": "github_release",
       "source": "seyedehsanhadi/acc",
-      "asset_filter": "(?i)^acc_.*\\.zip$",
-      "description": "ACC charging controller module stable release"
+      "asset_filter": "(?i)^acc_v.*\\.zip$",
+      "description": "ACC Controller Module (Prerelease)",
+      "allow_prerelease": true
     },
     {
       "name": "bcr",

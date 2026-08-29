@@ -307,8 +307,16 @@ class ModuleHandler:
         }
 
     async def _get_github_release_remote_info(self, module):
-        url = f"https://api.github.com/repos/{module['source']}/releases/latest"
-        data = await self._api_call(url)
+        if module.get('allow_prerelease'):
+            url = f"https://api.github.com/repos/{module['source']}/releases"
+            data_list = await self._api_call(url)
+            if not isinstance(data_list, list) or not data_list:
+                return None
+            data = data_list[0]
+        else:
+            url = f"https://api.github.com/repos/{module['source']}/releases/latest"
+            data = await self._api_call(url)
+            
         if not isinstance(data, dict) or 'assets' not in data or not data['assets']:
             return None
 
@@ -620,8 +628,11 @@ class TelethonPublisher:
         self.state_manager = state_manager
         self.discussion_send_as_touched = False
 
-    def _get_module_emoji(self, module_type):
+    def _get_module_emoji(self, mod_def):
+        module_type = mod_def.get('type')
         if module_type in ['github_release', 'gitlab_release']:
+            if mod_def.get('allow_prerelease'):
+                return "🟠"
             return "🟢"
         elif module_type == 'github_ci':
             return "🟠"
@@ -809,7 +820,8 @@ class TelethonPublisher:
         ]
         
         for item in active_items:
-            emoji = self._get_module_emoji(item['type'])
+            mod_def = modules_map.get(item['name'], {})
+            emoji = self._get_module_emoji(mod_def)
             msg_url = telegram_message_url(PUBLISH_CHANNEL_ID, item['message_id'])
             
             lines.append("")
@@ -872,7 +884,7 @@ class TelethonPublisher:
         for item in digest_items:
             mod_def = modules_map.get(item['name'], {})
             display_name = mod_def.get('description', item['name'])
-            emoji = self._get_module_emoji(mod_def.get('type'))
+            emoji = self._get_module_emoji(mod_def)
             msg_url = telegram_message_url(PUBLISH_CHANNEL_ID, item['message_id'])
             
             lines.append(f"{emoji} <b>{escape(display_name)}</b>")
