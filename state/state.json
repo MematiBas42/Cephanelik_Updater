@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "27.08.2026 15:18",
-      "file_name": "GhostLock-release-59.apk",
+      "date": "29.08.2026 05:25",
+      "file_name": "GhostLock-release-62.apk",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6150",
-      "version_id": "6150"
+      "source_url": "https://t.me/YuKongAsCIChannel/6160",
+      "version_id": "6160"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -117,10 +117,10 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "date": "26.08.2026 10:05",
-      "file_name": "Hybrid-Mount-6.0.0-1856.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v6.0.0",
-      "version_id": "2026-08-26T10:05:31Z"
+      "date": "29.08.2026 05:05",
+      "file_name": "Hybrid-Mount-6.1.0-1872.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v6.1.0",
+      "version_id": "2026-08-29T02:05:09Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -153,10 +153,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "22.08.2026 23:00",
-      "file_name": "ReZygisk-v1.0.0-538-e10115a-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/32604039769",
-      "version_id": "32604039769:9483652263:2026-08-22T23:00:57Z"
+      "date": "28.08.2026 23:43",
+      "file_name": "ReZygisk-v1.0.0-540-4aadf36-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/33209447131",
+      "version_id": "33209447131:9700994855:2026-08-28T20:43:51Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -268,11 +268,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-59.apk",
+      "file_name": "GhostLock-release-62.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6150"
+      "version_id": "6160"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -414,15 +414,11 @@
       "version_id": "713"
     },
     "meta-hybrid-mount": {
-      "discussion_message_id": 48453,
-      "discussion_pinned_version_id": "2026-08-26T10:05:31Z",
-      "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-08-26T10:05:31Z",
-      "file_name": "Hybrid-Mount-6.0.0-1856.zip",
+      "file_name": "Hybrid-Mount-6.1.0-1872.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 910,
-      "version_id": "2026-08-26T10:05:31Z"
+      "version_id": "2026-08-29T02:05:09Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
@@ -456,15 +452,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "discussion_message_id": 48363,
-      "discussion_pinned_version_id": "32604039769:9483652263:2026-08-22T23:00:57Z",
-      "discussion_sent_as_channel": true,
-      "discussion_version_id": "32604039769:9483652263:2026-08-22T23:00:57Z",
-      "file_name": "ReZygisk-v1.0.0-538-e10115a-release.zip",
+      "file_name": "ReZygisk-v1.0.0-540-4aadf36-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "32604039769:9483652263:2026-08-22T23:00:57Z"
+      "version_id": "33209447131:9700994855:2026-08-28T20:43:51Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
