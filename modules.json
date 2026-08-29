@@ -112,14 +112,6 @@
       "description": "JingMatrix/LSPosed (nightly)"
     },
     {
-      "name": "GPhotosUnlimited",
-      "enabled": true,
-      "type": "gitlab_release",
-      "source": "cuynu/gphotos-unlimited-zygisk",
-      "asset_filter": "\\.zip$",
-      "description": "cuynu/gphotos-unlimited-zygisk stable release"
-    },
-    {
       "name": "hma_ci",
       "enabled": true,
       "type": "github_ci",
