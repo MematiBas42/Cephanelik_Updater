@@ -540,7 +540,8 @@ class ModuleHandler:
         posted_date_dt = parse_stored_date(posted_info.get('date'))
         if remote_date_dt and posted_date_dt:
             if remote_date_dt < posted_date_dt:
-                raise Exception(f"Sürüm düşürme (downgrade) tespit edildi! Yeni tarih ({remote_info.get('date')}) eski tarihten ({posted_info.get('date')}) daha eski. İşlem iptal edildi.")
+                print(f"[WARNING] Sürüm düşürme (downgrade) tespit edildi! '{name}' için yeni tarih ({remote_info.get('date')}) eski tarihten ({posted_info.get('date')}) daha eski. İşlem sessizce atlanıyor.")
+                return None
 
         if type_ == 'github_ci' and should_migrate_ci_without_publish(posted_info, remote_info):
             print(f"[MIGRATION] '{name}' CI sürüm kimliği dosya adından artifact ID formatına taşındı; Telegram'a yeniden yayınlanmayacak.")
