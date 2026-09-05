@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "04.09.2026 11:20",
-      "file_name": "GhostLock-release-74.apk",
+      "date": "05.09.2026 19:07",
+      "file_name": "GhostLock-release-75.apk",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6191",
-      "version_id": "6191"
+      "source_url": "https://t.me/YuKongAsCIChannel/6204",
+      "version_id": "6204"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -81,11 +81,11 @@
       "version_id": "2026-09-05T14:23:12Z"
     },
     "acca_app": {
-      "date": "17.08.2026 12:27",
-      "file_name": "AccA-2.0.1-rc22.apk",
+      "date": "05.09.2026 17:30",
+      "file_name": "AccA-2.0.1-rc23.apk",
       "link_only": true,
-      "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.1-rc22",
-      "version_id": "2026-08-17T09:27:08Z"
+      "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.1-rc23",
+      "version_id": "2026-09-05T14:30:01Z"
     },
     "bcr": {
       "date": "20.08.2026 17:53",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-74.apk",
+      "file_name": "GhostLock-release-75.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6191"
+      "version_id": "6204"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -357,11 +357,11 @@
       "version_id": "2026-09-05T14:23:12Z"
     },
     "acca_app": {
-      "file_name": "AccA-2.0.1-rc22.apk",
+      "file_name": "AccA-2.0.1-rc23.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 924,
-      "version_id": "2026-08-17T09:27:08Z"
+      "version_id": "2026-09-05T14:30:01Z"
     },
     "bcr": {
       "discussion_message_id": 48108,
