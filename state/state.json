@@ -118,10 +118,11 @@
       "version_id": "33684317543:9867775664:2026-09-02T21:26:27Z"
     },
     "magiskalpha": {
-      "date": "24.02.2026 07:39",
+      "date": "05.09.2026 10:18",
       "file_name": "app-release.apk",
-      "source_url": "https://t.me/magiskalpha/713",
-      "version_id": "713"
+      "link_only": true,
+      "source_url": "https://t.me/magiskalpha/716",
+      "version_id": "716"
     },
     "meta-hybrid-mount": {
       "date": "29.08.2026 05:05",
@@ -385,7 +386,7 @@
       "version_id": "2026-08-24T02:15:13Z"
     },
     "dashboard": {
-      "last_message_id": 933
+      "last_message_id": 935
     },
     "hma": {
       "file_name": "HMA-OSS-oss-109-release.zip",
@@ -412,8 +413,10 @@
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
-      "message_id": 762,
-      "version_id": "713"
+      "link_only": true,
+      "link_preview_disabled": true,
+      "message_id": 934,
+      "version_id": "716"
     },
     "meta-hybrid-mount": {
       "file_name": "Hybrid-Mount-6.1.0-1872.zip",
