@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "07.09.2026 06:50",
-      "file_name": "GhostLock-release-83.apk",
+      "date": "07.09.2026 10:53",
+      "file_name": "GhostLock-release-87.apk",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6213",
-      "version_id": "6213"
+      "source_url": "https://t.me/YuKongAsCIChannel/6214",
+      "version_id": "6214"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -112,10 +112,10 @@
       "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
-      "date": "03.09.2026 00:26",
-      "file_name": "Vector-v2.2-3110-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/33684317543",
-      "version_id": "33684317543:9867775664:2026-09-02T21:26:27Z"
+      "date": "07.09.2026 09:17",
+      "file_name": "Vector-v2.2-3111-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/34089427861",
+      "version_id": "34089427861:10006542627:2026-09-07T06:17:49Z"
     },
     "magiskalpha": {
       "date": "05.09.2026 10:18",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-83.apk",
+      "file_name": "GhostLock-release-87.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6213"
+      "version_id": "6214"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -401,11 +401,11 @@
       "version_id": "31310797502:9037530765:2026-08-09T11:46:00Z"
     },
     "lsposed": {
-      "file_name": "Vector-v2.2-3110-Release.zip",
+      "file_name": "Vector-v2.2-3111-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "33684317543:9867775664:2026-09-02T21:26:27Z"
+      "version_id": "34089427861:10006542627:2026-09-07T06:17:49Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
