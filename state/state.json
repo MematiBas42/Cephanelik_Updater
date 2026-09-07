@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "07.09.2026 10:53",
-      "file_name": "GhostLock-release-87.apk",
+      "date": "07.09.2026 19:51",
+      "file_name": "GhostLock-release-88.apk",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6214",
-      "version_id": "6214"
+      "source_url": "https://t.me/YuKongAsCIChannel/6215",
+      "version_id": "6215"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -39,10 +39,10 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "date": "06.09.2026 19:42",
-      "file_name": "NyaZygisk-v2.4-326-35b4f08-release.zip",
-      "source_url": "https://t.me/NyaZygisk/57",
-      "version_id": "57"
+      "date": "07.09.2026 18:08",
+      "file_name": "NyaZygisk-v2.4-328-7b98774-release.zip",
+      "source_url": "https://t.me/NyaZygisk/59",
+      "version_id": "59"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-87.apk",
+      "file_name": "GhostLock-release-88.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6214"
+      "version_id": "6215"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -312,11 +312,11 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.4-326-35b4f08-release.zip",
+      "file_name": "NyaZygisk-v2.4-328-7b98774-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "57"
+      "version_id": "59"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
