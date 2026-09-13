@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "12.09.2026 08:20",
-      "file_name": "GhostLock-release-93.apk",
+      "date": "13.09.2026 05:18",
+      "file_name": "GhostLock-release-94.apk",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6256",
-      "version_id": "6256"
+      "source_url": "https://t.me/YuKongAsCIChannel/6257",
+      "version_id": "6257"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -161,10 +161,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "31.08.2026 23:48",
-      "file_name": "ReZygisk-v1.0.0-541-b9c0f28-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/33437971779",
-      "version_id": "33437971779:9775121058:2026-08-31T20:48:18Z"
+      "date": "13.09.2026 07:00",
+      "file_name": "ReZygisk-v1.0.0-543-2ce0268-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/34736855692",
+      "version_id": "34736855692:10311163452:2026-09-13T04:00:53Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-93.apk",
+      "file_name": "GhostLock-release-94.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6256"
+      "version_id": "6257"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -445,11 +445,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-541-b9c0f28-release.zip",
+      "file_name": "ReZygisk-v1.0.0-543-2ce0268-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "33437971779:9775121058:2026-08-31T20:48:18Z"
+      "version_id": "34736855692:10311163452:2026-09-13T04:00:53Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
