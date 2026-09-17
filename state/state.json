@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "16.09.2026 05:52",
-      "file_name": "GhostLock-release-99.apk",
+      "date": "17.09.2026 09:18",
+      "file_name": "ghostlock-extract-windows-x86_64-104.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6266",
-      "version_id": "6266"
+      "source_url": "https://t.me/YuKongAsCIChannel/6282",
+      "version_id": "6282"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -88,10 +88,10 @@
       "version_id": "2026-09-05T14:30:01Z"
     },
     "bcr": {
-      "date": "05.09.2026 22:33",
-      "file_name": "BCR-3.8-release.zip",
-      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.8",
-      "version_id": "2026-09-05T19:33:52Z"
+      "date": "17.09.2026 06:48",
+      "file_name": "BCR-3.9-release.zip",
+      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.9",
+      "version_id": "2026-09-17T03:48:55Z"
     },
     "bindh": {
       "date": "10.09.2026 17:13",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "GhostLock-release-99.apk",
+      "file_name": "ghostlock-extract-windows-x86_64-104.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6266"
+      "version_id": "6282"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -364,11 +364,11 @@
       "version_id": "2026-09-05T14:30:01Z"
     },
     "bcr": {
-      "file_name": "BCR-3.8-release.zip",
+      "file_name": "BCR-3.9-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 925,
-      "version_id": "2026-09-05T19:33:52Z"
+      "version_id": "2026-09-17T03:48:55Z"
     },
     "bindh": {
       "file_name": "bindhosts.zip",
