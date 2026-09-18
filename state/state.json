@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "17.09.2026 09:18",
-      "file_name": "ghostlock-extract-windows-x86_64-104.exe",
+      "date": "18.09.2026 11:29",
+      "file_name": "ghostlock-extract-windows-x86_64-106.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6282",
-      "version_id": "6282"
+      "source_url": "https://t.me/YuKongAsCIChannel/6294",
+      "version_id": "6294"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-104.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-106.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6282"
+      "version_id": "6294"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
