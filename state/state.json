@@ -106,10 +106,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "13.09.2026 23:03",
+      "date": "19.09.2026 22:56",
       "file_name": "HMA-OSS-ZYGISK-oss-168-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/34779243276",
-      "version_id": "34779243276:10324416325:2026-09-13T20:03:23Z"
+      "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
+      "version_id": "HMA-OSS-ZYGISK-oss-168-release.zip"
     },
     "lsposed": {
       "date": "07.09.2026 09:17",
@@ -390,7 +390,7 @@
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "34779243276:10324416325:2026-09-13T20:03:23Z"
+      "version_id": "HMA-OSS-ZYGISK-oss-168-release.zip"
     },
     "lsposed": {
       "file_name": "Vector-v2.2-3111-Release.zip",
