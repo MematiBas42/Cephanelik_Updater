@@ -878,8 +878,8 @@ class TelethonPublisher:
 
     async def _send_and_pin_digest(self, digest_items, modules_map):
         lines = [
-            "🔔 <b>YENİ GÜNCELLEMELER VAR!</b>",
-            "Aşağıdaki modüller az önce güncellendi:\n"
+            
+        
         ]
         
         for item in digest_items:
