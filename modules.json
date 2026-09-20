@@ -28,9 +28,9 @@
       "name": "ZygiskNext",
       "enabled": true,
       "type": "github_release",
-      "source": "Dr-TSNG/ZygiskNext",
+      "source": "LSPosed/ZygiskNext",
       "asset_filter": "(?i)\\.zip$",
-      "description": "Dr-TSNG/ZygiskNext stable release"
+      "description": "LSPosed/ZygiskNext stable release"
     },
     {
       "name": "taddon_ci",
