@@ -39,10 +39,10 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "date": "08.09.2026 17:14",
-      "file_name": "NyaZygisk-v2.4-331-b9ff041-release.zip",
-      "source_url": "https://t.me/NyaZygisk/62",
-      "version_id": "62"
+      "date": "21.09.2026 17:12",
+      "file_name": "NyaZygisk-v2.4-333-c186928-release.zip",
+      "source_url": "https://t.me/NyaZygisk/63",
+      "version_id": "63"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -125,10 +125,10 @@
       "version_id": "716"
     },
     "meta-hybrid-mount": {
-      "date": "12.09.2026 13:20",
-      "file_name": "Hybrid-Mount-6.2.0-1929.zip",
-      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v6.2.0",
-      "version_id": "2026-09-12T10:20:46Z"
+      "date": "21.09.2026 16:08",
+      "file_name": "Hybrid-Mount-6.2.1-2042.zip",
+      "source_url": "https://github.com/Hybrid-Mount/meta-hybrid_mount/releases/tag/v6.2.1",
+      "version_id": "2026-09-21T13:08:02Z"
     },
     "nohello": {
       "date": "31.05.2025 03:10",
@@ -312,11 +312,11 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.4-331-b9ff041-release.zip",
+      "file_name": "NyaZygisk-v2.4-333-c186928-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "62"
+      "version_id": "63"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
@@ -403,11 +403,11 @@
       "version_id": "716"
     },
     "meta-hybrid-mount": {
-      "file_name": "Hybrid-Mount-6.2.0-1929.zip",
+      "file_name": "Hybrid-Mount-6.2.1-2042.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 910,
-      "version_id": "2026-09-12T10:20:46Z"
+      "version_id": "2026-09-21T13:08:02Z"
     },
     "nohello": {
       "file_name": "Nohello-v0.0.7-53-4d53ecf-release.zip",
