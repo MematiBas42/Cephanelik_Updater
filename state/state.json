@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "23.09.2026 06:08",
-      "file_name": "ghostlock-extract-windows-x86_64-108.exe",
+      "date": "25.09.2026 15:01",
+      "file_name": "ghostlock-extract-windows-x86_64-111.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6334",
-      "version_id": "6334"
+      "source_url": "https://t.me/YuKongAsCIChannel/6389",
+      "version_id": "6389"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -39,10 +39,10 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "date": "21.09.2026 17:12",
-      "file_name": "NyaZygisk-v2.4-333-c186928-release.zip",
-      "source_url": "https://t.me/NyaZygisk/63",
-      "version_id": "63"
+      "date": "25.09.2026 14:33",
+      "file_name": "NyaZygisk-v2.4-335-12c76ad-release.zip",
+      "source_url": "https://t.me/NyaZygisk/65",
+      "version_id": "65"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -161,10 +161,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "21.09.2026 21:04",
-      "file_name": "ReZygisk-v1.0.0-545-d039345-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/35636014709",
-      "version_id": "35636014709:10655649880:2026-09-21T18:04:46Z"
+      "date": "25.09.2026 16:11",
+      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
+      "source_url": "https://nightly.link/PerformanC/ReZygisk/workflows/trusted_ci.yml/main",
+      "version_id": "ReZygisk-v1.0.0-523-d0b580a-release.zip"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-108.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-111.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6334"
+      "version_id": "6389"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -312,11 +312,11 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.4-333-c186928-release.zip",
+      "file_name": "NyaZygisk-v2.4-335-12c76ad-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "63"
+      "version_id": "65"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
@@ -439,11 +439,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-545-d039345-release.zip",
+      "file_name": "ReZygisk-v1.0.0-523-d0b580a-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "35636014709:10655649880:2026-09-21T18:04:46Z"
+      "version_id": "ReZygisk-v1.0.0-523-d0b580a-release.zip"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
