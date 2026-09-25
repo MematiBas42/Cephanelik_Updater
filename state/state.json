@@ -75,17 +75,17 @@
       "version_id": "2026-09-20T04:19:26Z"
     },
     "acc_module": {
-      "date": "05.09.2026 17:23",
-      "file_name": "acc_v2025.5.18-6.5.1-rc24_202505333.zip",
-      "source_url": "https://github.com/seyedehsanhadi/acc/releases/tag/v2025.5.18-6.5.1-rc24",
-      "version_id": "2026-09-05T14:23:12Z"
+      "date": "26.09.2026 00:24",
+      "file_name": "acc_v2025.5.18-6.5.1-rc25_202505373.zip",
+      "source_url": "https://github.com/seyedehsanhadi/acc/releases/tag/v2025.5.18-6.5.1-rc25",
+      "version_id": "2026-09-25T21:24:54Z"
     },
     "acca_app": {
-      "date": "05.09.2026 17:30",
-      "file_name": "AccA-2.0.1-rc23.apk",
+      "date": "26.09.2026 00:31",
+      "file_name": "AccA-2.0.1-rc24.apk",
       "link_only": true,
-      "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.1-rc23",
-      "version_id": "2026-09-05T14:30:01Z"
+      "source_url": "https://github.com/seyedehsanhadi/AccA/releases/tag/v2.0.1-rc24",
+      "version_id": "2026-09-25T21:31:45Z"
     },
     "bcr": {
       "date": "17.09.2026 06:48",
@@ -348,18 +348,18 @@
       "version_id": "2026-09-20T04:19:26Z"
     },
     "acc_module": {
-      "file_name": "acc_v2025.5.18-6.5.1-rc24_202505333.zip",
+      "file_name": "acc_v2025.5.18-6.5.1-rc25_202505373.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 923,
-      "version_id": "2026-09-05T14:23:12Z"
+      "version_id": "2026-09-25T21:24:54Z"
     },
     "acca_app": {
-      "file_name": "AccA-2.0.1-rc23.apk",
+      "file_name": "AccA-2.0.1-rc24.apk",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 924,
-      "version_id": "2026-09-05T14:30:01Z"
+      "version_id": "2026-09-25T21:31:45Z"
     },
     "bcr": {
       "file_name": "BCR-3.9-release.zip",
