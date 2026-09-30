@@ -39,10 +39,10 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "date": "26.09.2026 15:38",
-      "file_name": "NyaZygisk-v2.4-338-2d9d917-release.zip",
-      "source_url": "https://t.me/NyaZygisk/69",
-      "version_id": "69"
+      "date": "30.09.2026 15:27",
+      "file_name": "NyaZygisk-v2.4-339-a79b664-release.zip",
+      "source_url": "https://t.me/NyaZygisk/70",
+      "version_id": "70"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -106,10 +106,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "30.09.2026 03:43",
+      "date": "30.09.2026 16:16",
       "file_name": "HMA-OSS-ZYGISK-oss-173-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/36651275915",
-      "version_id": "36651275915:11071230394:2026-09-30T00:43:13Z"
+      "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
+      "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
     },
     "lsposed": {
       "date": "07.09.2026 09:17",
@@ -312,11 +312,11 @@
       "version_id": "2026-08-25T05:14:15Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.4-338-2d9d917-release.zip",
+      "file_name": "NyaZygisk-v2.4-339-a79b664-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "69"
+      "version_id": "70"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
@@ -388,7 +388,7 @@
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "36651275915:11071230394:2026-09-30T00:43:13Z"
+      "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
     },
     "lsposed": {
       "file_name": "Vector-v2.2-3111-Release.zip",
