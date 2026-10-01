@@ -112,10 +112,10 @@
       "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
     },
     "lsposed": {
-      "date": "07.09.2026 09:17",
-      "file_name": "Vector-v2.2-3111-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/34089427861",
-      "version_id": "34089427861:10006542627:2026-09-07T06:17:49Z"
+      "date": "01.10.2026 15:54",
+      "file_name": "Vector-v2.2-3112-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/36863928775",
+      "version_id": "36863928775:11162919662:2026-10-01T12:54:48Z"
     },
     "magiskalpha": {
       "date": "05.09.2026 10:18",
@@ -391,11 +391,11 @@
       "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
     },
     "lsposed": {
-      "file_name": "Vector-v2.2-3111-Release.zip",
+      "file_name": "Vector-v2.2-3112-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "34089427861:10006542627:2026-09-07T06:17:49Z"
+      "version_id": "36863928775:11162919662:2026-10-01T12:54:48Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
