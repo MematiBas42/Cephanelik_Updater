@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "05.10.2026 01:27",
-      "file_name": "ghostlock-extract-windows-x86_64-540.exe",
+      "date": "05.10.2026 08:19",
+      "file_name": "ghostlock-extract-windows-x86_64-547.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6458",
-      "version_id": "6458"
+      "source_url": "https://t.me/YuKongAsCIChannel/6481",
+      "version_id": "6481"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -106,10 +106,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "30.09.2026 16:16",
-      "file_name": "HMA-OSS-ZYGISK-oss-173-release.zip",
+      "date": "05.10.2026 11:10",
+      "file_name": "HMA-OSS-ZYGISK-oss-164-release.zip",
       "source_url": "https://nightly.link/frknkrc44/HMA-OSS/workflows/main.yml/master",
-      "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
+      "version_id": "HMA-OSS-ZYGISK-oss-164-release.zip"
     },
     "lsposed": {
       "date": "01.10.2026 15:54",
@@ -276,11 +276,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-540.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-547.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6458"
+      "version_id": "6481"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -384,11 +384,11 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-ZYGISK-oss-173-release.zip",
+      "file_name": "HMA-OSS-ZYGISK-oss-164-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
+      "version_id": "HMA-OSS-ZYGISK-oss-164-release.zip"
     },
     "lsposed": {
       "file_name": "Vector-v2.2-3112-Release.zip",
