@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "06.10.2026 05:43",
-      "file_name": "ghostlock-extract-windows-x86_64-551.exe",
+      "date": "07.10.2026 03:33",
+      "file_name": "ghostlock-extract-windows-x86_64-562.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6495",
-      "version_id": "6495"
+      "source_url": "https://t.me/YuKongAsCIChannel/6508",
+      "version_id": "6508"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -203,10 +203,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "30.09.2026 21:46",
-      "file_name": "TrickyAddonModule-v5.0-beta.4-730-canary.zip",
+      "date": "07.10.2026 05:00",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-735-canary.zip",
       "source_url": "https://nightly.link/KOWX712/Tricky-Addon-Update-Target-List/workflows/build.yml/main",
-      "version_id": "TrickyAddonModule-v5.0-beta.4-730-canary.zip"
+      "version_id": "TrickyAddonModule-v5.0-beta.4-735-canary.zip"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -272,11 +272,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-551.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-562.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6495"
+      "version_id": "6508"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -480,11 +480,11 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v5.0-beta.4-730-canary.zip",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-735-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "TrickyAddonModule-v5.0-beta.4-730-canary.zip"
+      "version_id": "TrickyAddonModule-v5.0-beta.4-735-canary.zip"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
