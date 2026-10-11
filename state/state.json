@@ -143,10 +143,10 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "date": "05.10.2026 04:31",
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_272.zip",
-      "source_url": "https://nightly.link/KOWX712/PlayIntegrityFix/workflows/android.yml/inject_s",
-      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_272.zip"
+      "date": "12.10.2026 01:09",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_276.zip",
+      "source_url": "https://github.com/KOWX712/PlayIntegrityFix/actions/runs/38179076981",
+      "version_id": "38179076981:11716263963:2026-10-11T22:09:02Z"
     },
     "pif_release": {
       "date": "03.09.2025 09:56",
@@ -161,10 +161,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "08.10.2026 03:34",
-      "file_name": "ReZygisk-v1.0.0-551-5b0a02b-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/37708438802",
-      "version_id": "37708438802:11520607851:2026-10-08T00:34:25Z"
+      "date": "12.10.2026 00:04",
+      "file_name": "ReZygisk-v1.0.0-552-b5aa415-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/38174785673",
+      "version_id": "38174785673:11715466840:2026-10-11T21:04:01Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -418,11 +418,11 @@
       "version_id": "PlayIntegrityFix_v4.3-inject-s_173.zip"
     },
     "pif_ci": {
-      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_272.zip",
+      "file_name": "PlayIntegrityFix_v4.7-1-inject-s_276.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 845,
-      "version_id": "PlayIntegrityFix_v4.7-1-inject-s_272.zip"
+      "version_id": "38179076981:11716263963:2026-10-11T22:09:02Z"
     },
     "pif_release": {
       "file_name": "PlayIntegrityFix_v4.3-inject-s.zip",
@@ -435,11 +435,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-551-5b0a02b-release.zip",
+      "file_name": "ReZygisk-v1.0.0-552-b5aa415-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "37708438802:11520607851:2026-10-08T00:34:25Z"
+      "version_id": "38174785673:11715466840:2026-10-11T21:04:01Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
