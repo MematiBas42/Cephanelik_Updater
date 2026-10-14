@@ -88,10 +88,10 @@
       "version_id": "2026-09-25T21:31:45Z"
     },
     "bcr": {
-      "date": "17.09.2026 06:48",
-      "file_name": "BCR-3.9-release.zip",
-      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.9",
-      "version_id": "2026-09-17T03:48:55Z"
+      "date": "14.10.2026 02:47",
+      "file_name": "BCR-3.10-release.zip",
+      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.10",
+      "version_id": "2026-10-13T23:47:37Z"
     },
     "bindh": {
       "date": "10.09.2026 17:13",
@@ -358,11 +358,11 @@
       "version_id": "2026-09-25T21:31:45Z"
     },
     "bcr": {
-      "file_name": "BCR-3.9-release.zip",
+      "file_name": "BCR-3.10-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 925,
-      "version_id": "2026-09-17T03:48:55Z"
+      "version_id": "2026-10-13T23:47:37Z"
     },
     "bindh": {
       "file_name": "bindhosts.zip",
