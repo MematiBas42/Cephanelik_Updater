@@ -33,10 +33,10 @@
       "version_id": "luna1435.apk"
     },
     "Mountify": {
-      "date": "25.08.2026 05:14",
+      "date": "15.10.2026 09:39",
       "file_name": "mountify.zip",
-      "source_url": "https://github.com/backslashxx/mountify/releases/tag/204",
-      "version_id": "2026-08-25T05:14:15Z"
+      "source_url": "https://github.com/backslashxx/mountify/releases/tag/205",
+      "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
       "date": "13.10.2026 19:51",
@@ -88,10 +88,10 @@
       "version_id": "2026-09-25T21:31:45Z"
     },
     "bcr": {
-      "date": "14.10.2026 02:47",
-      "file_name": "BCR-3.10-release.zip",
-      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.10",
-      "version_id": "2026-10-13T23:47:37Z"
+      "date": "15.10.2026 05:53",
+      "file_name": "BCR-3.11-release.zip",
+      "source_url": "https://github.com/chenxiaolong/BCR/releases/tag/v3.11",
+      "version_id": "2026-10-15T02:53:37Z"
     },
     "bindh": {
       "date": "10.09.2026 17:13",
@@ -297,15 +297,11 @@
       "version_id": "luna1435.apk"
     },
     "Mountify": {
-      "discussion_message_id": 48390,
-      "discussion_pinned_version_id": "2026-08-25T05:14:15Z",
-      "discussion_sent_as_channel": true,
-      "discussion_version_id": "2026-08-25T05:14:15Z",
       "file_name": "mountify.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 899,
-      "version_id": "2026-08-25T05:14:15Z"
+      "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
       "file_name": "NyaZygisk-v2.4-346-d73915f-release.zip",
@@ -358,11 +354,11 @@
       "version_id": "2026-09-25T21:31:45Z"
     },
     "bcr": {
-      "file_name": "BCR-3.10-release.zip",
+      "file_name": "BCR-3.11-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 925,
-      "version_id": "2026-10-13T23:47:37Z"
+      "version_id": "2026-10-15T02:53:37Z"
     },
     "bindh": {
       "file_name": "bindhosts.zip",
