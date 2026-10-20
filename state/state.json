@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "19.10.2026 06:46",
-      "file_name": "ghostlock-extract-windows-x86_64-577.exe",
+      "date": "20.10.2026 16:14",
+      "file_name": "ghostlock-extract-windows-x86_64-580.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6738",
-      "version_id": "6738"
+      "source_url": "https://t.me/YuKongAsCIChannel/6754",
+      "version_id": "6754"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -39,10 +39,10 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "date": "19.10.2026 19:34",
-      "file_name": "NyaZygisk-v2.4-349-b914427-release.zip",
-      "source_url": "https://t.me/NyaZygisk/84",
-      "version_id": "84"
+      "date": "20.10.2026 18:47",
+      "file_name": "NyaZygisk-v2.5-354-fa2a076-release.zip",
+      "source_url": "https://t.me/NyaZygisk/90",
+      "version_id": "90"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -272,11 +272,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-577.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-580.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6738"
+      "version_id": "6754"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -304,11 +304,11 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.4-349-b914427-release.zip",
+      "file_name": "NyaZygisk-v2.5-354-fa2a076-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "84"
+      "version_id": "90"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
