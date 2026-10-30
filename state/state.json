@@ -112,10 +112,10 @@
       "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
     },
     "lsposed": {
-      "date": "26.10.2026 21:14",
-      "file_name": "Vector-v2.2-3114-Release.zip",
-      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/40374738493",
-      "version_id": "40374738493:12674107798:2026-10-26T18:14:10Z"
+      "date": "30.10.2026 18:45",
+      "file_name": "Vector-v2.2-3115-Release.zip",
+      "source_url": "https://github.com/JingMatrix/Vector/actions/runs/41082410326",
+      "version_id": "41082410326:12990816292:2026-10-30T15:45:55Z"
     },
     "magiskalpha": {
       "date": "26.10.2026 16:26",
@@ -203,10 +203,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "30.10.2026 04:50",
-      "file_name": "TrickyAddonModule-v5.0-beta.4-738-canary.zip",
-      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/40988168994",
-      "version_id": "40988168994:12948235960:2026-10-30T01:50:27Z"
+      "date": "30.10.2026 14:38",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-739-canary.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/41049451166",
+      "version_id": "41049451166:12973463863:2026-10-30T11:38:09Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -383,11 +383,11 @@
       "version_id": "HMA-OSS-ZYGISK-oss-173-release.zip"
     },
     "lsposed": {
-      "file_name": "Vector-v2.2-3114-Release.zip",
+      "file_name": "Vector-v2.2-3115-Release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 817,
-      "version_id": "40374738493:12674107798:2026-10-26T18:14:10Z"
+      "version_id": "41082410326:12990816292:2026-10-30T15:45:55Z"
     },
     "magiskalpha": {
       "file_name": "app-release.apk",
@@ -476,11 +476,11 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v5.0-beta.4-738-canary.zip",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-739-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "40988168994:12948235960:2026-10-30T01:50:27Z"
+      "version_id": "41049451166:12973463863:2026-10-30T11:38:09Z"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
