@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "25.10.2026 21:09",
-      "file_name": "ghostlock-extract-windows-x86_64-586.exe",
+      "date": "03.11.2026 01:08",
+      "file_name": "ghostlock-extract-windows-x86_64-589.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6857",
-      "version_id": "6857"
+      "source_url": "https://t.me/YuKongAsCIChannel/6912",
+      "version_id": "6912"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -161,10 +161,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "12.10.2026 00:04",
-      "file_name": "ReZygisk-v1.0.0-552-b5aa415-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/38174785673",
-      "version_id": "38174785673:11715466840:2026-10-11T21:04:01Z"
+      "date": "03.11.2026 02:32",
+      "file_name": "ReZygisk-v1.0.0-553-2c1d0df-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/41546147280",
+      "version_id": "41546147280:13187879362:2026-11-02T23:32:19Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -272,11 +272,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-586.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-589.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6857"
+      "version_id": "6912"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -431,11 +431,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-552-b5aa415-release.zip",
+      "file_name": "ReZygisk-v1.0.0-553-2c1d0df-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "38174785673:11715466840:2026-10-11T21:04:01Z"
+      "version_id": "41546147280:13187879362:2026-11-02T23:32:19Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
