@@ -161,10 +161,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "03.11.2026 02:32",
-      "file_name": "ReZygisk-v1.0.0-553-2c1d0df-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/41546147280",
-      "version_id": "41546147280:13187879362:2026-11-02T23:32:19Z"
+      "date": "07.11.2026 04:36",
+      "file_name": "ReZygisk-v1.0.0-554-4aff785-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/42324897533",
+      "version_id": "42324897533:13555250579:2026-11-07T01:36:05Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -431,11 +431,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-553-2c1d0df-release.zip",
+      "file_name": "ReZygisk-v1.0.0-554-4aff785-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "41546147280:13187879362:2026-11-02T23:32:19Z"
+      "version_id": "42324897533:13555250579:2026-11-07T01:36:05Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
