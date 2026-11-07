@@ -39,10 +39,10 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "date": "07.11.2026 15:14",
-      "file_name": "NyaZygisk-v2.5-379-3f17e8a-release.zip",
-      "source_url": "https://t.me/NyaZygisk/111",
-      "version_id": "111"
+      "date": "07.11.2026 20:01",
+      "file_name": "NyaZygisk-v2.5-380-2cda649-release.zip",
+      "source_url": "https://t.me/NyaZygisk/112",
+      "version_id": "112"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -69,10 +69,10 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "date": "13.10.2026 17:23",
-      "file_name": "Zygisk-Next-1.5.2-864-a4a72ce-release.zip",
-      "source_url": "https://github.com/LSPosed/ZygiskNext/releases/tag/v1.5.2",
-      "version_id": "2026-10-13T14:23:59Z"
+      "date": "07.11.2026 19:35",
+      "file_name": "Zygisk-Next-1.5.3-880-22a1bf5-release.zip",
+      "source_url": "https://github.com/LSPosed/ZygiskNext/releases/tag/v1.5.3",
+      "version_id": "2026-11-07T16:35:49Z"
     },
     "acc_module": {
       "date": "26.09.2026 00:24",
@@ -304,11 +304,11 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.5-379-3f17e8a-release.zip",
+      "file_name": "NyaZygisk-v2.5-380-2cda649-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "111"
+      "version_id": "112"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
@@ -333,11 +333,11 @@
       "version_id": "2025-02-23T00:18:35Z"
     },
     "ZygiskNext": {
-      "file_name": "Zygisk-Next-1.5.2-864-a4a72ce-release.zip",
+      "file_name": "Zygisk-Next-1.5.3-880-22a1bf5-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 850,
-      "version_id": "2026-10-13T14:23:59Z"
+      "version_id": "2026-11-07T16:35:49Z"
     },
     "acc_module": {
       "file_name": "acc_v2025.5.18-6.5.1-rc25_202505373.zip",
