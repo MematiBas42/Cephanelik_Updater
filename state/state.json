@@ -39,10 +39,10 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "date": "03.11.2026 18:53",
-      "file_name": "NyaZygisk-v2.5-378-0665b3f-release.zip",
-      "source_url": "https://t.me/NyaZygisk/109",
-      "version_id": "109"
+      "date": "07.11.2026 15:14",
+      "file_name": "NyaZygisk-v2.5-379-3f17e8a-release.zip",
+      "source_url": "https://t.me/NyaZygisk/111",
+      "version_id": "111"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -304,11 +304,11 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.5-378-0665b3f-release.zip",
+      "file_name": "NyaZygisk-v2.5-379-3f17e8a-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "109"
+      "version_id": "111"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
