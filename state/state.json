@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "05.11.2026 17:57",
-      "file_name": "ghostlock-extract-windows-x86_64-590.exe",
+      "date": "10.11.2026 17:22",
+      "file_name": "ghostlock-extract-windows-x86_64-592.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/6955",
-      "version_id": "6955"
+      "source_url": "https://t.me/YuKongAsCIChannel/7043",
+      "version_id": "7043"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -203,10 +203,10 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "date": "30.10.2026 14:38",
-      "file_name": "TrickyAddonModule-v5.0-beta.4-739-canary.zip",
-      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/41049451166",
-      "version_id": "41049451166:12973463863:2026-10-30T11:38:09Z"
+      "date": "10.11.2026 18:20",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-740-canary.zip",
+      "source_url": "https://github.com/KOWX712/Tricky-Addon-Update-Target-List/actions/runs/42843270840",
+      "version_id": "42843270840:13776563320:2026-11-10T15:20:41Z"
     },
     "taddon_release": {
       "date": "21.10.2025 14:30",
@@ -272,11 +272,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-590.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-592.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "6955"
+      "version_id": "7043"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -476,11 +476,11 @@
       "version_id": "TrickyAddonModule-v4.1-595-canary.zip"
     },
     "taddon_ci": {
-      "file_name": "TrickyAddonModule-v5.0-beta.4-739-canary.zip",
+      "file_name": "TrickyAddonModule-v5.0-beta.4-740-canary.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 920,
-      "version_id": "41049451166:12973463863:2026-10-30T11:38:09Z"
+      "version_id": "42843270840:13776563320:2026-11-10T15:20:41Z"
     },
     "taddon_release": {
       "file_name": "TrickyAddonModule-v4.2.zip",
