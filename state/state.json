@@ -13,11 +13,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "date": "18.11.2026 04:20",
-      "file_name": "ghostlock-extract-windows-x86_64-595.exe",
+      "date": "19.11.2026 00:47",
+      "file_name": "ghostlock-extract-windows-x86_64-597.exe",
       "link_only": true,
-      "source_url": "https://t.me/YuKongAsCIChannel/7174",
-      "version_id": "7174"
+      "source_url": "https://t.me/YuKongAsCIChannel/7206",
+      "version_id": "7206"
     },
     "JingMatrix/TEESimulator": {
       "date": "11.08.2026 09:02",
@@ -106,10 +106,10 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "date": "06.11.2026 13:37",
-      "file_name": "HMA-OSS-ZYGISK-oss-175-release.zip",
-      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/42203485853",
-      "version_id": "42203485853:13496175840:2026-11-06T10:37:15Z"
+      "date": "18.11.2026 23:39",
+      "file_name": "HMA-OSS-ZYGISK-oss-177-release.zip",
+      "source_url": "https://github.com/frknkrc44/HMA-OSS/actions/runs/44392408255",
+      "version_id": "44392408255:14467953459:2026-11-18T20:39:48Z"
     },
     "lsposed": {
       "date": "15.11.2026 12:45",
@@ -272,11 +272,11 @@
       "version_id": "2023-10-07T20:00:59.000Z"
     },
     "GhostLock": {
-      "file_name": "ghostlock-extract-windows-x86_64-595.exe",
+      "file_name": "ghostlock-extract-windows-x86_64-597.exe",
       "link_only": true,
       "link_preview_disabled": true,
       "message_id": 929,
-      "version_id": "7174"
+      "version_id": "7206"
     },
     "JingMatrix/TEESimulator": {
       "discussion_message_id": 46972,
@@ -376,11 +376,11 @@
       "version_id": "HMA-OSS-oss-109-release.zip"
     },
     "hma_ci": {
-      "file_name": "HMA-OSS-ZYGISK-oss-175-release.zip",
+      "file_name": "HMA-OSS-ZYGISK-oss-177-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 873,
-      "version_id": "42203485853:13496175840:2026-11-06T10:37:15Z"
+      "version_id": "44392408255:14467953459:2026-11-18T20:39:48Z"
     },
     "lsposed": {
       "file_name": "Vector-v2.2-3119-Release.zip",
