@@ -39,10 +39,10 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "date": "21.11.2026 16:34",
-      "file_name": "NyaZygisk-v2.5-400-d81af60-release.zip",
-      "source_url": "https://t.me/NyaZygisk/121",
-      "version_id": "121"
+      "date": "21.11.2026 18:52",
+      "file_name": "NyaZygisk-v2.6-402-21bdca9-release.zip",
+      "source_url": "https://t.me/NyaZygisk/124",
+      "version_id": "124"
     },
     "ReLSPosed": {
       "date": "09.02.2026 07:53",
@@ -161,10 +161,10 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "date": "07.11.2026 04:36",
-      "file_name": "ReZygisk-v1.0.0-554-4aff785-release.zip",
-      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/42324897533",
-      "version_id": "42324897533:13555250579:2026-11-07T01:36:05Z"
+      "date": "21.11.2026 18:32",
+      "file_name": "ReZygisk-v1.0.0-555-bfa54ef-release.zip",
+      "source_url": "https://github.com/PerformanC/ReZygisk/actions/runs/44919681602",
+      "version_id": "44919681602:14712478274:2026-11-21T15:32:26Z"
     },
     "shamiko": {
       "date": "18.06.2025 11:37",
@@ -304,11 +304,11 @@
       "version_id": "2026-10-15T06:39:24Z"
     },
     "NyaZygisk": {
-      "file_name": "NyaZygisk-v2.5-400-d81af60-release.zip",
+      "file_name": "NyaZygisk-v2.6-402-21bdca9-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 930,
-      "version_id": "121"
+      "version_id": "124"
     },
     "ReLSPosed": {
       "file_name": "ReLSPosed-v1.0.2-7215-zygisk-release.zip",
@@ -431,11 +431,11 @@
       "version_id": "2026-04-11T21:08:57Z"
     },
     "rezygisk": {
-      "file_name": "ReZygisk-v1.0.0-554-4aff785-release.zip",
+      "file_name": "ReZygisk-v1.0.0-555-bfa54ef-release.zip",
       "link_only": null,
       "link_preview_disabled": null,
       "message_id": 916,
-      "version_id": "42324897533:13555250579:2026-11-07T01:36:05Z"
+      "version_id": "44919681602:14712478274:2026-11-21T15:32:26Z"
     },
     "shamiko": {
       "file_name": "Shamiko-v1.2.5-414-release.zip",
